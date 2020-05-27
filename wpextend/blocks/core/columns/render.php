@@ -10,9 +10,11 @@ function core_columns_render_callback( $attributes, $content ) {
         
         $columns = preg_split( '/<\/div>\R\R\R\R<div class="wp-block-column">/', $matches[1] );
         
+        $return .= '<div class="row">';
         foreach( $columns as $column ) {
             $return .= '<div class="col">' . $column . '</div>';
         }
+        $return .= '</div>';
     }
 
     return $return;

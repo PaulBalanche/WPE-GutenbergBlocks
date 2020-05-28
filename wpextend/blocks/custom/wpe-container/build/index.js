@@ -229,6 +229,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
     }, removeButton); // Section Padding Top
 
     switch (attributes.paddingTop) {
+      case 0:
+        className += ' pt-none';
+        break;
+
       case 1:
         className += ' pt-smaller';
         break;
@@ -237,15 +241,15 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
         className += ' pt-small';
         break;
 
-      case 4:
+      case 3:
         className += ' pt-medium';
         break;
 
-      case 5:
+      case 4:
         className += ' pt-big';
         break;
 
-      case 6:
+      case 5:
         className += ' pt-bigger';
         break;
 
@@ -255,6 +259,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
 
 
     switch (attributes.paddingBottom) {
+      case 0:
+        className += ' pb-none';
+        break;
+
       case 1:
         className += ' pb-smaller';
         break;
@@ -263,15 +271,15 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
         className += ' pb-small';
         break;
 
-      case 4:
+      case 3:
         className += ' pb-medium';
         break;
 
-      case 5:
+      case 4:
         className += ' pb-big';
         break;
 
-      case 6:
+      case 5:
         className += ' pb-bigger';
         break;
 
@@ -281,6 +289,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
 
 
     switch (attributes.marginTop) {
+      case 0:
+        className += ' mt-none';
+        break;
+
       case 1:
         className += ' mt-smaller';
         break;
@@ -307,6 +319,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
 
 
     switch (attributes.marginBottom) {
+      case 0:
+        className += ' mb-none';
+        break;
+
       case 1:
         className += ' mb-smaller';
         break;
@@ -346,8 +362,8 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
           paddingTop: value
         });
       },
-      min: 1,
-      max: 6
+      min: 0,
+      max: 5
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["RangeControl"], {
       label: "Padding Bottom",
       value: attributes.paddingBottom,
@@ -356,8 +372,8 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
           paddingBottom: value
         });
       },
-      min: 1,
-      max: 6
+      min: 0,
+      max: 5
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["RangeControl"], {
       label: "Margin Top",
       value: attributes.marginTop,

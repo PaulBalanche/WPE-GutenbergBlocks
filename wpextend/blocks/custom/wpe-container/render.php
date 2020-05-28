@@ -16,7 +16,9 @@ function custom_wpe_container_render_callback( $attributes, $content ) {
     return '
     <section class="section ' . $align_section . ' ' . $paddingTopSection . ' ' . $paddingBottomSection . ' ' . $marginTopSection . ' ' . $marginBottomSection . '">
         <div class="section__content">
-            <div class="container">' . $content . '</div>
+            <div class="container">
+                <div class="row">' . $content . '</div>
+            </div>
         </div>
     </section>';
 }

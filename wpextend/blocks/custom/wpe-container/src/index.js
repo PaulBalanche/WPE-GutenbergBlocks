@@ -112,6 +112,10 @@ registerBlockType( 'custom/wpe-container', {
         // Section Padding Top
         switch( attributes.paddingTop ) {
 
+            case 0:
+                className += ' pt-none';
+                break;
+
             case 1:
                 className += ' pt-smaller';
                 break;
@@ -120,24 +124,28 @@ registerBlockType( 'custom/wpe-container', {
                 className += ' pt-small';
                 break;
 
-            case 4:
+            case 3:
                 className += ' pt-medium';
                 break;
 
-            case 5:
+            case 4:
                 className += ' pt-big';
                 break;
 
-            case 6:
+            case 5:
                 className += ' pt-bigger';
                 break;
 
             default:
-                attributes.paddingTop = 3
+                attributes.paddingTop = 3;
         }
 
         // Section Padding Bottom
         switch( attributes.paddingBottom ) {
+
+            case 0:
+                className += ' pb-none';
+                break;
 
             case 1:
                 className += ' pb-smaller';
@@ -147,25 +155,29 @@ registerBlockType( 'custom/wpe-container', {
                 className += ' pb-small';
                 break;
 
-            case 4:
+            case 3:
                 className += ' pb-medium';
                 break;
 
-            case 5:
+            case 4:
                 className += ' pb-big';
                 break;
 
-            case 6:
+            case 5:
                 className += ' pb-bigger';
                 break;
 
             default:
-                attributes.paddingBottom = 3
+                attributes.paddingBottom = 3;
         }
 
         // Section Margin Top
         switch( attributes.marginTop ) {
             
+            case 0:
+                className += ' mt-none';
+                break;
+
             case 1:
                 className += ' mt-smaller';
                 break;
@@ -187,12 +199,16 @@ registerBlockType( 'custom/wpe-container', {
                 break;
 
             default:
-                attributes.marginTop = 0
+                attributes.marginTop = 0;
         }
 
         // Section Margin Top
         switch( attributes.marginBottom ) {
             
+            case 0:
+                className += ' mb-none';
+                break;
+
             case 1:
                 className += ' mb-smaller';
                 break;
@@ -214,7 +230,7 @@ registerBlockType( 'custom/wpe-container', {
                 break;
 
             default:
-                attributes.marginBottom = 0
+                attributes.marginBottom = 0;
         }
 
         // Render
@@ -231,8 +247,8 @@ registerBlockType( 'custom/wpe-container', {
                             onChange={ ( value ) =>
                                 setAttributes( { paddingTop: value } )
                             }
-                            min={ 1 }
-                            max={ 6 }
+                            min={ 0 }
+                            max={ 5 }
                         />
                         <RangeControl
                             label="Padding Bottom"
@@ -240,8 +256,8 @@ registerBlockType( 'custom/wpe-container', {
                             onChange={ ( value ) =>
                                 setAttributes( { paddingBottom: value } )
                             }
-                            min={ 1 }
-                            max={ 6 }
+                            min={ 0 }
+                            max={ 5 }
                         />
                         <RangeControl
                             label="Margin Top"

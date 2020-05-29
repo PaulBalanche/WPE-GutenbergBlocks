@@ -15,7 +15,7 @@ function core_media_text_render_callback( $attributes, $content ) {
         }
         else if( $attributes['mediaType'] == 'video' ) {
 
-            preg_match( '/<figure class="wp-block-media-text__media">(.*)<\/figure>/ms', $content, $matches );
+            preg_match( '/<figure class="wp-block-media-text__media[^"]*">(.*)<\/figure>/ms', $content, $matches );
             if( count($matches) == 2 ) {
 
                 $html_media = $matches[1];
@@ -24,7 +24,7 @@ function core_media_text_render_callback( $attributes, $content ) {
 
         $mediaPosition = ( isset($attributes['mediaPosition']) ) ? $attributes['mediaPosition'] : 'left';
 
-        preg_match( '/<div class="wp-block-media-text__content">(.*)<\/div><\/div>/ms', $content, $matches );
+        preg_match( '/<div class="wp-block-media-text__content[^"]*">(.*)<\/div><\/div>/ms', $content, $matches );
         if( count($matches) == 2 ) {
             
             $return = '<div class="container">

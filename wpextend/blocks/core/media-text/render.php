@@ -28,7 +28,7 @@ function core_media_text_render_callback( $attributes, $content ) {
         if( count($matches) == 2 ) {
             
             $return = '<div class="container">
-                <div class="row">';
+                <div class="row box">';
 
             if( $mediaPosition == 'left' ) {
 

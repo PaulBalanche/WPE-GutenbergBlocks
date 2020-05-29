@@ -37,6 +37,9 @@ registerBlockType( 'custom/wpe-container', {
         align: [ 'full', 'wide' ]
     },
     attributes: {
+        style: {
+            type: 'string'
+        },
         align: {
             type: 'string'
         },
@@ -237,8 +240,22 @@ registerBlockType( 'custom/wpe-container', {
         return (
             <>
                 <InspectorControls>
+                    <PanelBody title={ 'Style' } initialOpen={ false }>
+                        <SelectControl
+                            label="Style"
+                            value={ attributes.style }
+                            options={ [
+                                { label: 'Default', value: '' },
+                                { label: 'Light', value: 'light' },
+                                { label: 'Dark', value: 'dark' }
+                            ] }
+                            onChange={ ( value ) =>
+                                setAttributes( { style: value } )
+                            }
+                        />
+                    </PanelBody>
 					<PanelBody title={ 'Background' } initialOpen={ false }>
-                        { mediaPlaceholder }          
+                        { mediaPlaceholder }
                     </PanelBody>
                     <PanelBody title={ 'Padding/Margin' } initialOpen={ false }>
                         <RangeControl

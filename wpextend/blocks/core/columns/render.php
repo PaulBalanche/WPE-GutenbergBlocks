@@ -6,7 +6,7 @@ function core_columns_render_callback( $attributes, $content ) {
     if( count($matches) == 2 ) {
 
         return '<div class="container">
-            <div class="row">' . $matches[1] . '</div>
+            <div class="row box">' . $matches[1] . '</div>
         </div>';
     }
 }

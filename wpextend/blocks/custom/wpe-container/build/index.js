@@ -107,6 +107,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
+
 
 
 
@@ -151,6 +154,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
     align: ['full', 'wide']
   },
   attributes: {
+    columns: {
+      type: 'number'
+    },
     style: {
       type: 'string'
     },
@@ -178,14 +184,18 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
   },
   edit: Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["withSelect"])(function (select, props) {
     return {
-      backgroundData: !props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile)
+      backgroundData: !props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile),
+      inner_blocks: select('core/block-editor').getBlocks(props.clientId)
     };
   })(function (_ref) {
     var attributes = _ref.attributes,
         setAttributes = _ref.setAttributes,
         className = _ref.className,
-        backgroundData = _ref.backgroundData;
-    // Custom style section
+        backgroundData = _ref.backgroundData,
+        clientId = _ref.clientId,
+        inner_blocks = _ref.inner_blocks;
+    var ALLOWED_BLOCKS = ['custom/wpe-column']; // Custom style section
+
     var sectionStyle = {};
 
     if (backgroundData !== null && typeof backgroundData != 'undefined' && backgroundData.media_type == 'image') {
@@ -348,10 +358,30 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
 
       default:
         attributes.marginBottom = 0;
-    } // Render
+    } // const { replaceInnerBlocks } = useDispatch( 'core/block-editor' );
+    // // let inner_blocks_new = [
+    // //     ...inner_blocks,
+    // //     ...[ createBlock('core/image') ]
+    // // ];
+    // let inner_blocks_new = inner_blocks.slice(0, 4);
+    // replaceInnerBlocks(clientId, inner_blocks_new, false);
+    // Render
 
 
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+      title: 'Columns',
+      initialOpen: false
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["RangeControl"], {
+      label: "Number of columns",
+      value: attributes.columns,
+      onChange: function onChange(value) {
+        return setAttributes({
+          columns: value
+        });
+      },
+      min: 1,
+      max: 12
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
       title: 'Style',
       initialOpen: false
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["SelectControl"], {
@@ -493,6 +523,17 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
 /***/ (function(module, exports) {
 
 (function() { module.exports = this["wp"]["element"]; }());
+
+/***/ }),
+
+/***/ "lodash":
+/*!**********************************!*\
+  !*** external {"this":"lodash"} ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["lodash"]; }());
 
 /***/ })
 

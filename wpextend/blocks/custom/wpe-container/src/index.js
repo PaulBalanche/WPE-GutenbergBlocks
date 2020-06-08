@@ -1,4 +1,7 @@
-import { registerBlockType } from '@wordpress/blocks';
+import {
+    registerBlockType,
+    createBlock
+} from '@wordpress/blocks';
 import {
     InnerBlocks,
     InspectorControls,
@@ -10,9 +13,11 @@ import {
     Button,
     RangeControl
 } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
+import { withSelect, useDispatch, useSelect } from '@wordpress/data';
 import { withState } from '@wordpress/compose';
- 
+import { times } from 'lodash';
+
+
 registerBlockType( 'custom/wpe-container', {
     title: 'Container',
     icon: <svg enable-background="new 0 0 24 24" height="24px" id="Layer_1" version="1.1" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><path d="M12,10.9c-0.1,0-0.2,0-0.2-0.1L3.5,6.1C3.4,6,3.3,5.8,3.3,5.6c0-0.2,0.1-0.3,0.2-0.4l8.2-4.7c0.2-0.1,0.3-0.1,0.5,0      l8.2,4.7c0.2,0.1,0.2,0.3,0.2,0.4S20.6,6,20.5,6.1l-8.2,4.7C12.2,10.8,12.1,10.9,12,10.9z M4.8,5.6L12,9.8l7.2-4.2L12,1.5      L4.8,5.6z"/></g><g><path d="M10.4,23.6c-0.1,0-0.2,0-0.2-0.1l-8.2-4.7c-0.2-0.1-0.3-0.3-0.3-0.4V8.9c0-0.2,0.1-0.3,0.2-0.4c0.2-0.1,0.3-0.1,0.5,0      l8.2,4.7c0.2,0.1,0.2,0.3,0.2,0.4v9.5c0,0.2-0.1,0.3-0.2,0.4C10.5,23.6,10.5,23.6,10.4,23.6z M2.7,18.1l7.2,4.2v-8.3L2.7,9.8      V18.1z"/></g><g><path d="M13.6,23.6c-0.1,0-0.2,0-0.2-0.1c-0.2-0.1-0.2-0.3-0.2-0.4v-9.5c0-0.2,0.1-0.3,0.2-0.4l8.2-4.7c0.2-0.1,0.3-0.1,0.5,0      c0.2,0.1,0.2,0.3,0.2,0.4v9.5c0,0.2-0.1,0.3-0.3,0.4l-8.2,4.7C13.8,23.6,13.7,23.6,13.6,23.6z M14.1,13.9v8.3l7.2-4.2V9.8      L14.1,13.9z"/></g></g></g></g></svg>,
@@ -37,6 +42,9 @@ registerBlockType( 'custom/wpe-container', {
         align: [ 'full', 'wide' ]
     },
     attributes: {
+        columns:  {
+            type: 'number'
+        },
         style: {
             type: 'string'
         },
@@ -66,9 +74,12 @@ registerBlockType( 'custom/wpe-container', {
     edit: withSelect( ( select, props ) => {
 
         return {
-            backgroundData: ! props.attributes.backgroundFile ? null : select( 'core' ).getEntityRecord('postType', 'attachment', props.attributes.backgroundFile )
+            backgroundData: ! props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile ),
+            inner_blocks: select('core/block-editor').getBlocks(props.clientId)
         };
-    } ) ( ( { attributes, setAttributes, className, backgroundData } ) => {
+    } ) ( ( { attributes, setAttributes, className, backgroundData, clientId, inner_blocks } ) => {
+
+        const ALLOWED_BLOCKS = [ 'custom/wpe-column' ];
 
         // Custom style section
         let sectionStyle = {};
@@ -236,10 +247,31 @@ registerBlockType( 'custom/wpe-container', {
                 attributes.marginBottom = 0;
         }
 
+        // const { replaceInnerBlocks } = useDispatch( 'core/block-editor' );
+        // // let inner_blocks_new = [
+        // //     ...inner_blocks,
+        // //     ...[ createBlock('core/image') ]
+        // // ];
+
+        // let inner_blocks_new = inner_blocks.slice(0, 4);
+
+        // replaceInnerBlocks(clientId, inner_blocks_new, false);
+
         // Render
         return (
             <>
                 <InspectorControls>
+                    <PanelBody title={ 'Columns' } initialOpen={ false }>
+                        <RangeControl
+                            label="Number of columns"
+                            value={ attributes.columns }
+                            onChange={ ( value ) =>
+                                setAttributes( { columns: value } )
+                            }
+                            min={ 1 }
+                            max={ 12 }
+                        />
+                    </PanelBody>
                     <PanelBody title={ 'Style' } initialOpen={ false }>
                         <SelectControl
                             label="Style"

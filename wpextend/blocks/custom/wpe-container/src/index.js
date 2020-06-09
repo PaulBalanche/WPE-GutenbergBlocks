@@ -67,7 +67,6 @@ registerBlockType( 'custom/wpe-container', {
             type: 'number'
         }
     },
- 
     edit: withSelect( ( select, props ) => {
 
         return {
@@ -270,7 +269,7 @@ registerBlockType( 'custom/wpe-container', {
                 replaceInnerBlocks(clientId, inner_blocks_new, false);
             }
         }
-        
+
         // Render
         return (
             <>

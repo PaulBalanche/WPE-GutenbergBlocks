@@ -265,7 +265,7 @@ __webpack_require__.r(__webpack_exports__);
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('custom/wpe-container', {
   title: 'Container',
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
-    "enable-background": "new 0 0 24 24",
+    enableBackground: "new 0 0 24 24",
     height: "24px",
     id: "Layer_1",
     version: "1.1",
@@ -300,9 +300,6 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('cus
     align: ['full', 'wide']
   },
   attributes: {
-    columns: {
-      type: 'number'
-    },
     style: {
       type: 'string'
     },
@@ -331,7 +328,8 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('cus
   edit: Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["withSelect"])(function (select, props) {
     return {
       backgroundData: !props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile),
-      inner_blocks: select('core/block-editor').getBlocks(props.clientId)
+      inner_blocks: select('core/block-editor').getBlocks(props.clientId),
+      countColumns: select('core/block-editor').getBlockCount(props.clientId)
     };
   })(function (_ref) {
     var attributes = _ref.attributes,
@@ -339,7 +337,8 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('cus
         className = _ref.className,
         backgroundData = _ref.backgroundData,
         clientId = _ref.clientId,
-        inner_blocks = _ref.inner_blocks;
+        inner_blocks = _ref.inner_blocks,
+        countColumns = _ref.countColumns;
     var ALLOWED_BLOCKS = ['custom/wpe-column']; // Custom style section
 
     var sectionStyle = {};
@@ -506,13 +505,25 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('cus
         attributes.marginBottom = 0;
     }
 
-    if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(inner_blocks) != 'object' || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(inner_blocks) == 'object' && inner_blocks.length == 0) {
-      var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["useDispatch"])('core/block-editor'),
-          replaceInnerBlocks = _useDispatch.replaceInnerBlocks;
+    var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["useDispatch"])('core/block-editor'),
+        replaceInnerBlocks = _useDispatch.replaceInnerBlocks;
 
-      var inner_blocks_new = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(inner_blocks), [Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["createBlock"])('custom/wpe-column')]); // let inner_blocks_new = inner_blocks.slice(0, 4);
+    if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(inner_blocks) != 'object' || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(inner_blocks) == 'object' && countColumns == 0) {
+      updateColumns(1);
+    }
 
-      replaceInnerBlocks(clientId, inner_blocks_new, false);
+    function updateColumns(newColumns) {
+      if (newColumns > countColumns) {
+        var numberOfColumnsToAdd = newColumns - countColumns;
+        var inner_blocks_new = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(inner_blocks), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(Object(lodash__WEBPACK_IMPORTED_MODULE_8__["times"])(numberOfColumnsToAdd, function () {
+          return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["createBlock"])('custom/wpe-column');
+        })));
+        replaceInnerBlocks(clientId, inner_blocks_new, false);
+      } else if (newColumns < countColumns) {
+        var _inner_blocks_new = inner_blocks.slice(0, newColumns);
+
+        replaceInnerBlocks(clientId, _inner_blocks_new, false);
+      }
     } // Render
 
 
@@ -521,11 +532,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('cus
       initialOpen: false
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["RangeControl"], {
       label: "Number of columns",
-      value: attributes.columns,
+      value: countColumns,
       onChange: function onChange(value) {
-        return setAttributes({
-          columns: value
-        });
+        return updateColumns(value);
       },
       min: 1,
       max: 12

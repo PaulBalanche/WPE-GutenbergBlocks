@@ -107,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('custom/wpe-column', {
   title: 'Col',
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
-    "enable-background": "new 0 0 24 24",
+    enableBackground: "new 0 0 24 24",
     height: "24px",
     id: "Layer_1",
     version: "1.1",

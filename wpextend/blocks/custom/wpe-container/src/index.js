@@ -58,16 +58,16 @@ registerBlockType( 'custom/wpe-container', {
             type: 'string'
         },
         paddingTop: {
-            type: 'string'
+            type: 'number'
         },
         paddingBottom: {
-            type: 'string'
+            type: 'number'
         },
         marginTop: {
-            type: 'string'
+            type: 'number'
         },
         marginBottom: {
-            type: 'string'
+            type: 'number'
         }
     },
  
@@ -247,15 +247,18 @@ registerBlockType( 'custom/wpe-container', {
                 attributes.marginBottom = 0;
         }
 
-        // const { replaceInnerBlocks } = useDispatch( 'core/block-editor' );
-        // // let inner_blocks_new = [
-        // //     ...inner_blocks,
-        // //     ...[ createBlock('core/image') ]
-        // // ];
+        if( typeof(inner_blocks ) != 'object' || ( typeof(inner_blocks ) == 'object' && inner_blocks.length == 0 ) ) {
 
-        // let inner_blocks_new = inner_blocks.slice(0, 4);
+            const { replaceInnerBlocks } = useDispatch( 'core/block-editor' );
+            let inner_blocks_new = [
+                ...inner_blocks,
+                ...[ createBlock('custom/wpe-column') ]
+            ];
 
-        // replaceInnerBlocks(clientId, inner_blocks_new, false);
+            // let inner_blocks_new = inner_blocks.slice(0, 4);
+
+            replaceInnerBlocks(clientId, inner_blocks_new, false);
+        }
 
         // Render
         return (
@@ -329,7 +332,9 @@ registerBlockType( 'custom/wpe-container', {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className } style={ sectionStyle }>
-                    <InnerBlocks />
+                    <InnerBlocks
+                        allowedBlocks={ ALLOWED_BLOCKS }
+                    />
                 </div>
             </>
         );

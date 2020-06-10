@@ -159,6 +159,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
   category: 'layout',
   parent: ['custom/wpe-container'],
   attributes: {
+    start: {
+      type: 'number'
+    },
     width: {
       type: 'number'
     }
@@ -167,20 +170,22 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
     var attributes = _ref.attributes,
         setAttributes = _ref.setAttributes,
         className = _ref.className;
-    var sectionStyle = {};
-
-    if (Number.isInteger(attributes.width) && attributes.width > 0 && attributes.width < 12) {
-      className += ' flex-' + attributes.width;
-      sectionStyle = {
-        flex: attributes.width
-      };
-    } // Render
-
-
+    // Render
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["PanelBody"], {
-      title: 'Width',
+      title: 'Grid',
       initialOpen: false
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["RangeControl"], {
+      label: "Start",
+      initialPosition: 1,
+      value: attributes.start,
+      onChange: function onChange(value) {
+        return setAttributes({
+          start: value
+        });
+      },
+      min: 1,
+      max: 12
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["RangeControl"], {
       label: "Width",
       initialPosition: 1,
       value: attributes.width,
@@ -192,8 +197,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
       min: 1,
       max: 12
     }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: className,
-      style: sectionStyle
+      className: className
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InnerBlocks"], null)));
   },
   save: function save() {
@@ -203,9 +207,20 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
 var createHigherOrderComponent = wp.compose.createHigherOrderComponent;
 var withClientIdClassName = createHigherOrderComponent(function (BlockListBlock) {
   return function (props) {
-    if (props.name == 'custom/wpe-column' && Number.isInteger(props.attributes.width) && props.attributes.width > 0 && props.attributes.width < 12) {
+    if (props.name == 'custom/wpe-column' && Number.isInteger(props.attributes.start) && props.attributes.start > 0 && props.attributes.start <= 12 && Number.isInteger(props.attributes.width) && props.attributes.width > 0 && props.attributes.width <= 12) {
+      var wrapperProps = props.wrapperProps ? props.wrapperProps : {};
+      var ColumnEnd = props.attributes.start + props.attributes.width;
+
+      if (ColumnEnd > 13) {
+        ColumnEnd = 13;
+      }
+
+      wrapperProps.style = {
+        gridColumnStart: props.attributes.start,
+        gridColumnEnd: ColumnEnd
+      };
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockListBlock, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
-        className: 'flex-' + props.attributes.width
+        wrapperProps: wrapperProps
       }));
     } else {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockListBlock, props);

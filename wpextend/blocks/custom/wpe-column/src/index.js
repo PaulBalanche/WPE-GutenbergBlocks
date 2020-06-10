@@ -14,25 +14,30 @@ registerBlockType( 'custom/wpe-column', {
     category: 'layout',
     parent: [ 'custom/wpe-container' ],
     attributes: {
+        start: {
+            type: 'number'
+        },
         width: {
             type: 'number'
         }
     },
     edit: ( { attributes, setAttributes, className } ) => {
-        
-        let sectionStyle = {};
-        if( Number.isInteger(attributes.width) && attributes.width > 0 && attributes.width < 12 ) {
-            className += ' flex-' + attributes.width;
-            sectionStyle = {
-                flex: attributes.width
-            };
-        }
 
         // Render
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title={ 'Width' } initialOpen={ false }>
+                    <PanelBody title={ 'Grid' } initialOpen={ false }>
+                        <RangeControl
+                            label="Start"
+                            initialPosition={ 1 }
+                            value={ attributes.start }
+                            onChange={ ( value ) =>
+                                setAttributes( { start: value } )
+                            }
+                            min={ 1 }
+                            max={ 12 }
+                        />
                         <RangeControl
                             label="Width"
                             initialPosition={ 1 }
@@ -45,7 +50,7 @@ registerBlockType( 'custom/wpe-column', {
                         />
                     </PanelBody>
                 </InspectorControls>
-                <div className={ className } style={ sectionStyle }>
+                <div className={ className } >
                     <InnerBlocks />
                 </div>
             </>
@@ -62,8 +67,20 @@ const { createHigherOrderComponent } = wp.compose;
 const withClientIdClassName = createHigherOrderComponent( ( BlockListBlock ) => {
     return ( props ) => {
 
-        if( props.name == 'custom/wpe-column' && Number.isInteger(props.attributes.width) && props.attributes.width > 0 && props.attributes.width < 12){
-            return <BlockListBlock { ...props } className={'flex-' + props.attributes.width} />;
+        if(
+            props.name == 'custom/wpe-column' &&
+            Number.isInteger(props.attributes.start) && props.attributes.start > 0 && props.attributes.start <= 12 &&
+            Number.isInteger(props.attributes.width) && props.attributes.width > 0 && props.attributes.width <= 12
+        ) {
+
+            let wrapperProps = props.wrapperProps ? props.wrapperProps : {};
+            let ColumnEnd = props.attributes.start + props.attributes.width;
+            if( ColumnEnd > 13 ) { ColumnEnd = 13; }
+            wrapperProps.style = {
+                gridColumnStart: props.attributes.start,
+                gridColumnEnd: ColumnEnd
+            };
+            return <BlockListBlock { ...props } wrapperProps={ wrapperProps } />;
         } else {
             return <BlockListBlock { ...props } />;
         }

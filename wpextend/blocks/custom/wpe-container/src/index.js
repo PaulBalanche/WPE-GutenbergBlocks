@@ -344,6 +344,7 @@ registerBlockType( 'custom/wpe-container', {
                 <div className={ className } style={ sectionStyle }>
                     <InnerBlocks
                         allowedBlocks={ ALLOWED_BLOCKS }
+                        renderAppender={ false }
                     />
                 </div>
             </>

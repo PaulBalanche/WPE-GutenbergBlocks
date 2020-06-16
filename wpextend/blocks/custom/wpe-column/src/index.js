@@ -51,7 +51,11 @@ registerBlockType( 'custom/wpe-column', {
                     </PanelBody>
                 </InspectorControls>
                 <div className={ className } >
-                    <InnerBlocks />
+                    <InnerBlocks
+                        renderAppender={ () => (
+                            <InnerBlocks.ButtonBlockAppender />
+                    ) }
+                    />
                 </div>
             </>
         );

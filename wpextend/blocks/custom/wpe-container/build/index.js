@@ -609,7 +609,8 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('cus
       className: className,
       style: sectionStyle
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__["InnerBlocks"], {
-      allowedBlocks: ALLOWED_BLOCKS
+      allowedBlocks: ALLOWED_BLOCKS,
+      renderAppender: false
     })));
   }),
   save: function save() {

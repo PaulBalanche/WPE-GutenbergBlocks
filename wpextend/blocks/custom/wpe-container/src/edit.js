@@ -22,8 +22,36 @@ import { withSelect, useDispatch } from '@wordpress/data';
 
 import { get, map, times } from 'lodash';
 
+
+
+/**
+ * Some constants
+ */
 const ALLOWED_BLOCKS = [ 'custom/wpe-column' ];
 
+
+
+/**
+ * Add some columns in wpe-container based on variation selected
+ *
+ */
+const createBlocksFromInnerBlocksTemplate = ( innerBlocksTemplate ) => {
+
+    return map(
+        innerBlocksTemplate,
+        ( { name, attributes } ) =>
+            createBlock(
+                name,
+                attributes
+            )
+    );
+};
+
+
+
+/**
+ * registerBlockType edit function
+ */
 const WpeContainerEdit = withSelect( ( select, props ) => {
 
     return {
@@ -78,7 +106,9 @@ const WpeContainerEdit = withSelect( ( select, props ) => {
         </MediaPlaceholder>
     );
 
-    
+    /**
+     * Padding & Margin
+     */
     [
         { name: 'paddingTop', prefix: 'pt', default: 3 },
         { name: 'paddingBottom', prefix: 'pb', default: 3 },
@@ -117,18 +147,11 @@ const WpeContainerEdit = withSelect( ( select, props ) => {
         }
     });
 
-    const createBlocksFromInnerBlocksTemplate = ( innerBlocksTemplate ) => {
 
-        return map(
-            innerBlocksTemplate,
-            ( { name, attributes } ) =>
-                createBlock(
-                    name,
-                    attributes
-                )
-        );
-    };
-
+    
+    /**
+     * Define innerBlocks
+     */
     const { replaceInnerBlocks } = useDispatch( 'core/block-editor' );
     if( typeof(inner_blocks ) != 'object' || ( typeof(inner_blocks ) == 'object' && countColumns == 0 ) ) {
 
@@ -161,7 +184,12 @@ const WpeContainerEdit = withSelect( ( select, props ) => {
         );
     }
     
-    function updateColumns( newColumns ) {
+
+
+    /**
+     * Update number of columns to display in wpe-container
+     */
+    const updateColumns = ( newColumns ) => {
         
         if( newColumns > countColumns ) {
 
@@ -179,9 +207,13 @@ const WpeContainerEdit = withSelect( ( select, props ) => {
             let inner_blocks_new = inner_blocks.slice(0, newColumns);
             replaceInnerBlocks(clientId, inner_blocks_new, false);
         }
-    }
+    };
 
-    // Render
+
+
+    /**
+     * Render
+     */
     return (
         <>
             <InspectorControls>

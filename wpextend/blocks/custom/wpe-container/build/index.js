@@ -263,7 +263,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * Some constants
+ */
+
 var ALLOWED_BLOCKS = ['custom/wpe-column'];
+/**
+ * Add some columns in wpe-container based on variation selected
+ *
+ */
+
+var createBlocksFromInnerBlocksTemplate = function createBlocksFromInnerBlocksTemplate(innerBlocksTemplate) {
+  return Object(lodash__WEBPACK_IMPORTED_MODULE_7__["map"])(innerBlocksTemplate, function (_ref) {
+    var name = _ref.name,
+        attributes = _ref.attributes;
+    return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["createBlock"])(name, attributes);
+  });
+};
+/**
+ * registerBlockType edit function
+ */
+
+
 var WpeContainerEdit = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["withSelect"])(function (select, props) {
   return {
     backgroundData: !props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile),
@@ -272,16 +293,16 @@ var WpeContainerEdit = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["with
     blockVariations: select('core/blocks').getBlockVariations(props.name, 'block'),
     blockType: select('core/blocks').getBlockType(props.name)
   };
-})(function (_ref) {
-  var attributes = _ref.attributes,
-      setAttributes = _ref.setAttributes,
-      className = _ref.className,
-      backgroundData = _ref.backgroundData,
-      clientId = _ref.clientId,
-      inner_blocks = _ref.inner_blocks,
-      countColumns = _ref.countColumns,
-      blockVariations = _ref.blockVariations,
-      blockType = _ref.blockType;
+})(function (_ref2) {
+  var attributes = _ref2.attributes,
+      setAttributes = _ref2.setAttributes,
+      className = _ref2.className,
+      backgroundData = _ref2.backgroundData,
+      clientId = _ref2.clientId,
+      inner_blocks = _ref2.inner_blocks,
+      countColumns = _ref2.countColumns,
+      blockVariations = _ref2.blockVariations,
+      blockType = _ref2.blockType;
   // Custom style section
   var sectionStyle = {};
 
@@ -327,6 +348,10 @@ var WpeContainerEdit = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["with
     },
     disableMediaButtons: false
   }, removeButton);
+  /**
+   * Padding & Margin
+   */
+
   [{
     name: 'paddingTop',
     prefix: 'pt',
@@ -373,14 +398,9 @@ var WpeContainerEdit = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["with
         attributes[attribute.name] = attribute.default;
     }
   });
-
-  var createBlocksFromInnerBlocksTemplate = function createBlocksFromInnerBlocksTemplate(innerBlocksTemplate) {
-    return Object(lodash__WEBPACK_IMPORTED_MODULE_7__["map"])(innerBlocksTemplate, function (_ref2) {
-      var name = _ref2.name,
-          attributes = _ref2.attributes;
-      return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["createBlock"])(name, attributes);
-    });
-  };
+  /**
+   * Define innerBlocks
+   */
 
   var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["useDispatch"])('core/block-editor'),
       replaceInnerBlocks = _useDispatch.replaceInnerBlocks;
@@ -405,8 +425,12 @@ var WpeContainerEdit = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["with
       renderAppender: false
     }));
   }
+  /**
+   * Update number of columns to display in wpe-container
+   */
 
-  function updateColumns(newColumns) {
+
+  var updateColumns = function updateColumns(newColumns) {
     if (newColumns > countColumns) {
       var numberOfColumnsToAdd = newColumns - countColumns;
       var inner_blocks_new = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(inner_blocks), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(Object(lodash__WEBPACK_IMPORTED_MODULE_7__["times"])(numberOfColumnsToAdd, function () {
@@ -418,7 +442,10 @@ var WpeContainerEdit = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["with
 
       replaceInnerBlocks(clientId, _inner_blocks_new, false);
     }
-  } // Render
+  };
+  /**
+   * Render
+   */
 
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["PanelBody"], {

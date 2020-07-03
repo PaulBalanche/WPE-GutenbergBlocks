@@ -1,5 +1,14 @@
 #editor {
     
+    .wp-block[data-align="full"] {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .wp-block[data-align="wide"] {
+        max-width: none;
+    }
+
     .block-editor-block-list__block[data-type="custom/wpe-container"] {
 
         max-width: $max_width_main_column;
@@ -24,6 +33,7 @@
 
             .wp-block-custom-wpe-container {
                 max-width: $max_width_main_column;
+                margin: auto;
             }
         }
 

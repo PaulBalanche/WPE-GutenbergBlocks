@@ -273,13 +273,13 @@ var ALLOWED_BLOCKS = ['custom/wpe-column'];
  *
  */
 
-var createBlocksFromInnerBlocksTemplate = function createBlocksFromInnerBlocksTemplate(innerBlocksTemplate) {
+function createBlocksFromInnerBlocksTemplate(innerBlocksTemplate) {
   return Object(lodash__WEBPACK_IMPORTED_MODULE_7__["map"])(innerBlocksTemplate, function (_ref) {
     var name = _ref.name,
         attributes = _ref.attributes;
     return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["createBlock"])(name, attributes);
   });
-};
+}
 /**
  * registerBlockType edit function
  */
@@ -414,6 +414,10 @@ var WpeContainerEdit = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["with
         if (nextVariation.innerBlocks) {
           replaceInnerBlocks(clientId, createBlocksFromInnerBlocksTemplate(nextVariation.innerBlocks), false);
         }
+
+        if (nextVariation.attributes) {
+          Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["dispatch"])('core/editor').updateBlockAttributes(clientId, nextVariation.attributes);
+        }
       }
     });
   } else {
@@ -426,40 +430,94 @@ var WpeContainerEdit = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["with
     }));
   }
   /**
-   * Update number of columns to display in wpe-container
+   * Update grid
    */
 
 
-  var updateColumns = function updateColumns(newColumns) {
+  function updateGrid() {
+    // Some declarations...
+    var separatorGrid = '-';
+    var totalColumns = 0;
+    var newGridUpdated = [];
+    var breakArray = false; // Validate new grid
+
+    var newGrid = attributes.grid;
+    newGrid = newGrid.split(separatorGrid);
+    newGrid.forEach(function (element) {
+      element = Number.parseInt(element);
+
+      if (!breakArray && Number.isInteger(element)) {
+        var elementTemp = totalColumns + element <= 12 ? element : 12 - totalColumns;
+        newGridUpdated.push(elementTemp);
+        totalColumns += elementTemp;
+
+        if (totalColumns == 12) {
+          breakArray = true;
+        }
+      }
+    }); // Ensure there are 12 columns
+
+    if (totalColumns < 12) {
+      newGridUpdated.push(12 - totalColumns);
+    } // Add or remove columns
+
+
+    var newColumns = newGridUpdated.length;
+
     if (newColumns > countColumns) {
       var numberOfColumnsToAdd = newColumns - countColumns;
       var inner_blocks_new = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(inner_blocks), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(Object(lodash__WEBPACK_IMPORTED_MODULE_7__["times"])(numberOfColumnsToAdd, function () {
         return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["createBlock"])('custom/wpe-column');
       })));
       replaceInnerBlocks(clientId, inner_blocks_new, false);
+      inner_blocks = inner_blocks_new;
     } else if (newColumns < countColumns) {
       var _inner_blocks_new = inner_blocks.slice(0, newColumns);
 
       replaceInnerBlocks(clientId, _inner_blocks_new, false);
-    }
-  };
+    } // Loop on each columns to update start and width attributes
+
+
+    var startGrid = 1;
+    inner_blocks.forEach(function (element, index) {
+      var widthChild = Number.parseInt(newGridUpdated[index]); // Update the child block's attributes
+
+      Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["dispatch"])('core/editor').updateBlockAttributes(element.clientId, {
+        start: startGrid,
+        width: widthChild
+      });
+      startGrid += widthChild;
+    }); // Finally, update grid attribute
+
+    setAttributes({
+      grid: newGridUpdated.join('-')
+    });
+  }
   /**
    * Render
    */
 
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["PanelBody"], {
-    title: 'Columns',
+    title: 'Grid',
     initialOpen: false
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["RangeControl"], {
-    label: "Number of columns",
-    value: countColumns,
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("form", {
+    onSubmit: function onSubmit(event) {
+      return event.preventDefault();
+    }
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["TextControl"], {
+    value: attributes.grid,
     onChange: function onChange(value) {
-      return updateColumns(value);
+      return setAttributes({
+        grid: value
+      });
     },
-    min: 1,
-    max: 12
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["PanelBody"], {
+    onBlur: updateGrid,
+    help: "For example: 3-3-3-3 or 6-6"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["Button"], {
+    isSecondary: true,
+    type: "submit"
+  }, "Apply"))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["PanelBody"], {
     title: 'Style',
     initialOpen: false
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["SelectControl"], {
@@ -607,6 +665,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
     },
     marginBottom: {
       type: 'number'
+    },
+    grid: {
+      type: 'string'
     }
   },
   variations: _variations__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -651,6 +712,9 @@ __webpack_require__.r(__webpack_exports__);
 var variations = [{
   name: 'column-1',
   title: '1 column',
+  attributes: {
+    grid: '12'
+  },
   innerBlocks: [{
     name: 'custom/wpe-column',
     attributes: {
@@ -672,6 +736,9 @@ var variations = [{
     d: "M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H25V34H39ZM23 34H9V14H23V34Z"
   })),
   title: '2 columns',
+  attributes: {
+    grid: '6-6'
+  },
   innerBlocks: [{
     name: 'custom/wpe-column',
     attributes: {
@@ -698,6 +765,9 @@ var variations = [{
     fillRule: "evenodd",
     d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
   })),
+  attributes: {
+    grid: '4-4-4'
+  },
   innerBlocks: [{
     name: 'custom/wpe-column',
     attributes: {
@@ -721,6 +791,9 @@ var variations = [{
 }, {
   name: 'column-4',
   title: '4 columns',
+  attributes: {
+    grid: '3-3-3-3'
+  },
   innerBlocks: [{
     name: 'custom/wpe-column',
     attributes: {
@@ -750,6 +823,9 @@ var variations = [{
 }, {
   name: 'column-6',
   title: '6 columns',
+  attributes: {
+    grid: '2-2-2-2-2-2'
+  },
   innerBlocks: [{
     name: 'custom/wpe-column',
     attributes: {

@@ -15,10 +15,11 @@ import {
     PanelBody,
     SelectControl,
     Button,
-    RangeControl
+    RangeControl,
+    TextControl
 } from '@wordpress/components';
 
-import { withSelect, useDispatch } from '@wordpress/data';
+import { withSelect, dispatch, useDispatch } from '@wordpress/data';
 
 import { get, map, times } from 'lodash';
 
@@ -35,7 +36,7 @@ const ALLOWED_BLOCKS = [ 'custom/wpe-column' ];
  * Add some columns in wpe-container based on variation selected
  *
  */
-const createBlocksFromInnerBlocksTemplate = ( innerBlocksTemplate ) => {
+function createBlocksFromInnerBlocksTemplate ( innerBlocksTemplate ) {
 
     return map(
         innerBlocksTemplate,
@@ -45,7 +46,7 @@ const createBlocksFromInnerBlocksTemplate = ( innerBlocksTemplate ) => {
                 attributes
             )
     );
-};
+}
 
 
 
@@ -168,6 +169,9 @@ const WpeContainerEdit = withSelect( ( select, props ) => {
                             false
                         );
                     }
+                    if( nextVariation.attributes ) {
+                        dispatch('core/editor').updateBlockAttributes( clientId, nextVariation.attributes );
+                    }
                 } }
             />
         );
@@ -184,13 +188,46 @@ const WpeContainerEdit = withSelect( ( select, props ) => {
         );
     }
     
-
+    
 
     /**
-     * Update number of columns to display in wpe-container
+     * Update grid
      */
-    const updateColumns = ( newColumns ) => {
-        
+    function updateGrid() {
+
+        // Some declarations...
+        let separatorGrid = '-';
+        let totalColumns = 0;
+        let newGridUpdated = [];
+        let breakArray = false;
+
+        // Validate new grid
+        let newGrid = attributes.grid;
+        newGrid = newGrid.split(separatorGrid);
+        newGrid.forEach( ( element ) => {
+
+            element = Number.parseInt(element);
+
+            if( ! breakArray && Number.isInteger(element) ) {
+
+                let elementTemp = ( totalColumns + element <= 12 ) ? element : 12 - totalColumns;
+
+                newGridUpdated.push(elementTemp);
+                totalColumns += elementTemp;
+
+                if( totalColumns == 12 ) {
+                    breakArray = true;
+                }
+            }
+        });
+
+        // Ensure there are 12 columns
+        if( totalColumns < 12 ) {
+            newGridUpdated.push( 12 - totalColumns );
+        }
+
+        // Add or remove columns
+        let newColumns = newGridUpdated.length;
         if( newColumns > countColumns ) {
 
             let numberOfColumnsToAdd = newColumns - countColumns;
@@ -201,15 +238,31 @@ const WpeContainerEdit = withSelect( ( select, props ) => {
                 } )
             ];
             replaceInnerBlocks(clientId, inner_blocks_new, false);
+            inner_blocks = inner_blocks_new;
         }
         else if( newColumns < countColumns ) {
         
             let inner_blocks_new = inner_blocks.slice(0, newColumns);
             replaceInnerBlocks(clientId, inner_blocks_new, false);
         }
-    };
 
+        // Loop on each columns to update start and width attributes
+        let startGrid = 1;
+        inner_blocks.forEach( ( element, index ) => {
 
+            let widthChild = Number.parseInt(newGridUpdated[index]);
+            
+            // Update the child block's attributes
+            dispatch('core/editor').updateBlockAttributes(element.clientId, { start: startGrid, width: widthChild });
+
+            startGrid += widthChild;
+        });
+
+        // Finally, update grid attribute
+        setAttributes( { grid: newGridUpdated.join('-') } );
+    }
+
+    
 
     /**
      * Render
@@ -217,16 +270,23 @@ const WpeContainerEdit = withSelect( ( select, props ) => {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={ 'Columns' } initialOpen={ false }>
-                    <RangeControl
-                        label="Number of columns"
-                        value={ countColumns }
-                        onChange={ ( value ) =>
-                            updateColumns( value )
-                        }
-                        min={ 1 }
-                        max={ 12 }
-                    />
+                <PanelBody title={ 'Grid' } initialOpen={ false }>
+                    <form
+                        onSubmit={ (event) => event.preventDefault() }
+                    >
+                        <TextControl
+                            value={ attributes.grid }
+                            onChange={ ( value ) => setAttributes( { grid: value } ) }
+                            onBlur={ updateGrid }
+                            help="For example: 3-3-3-3 or 6-6"
+                        />
+                        <Button
+                            isSecondary
+                            type="submit"
+                        >
+                            Apply
+                        </Button>
+                    </form>
                 </PanelBody>
                 <PanelBody title={ 'Style' } initialOpen={ false }>
                     <SelectControl

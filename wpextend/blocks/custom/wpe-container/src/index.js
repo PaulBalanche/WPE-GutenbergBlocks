@@ -41,6 +41,9 @@ registerBlockType( 'custom/wpe-container', {
         },
         marginBottom: {
             type: 'number'
+        },
+        grid: {
+            type: 'string'
         }
     },
     variations,

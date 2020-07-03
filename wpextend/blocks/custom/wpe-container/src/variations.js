@@ -15,6 +15,7 @@ const variations = [
     {
         name: 'column-1',
         title: '1 column',
+        attributes: { grid: '12' },
         innerBlocks: [
             { name: 'custom/wpe-column', attributes: { start: 1, width: 12 } }
         ],
@@ -37,6 +38,7 @@ const variations = [
 			</SVG>
 		),
         title: '2 columns',
+        attributes: { grid: '6-6' },
         innerBlocks: [
             { name: 'custom/wpe-column', attributes: { start: 1, width: 6 } },
             { name: 'custom/wpe-column', attributes: { start: 7, width: 6 } }
@@ -58,7 +60,8 @@ const variations = [
 					d="M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
 				/>
 			</SVG>
-		),
+        ),
+        attributes: { grid: '4-4-4' },
         innerBlocks: [
             { name: 'custom/wpe-column', attributes: { start: 1, width: 4 } },
             { name: 'custom/wpe-column', attributes: { start: 5, width: 4 } },
@@ -69,6 +72,7 @@ const variations = [
     {
         name: 'column-4',
         title: '4 columns',
+        attributes: { grid: '3-3-3-3' },
         innerBlocks: [
             { name: 'custom/wpe-column', attributes: { start: 1, width: 3 } },
             { name: 'custom/wpe-column', attributes: { start: 4, width: 3 } },
@@ -80,6 +84,7 @@ const variations = [
     {
         name: 'column-6',
         title: '6 columns',
+        attributes: { grid: '2-2-2-2-2-2' },
         innerBlocks: [
             { name: 'custom/wpe-column', attributes: { start: 1, width: 2 } },
             { name: 'custom/wpe-column', attributes: { start: 3, width: 2 } },

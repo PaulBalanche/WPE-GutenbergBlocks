@@ -23,7 +23,8 @@ import { withSelect, dispatch, useDispatch } from '@wordpress/data';
 
 import { get, map, times } from 'lodash';
 
-
+import * as blockConfig from '../../../../json/wpe-container_config.json';
+const configTotalColumns = blockConfig.totalColumns;
 
 /**
  * Some constants
@@ -178,8 +179,11 @@ const WpeContainerEdit = withSelect( ( select, props ) => {
     }
     else {
 
+        const css = `.block-editor-block-list__layout{ grid-template-columns: repeat(` + configTotalColumns + `, [col-start] 1fr); }`
+
         var edit_display = (
             <div className={ className } style={ sectionStyle }>
+                <style>{css}</style>
                 <InnerBlocks
                     allowedBlocks={ ALLOWED_BLOCKS }
                     renderAppender={ false }
@@ -210,20 +214,20 @@ const WpeContainerEdit = withSelect( ( select, props ) => {
 
             if( ! breakArray && Number.isInteger(element) ) {
 
-                let elementTemp = ( totalColumns + element <= 12 ) ? element : 12 - totalColumns;
+                let elementTemp = ( totalColumns + element <= configTotalColumns ) ? element : configTotalColumns - totalColumns;
 
                 newGridUpdated.push(elementTemp);
                 totalColumns += elementTemp;
 
-                if( totalColumns == 12 ) {
+                if( totalColumns == configTotalColumns ) {
                     breakArray = true;
                 }
             }
         });
 
         // Ensure there are 12 columns
-        if( totalColumns < 12 ) {
-            newGridUpdated.push( 12 - totalColumns );
+        if( totalColumns < configTotalColumns ) {
+            newGridUpdated.push( configTotalColumns - totalColumns );
         }
 
         // Add or remove columns

@@ -3,11 +3,14 @@
  */
 import { registerBlockType } from '@wordpress/blocks';
 import { InnerBlocks } from '@wordpress/block-editor';
+import { __ } from '@wordpress/i18n';
+
+import * as blockConfig from '../../../../json/wpe-container_config.json';
+const variations = blockConfig.variations;
 
 /**
  * Internal dependencies
  */
-import variations from './variations';
 import edit from './edit';
 
 registerBlockType( 'custom/wpe-container', {

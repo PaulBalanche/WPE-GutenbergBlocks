@@ -93,7 +93,7 @@
 /*! exports provided: totalColumns, variations, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"attributes\":{\"grid\":\"12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-2\",\"title\":\"2 column\",\"attributes\":{\"grid\":\"6-6\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":6}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":6}}],\"scope\":[\"block\"]},{\"name\":\"column-3\",\"title\":\"3 column\",\"attributes\":{\"grid\":\"4-4-4\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":5,\"width\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":9,\"width\":4}}],\"scope\":[\"block\"]},{\"name\":\"column-4\",\"title\":\"4 column\",\"attributes\":{\"grid\":\"3-3-3-3\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":4,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":10,\"width\":3}}],\"scope\":[\"block\"]},{\"name\":\"column-6\",\"title\":\"6 column\",\"attributes\":{\"grid\":\"2-2-2-2-2-2\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":3,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":5,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":9,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":11,\"width\":2}}],\"scope\":[\"block\"]}]}");
+module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"attributes\":{\"gridDesktop\":\"12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-2\",\"title\":\"2 column\",\"attributes\":{\"gridDesktop\":\"6-6\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":6}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":6}}],\"scope\":[\"block\"]},{\"name\":\"column-3\",\"title\":\"3 column\",\"attributes\":{\"gridDesktop\":\"4-4-4\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":5,\"width\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":9,\"width\":4}}],\"scope\":[\"block\"]},{\"name\":\"column-4\",\"title\":\"4 column\",\"attributes\":{\"gridDesktop\":\"3-3-3-3\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":4,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":10,\"width\":3}}],\"scope\":[\"block\"]},{\"name\":\"column-6\",\"title\":\"6 column\",\"attributes\":{\"gridDesktop\":\"2-2-2-2-2-2\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":3,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":5,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":9,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":11,\"width\":2}}],\"scope\":[\"block\"]}]}");
 
 /***/ }),
 
@@ -171,10 +171,22 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
   category: 'layout',
   parent: ['custom/wpe-container'],
   attributes: {
-    start: {
+    startDesktop: {
       type: 'number'
     },
-    width: {
+    startTablet: {
+      type: 'number'
+    },
+    startMobile: {
+      type: 'number'
+    },
+    widthDesktop: {
+      type: 'number'
+    },
+    widthTablet: {
+      type: 'number'
+    },
+    widthMobile: {
       type: 'number'
     }
   },
@@ -196,20 +208,46 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('cus
 var createHigherOrderComponent = wp.compose.createHigherOrderComponent;
 var withClientIdClassName = createHigherOrderComponent(function (BlockListBlock) {
   return function (props) {
-    if (props.name == 'custom/wpe-column' && Number.isInteger(props.attributes.start) && props.attributes.start > 0 && props.attributes.start <= configTotalColumns && Number.isInteger(props.attributes.width) && props.attributes.width > 0 && props.attributes.width <= configTotalColumns) {
-      var wrapperProps = props.wrapperProps ? props.wrapperProps : {};
-      var ColumnEnd = props.attributes.start + props.attributes.width;
+    if (props.name == 'custom/wpe-column') {
+      // let wrapperProps = props.wrapperProps ? props.wrapperProps : {};
+      var className = '';
 
-      if (ColumnEnd > configTotalColumns + 1) {
-        ColumnEnd = configTotalColumns + 1;
+      if (Number.isInteger(props.attributes.startDesktop) && props.attributes.startDesktop > 0 && props.attributes.startDesktop <= configTotalColumns && Number.isInteger(props.attributes.widthDesktop) && props.attributes.widthDesktop > 0 && props.attributes.widthDesktop <= configTotalColumns) {
+        var ColumnEndDesktop = props.attributes.startDesktop + props.attributes.widthDesktop;
+
+        if (ColumnEndDesktop > configTotalColumns + 1) {
+          ColumnEndDesktop = configTotalColumns + 1;
+        }
+
+        className += "gridColumnStartDesktop-" + props.attributes.startDesktop + " gridColumnEndDesktop-" + ColumnEndDesktop + " ";
       }
 
-      wrapperProps.style = {
-        gridColumnStart: props.attributes.start,
-        gridColumnEnd: ColumnEnd
-      };
+      if (Number.isInteger(props.attributes.startTablet) && props.attributes.startTablet > 0 && props.attributes.startTablet <= configTotalColumns && Number.isInteger(props.attributes.widthTablet) && props.attributes.widthTablet > 0 && props.attributes.widthTablet <= configTotalColumns) {
+        var ColumnEndTablet = props.attributes.startTablet + props.attributes.widthTablet;
+
+        if (ColumnEndTablet > configTotalColumns + 1) {
+          ColumnEndTablet = configTotalColumns + 1;
+        }
+
+        className += "gridColumnStartTablet-" + props.attributes.startTablet + " gridColumnEndTablet-" + ColumnEndTablet + " ";
+      }
+
+      if (Number.isInteger(props.attributes.startMobile) && props.attributes.startMobile > 0 && props.attributes.startMobile <= configTotalColumns && Number.isInteger(props.attributes.widthMobile) && props.attributes.widthMobile > 0 && props.attributes.widthMobile <= configTotalColumns) {
+        var ColumnEndMobile = props.attributes.startMobile + props.attributes.widthMobile;
+
+        if (ColumnEndMobile > configTotalColumns + 1) {
+          ColumnEndMobile = configTotalColumns + 1;
+        }
+
+        className += "gridColumnStartMobile-" + props.attributes.startMobile + " gridColumnEndMobile-" + ColumnEndMobile + " ";
+      } // wrapperProps.style = {
+      //     gridColumnStart: props.attributes.start,
+      //     gridColumnEnd: ColumnEnd
+      // };
+
+
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockListBlock, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, props, {
-        wrapperProps: wrapperProps
+        className: className
       }));
     } else {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockListBlock, props);

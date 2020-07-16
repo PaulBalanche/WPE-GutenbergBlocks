@@ -45,7 +45,13 @@ registerBlockType( 'custom/wpe-container', {
         marginBottom: {
             type: 'number'
         },
-        grid: {
+        gridDesktop: {
+            type: 'string'
+        },
+        gridTablet: {
+            type: 'string'
+        },
+        gridMobile: {
             type: 'string'
         }
     },

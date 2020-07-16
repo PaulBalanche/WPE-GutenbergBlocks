@@ -12,10 +12,22 @@ registerBlockType( 'custom/wpe-column', {
     category: 'layout',
     parent: [ 'custom/wpe-container' ],
     attributes: {
-        start: {
+        startDesktop: {
             type: 'number'
         },
-        width: {
+        startTablet: {
+            type: 'number'
+        },
+        startMobile: {
+            type: 'number'
+        },
+        widthDesktop: {
+            type: 'number'
+        },
+        widthTablet: {
+            type: 'number'
+        },
+        widthMobile: {
             type: 'number'
         }
     },
@@ -45,20 +57,44 @@ const { createHigherOrderComponent } = wp.compose;
 const withClientIdClassName = createHigherOrderComponent( ( BlockListBlock ) => {
     return ( props ) => {
 
-        if(
-            props.name == 'custom/wpe-column' &&
-            Number.isInteger(props.attributes.start) && props.attributes.start > 0 && props.attributes.start <= configTotalColumns &&
-            Number.isInteger(props.attributes.width) && props.attributes.width > 0 && props.attributes.width <= configTotalColumns
-        ) {
+        if( props.name == 'custom/wpe-column' ) {
 
-            let wrapperProps = props.wrapperProps ? props.wrapperProps : {};
-            let ColumnEnd = props.attributes.start + props.attributes.width;
-            if( ColumnEnd > configTotalColumns + 1 ) { ColumnEnd = configTotalColumns + 1; }
-            wrapperProps.style = {
-                gridColumnStart: props.attributes.start,
-                gridColumnEnd: ColumnEnd
-            };
-            return <BlockListBlock { ...props } wrapperProps={ wrapperProps } />;
+            // let wrapperProps = props.wrapperProps ? props.wrapperProps : {};
+
+            let className = '';
+
+            if( Number.isInteger(props.attributes.startDesktop) && props.attributes.startDesktop > 0 && props.attributes.startDesktop <= configTotalColumns &&
+                Number.isInteger(props.attributes.widthDesktop) && props.attributes.widthDesktop > 0 && props.attributes.widthDesktop <= configTotalColumns ) {
+
+                let ColumnEndDesktop = props.attributes.startDesktop + props.attributes.widthDesktop;
+                if( ColumnEndDesktop > configTotalColumns + 1 ) { ColumnEndDesktop = configTotalColumns + 1; }
+
+                className += "gridColumnStartDesktop-" + props.attributes.startDesktop + " gridColumnEndDesktop-" + ColumnEndDesktop + " ";
+            }
+
+            if( Number.isInteger(props.attributes.startTablet) && props.attributes.startTablet > 0 && props.attributes.startTablet <= configTotalColumns &&
+                Number.isInteger(props.attributes.widthTablet) && props.attributes.widthTablet > 0 && props.attributes.widthTablet <= configTotalColumns ) {
+
+                let ColumnEndTablet = props.attributes.startTablet + props.attributes.widthTablet;
+                if( ColumnEndTablet > configTotalColumns + 1 ) { ColumnEndTablet = configTotalColumns + 1; }
+
+                className += "gridColumnStartTablet-" + props.attributes.startTablet + " gridColumnEndTablet-" + ColumnEndTablet + " ";
+            }
+
+            if( Number.isInteger(props.attributes.startMobile) && props.attributes.startMobile > 0 && props.attributes.startMobile <= configTotalColumns &&
+                Number.isInteger(props.attributes.widthMobile) && props.attributes.widthMobile > 0 && props.attributes.widthMobile <= configTotalColumns ) {
+
+                let ColumnEndMobile= props.attributes.startMobile + props.attributes.widthMobile;
+                if( ColumnEndMobile > configTotalColumns + 1 ) { ColumnEndMobile = configTotalColumns + 1; }
+
+                className += "gridColumnStartMobile-" + props.attributes.startMobile + " gridColumnEndMobile-" + ColumnEndMobile + " ";
+            }
+
+            // wrapperProps.style = {
+            //     gridColumnStart: props.attributes.start,
+            //     gridColumnEnd: ColumnEnd
+            // };
+            return <BlockListBlock { ...props } className={ className } />;
         } else {
             return <BlockListBlock { ...props } />;
         }

@@ -56,9 +56,9 @@ function createBlocksFromInnerBlocksTemplate ( innerBlocksTemplate ) {
 
 
 const getLayouts = () => ( [
-	{ value: 'desktop', label: 'Desktop', icon: desktop },
-	{ value: 'tablet', label: 'Tablet', icon: tablet  },
-	{ value: 'mobile', label: 'Mobile', icon: mobile },
+	{ value: 'desktop', label: 'Desktop', attributeName: 'Desktop', icon: desktop },
+	{ value: 'tablet', label: 'Tablet', attributeName: 'Tablet', icon: tablet  },
+	{ value: 'mobile', label: 'Mobile', attributeName: 'Mobile', icon: mobile },
 ] );
 
 /**
@@ -76,6 +76,11 @@ class WpeContainer extends Component {
 
     getDeviceType() {
 		return this.state.selectedDevice;
+    }
+
+
+    setDeviceType(deviceType) {
+        this.setState( { selectedDevice: deviceType } );
     }
 
     render() {
@@ -185,7 +190,7 @@ class WpeContainer extends Component {
          */
         if( typeof(inner_blocks ) != 'object' || ( typeof(inner_blocks ) == 'object' && countColumns == 0 ) ) {
 
-            var edit_display = (
+            var editDisplay = (
                 <__experimentalBlockVariationPicker
                     icon={ get( blockType, [ 'icon', 'src' ] ) }
                     label={ get( blockType, [ 'title' ] ) }
@@ -209,7 +214,7 @@ class WpeContainer extends Component {
 
             const css = `.block-editor-block-list__layout{ grid-template-columns: repeat(` + configTotalColumns + `, [col-start] 1fr); }`
 
-            var edit_display = (
+            var editDisplay = (
                 <div className={ className } style={ sectionStyle }>
                     <style>{css}</style>
                     <InnerBlocks
@@ -223,9 +228,31 @@ class WpeContainer extends Component {
         
 
         /**
+         * 
+         */
+        var gridForm = null;
+        getLayouts().forEach( ( layout ) => {
+
+            if( layout.value === deviceType ) {
+                
+                gridForm = (
+                    <TextControl
+                        value={ attributes['grid' + layout.attributeName] }
+                        onChange={ ( val ) => {
+                            setAttributes( { ['grid' + layout.attributeName]: val } );
+                        }}
+                        onBlur={ updateGrid }
+                        help="For example: 3-3-3-3 or 6-6"
+                    />
+                );
+            }
+        });
+
+
+        /**
          * Update grid
          */
-        function updateGrid( view ) {
+        function updateGrid() {
 
             // Some declarations...
             let separatorGrid = '-';
@@ -233,109 +260,73 @@ class WpeContainer extends Component {
             let newGridUpdated = [];
             let breakArray = false;
 
-            let newGrid = null;
+            getLayouts().forEach( ( layout ) => {
+                if( layout.value === deviceType ) {
 
-            // Validate new grid
-            switch(view) {
-                case 'tablet':
-                    newGrid = attributes.gridTablet;
-                    break;
+                    let newGrid = attributes['grid' + layout.attributeName];
+                    newGrid = newGrid.split(separatorGrid);
+                    newGrid.forEach( ( element ) => {
 
-                case 'mobile':
-                    newGrid = attributes.gridMobile;
-                    break;
+                        element = Number.parseInt(element);
 
-                case 'desktop':
-                    newGrid = attributes.gridDesktop;
-                    break;
-            }
-            if( newGrid ) {
-                newGrid = newGrid.split(separatorGrid);
-                newGrid.forEach( ( element ) => {
+                        if( ! breakArray && Number.isInteger(element) ) {
 
-                    element = Number.parseInt(element);
+                            let elementTemp = ( totalColumns + element <= configTotalColumns ) ? element : configTotalColumns - totalColumns;
 
-                    if( ! breakArray && Number.isInteger(element) ) {
+                            newGridUpdated.push(elementTemp);
+                            totalColumns += elementTemp;
 
-                        let elementTemp = ( totalColumns + element <= configTotalColumns ) ? element : configTotalColumns - totalColumns;
+                            if( totalColumns == configTotalColumns ) {
+                                breakArray = true;
+                            }
+                        }
+                    });
 
-                        newGridUpdated.push(elementTemp);
-                        totalColumns += elementTemp;
+                    // Ensure there are 12 columns
+                    if( totalColumns < configTotalColumns ) {
+                        newGridUpdated.push( configTotalColumns - totalColumns );
+                    }
+                    
+                    if( deviceType == 'desktop' ) {
+                        // Add or remove columns
+                        let newColumns = newGridUpdated.length;
+                        if( newColumns > countColumns ) {
 
-                        if( totalColumns == configTotalColumns ) {
-                            breakArray = true;
+                            let numberOfColumnsToAdd = newColumns - countColumns;
+                            let inner_blocks_new = [
+                                ...inner_blocks,
+                                ...times( numberOfColumnsToAdd, () => {
+                                    return createBlock('custom/wpe-column')
+                                } )
+                            ];
+                            dispatch( 'core/block-editor' ).replaceInnerBlocks(clientId, inner_blocks_new, false);
+                            inner_blocks = inner_blocks_new;
+                        }
+                        else if( newColumns < countColumns ) {
+                        
+                            let inner_blocks_new = inner_blocks.slice(0, newColumns);
+                            dispatch( 'core/block-editor' ).replaceInnerBlocks(clientId, inner_blocks_new, false);
                         }
                     }
-                });
 
-                // Ensure there are 12 columns
-                if( totalColumns < configTotalColumns ) {
-                    newGridUpdated.push( configTotalColumns - totalColumns );
+                    // Loop on each columns to update start and width attributes
+                    let startGrid = 1;
+                    inner_blocks.forEach( ( element, index ) => {
+
+                        let widthChild = Number.parseInt(newGridUpdated[index]);
+                        
+                        // Update the child block's attributes
+                        dispatch('core/editor').updateBlockAttributes(element.clientId, { ['start' + layout.attributeName]: startGrid, ['width' + layout.attributeName]: widthChild });
+                        startGrid += widthChild;
+                    });
+
+                    // Finally, update grid attribute
+                    setAttributes( { ['grid' + layout.attributeName]: newGridUpdated.join('-') } );
                 }
-                
-                if( view == 'desktop' ) {
-                    // Add or remove columns
-                    let newColumns = newGridUpdated.length;
-                    if( newColumns > countColumns ) {
-
-                        let numberOfColumnsToAdd = newColumns - countColumns;
-                        let inner_blocks_new = [
-                            ...inner_blocks,
-                            ...times( numberOfColumnsToAdd, () => {
-                                return createBlock('custom/wpe-column')
-                            } )
-                        ];
-                        dispatch( 'core/block-editor' ).replaceInnerBlocks(clientId, inner_blocks_new, false);
-                        inner_blocks = inner_blocks_new;
-                    }
-                    else if( newColumns < countColumns ) {
-                    
-                        let inner_blocks_new = inner_blocks.slice(0, newColumns);
-                        dispatch( 'core/block-editor' ).replaceInnerBlocks(clientId, inner_blocks_new, false);
-                    }
-                }
-
-                // Loop on each columns to update start and width attributes
-                let startGrid = 1;
-                inner_blocks.forEach( ( element, index ) => {
-
-                    let widthChild = Number.parseInt(newGridUpdated[index]);
-                    
-                    // Update the child block's attributes
-                    switch(view) {
-                        case 'tablet':
-                            dispatch('core/editor').updateBlockAttributes(element.clientId, { startTablet: startGrid, widthTablet: widthChild });
-                            break;
-        
-                        case 'mobile':
-                            dispatch('core/editor').updateBlockAttributes(element.clientId, { startMobile: startGrid, widthMobile: widthChild });
-                            break;
-        
-                        case 'desktop':
-                            dispatch('core/editor').updateBlockAttributes(element.clientId, { startDesktop: startGrid, widthDesktop: widthChild });
-                            break;
-                    }
-
-                    startGrid += widthChild;
-                });
-                
-
-                // Finally, update grid attribute
-                switch(view) {
-                    case 'tablet':
-                        setAttributes( { gridTablet: newGridUpdated.join('-') } );
-                        break;
-
-                    case 'mobile':
-                        setAttributes( { gridMobile: newGridUpdated.join('-') } );
-                        break;
-
-                    case 'desktop':
-                        setAttributes( { gridDesktop: newGridUpdated.join('-') } );
-                        break;
-                }
-            }
+            });
         }    
+
+
 
         /**
          * Render
@@ -344,35 +335,24 @@ class WpeContainer extends Component {
             <>
                 <InspectorControls>
                     <PanelBody title={ 'Grid' } initialOpen={ false }>
-                        <form
-                            onSubmit={ (event) => event.preventDefault() }
+                        <ButtonGroup>
+                            { getLayouts().map( ( layout ) => (
+                                <Button
+                                    key={ layout.value }
+                                    isPrimary={ layout.value === deviceType }
+                                    onClick={ () => this.setDeviceType( layout.value ) }
+                                >
+                                    { layout.label }
+                                </Button>
+                            ) ) }
+                        </ButtonGroup>
+                        { gridForm }
+                        <Button
+                            isSecondary
+                            type="submit"
                         >
-                            <ButtonGroup>
-                                <Button isPrimary>Destkop</Button>
-                                <Button isPrimary>Tablet</Button>
-                                <Button isPrimary>Mobile</Button>
-                            </ButtonGroup>
-                            <TextControl
-                                label="Desktop"
-                                value={ attributes.gridDesktop }
-                                onChange={ ( value ) => setAttributes( { gridDesktop: value } ) }
-                                onBlur={ () => updateGrid('desktop') }
-                                help="For example: 3-3-3-3 or 6-6"
-                            />
-                            <TextControl
-                                label="Tablet"
-                                value={ attributes.gridTablet }
-                                onChange={ ( value ) => setAttributes( { gridTablet: value } ) }
-                                onBlur={ () => updateGrid('tablet') }
-                                help="For example: 3-3-3-3 or 6-6"
-                            />
-                            <Button
-                                isSecondary
-                                type="submit"
-                            >
-                                Apply
-                            </Button>
-                        </form>
+                            Apply
+                        </Button>
                     </PanelBody>
                     <PanelBody title={ 'Style' } initialOpen={ false }>
                         <SelectControl
@@ -447,7 +427,7 @@ class WpeContainer extends Component {
                                     <MenuItem
                                         key={ layout.value }
                                         isSelected={ layout.value === deviceType }
-                                        onClick={ () => this.setState( { selectedDevice: layout.value } ) }
+                                        onClick={ () => this.setDeviceType( layout.value ) }
                                         icon={ layout.icon }
                                     >
                                         { layout.label }
@@ -457,7 +437,7 @@ class WpeContainer extends Component {
                         ) }
                     />
                 </BlockControls>
-                { edit_display }
+                { editDisplay }
             </>
         );
     }

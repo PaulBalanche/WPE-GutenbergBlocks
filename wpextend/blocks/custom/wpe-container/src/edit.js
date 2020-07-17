@@ -23,10 +23,11 @@ import {
     Dropdown,
     ToolbarGroup,
     MenuGroup,
-    MenuItem
+    MenuItem,
+    HorizontalRule
 } from '@wordpress/components';
 
-import { withSelect, dispatch, useDispatch } from '@wordpress/data';
+import { withSelect, dispatch } from '@wordpress/data';
 import { get, map, times } from 'lodash';
 import { mobile, tablet, desktop } from '@wordpress/icons';
 
@@ -261,7 +262,6 @@ class WpeContainer extends Component {
                             setAttributes( { ['grid' + layout.attributeName]: val } );
                         }}
                         onBlur={ updateGrid }
-                        help="For example: 3-3-3-3 or 6-6"
                     />
                 );
             }
@@ -352,7 +352,7 @@ class WpeContainer extends Component {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title={ 'Grid' } initialOpen={ false }>
+                    <PanelBody>
                         <RangeControl
                             label="Number of columns"
                             value={ attributes.gridCountColumns }
@@ -362,6 +362,8 @@ class WpeContainer extends Component {
                             min={ 1 }
                             max={ configTotalColumns }
                         />
+                    </PanelBody>
+                    <PanelBody title={ 'Responsive layout' } initialOpen={ true }>
                         <ButtonGroup>
                             { getLayouts().map( ( layout ) => (
                                 <Button
@@ -373,13 +375,19 @@ class WpeContainer extends Component {
                                 </Button>
                             ) ) }
                         </ButtonGroup>
-                        { gridForm }
-                        <Button
-                            isSecondary
-                            type="submit"
-                        >
-                            Apply
-                        </Button>
+                        <div class="mt-smaller">
+                            <label>Grid</label>
+                            <div class="flex">
+                                { gridForm }
+                                <Button
+                                    isSecondary
+                                    isSmall
+                                    type="submit"
+                                >
+                                    Apply
+                                </Button>
+                            </div>
+                        </div>
                     </PanelBody>
                     <PanelBody title={ 'Style' } initialOpen={ false }>
                         <SelectControl

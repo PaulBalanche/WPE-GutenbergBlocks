@@ -63,30 +63,24 @@ const withClientIdClassName = createHigherOrderComponent( ( BlockListBlock ) => 
 
             let className = '';
 
-            if( Number.isInteger(props.attributes.startDesktop) && props.attributes.startDesktop > 0 && props.attributes.startDesktop <= configTotalColumns &&
-                Number.isInteger(props.attributes.widthDesktop) && props.attributes.widthDesktop > 0 && props.attributes.widthDesktop <= configTotalColumns ) {
+            if( Number.isInteger(props.attributes.startDesktop) && props.attributes.startDesktop > 0 &&
+                Number.isInteger(props.attributes.widthDesktop) && props.attributes.widthDesktop > 0 ) {
 
                 let ColumnEndDesktop = props.attributes.startDesktop + props.attributes.widthDesktop;
-                if( ColumnEndDesktop > configTotalColumns + 1 ) { ColumnEndDesktop = configTotalColumns + 1; }
-
                 className += "gridColumnStartDesktop-" + props.attributes.startDesktop + " gridColumnEndDesktop-" + ColumnEndDesktop + " ";
             }
 
-            if( Number.isInteger(props.attributes.startTablet) && props.attributes.startTablet > 0 && props.attributes.startTablet <= configTotalColumns &&
-                Number.isInteger(props.attributes.widthTablet) && props.attributes.widthTablet > 0 && props.attributes.widthTablet <= configTotalColumns ) {
+            if( Number.isInteger(props.attributes.startTablet) && props.attributes.startTablet > 0 &&
+                Number.isInteger(props.attributes.widthTablet) && props.attributes.widthTablet > 0 ) {
 
                 let ColumnEndTablet = props.attributes.startTablet + props.attributes.widthTablet;
-                if( ColumnEndTablet > configTotalColumns + 1 ) { ColumnEndTablet = configTotalColumns + 1; }
-
                 className += "gridColumnStartTablet-" + props.attributes.startTablet + " gridColumnEndTablet-" + ColumnEndTablet + " ";
             }
 
-            if( Number.isInteger(props.attributes.startMobile) && props.attributes.startMobile > 0 && props.attributes.startMobile <= configTotalColumns &&
-                Number.isInteger(props.attributes.widthMobile) && props.attributes.widthMobile > 0 && props.attributes.widthMobile <= configTotalColumns ) {
+            if( Number.isInteger(props.attributes.startMobile) && props.attributes.startMobile > 0 &&
+                Number.isInteger(props.attributes.widthMobile) && props.attributes.widthMobile > 0 ) {
 
                 let ColumnEndMobile= props.attributes.startMobile + props.attributes.widthMobile;
-                if( ColumnEndMobile > configTotalColumns + 1 ) { ColumnEndMobile = configTotalColumns + 1; }
-
                 className += "gridColumnStartMobile-" + props.attributes.startMobile + " gridColumnEndMobile-" + ColumnEndMobile + " ";
             }
 

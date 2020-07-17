@@ -47,7 +47,7 @@
         border: none;
     }
 
-    @for $i from 1 through 20 {
+    @for $i from 1 through 100 {
         .desktop &.gridColumnStartDesktop-#{$i} {
             grid-column-start: $i;
         }
@@ -56,7 +56,7 @@
         }
     }
     
-    @for $i from 1 through 20 {
+    @for $i from 1 through 100 {
         .tablet &.gridColumnStartTablet-#{$i} {
             grid-column-start: $i;
         }
@@ -65,7 +65,7 @@
         }
     }
     
-    @for $i from 1 through 20 {
+    @for $i from 1 through 100 {
         .mobile &.gridColumnStartMobile-#{$i} {
             grid-column-start: $i;
         }

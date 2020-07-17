@@ -45,6 +45,9 @@ registerBlockType( 'custom/wpe-container', {
         marginBottom: {
             type: 'number'
         },
+        gridCountColumns: {
+            type: 'number'
+        },
         gridDesktop: {
             type: 'string'
         },

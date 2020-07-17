@@ -93,7 +93,7 @@
 /*! exports provided: totalColumns, variations, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"attributes\":{\"gridDesktop\":\"12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-2\",\"title\":\"2 column\",\"attributes\":{\"gridDesktop\":\"6-6\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":6}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":6}}],\"scope\":[\"block\"]},{\"name\":\"column-3\",\"title\":\"3 column\",\"attributes\":{\"gridDesktop\":\"4-4-4\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":5,\"width\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":9,\"width\":4}}],\"scope\":[\"block\"]},{\"name\":\"column-4\",\"title\":\"4 column\",\"attributes\":{\"gridDesktop\":\"3-3-3-3\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":4,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":10,\"width\":3}}],\"scope\":[\"block\"]},{\"name\":\"column-6\",\"title\":\"6 column\",\"attributes\":{\"gridDesktop\":\"2-2-2-2-2-2\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":3,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":5,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":9,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":11,\"width\":2}}],\"scope\":[\"block\"]}]}");
+module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"attributes\":{\"gridCountColumns\":1,\"gridDesktop\":\"12\",\"gridTablet\":\"12\",\"gridMobile\":\"12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":12,\"startTablet\":1,\"widthTablet\":12,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-2\",\"title\":\"2 column\",\"attributes\":{\"gridCountColumns\":2,\"gridDesktop\":\"6-6\",\"gridTablet\":\"6-6\",\"gridMobile\":\"12-12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":6,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":6,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-3\",\"title\":\"3 column\",\"attributes\":{\"gridCountColumns\":3,\"gridDesktop\":\"4-4-4\",\"gridTablet\":\"4-4-4\",\"gridMobile\":\"12-12-12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":4,\"startTablet\":1,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":5,\"widthDesktop\":4,\"startTablet\":5,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":9,\"widthDesktop\":4,\"startTablet\":9,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-4\",\"title\":\"4 column\",\"attributes\":{\"gridCountColumns\":4,\"gridDesktop\":\"3-3-3-3\",\"gridTablet\":\"6-6-6-6\",\"gridMobile\":\"12-12-12-12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":3,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":4,\"widthDesktop\":3,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":7,\"widthDesktop\":3,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":10,\"widthDesktop\":3,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-6\",\"title\":\"6 column\",\"attributes\":{\"gridCountColumns\":6,\"gridDesktop\":\"2-2-2-2-2-2\",\"gridTablet\":\"6-6-6-6-6-6\",\"gridMobile\":\"12-12-12-12-12-12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":3,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":5,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":7,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":9,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":11,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]}]}");
 
 /***/ }),
 
@@ -212,33 +212,18 @@ var withClientIdClassName = createHigherOrderComponent(function (BlockListBlock)
       // let wrapperProps = props.wrapperProps ? props.wrapperProps : {};
       var className = '';
 
-      if (Number.isInteger(props.attributes.startDesktop) && props.attributes.startDesktop > 0 && props.attributes.startDesktop <= configTotalColumns && Number.isInteger(props.attributes.widthDesktop) && props.attributes.widthDesktop > 0 && props.attributes.widthDesktop <= configTotalColumns) {
+      if (Number.isInteger(props.attributes.startDesktop) && props.attributes.startDesktop > 0 && Number.isInteger(props.attributes.widthDesktop) && props.attributes.widthDesktop > 0) {
         var ColumnEndDesktop = props.attributes.startDesktop + props.attributes.widthDesktop;
-
-        if (ColumnEndDesktop > configTotalColumns + 1) {
-          ColumnEndDesktop = configTotalColumns + 1;
-        }
-
         className += "gridColumnStartDesktop-" + props.attributes.startDesktop + " gridColumnEndDesktop-" + ColumnEndDesktop + " ";
       }
 
-      if (Number.isInteger(props.attributes.startTablet) && props.attributes.startTablet > 0 && props.attributes.startTablet <= configTotalColumns && Number.isInteger(props.attributes.widthTablet) && props.attributes.widthTablet > 0 && props.attributes.widthTablet <= configTotalColumns) {
+      if (Number.isInteger(props.attributes.startTablet) && props.attributes.startTablet > 0 && Number.isInteger(props.attributes.widthTablet) && props.attributes.widthTablet > 0) {
         var ColumnEndTablet = props.attributes.startTablet + props.attributes.widthTablet;
-
-        if (ColumnEndTablet > configTotalColumns + 1) {
-          ColumnEndTablet = configTotalColumns + 1;
-        }
-
         className += "gridColumnStartTablet-" + props.attributes.startTablet + " gridColumnEndTablet-" + ColumnEndTablet + " ";
       }
 
-      if (Number.isInteger(props.attributes.startMobile) && props.attributes.startMobile > 0 && props.attributes.startMobile <= configTotalColumns && Number.isInteger(props.attributes.widthMobile) && props.attributes.widthMobile > 0 && props.attributes.widthMobile <= configTotalColumns) {
+      if (Number.isInteger(props.attributes.startMobile) && props.attributes.startMobile > 0 && Number.isInteger(props.attributes.widthMobile) && props.attributes.widthMobile > 0) {
         var ColumnEndMobile = props.attributes.startMobile + props.attributes.widthMobile;
-
-        if (ColumnEndMobile > configTotalColumns + 1) {
-          ColumnEndMobile = configTotalColumns + 1;
-        }
-
         className += "gridColumnStartMobile-" + props.attributes.startMobile + " gridColumnEndMobile-" + ColumnEndMobile + " ";
       } // wrapperProps.style = {
       //     gridColumnStart: props.attributes.start,

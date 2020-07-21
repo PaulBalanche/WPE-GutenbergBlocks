@@ -6487,6 +6487,7 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
             }
           }
         });
+        var gridForm = null;
       } else {
         /**
          * Add or remove columns
@@ -6503,18 +6504,18 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
 
           Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_13__["dispatch"])('core/block-editor').replaceInnerBlocks(clientId, _inner_blocks_new, false);
         }
+
+        var gridForm = [];
         /**
          * Update grid
          */
-
 
         getLayouts().forEach(function (layout) {
           // Some declarations...
           var separatorGrid = '-';
           var totalColumns = 0;
           var newGridUpdated = [];
-          var breakArray = false; // if( layout.value === deviceType ) {
-          // Get current grid attribute
+          var breakArray = false; // Get current grid attribute
 
           var actualGrid = attributes['grid' + layout.attributeName]; // Transform into array, and ensure there aren't more columns than defined
 
@@ -6559,8 +6560,27 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
           if (newGridUpdated.join('-') != actualGrid) {
             // Finally, update grid attribute
             setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, 'grid' + layout.attributeName, newGridUpdated.join('-')));
-          } // }
+          }
+          /**
+           * Define InspectorControls Grid Form
+           */
 
+
+          if (layout.value === deviceType) {
+            newGridUpdated.forEach(function (element, index) {
+              var indexLabel = index + 1;
+              gridForm.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
+                key: index,
+                label: "Width column " + indexLabel,
+                value: element,
+                onChange: function onChange(value) {
+                  return updateColumnWidth(index, value, layout.attributeName);
+                },
+                min: 1,
+                max: configTotalColumns
+              }));
+            });
+          }
         });
         /**
          * Render edit
@@ -6575,26 +6595,22 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
           renderAppender: false
         }));
       }
-      /**
-       * Define InspectorControls Grid Form
-       */
 
+      function updateColumnWidth(indexFunction, value, gridName) {
+        var actualGrid = attributes['grid' + gridName];
+        var newGridUpdated = [];
+        var separatorGrid = '-'; // Transform into array, and ensure there aren't more columns than defined
 
-      var gridForm = null;
-      getLayouts().forEach(function (layout) {
-        if (layout.value === deviceType) {
-          gridForm = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["TextControl"], {
-            value: attributes['grid' + layout.attributeName],
-            onChange: function onChange(val) {
-              setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, 'grid' + layout.attributeName, val));
-            } // onBlur={ updateGrid }
-
-          });
-        }
-      });
+        var actualGridSplited = actualGrid.split(separatorGrid);
+        actualGridSplited.forEach(function (element, index) {
+          if (index == indexFunction) newGridUpdated.push(value);else newGridUpdated.push(element);
+        });
+        setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, 'grid' + gridName, newGridUpdated.join('-')));
+      }
       /**
        * Render
        */
+
 
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
         label: "Number of columns",
@@ -6619,13 +6635,7 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
         }, layout.label);
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
         className: "mt-smaller"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", null, "Grid"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        className: "flex"
-      }, gridForm, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["Button"], {
-        isSecondary: true,
-        isSmall: true,
-        type: "submit"
-      }, "Apply")))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], {
+      }, gridForm)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], {
         title: 'Style',
         initialOpen: false
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["SelectControl"], {

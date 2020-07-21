@@ -213,7 +213,9 @@ class WpeContainer extends Component {
         }
         else {
 
-            // Add or remove columns
+            /**
+             * Add or remove columns
+             */
             if( attributes.gridCountColumns > countColumns ) {
 
                 let numberOfColumnsToAdd = attributes.gridCountColumns - countColumns;
@@ -231,48 +233,12 @@ class WpeContainer extends Component {
                 let inner_blocks_new = inner_blocks.slice(0, attributes.gridCountColumns);
                 dispatch( 'core/block-editor' ).replaceInnerBlocks(clientId, inner_blocks_new, false);
             }
-            
-            // Render edit
-            const css = `.block-editor-block-list__layout{ grid-template-columns: repeat(` + configTotalColumns + `, [col-start] 1fr); }`
-            var editDisplay = (
-                <div className={ className } style={ sectionStyle }>
-                    <style>{css}</style>
-                    <InnerBlocks
-                        allowedBlocks={ ALLOWED_BLOCKS }
-                        renderAppender={ false }
-                    />
-                </div>
-            );
-        }
-        
-        
-
-        /**
-         * 
-         */
-        var gridForm = null;
-        getLayouts().forEach( ( layout ) => {
-
-            if( layout.value === deviceType ) {
-                
-                gridForm = (
-                    <TextControl
-                        value={ attributes['grid' + layout.attributeName] }
-                        onChange={ ( val ) => {
-                            setAttributes( { ['grid' + layout.attributeName]: val } );
-                        }}
-                        onBlur={ updateGrid }
-                    />
-                );
-            }
-        });
 
 
-        /**
-         * Update grid
-         */
-        function updateGrid( update = false ) {
 
+            /**
+             * Update grid
+             */
             getLayouts().forEach( ( layout ) => {
 
                 // Some declarations...
@@ -281,14 +247,14 @@ class WpeContainer extends Component {
                 let newGridUpdated = [];
                 let breakArray = false;
 
-                if( update || layout.value === deviceType ) {
+                // if( layout.value === deviceType ) {
 
                     // Get current grid attribute
-                    let newGrid = attributes['grid' + layout.attributeName];
+                    let actualGrid = attributes['grid' + layout.attributeName];
 
                     // Transform into array, and ensure there aren't more columns than defined
-                    newGrid = newGrid.split(separatorGrid);
-                    newGrid.forEach( ( element ) => {
+                    let actualGridSplited = actualGrid.split(separatorGrid);
+                    actualGridSplited.forEach( ( element ) => {
 
                         element = Number.parseInt(element);
 
@@ -325,24 +291,58 @@ class WpeContainer extends Component {
                         let widthChild = Number.parseInt(newGridUpdated[index]);
                         
                         // Update the child block's attributes
-                        dispatch('core/editor').updateBlockAttributes(element.clientId, { ['start' + layout.attributeName]: startGrid, ['width' + layout.attributeName]: widthChild });
+                        if( element.attributes['start' + layout.attributeName] != startGrid || element.attributes['width' + layout.attributeName] != widthChild )
+                            dispatch('core/editor').updateBlockAttributes(element.clientId, { ['start' + layout.attributeName]: startGrid, ['width' + layout.attributeName]: widthChild });
+
                         startGrid += widthChild;
                         if( startGrid > configTotalColumns )
                             startGrid = 1;
                     });
-
-                    // Finally, update grid attribute
-                    setAttributes( { ['grid' + layout.attributeName]: newGridUpdated.join('-') } );
-                }
+                    
+                    if( newGridUpdated.join('-') != actualGrid ) {
+                        // Finally, update grid attribute
+                        setAttributes( { ['grid' + layout.attributeName]: newGridUpdated.join('-') } );
+                    }
+                // }
             });
+
+
+            /**
+             * Render edit
+             */
+            const css = `.block-editor-block-list__layout{ grid-template-columns: repeat(` + configTotalColumns + `, [col-start] 1fr); }`
+            var editDisplay = (
+                <div className={ className } style={ sectionStyle }>
+                    <style>{css}</style>
+                    <InnerBlocks
+                        allowedBlocks={ ALLOWED_BLOCKS }
+                        renderAppender={ false }
+                    />
+                </div>
+            );
         }
+        
+        
 
+        /**
+         * Define InspectorControls Grid Form
+         */
+        var gridForm = null;
+        getLayouts().forEach( ( layout ) => {
 
-        function updateCountColumns( newGridCountColumns ) {
-
-            setAttributes( { gridCountColumns: newGridCountColumns } );
-            updateGrid(true);
-        }
+            if( layout.value === deviceType ) {
+                
+                gridForm = (
+                    <TextControl
+                        value={ attributes['grid' + layout.attributeName] }
+                        onChange={ ( val ) => {
+                            setAttributes( { ['grid' + layout.attributeName]: val } );
+                        }}
+                        // onBlur={ updateGrid }
+                    />
+                );
+            }
+        });
 
 
 
@@ -356,9 +356,7 @@ class WpeContainer extends Component {
                         <RangeControl
                             label="Number of columns"
                             value={ attributes.gridCountColumns }
-                            onChange={ ( value ) =>
-                                updateCountColumns(value)
-                            }
+                            onChange={ ( value ) => setAttributes( { gridCountColumns: value } ) }
                             min={ 1 }
                             max={ configTotalColumns }
                         />
@@ -375,9 +373,9 @@ class WpeContainer extends Component {
                                 </Button>
                             ) ) }
                         </ButtonGroup>
-                        <div class="mt-smaller">
+                        <div className="mt-smaller">
                             <label>Grid</label>
-                            <div class="flex">
+                            <div className="flex">
                                 { gridForm }
                                 <Button
                                     isSecondary

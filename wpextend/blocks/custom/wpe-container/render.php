@@ -1,7 +1,7 @@
 <?php
 
 function custom_wpe_container_render_callback( $attributes, $content ) {
-// pre($attributes);
+
     // Align
     $align_section = ( isset($attributes['align']) ) ? 'align' . $attributes['align'] : '';
     
@@ -20,7 +20,7 @@ function custom_wpe_container_render_callback( $attributes, $content ) {
     <section class="section ' . $align_section . ' ' . $marginTopSection . ' ' . $marginBottomSection . ' ' . $style_section . '">
         <div class="section__content ' . $paddingTopSection . ' ' . $paddingBottomSection . '">
             <div class="container">
-                <div class="row">' . $content . '</div>
+                <div class="row grid">' . $content . '</div>
             </div>
         </div>
     </section>';

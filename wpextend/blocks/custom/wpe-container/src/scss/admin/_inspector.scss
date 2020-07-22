@@ -3,7 +3,22 @@
     .flex {
         display: flex;
         justify-content: space-between;
-        align-items: baseline
+        align-items: baseline;
+
+        &.flex-2 {
+            
+            div {
+                width: 46%;
+
+                div {
+                    width: initial;
+                }
+            }
+        }
+
+        .components-base-control {
+            margin-bottom: 0;
+        }
     }
 
     .pt-none{ padding-top: 0; }

@@ -93,7 +93,7 @@
 /*! exports provided: totalColumns, variations, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"attributes\":{\"gridCountColumns\":1,\"gridDesktop\":\"12\",\"gridTablet\":\"12\",\"gridMobile\":\"12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":12,\"startTablet\":1,\"widthTablet\":12,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-2\",\"title\":\"2 column\",\"attributes\":{\"gridCountColumns\":2,\"gridDesktop\":\"6-6\",\"gridTablet\":\"6-6\",\"gridMobile\":\"12-12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":6,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":6,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-3\",\"title\":\"3 column\",\"attributes\":{\"gridCountColumns\":3,\"gridDesktop\":\"4-4-4\",\"gridTablet\":\"4-4-4\",\"gridMobile\":\"12-12-12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":4,\"startTablet\":1,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":5,\"widthDesktop\":4,\"startTablet\":5,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":9,\"widthDesktop\":4,\"startTablet\":9,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-4\",\"title\":\"4 column\",\"attributes\":{\"gridCountColumns\":4,\"gridDesktop\":\"3-3-3-3\",\"gridTablet\":\"6-6-6-6\",\"gridMobile\":\"12-12-12-12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":3,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":4,\"widthDesktop\":3,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":7,\"widthDesktop\":3,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":10,\"widthDesktop\":3,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-6\",\"title\":\"6 column\",\"attributes\":{\"gridCountColumns\":6,\"gridDesktop\":\"2-2-2-2-2-2\",\"gridTablet\":\"6-6-6-6-6-6\",\"gridMobile\":\"12-12-12-12-12-12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":3,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":5,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":7,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":9,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":11,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]}]}");
+module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"attributes\":{\"gridCountColumns\":1},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":12,\"startTablet\":1,\"widthTablet\":12,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-2\",\"title\":\"2 column\",\"attributes\":{\"gridCountColumns\":2},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":6,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":6,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-3\",\"title\":\"3 column\",\"attributes\":{\"gridCountColumns\":3},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":4,\"startTablet\":1,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":5,\"widthDesktop\":4,\"startTablet\":5,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":9,\"widthDesktop\":4,\"startTablet\":9,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-4\",\"title\":\"4 column\",\"attributes\":{\"gridCountColumns\":4},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":3,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":4,\"widthDesktop\":3,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":7,\"widthDesktop\":3,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":10,\"widthDesktop\":3,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-6\",\"title\":\"6 column\",\"attributes\":{\"gridCountColumns\":6},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":3,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":5,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":7,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":9,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":11,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]}]}");
 
 /***/ }),
 
@@ -6495,7 +6495,14 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
         if (attributes.gridCountColumns > countColumns) {
           var numberOfColumnsToAdd = attributes.gridCountColumns - countColumns;
           var inner_blocks_new = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(inner_blocks), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(Object(lodash__WEBPACK_IMPORTED_MODULE_14__["times"])(numberOfColumnsToAdd, function () {
-            return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_9__["createBlock"])('custom/wpe-column');
+            return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_9__["createBlock"])('custom/wpe-column', {
+              "startDesktop": 1,
+              "widthDesktop": 1,
+              "startTablet": 1,
+              "widthTablet": 1,
+              "startMobile": 1,
+              "widthMobile": 1
+            });
           })));
           Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_13__["dispatch"])('core/block-editor').replaceInnerBlocks(clientId, inner_blocks_new, false);
           inner_blocks = inner_blocks_new;
@@ -6511,76 +6518,42 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
          */
 
         getLayouts().forEach(function (layout) {
-          // Some declarations...
-          var separatorGrid = '-';
-          var totalColumns = 0;
-          var newGridUpdated = [];
-          var breakArray = false; // Get current grid attribute
-
-          var actualGrid = attributes['grid' + layout.attributeName]; // Transform into array, and ensure there aren't more columns than defined
-
-          var actualGridSplited = actualGrid.split(separatorGrid);
-          actualGridSplited.forEach(function (element) {
-            element = Number.parseInt(element);
-
-            if (!breakArray && Number.isInteger(element)) {
-              newGridUpdated.push(element);
-              totalColumns += element;
-
-              if (newGridUpdated.length == attributes.gridCountColumns) {
-                breakArray = true;
-              }
-            }
-          }); // Ensure all columns are defined
-
-          var missingColumns = attributes.gridCountColumns - newGridUpdated.length;
-
-          if (missingColumns > 0) {
-            do {
-              var indiceEndLine = configTotalColumns * (Math.floor(totalColumns / configTotalColumns) + 1);
-              var elementToAdd = Math.ceil((indiceEndLine - totalColumns) / missingColumns);
-              newGridUpdated.push(elementToAdd);
-              totalColumns += elementToAdd;
-              missingColumns--;
-            } while (missingColumns > 0);
-          } // Loop on each columns to update start and width attributes
-
-
-          var startGrid = 1;
+          // Loop on each columns to update start and width attributes
           inner_blocks.forEach(function (element, index) {
-            var _dispatch$updateBlock;
-
-            var widthChild = Number.parseInt(newGridUpdated[index]); // Update the child block's attributes
-
-            if (element.attributes['start' + layout.attributeName] != startGrid || element.attributes['width' + layout.attributeName] != widthChild) Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_13__["dispatch"])('core/editor').updateBlockAttributes(element.clientId, (_dispatch$updateBlock = {}, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_dispatch$updateBlock, 'start' + layout.attributeName, startGrid), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_dispatch$updateBlock, 'width' + layout.attributeName, widthChild), _dispatch$updateBlock));
-            startGrid += widthChild;
-            if (startGrid > configTotalColumns) startGrid = 1;
-          });
-
-          if (newGridUpdated.join('-') != actualGrid) {
-            // Finally, update grid attribute
-            setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, 'grid' + layout.attributeName, newGridUpdated.join('-')));
-          }
-          /**
-           * Define InspectorControls Grid Form
-           */
-
-
-          if (layout.value === deviceType) {
-            newGridUpdated.forEach(function (element, index) {
+            if (layout.value === deviceType) {
               var indexLabel = index + 1;
-              gridForm.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
-                key: index,
-                label: "Width column " + indexLabel,
-                value: element,
+              var currentStart = element.attributes['start' + layout.attributeName] - 1;
+              var currentWidth = element.attributes['width' + layout.attributeName];
+              var maxStart = configTotalColumns - currentWidth;
+              var maxWidth = configTotalColumns - currentStart;
+              var disabledStart = maxStart == 0 ? true : false;
+              maxStart = maxStart == 0 ? 1 : maxStart;
+              gridForm.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+                key: index
+              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("strong", null, "Column " + indexLabel)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+                className: "flex flex-2 mt-smaller"
+              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
+                label: "Start",
+                value: currentStart,
                 onChange: function onChange(value) {
-                  return updateColumnWidth(index, value, layout.attributeName);
+                  return updateColumnAttribute(index, 'start' + layout.attributeName, Number.parseInt(value) + 1);
+                },
+                min: 0,
+                max: maxStart,
+                withInputField: false,
+                disabled: disabledStart
+              }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
+                label: "Width",
+                value: currentWidth,
+                onChange: function onChange(value) {
+                  return updateColumnAttribute(index, 'width' + layout.attributeName, Number.parseInt(value));
                 },
                 min: 1,
-                max: configTotalColumns
-              }));
-            });
-          }
+                max: maxWidth,
+                withInputField: false
+              }))));
+            }
+          });
         });
         /**
          * Render edit
@@ -6596,16 +6569,13 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
         }));
       }
 
-      function updateColumnWidth(indexFunction, value, gridName) {
-        var actualGrid = attributes['grid' + gridName];
-        var newGridUpdated = [];
-        var separatorGrid = '-'; // Transform into array, and ensure there aren't more columns than defined
-
-        var actualGridSplited = actualGrid.split(separatorGrid);
-        actualGridSplited.forEach(function (element, index) {
-          if (index == indexFunction) newGridUpdated.push(value);else newGridUpdated.push(element);
+      function updateColumnAttribute(indexFunction, attributeName, newValue) {
+        inner_blocks.forEach(function (element, index) {
+          if (index == indexFunction) {
+            // Update the child block's attributes
+            if (element.attributes[attributeName] != newValue) Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_13__["dispatch"])('core/editor').updateBlockAttributes(element.clientId, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, attributeName, newValue));
+          }
         });
-        setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, 'grid' + gridName, newGridUpdated.join('-')));
       }
       /**
        * Render
@@ -6829,15 +6799,6 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
     },
     gridCountColumns: {
       type: 'number'
-    },
-    gridDesktop: {
-      type: 'string'
-    },
-    gridTablet: {
-      type: 'string'
-    },
-    gridMobile: {
-      type: 'string'
     }
   },
   variations: variations,

@@ -19,12 +19,12 @@ import {
     Button,
     ButtonGroup,
     RangeControl,
-    TextControl,
     Dropdown,
     ToolbarGroup,
     MenuGroup,
     MenuItem,
-    HorizontalRule
+    HorizontalRule,
+    TextControl
 } from '@wordpress/components';
 
 import { withSelect, dispatch } from '@wordpress/data';
@@ -224,7 +224,7 @@ class WpeContainer extends Component {
                 let inner_blocks_new = [
                     ...inner_blocks,
                     ...times( numberOfColumnsToAdd, () => {
-                        return createBlock('custom/wpe-column')
+                        return createBlock('custom/wpe-column', { "startDesktop": 1, "widthDesktop": 1, "startTablet": 1, "widthTablet": 1, "startMobile": 1, "widthMobile": 1 } )
                     } )
                 ];
                 dispatch( 'core/block-editor' ).replaceInnerBlocks(clientId, inner_blocks_new, false);
@@ -244,87 +244,49 @@ class WpeContainer extends Component {
              */
             getLayouts().forEach( ( layout ) => {
 
-                // Some declarations...
-                let separatorGrid = '-';
-                let totalColumns = 0;
-                let newGridUpdated = [];
-                let breakArray = false;
-
-                // Get current grid attribute
-                let actualGrid = attributes['grid' + layout.attributeName];
-
-                // Transform into array, and ensure there aren't more columns than defined
-                let actualGridSplited = actualGrid.split(separatorGrid);
-                actualGridSplited.forEach( ( element ) => {
-
-                    element = Number.parseInt(element);
-
-                    if( ! breakArray && Number.isInteger(element) ) {
-
-                        newGridUpdated.push(element);
-                        totalColumns += element;
-
-                        if( newGridUpdated.length == attributes.gridCountColumns ) {
-                            breakArray = true;
-                        }
-                    }
-                });
-                
-                // Ensure all columns are defined
-                let missingColumns = attributes.gridCountColumns - newGridUpdated.length;
-                if( missingColumns > 0 ) {
-
-                    do {
-                        let indiceEndLine = configTotalColumns * ( Math.floor( totalColumns / configTotalColumns) + 1);
-                        let elementToAdd = Math.ceil( (indiceEndLine - totalColumns) / missingColumns);
-                        newGridUpdated.push(elementToAdd);
-
-                        totalColumns += elementToAdd;
-                        missingColumns--;
-                    }
-                    while( missingColumns > 0 )
-                }
-
                 // Loop on each columns to update start and width attributes
-                let startGrid = 1;
                 inner_blocks.forEach( ( element, index ) => {
 
-                    let widthChild = Number.parseInt(newGridUpdated[index]);
-                    
-                    // Update the child block's attributes
-                    if( element.attributes['start' + layout.attributeName] != startGrid || element.attributes['width' + layout.attributeName] != widthChild )
-                        dispatch('core/editor').updateBlockAttributes(element.clientId, { ['start' + layout.attributeName]: startGrid, ['width' + layout.attributeName]: widthChild });
-
-                    startGrid += widthChild;
-                    if( startGrid > configTotalColumns )
-                        startGrid = 1;
-                });
-                
-                if( newGridUpdated.join('-') != actualGrid ) {
-                    // Finally, update grid attribute
-                    setAttributes( { ['grid' + layout.attributeName]: newGridUpdated.join('-') } );
-                }
-
-                /**
-                 * Define InspectorControls Grid Form
-                 */
-                if( layout.value === deviceType ) {
-
-                    newGridUpdated.forEach( ( element, index ) => {
+                    if( layout.value === deviceType ) {
 
                         let indexLabel = index + 1;
+                        let currentStart = element.attributes['start' + layout.attributeName] - 1;
+                        let currentWidth = element.attributes['width' + layout.attributeName];
+                        let maxStart = configTotalColumns - currentWidth;
+                        let maxWidth = configTotalColumns - currentStart;
+
+                        let disabledStart = ( maxStart == 0 ) ? true : false;
+                        maxStart = ( maxStart == 0 ) ? 1 : maxStart;
+
                         gridForm.push(
-                            <RangeControl
-                                key={index}
-                                label={"Width column " + indexLabel}
-                                value={ element }
-                                onChange={ ( value ) => updateColumnWidth(index, value, layout.attributeName) }
-                                min={ 1 }
-                                max={ configTotalColumns }
-                            />
+                            <div key={index} >
+                                <HorizontalRule />
+                                <label>
+                                    <strong>{"Column " + indexLabel}</strong>
+                                </label>
+                                <div className="flex flex-2 mt-smaller">
+                                    <RangeControl
+                                        label="Start"
+                                        value={ currentStart }
+                                        onChange={ ( value ) => updateColumnAttribute(index, 'start' + layout.attributeName, Number.parseInt(value) + 1) }
+                                        min={ 0 }
+                                        max={ maxStart }
+                                        withInputField={false}
+                                        disabled={ disabledStart }
+                                    />
+                                    <RangeControl
+                                        label="Width"
+                                        value={ currentWidth }
+                                        onChange={ ( value ) => updateColumnAttribute(index, 'width' + layout.attributeName, Number.parseInt(value)) }
+                                        min={ 1 }
+                                        max={ maxWidth }
+                                        withInputField={false}
+                                    />
+                                </div>
+                            </div>
                         );
-                    });
-                }
+                    }
+                });
             });
 
 
@@ -346,23 +308,17 @@ class WpeContainer extends Component {
 
 
 
-        function updateColumnWidth(indexFunction, value, gridName) {
+        function updateColumnAttribute(indexFunction, attributeName, newValue ) {
 
-            let actualGrid = attributes['grid' + gridName];
-            let newGridUpdated = [];
-            let separatorGrid = '-';
+            inner_blocks.forEach( ( element, index ) => {
 
-            // Transform into array, and ensure there aren't more columns than defined
-            let actualGridSplited = actualGrid.split(separatorGrid);
-            actualGridSplited.forEach( ( element, index ) => {
+                if( index == indexFunction ) {
 
-                if( index == indexFunction )
-                    newGridUpdated.push(value);
-                else
-                    newGridUpdated.push(element);
+                    // Update the child block's attributes
+                    if( element.attributes[attributeName] != newValue )
+                        dispatch('core/editor').updateBlockAttributes(element.clientId, { [attributeName]: newValue });
+                }
             });
-
-            setAttributes( { ['grid' + gridName]: newGridUpdated.join('-') } );
         }
 
 

@@ -47,15 +47,6 @@ registerBlockType( 'custom/wpe-container', {
         },
         gridCountColumns: {
             type: 'number'
-        },
-        gridDesktop: {
-            type: 'string'
-        },
-        gridTablet: {
-            type: 'string'
-        },
-        gridMobile: {
-            type: 'string'
         }
     },
     variations,

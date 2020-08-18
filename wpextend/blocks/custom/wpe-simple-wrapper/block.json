@@ -1,0 +1,16 @@
+{
+    "name": "custom/wpe-simple-wrapper",
+	"title": "Wrapper",
+	"attributes": {
+        "element": {
+            "type": "string",
+            "default": "div"
+        },
+        "class": {
+            "type": "string"
+        }
+    },
+	"supports": {
+        "lightBlockWrapper": true
+    }
+}

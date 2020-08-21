@@ -76,7 +76,11 @@
     }
 
     .wp-block-custom-wpe-container {
-    
+        
+        display: grid;
+        grid-gap: 10px;
+        padding: 0 10px;
+
         &.pt-none{ padding-top: 0; }
         &.pt-smaller{ padding-top: $base_padding / 4; }
         &.pt-small  { padding-top: $base_padding / 2; }
@@ -104,14 +108,6 @@
         &.mb-medium { margin-bottom: $base_padding; }
         &.mb-big    { margin-bottom: $base_padding * 2;  }
         &.mb-bigger { margin-bottom: $base_padding * 4; }
-
-        .block-editor-block-list__layout {
-            // display: flex;
-            padding: 0 10px;
-
-            display: grid;
-            grid-gap: 10px;
-        }
 
         .wp-block {
             max-width: 99%;

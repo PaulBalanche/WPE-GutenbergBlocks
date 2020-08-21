@@ -101,14 +101,18 @@ class WpeContainer extends Component {
         const deviceType = this.getDeviceType();
 
         className += ' ' + deviceType;       
+        let sectionStyle = {
+            gridTemplateColumns: 'repeat(' + configTotalColumns + ', [col-start] 1fr)',
+            gridTemplateRows: 'repeat(40, [row-start] 1fr)'
+
+        };
 
         // Custom style section
-        let sectionStyle = {};
         if( backgroundData !== null && typeof backgroundData != 'undefined' && backgroundData.media_type == 'image' ) {
-            sectionStyle = {
+            Object.assign(sectionStyle, {
                 background: 'url(' + backgroundData.media_details.sizes.thumbnail.source_url + ') no-repeat center center',
                 backgroundSize: 'cover'
-            };
+            });
         }
 
         // Section background
@@ -224,7 +228,7 @@ class WpeContainer extends Component {
                 let inner_blocks_new = [
                     ...inner_blocks,
                     ...times( numberOfColumnsToAdd, () => {
-                        return createBlock('custom/wpe-column', { "startDesktop": 1, "widthDesktop": 1, "startTablet": 1, "widthTablet": 1, "startMobile": 1, "widthMobile": 1 } )
+                        return createBlock('custom/wpe-column')
                     } )
                 ];
                 dispatch( 'core/block-editor' ).replaceInnerBlocks(clientId, inner_blocks_new, false);
@@ -250,13 +254,20 @@ class WpeContainer extends Component {
                     if( layout.value === deviceType ) {
 
                         let indexLabel = index + 1;
-                        let currentStart = element.attributes['start' + layout.attributeName] - 1;
-                        let currentWidth = element.attributes['width' + layout.attributeName];
-                        let maxStart = configTotalColumns - currentWidth;
-                        let maxWidth = configTotalColumns - currentStart;
 
-                        let disabledStart = ( maxStart == 0 ) ? true : false;
-                        maxStart = ( maxStart == 0 ) ? 1 : maxStart;
+                        // Column
+                        let currentColumnStart = element.attributes['columnStart' + layout.attributeName] - 1;
+                        let currentWidth = element.attributes['width' + layout.attributeName];
+                        let maxColumnStart = configTotalColumns - currentWidth;
+                        let maxWidth = configTotalColumns - currentColumnStart;
+
+                        let disabledStart = ( maxColumnStart == 0 ) ? true : false;
+                        maxColumnStart = ( maxColumnStart == 0 ) ? 1 : maxColumnStart;
+
+                        // Row
+                        let currentRowStart = element.attributes['rowStart' + layout.attributeName] - 1;
+                        let currentHeight = element.attributes['height' + layout.attributeName];
+
 
                         gridForm.push(
                             <div key={index} >
@@ -266,11 +277,11 @@ class WpeContainer extends Component {
                                 </label>
                                 <div className="flex flex-2 mt-smaller">
                                     <RangeControl
-                                        label="Start"
-                                        value={ currentStart }
-                                        onChange={ ( value ) => updateColumnAttribute(index, 'start' + layout.attributeName, Number.parseInt(value) + 1) }
+                                        label="Column start"
+                                        value={ currentColumnStart }
+                                        onChange={ ( value ) => updateColumnAttribute(index, 'columnStart' + layout.attributeName, Number.parseInt(value) + 1) }
                                         min={ 0 }
-                                        max={ maxStart }
+                                        max={ maxColumnStart }
                                         withInputField={false}
                                         disabled={ disabledStart }
                                     />
@@ -280,6 +291,24 @@ class WpeContainer extends Component {
                                         onChange={ ( value ) => updateColumnAttribute(index, 'width' + layout.attributeName, Number.parseInt(value)) }
                                         min={ 1 }
                                         max={ maxWidth }
+                                        withInputField={false}
+                                    />
+                                </div>
+                                <div className="flex flex-2">
+                                    <RangeControl
+                                        label="Row start"
+                                        value={ currentRowStart }
+                                        onChange={ ( value ) => updateColumnAttribute(index, 'rowStart' + layout.attributeName, Number.parseInt(value) + 1) }
+                                        min={ 0 }
+                                        max="20"
+                                        withInputField={false}
+                                    />
+                                    <RangeControl
+                                        label="Height"
+                                        value={ currentHeight }
+                                        onChange={ ( value ) => updateColumnAttribute(index, 'height' + layout.attributeName, Number.parseInt(value)) }
+                                        min={ 1 }
+                                        max="40"
                                         withInputField={false}
                                     />
                                 </div>
@@ -294,15 +323,16 @@ class WpeContainer extends Component {
             /**
              * Render edit
              */
-            const css = `.block-editor-block-list__layout{ grid-template-columns: repeat(` + configTotalColumns + `, [col-start] 1fr); }`
             var editDisplay = (
-                <div className={ className } style={ sectionStyle }>
-                    <style>{css}</style>
-                    <InnerBlocks
-                        allowedBlocks={ ALLOWED_BLOCKS }
-                        renderAppender={ false }
-                    />
-                </div>
+                <InnerBlocks
+                    __experimentalTagName={ Block.div }
+                    __experimentalPassedProps={ {
+                        className: className,
+                        style: sectionStyle
+                    } }
+                    allowedBlocks={ ALLOWED_BLOCKS }
+                    renderAppender={ false }
+                />
             );
         }
 

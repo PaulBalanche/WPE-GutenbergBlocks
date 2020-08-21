@@ -54,6 +54,12 @@
         .desktop &.gridColumnEndDesktop-#{$i} {
             grid-column-end: $i;
         }
+        .desktop &.gridRowStartDesktop-#{$i} {
+            grid-row-start: $i;
+        }
+        .desktop &.gridRowEndDesktop-#{$i} {
+            grid-row-end: $i;
+        }
     }
     
     @for $i from 1 through 100 {
@@ -63,6 +69,12 @@
         .tablet &.gridColumnEndTablet-#{$i} {
             grid-column-end: $i;
         }
+        .tablet &.gridRowStartTablet-#{$i} {
+            grid-row-start: $i;
+        }
+        .tablet &.gridRowEndTablet-#{$i} {
+            grid-row-end: $i;
+        }
     }
     
     @for $i from 1 through 100 {
@@ -71,6 +83,12 @@
         }
         .mobile &.gridColumnEndMobile-#{$i} {
             grid-column-end: $i;
+        }
+        .mobile &.gridRowStartMobile-#{$i} {
+            grid-row-start: $i;
+        }
+        .mobile &.gridRowEndMobile-#{$i} {
+            grid-row-end: $i;
         }
     }
 

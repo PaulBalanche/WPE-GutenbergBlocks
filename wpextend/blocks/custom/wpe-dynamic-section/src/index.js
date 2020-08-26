@@ -103,6 +103,7 @@ frontspec.layouts.forEach( ( element ) => {
             } )
             ( ( { attributes, setAttributes, inner_blocks, clientId } ) => {
 
+                // frontspec V1
                 if( typeof(inner_blocks ) != 'object' || ( typeof(inner_blocks ) == 'object' && inner_blocks.length == 0 ) ) {
 
                     var new_inner_blocks = [];
@@ -112,6 +113,34 @@ frontspec.layouts.forEach( ( element ) => {
                     });
                     dispatch( 'core/block-editor' ).replaceInnerBlocks(clientId, new_inner_blocks, false);
                 }
+
+                // frontspec V2
+                // var wrapper_inner_blocks = '';
+                // // <div className="test">
+                //     <InnerBlocks
+                //             allowedBlocks={ [ 'custom/wpe-simple-wrapper' ] }
+                //             __experimentalTagName={ Block[element.tag] }
+                //             __experimentalPassedProps={ {
+                //                 className: element.class,
+                //             } }
+                //             renderAppender={ false }
+                //         />
+                // // </div>;
+                // ;
+                // if( typeof(inner_blocks ) != 'object' || ( typeof(inner_blocks ) == 'object' && inner_blocks.length == 0 ) ) {
+
+                //     // var new_inner_blocks = [];
+                //     element.layout.forEach( ( block ) => {
+
+                //         wrapper_inner_blocks = React.createElement(
+                //             block.tag,
+                //             { className: block.class },
+                //             <InnerBlocks renderAppender={ false } />
+                //         );
+                //         // new_inner_blocks.push( createBlock('custom/wpe-simple-wrapper', { "element": "div", "class": block.class }) );
+                //     });
+                //     // dispatch( 'core/block-editor' ).replaceInnerBlocks(clientId, new_inner_blocks, false);
+                // }
 
                 
                 var inspector = [];
@@ -199,9 +228,7 @@ frontspec.layouts.forEach( ( element ) => {
         } ),
         save: () => {
             return (
-                <section className={ element.class } >
-			        <InnerBlocks.Content />
-                </section>
+                <InnerBlocks.Content />
             );
         }
     } );

@@ -93,7 +93,7 @@
 /*! exports provided: totalColumns, variations, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"attributes\":{\"gridCountColumns\":1},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":12,\"startTablet\":1,\"widthTablet\":12,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-2\",\"title\":\"2 column\",\"attributes\":{\"gridCountColumns\":2},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":6,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":6,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-3\",\"title\":\"3 column\",\"attributes\":{\"gridCountColumns\":3},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":4,\"startTablet\":1,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":5,\"widthDesktop\":4,\"startTablet\":5,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":9,\"widthDesktop\":4,\"startTablet\":9,\"widthTablet\":4,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-4\",\"title\":\"4 column\",\"attributes\":{\"gridCountColumns\":4},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":3,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":4,\"widthDesktop\":3,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":7,\"widthDesktop\":3,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":10,\"widthDesktop\":3,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-6\",\"title\":\"6 column\",\"attributes\":{\"gridCountColumns\":6},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":1,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":3,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":5,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":7,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":9,\"widthDesktop\":2,\"startTablet\":1,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"startDesktop\":11,\"widthDesktop\":2,\"startTablet\":7,\"widthTablet\":6,\"startMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]}]}");
+module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"attributes\":{\"gridCountColumns\":1},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":1,\"widthDesktop\":12,\"columnStartTablet\":1,\"widthTablet\":12,\"columnStartMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-2\",\"title\":\"2 column\",\"attributes\":{\"gridCountColumns\":2},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":1,\"widthDesktop\":6,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":1,\"widthDesktop\":6,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-3\",\"title\":\"3 column\",\"attributes\":{\"gridCountColumns\":3},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":1,\"widthDesktop\":4,\"columnStartTablet\":1,\"widthTablet\":4,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":5,\"widthDesktop\":4,\"columnStartTablet\":5,\"widthTablet\":4,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":9,\"widthDesktop\":4,\"columnStartTablet\":9,\"widthTablet\":4,\"columnStartMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-4\",\"title\":\"4 column\",\"attributes\":{\"gridCountColumns\":4,\"gridLocked\":true},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":1,\"widthDesktop\":3,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":4,\"widthDesktop\":3,\"columnStartTablet\":7,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":7,\"widthDesktop\":3,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":10,\"widthDesktop\":3,\"columnStartTablet\":7,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-6\",\"title\":\"6 column\",\"attributes\":{\"gridCountColumns\":6},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":1,\"widthDesktop\":2,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":3,\"widthDesktop\":2,\"columnStartTablet\":7,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":5,\"widthDesktop\":2,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":7,\"widthDesktop\":2,\"columnStartTablet\":7,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":9,\"widthDesktop\":2,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":11,\"widthDesktop\":2,\"columnStartTablet\":7,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]}]}");
 
 /***/ }),
 
@@ -6372,15 +6372,15 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
           blockVariations = _this$props.blockVariations,
           blockType = _this$props.blockType;
       var deviceType = this.getDeviceType();
-      className += ' ' + deviceType; // Custom style section
-
+      className += ' ' + deviceType;
       var sectionStyle = {};
+      var heightGridTemplateRows = 1; // Custom style section
 
       if (backgroundData !== null && typeof backgroundData != 'undefined' && backgroundData.media_type == 'image') {
-        sectionStyle = {
+        Object.assign(sectionStyle, {
           background: 'url(' + backgroundData.media_details.sizes.thumbnail.source_url + ') no-repeat center center',
           backgroundSize: 'cover'
-        };
+        });
       } // Section background
 
 
@@ -6495,14 +6495,7 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
         if (attributes.gridCountColumns > countColumns) {
           var numberOfColumnsToAdd = attributes.gridCountColumns - countColumns;
           var inner_blocks_new = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(inner_blocks), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(Object(lodash__WEBPACK_IMPORTED_MODULE_14__["times"])(numberOfColumnsToAdd, function () {
-            return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_9__["createBlock"])('custom/wpe-column', {
-              "startDesktop": 1,
-              "widthDesktop": 1,
-              "startTablet": 1,
-              "widthTablet": 1,
-              "startMobile": 1,
-              "widthMobile": 1
-            });
+            return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_9__["createBlock"])('custom/wpe-column');
           })));
           Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_13__["dispatch"])('core/block-editor').replaceInnerBlocks(clientId, inner_blocks_new, false);
           inner_blocks = inner_blocks_new;
@@ -6521,27 +6514,41 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
           // Loop on each columns to update start and width attributes
           inner_blocks.forEach(function (element, index) {
             if (layout.value === deviceType) {
-              var indexLabel = index + 1;
-              var currentStart = element.attributes['start' + layout.attributeName] - 1;
+              var indexLabel = index + 1; // Column
+
+              var currentColumnStart = element.attributes['columnStart' + layout.attributeName] - 1;
               var currentWidth = element.attributes['width' + layout.attributeName];
-              var maxStart = configTotalColumns - currentWidth;
-              var maxWidth = configTotalColumns - currentStart;
-              var disabledStart = maxStart == 0 ? true : false;
-              maxStart = maxStart == 0 ? 1 : maxStart;
+              var maxColumnStart = configTotalColumns - currentWidth;
+              var maxWidth = configTotalColumns - currentColumnStart;
+              var disabledColumnStart = maxColumnStart == 0 ? true : false;
+              maxColumnStart = maxColumnStart == 0 ? 1 : maxColumnStart; // Row
+
+              var currentRowStart = element.attributes['rowStart' + layout.attributeName] - 1;
+              var currentHeight = element.attributes['height' + layout.attributeName];
+              if (currentRowStart + currentHeight > heightGridTemplateRows) heightGridTemplateRows = currentRowStart + currentHeight;
+              var maxHeight = heightGridTemplateRows + 1;
+              var RowStart = maxHeight - currentHeight;
               gridForm.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
                 key: index
               }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("strong", null, "Column " + indexLabel)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
                 className: "flex flex-2 mt-smaller"
               }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
-                label: "Start",
-                value: currentStart,
+                label: "Column start",
+                value: currentColumnStart,
                 onChange: function onChange(value) {
-                  return updateColumnAttribute(index, 'start' + layout.attributeName, Number.parseInt(value) + 1);
+                  return updateColumnAttribute(index, 'columnStart' + layout.attributeName, Number.parseInt(value) + 1);
                 },
                 min: 0,
-                max: maxStart,
+                max: maxColumnStart,
+                marks: [{
+                  value: 0,
+                  label: '0'
+                }, {
+                  value: maxColumnStart,
+                  label: maxColumnStart
+                }],
                 withInputField: false,
-                disabled: disabledStart
+                disabled: disabledColumnStart
               }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
                 label: "Width",
                 value: currentWidth,
@@ -6550,6 +6557,47 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
                 },
                 min: 1,
                 max: maxWidth,
+                marks: [{
+                  value: 0,
+                  label: '1'
+                }, {
+                  value: maxWidth,
+                  label: maxWidth
+                }],
+                withInputField: false
+              })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+                className: "flex flex-2"
+              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
+                label: "Row start",
+                value: currentRowStart,
+                onChange: function onChange(value) {
+                  return updateColumnAttribute(index, 'rowStart' + layout.attributeName, Number.parseInt(value) + 1);
+                },
+                min: 0,
+                max: RowStart,
+                marks: [{
+                  value: 0,
+                  label: '0'
+                }, {
+                  value: RowStart,
+                  label: RowStart
+                }],
+                withInputField: false
+              }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
+                label: "Height",
+                value: currentHeight,
+                onChange: function onChange(value) {
+                  return updateColumnAttribute(index, 'height' + layout.attributeName, Number.parseInt(value));
+                },
+                min: 1,
+                max: maxHeight,
+                marks: [{
+                  value: 0,
+                  label: '1'
+                }, {
+                  value: maxHeight,
+                  label: maxHeight
+                }],
                 withInputField: false
               }))));
             }
@@ -6559,15 +6607,21 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
          * Render edit
          */
 
-        var css = ".block-editor-block-list__layout{ grid-template-columns: repeat(" + configTotalColumns + ", [col-start] 1fr); }";
-        var editDisplay = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-          className: className,
-          style: sectionStyle
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("style", null, css), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["InnerBlocks"], {
+        var editDisplay = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["InnerBlocks"], {
+          __experimentalTagName: _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["__experimentalBlock"].div,
+          __experimentalPassedProps: {
+            className: className,
+            style: sectionStyle
+          },
           allowedBlocks: ALLOWED_BLOCKS,
           renderAppender: false
-        }));
+        });
       }
+
+      Object.assign(sectionStyle, {
+        gridTemplateColumns: 'repeat(' + configTotalColumns + ', [col-start] 1fr)',
+        gridTemplateRows: 'repeat(' + heightGridTemplateRows + ', [row-start] 1fr)'
+      });
 
       function updateColumnAttribute(indexFunction, attributeName, newValue) {
         inner_blocks.forEach(function (element, index) {
@@ -6576,103 +6630,110 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
             if (element.attributes[attributeName] != newValue) Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_13__["dispatch"])('core/editor').updateBlockAttributes(element.clientId, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, attributeName, newValue));
           }
         });
+      } // InspectorControls
+
+
+      var inspectorControls = '';
+
+      if (!attributes.gridLocked) {
+        inspectorControls = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
+          label: "Number of columns",
+          value: attributes.gridCountColumns,
+          onChange: function onChange(value) {
+            return setAttributes({
+              gridCountColumns: value
+            });
+          },
+          min: 1,
+          max: configTotalColumns
+        })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], {
+          title: 'Responsive layout',
+          initialOpen: true
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["ButtonGroup"], null, getLayouts().map(function (layout) {
+          return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["Button"], {
+            key: layout.value,
+            isPrimary: layout.value === deviceType,
+            onClick: function onClick() {
+              return _this2.setDeviceType(layout.value);
+            }
+          }, layout.label);
+        })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+          className: "mt-smaller"
+        }, gridForm)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], {
+          title: 'Style',
+          initialOpen: false
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["SelectControl"], {
+          label: "Style",
+          value: attributes.style,
+          options: [{
+            label: 'Default',
+            value: ''
+          }, {
+            label: 'Light',
+            value: 'light'
+          }, {
+            label: 'Dark',
+            value: 'dark'
+          }],
+          onChange: function onChange(value) {
+            return setAttributes({
+              style: value
+            });
+          }
+        })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], {
+          title: 'Background',
+          initialOpen: false
+        }, mediaPlaceholder), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], {
+          title: 'Padding/Margin',
+          initialOpen: false
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
+          label: "Padding Top",
+          value: attributes.paddingTop,
+          onChange: function onChange(value) {
+            return setAttributes({
+              paddingTop: value
+            });
+          },
+          min: 0,
+          max: 5
+        }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
+          label: "Padding Bottom",
+          value: attributes.paddingBottom,
+          onChange: function onChange(value) {
+            return setAttributes({
+              paddingBottom: value
+            });
+          },
+          min: 0,
+          max: 5
+        }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
+          label: "Margin Top",
+          value: attributes.marginTop,
+          onChange: function onChange(value) {
+            return setAttributes({
+              marginTop: value
+            });
+          },
+          min: 0,
+          max: 5
+        }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
+          label: "Margin Bottom",
+          value: attributes.marginBottom,
+          onChange: function onChange(value) {
+            return setAttributes({
+              marginBottom: value
+            });
+          },
+          min: 0,
+          max: 5
+        })));
       }
       /**
        * Render
        */
 
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
-        label: "Number of columns",
-        value: attributes.gridCountColumns,
-        onChange: function onChange(value) {
-          return setAttributes({
-            gridCountColumns: value
-          });
-        },
-        min: 1,
-        max: configTotalColumns
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], {
-        title: 'Responsive layout',
-        initialOpen: true
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["ButtonGroup"], null, getLayouts().map(function (layout) {
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["Button"], {
-          key: layout.value,
-          isPrimary: layout.value === deviceType,
-          onClick: function onClick() {
-            return _this2.setDeviceType(layout.value);
-          }
-        }, layout.label);
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        className: "mt-smaller"
-      }, gridForm)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], {
-        title: 'Style',
-        initialOpen: false
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["SelectControl"], {
-        label: "Style",
-        value: attributes.style,
-        options: [{
-          label: 'Default',
-          value: ''
-        }, {
-          label: 'Light',
-          value: 'light'
-        }, {
-          label: 'Dark',
-          value: 'dark'
-        }],
-        onChange: function onChange(value) {
-          return setAttributes({
-            style: value
-          });
-        }
-      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], {
-        title: 'Background',
-        initialOpen: false
-      }, mediaPlaceholder), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], {
-        title: 'Padding/Margin',
-        initialOpen: false
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
-        label: "Padding Top",
-        value: attributes.paddingTop,
-        onChange: function onChange(value) {
-          return setAttributes({
-            paddingTop: value
-          });
-        },
-        min: 0,
-        max: 5
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
-        label: "Padding Bottom",
-        value: attributes.paddingBottom,
-        onChange: function onChange(value) {
-          return setAttributes({
-            paddingBottom: value
-          });
-        },
-        min: 0,
-        max: 5
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
-        label: "Margin Top",
-        value: attributes.marginTop,
-        onChange: function onChange(value) {
-          return setAttributes({
-            marginTop: value
-          });
-        },
-        min: 0,
-        max: 5
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["RangeControl"], {
-        label: "Margin Bottom",
-        value: attributes.marginBottom,
-        onChange: function onChange(value) {
-          return setAttributes({
-            marginBottom: value
-          });
-        },
-        min: 0,
-        max: 5
-      }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["BlockControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["Dropdown"], {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["BlockControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["Dropdown"], {
         renderToggle: function renderToggle(_ref2) {
           var isOpen = _ref2.isOpen,
               onToggle = _ref2.onToggle;
@@ -6768,9 +6829,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("g", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
     d: "M13.6,23.6c-0.1,0-0.2,0-0.2-0.1c-0.2-0.1-0.2-0.3-0.2-0.4v-9.5c0-0.2,0.1-0.3,0.2-0.4l8.2-4.7c0.2-0.1,0.3-0.1,0.5,0      c0.2,0.1,0.2,0.3,0.2,0.4v9.5c0,0.2-0.1,0.3-0.3,0.4l-8.2,4.7C13.8,23.6,13.7,23.6,13.6,23.6z M14.1,13.9v8.3l7.2-4.2V9.8      L14.1,13.9z"
   })))))),
-  category: 'layout',
   supports: {
-    align: ['full', 'wide']
+    align: ['full', 'wide'],
+    lightBlockWrapper: true
   },
   attributes: {
     style: {
@@ -6799,6 +6860,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
     },
     gridCountColumns: {
       type: 'number'
+    },
+    gridLocked: {
+      type: 'boolean',
+      default: false
     }
   },
   variations: variations,

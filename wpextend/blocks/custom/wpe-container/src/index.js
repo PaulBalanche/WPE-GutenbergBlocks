@@ -47,6 +47,10 @@ registerBlockType( 'custom/wpe-container', {
         },
         gridCountColumns: {
             type: 'number'
+        },
+        gridLocked: {
+            type: 'boolean',
+            default: false
         }
     },
     variations,

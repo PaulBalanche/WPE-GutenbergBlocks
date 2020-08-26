@@ -101,11 +101,8 @@ class WpeContainer extends Component {
         const deviceType = this.getDeviceType();
 
         className += ' ' + deviceType;       
-        let sectionStyle = {
-            gridTemplateColumns: 'repeat(' + configTotalColumns + ', [col-start] 1fr)',
-            gridTemplateRows: 'repeat(40, [row-start] 1fr)'
-
-        };
+        let sectionStyle = {};
+        var heightGridTemplateRows = 1;
 
         // Custom style section
         if( backgroundData !== null && typeof backgroundData != 'undefined' && backgroundData.media_type == 'image' ) {
@@ -261,13 +258,18 @@ class WpeContainer extends Component {
                         let maxColumnStart = configTotalColumns - currentWidth;
                         let maxWidth = configTotalColumns - currentColumnStart;
 
-                        let disabledStart = ( maxColumnStart == 0 ) ? true : false;
+                        let disabledColumnStart = ( maxColumnStart == 0 ) ? true : false;
                         maxColumnStart = ( maxColumnStart == 0 ) ? 1 : maxColumnStart;
 
                         // Row
                         let currentRowStart = element.attributes['rowStart' + layout.attributeName] - 1;
                         let currentHeight = element.attributes['height' + layout.attributeName];
 
+                        if( currentRowStart + currentHeight > heightGridTemplateRows )
+                            heightGridTemplateRows = currentRowStart + currentHeight;
+
+                        let maxHeight = heightGridTemplateRows + 1;
+                        let RowStart = maxHeight - currentHeight;
 
                         gridForm.push(
                             <div key={index} >
@@ -282,8 +284,18 @@ class WpeContainer extends Component {
                                         onChange={ ( value ) => updateColumnAttribute(index, 'columnStart' + layout.attributeName, Number.parseInt(value) + 1) }
                                         min={ 0 }
                                         max={ maxColumnStart }
+                                        marks={ [
+                                            {
+                                                value: 0,
+                                                label: '0',
+                                            },
+                                            {
+                                                value: maxColumnStart,
+                                                label: maxColumnStart,
+                                            }
+                                        ] }                                       
                                         withInputField={false}
-                                        disabled={ disabledStart }
+                                        disabled={ disabledColumnStart }
                                     />
                                     <RangeControl
                                         label="Width"
@@ -291,6 +303,16 @@ class WpeContainer extends Component {
                                         onChange={ ( value ) => updateColumnAttribute(index, 'width' + layout.attributeName, Number.parseInt(value)) }
                                         min={ 1 }
                                         max={ maxWidth }
+                                        marks={ [
+                                            {
+                                                value: 0,
+                                                label: '1',
+                                            },
+                                            {
+                                                value: maxWidth,
+                                                label: maxWidth,
+                                            }
+                                        ] }    
                                         withInputField={false}
                                     />
                                 </div>
@@ -300,7 +322,17 @@ class WpeContainer extends Component {
                                         value={ currentRowStart }
                                         onChange={ ( value ) => updateColumnAttribute(index, 'rowStart' + layout.attributeName, Number.parseInt(value) + 1) }
                                         min={ 0 }
-                                        max="20"
+                                        max={ RowStart }
+                                        marks={ [
+                                            {
+                                                value: 0,
+                                                label: '0',
+                                            },
+                                            {
+                                                value: RowStart,
+                                                label: RowStart,
+                                            }
+                                        ] }    
                                         withInputField={false}
                                     />
                                     <RangeControl
@@ -308,7 +340,17 @@ class WpeContainer extends Component {
                                         value={ currentHeight }
                                         onChange={ ( value ) => updateColumnAttribute(index, 'height' + layout.attributeName, Number.parseInt(value)) }
                                         min={ 1 }
-                                        max="40"
+                                        max={ maxHeight }
+                                        marks={ [
+                                            {
+                                                value: 0,
+                                                label: '1',
+                                            },
+                                            {
+                                                value: maxHeight,
+                                                label: maxHeight,
+                                            }
+                                        ] }    
                                         withInputField={false}
                                     />
                                 </div>
@@ -336,6 +378,10 @@ class WpeContainer extends Component {
             );
         }
 
+        Object.assign(sectionStyle, {
+            gridTemplateColumns: 'repeat(' + configTotalColumns + ', [col-start] 1fr)',
+            gridTemplateRows: 'repeat(' + heightGridTemplateRows + ', [row-start] 1fr)'
+        });
 
 
         function updateColumnAttribute(indexFunction, attributeName, newValue ) {
@@ -351,13 +397,11 @@ class WpeContainer extends Component {
             });
         }
 
+        // InspectorControls
+        let inspectorControls = '';
+        if( ! attributes.gridLocked ) {
 
-
-        /**
-         * Render
-         */
-        return (
-            <>
+            inspectorControls = (
                 <InspectorControls>
                     <PanelBody>
                         <RangeControl
@@ -440,6 +484,15 @@ class WpeContainer extends Component {
                         />
                     </PanelBody>
                 </InspectorControls>
+            );
+        }
+
+        /**
+         * Render
+         */
+        return (
+            <>
+                { inspectorControls }
                 <BlockControls>
                     <Dropdown
                         renderToggle={ ( { isOpen, onToggle } ) => (

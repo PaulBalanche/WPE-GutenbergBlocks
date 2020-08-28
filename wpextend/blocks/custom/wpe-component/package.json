@@ -13,6 +13,7 @@
     "@wordpress/scripts": "10.0.0"
   },
   "dependencies": {
-    "@wordpress/icons": "^2.4.0"
+    "@wordpress/icons": "^2.4.0",
+    "@wordpress/server-side-render": "^1.16.6"
   }
 }

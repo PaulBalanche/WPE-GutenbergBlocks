@@ -2,5 +2,5 @@
 
 function custom_wpe_component_render_callback( $attributes, $content ) {
 
-    return $content;
+    return print_r($attributes, true);
 }

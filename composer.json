@@ -1,0 +1,12 @@
+{
+    "name": "paul.balanche/custom-theme",
+    "authors": [
+        {
+            "name": "paul.balanche",
+            "email": "pb@buzzbrothers.ch"
+        }
+    ],
+    "require": {
+        "timber/timber": "^1.18"
+    }
+}

@@ -1,0 +1,96 @@
+{
+  "assets": {
+    "css": [
+      {
+        "name": "main",
+        "type": "style",
+        "path": "./dist/index.css"
+      }
+    ],
+    "js": [
+      {
+        "name": "main",
+        "type": "bare",
+        "path": "./dist/index.js"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "s-google-map",
+      "name": "Google map",
+      "description": "Allows you to display nice google maps in your website",
+      "tag": "s-google-map",
+      "path": "s-google-map.twig",
+      "props": {
+        "title": {
+          "label": "Title",
+          "type": "string",
+          "category": "cat1"
+        },
+        "subtitle": {
+          "label": "Subtitle",
+          "type": "string",
+          "category": "cat1"
+        },
+        "api-key": {
+          "label": "API key",
+          "type": "string",
+          "category": "cat2",
+          "required": true,
+          "description": "Google map API key",
+          "default": "AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4"
+        },
+        "zoom": {
+          "label": "Zoom",
+          "type": "number",
+          "description": "Specify the zoom you want on the map",
+          "default": 4
+        }
+      },
+      "category_props": [
+        {
+          "id": "cat1",
+          "name": "Ma super categorie"
+        },
+        {
+          "id": "cat2",
+          "name": "Hého !!!"
+        }
+      ]
+    },
+    {
+      "id": "demo",
+      "name": "Demo",
+      "category": "cat1",
+      "description": "Allows you to display nice google maps in your website",
+      "props": {
+        "string": {
+          "label": "String",
+          "type": "string"
+        },
+        "number": {
+          "label": "Number",
+          "type": "number",
+          "default": 4
+        },
+        "text": {
+          "label": "Text",
+          "type": "text"
+        },
+        "boolean": {
+          "label": "Boolean",
+          "type": "boolean"
+        },
+        "image": {
+          "label": "Image",
+          "type": "image"
+        },
+        "gallery": {
+          "label": "Gallery",
+          "type": "gallery"
+        }
+      }
+    }
+  ]
+}

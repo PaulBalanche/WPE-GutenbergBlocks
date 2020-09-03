@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"tag\":\"s-google-map\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\",\"category\":\"cat1\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\",\"category\":\"cat1\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"category\":\"cat2\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"category_props\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"category\":\"cat1\",\"description\":\"Allows you to display nice google maps in your website\",\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4},\"text\":{\"label\":\"Text\",\"type\":\"text\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\"},\"image\":{\"label\":\"Image\",\"type\":\"image\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"tag\":\"s-google-map\",\"path\":\"s-google-map.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\",\"category\":\"cat1\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\",\"category\":\"cat1\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"category\":\"cat2\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"category_props\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"category\":\"cat1\",\"description\":\"Allows you to display nice google maps in your website\",\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4},\"text\":{\"label\":\"Text\",\"type\":\"text\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\"},\"image\":{\"label\":\"Image\",\"type\":\"image\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\"}}}]}");
 
 /***/ }),
 
@@ -321,7 +321,12 @@ var _frontspec_json__WEBPACK_IMPORTED_MODULE_7___namespace = /*#__PURE__*/__webp
 
 
 _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (element) {
-  var initAttributes = {};
+  var initAttributes = {
+    id: {
+      type: 'string',
+      default: element.id
+    }
+  };
 
   for (var _i = 0, _Object$entries = Object.entries(element.props); _i < _Object$entries.length; _i++) {
     var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_Object$entries[_i], 2),
@@ -398,7 +403,7 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
 
       var catReOrder = {
         default: {
-          props: []
+          props: {}
         }
       }; // 1. Loop Props Categories
 
@@ -409,7 +414,7 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
 
         catReOrder[valueCatProps.id] = {
           name: valueCatProps.name,
-          props: []
+          props: {}
         };
       } // 2. Loop Props
 
@@ -420,9 +425,9 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
             valueProp = _Object$entries3$_i[1];
 
         if (typeof valueProp.category != 'undefined' && valueProp.category in catReOrder) {
-          catReOrder[valueProp.category].props.push(valueProp);
+          catReOrder[valueProp.category].props[keyProp] = valueProp;
         } else {
-          catReOrder['default'].props.push(valueProp);
+          catReOrder['default'].props[keyProp] = valueProp;
         }
       } // 3. Render
 
@@ -467,7 +472,7 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
                 type: "number",
                 value: attributes[keyProp],
                 onChange: function onChange(value) {
-                  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, key, parseInt(value, 10)));
+                  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, parseInt(value, 10)));
                 }
               })));
               break;

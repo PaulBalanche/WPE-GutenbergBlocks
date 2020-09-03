@@ -10,7 +10,11 @@ if( file_exists( get_stylesheet_directory() . '/frontspec.json' ) ) {
 
             $temp_args_register = [];
             if( isset($component['props']) && is_array($component['props']) ) {
-                $temp_args_register['attributes'] = [];
+                $temp_args_register['attributes'] = [
+                    'id' => [
+                        'type' => 'string'
+                    ]
+                ];
                 foreach( $component['props'] as $key_props => $val_prop ) {
                     $temp_args_register['attributes'][$key_props] = [
                         'type' => $val_prop['type']

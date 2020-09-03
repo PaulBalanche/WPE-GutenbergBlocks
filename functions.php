@@ -1,5 +1,27 @@
 <?php
 
+
+/**
+ * Composer Autolad
+ *
+ */
+require_once( __DIR__ . '/vendor/autoload.php' );
+
+
+
+/**
+ * 1. Load Timber
+ * 2. Get Timber context or instance basic array
+ * 
+ */
+$timber = new Timber\Timber();
+// add_action('template_redirect', 'init_context');
+// function init_context() {
+// 	global $context;
+// 	$context = Timber\Timber::get_context();
+// }
+
+
 function my_custom_format_script_register() {
     wp_register_script(
         'my-custom-format-js',

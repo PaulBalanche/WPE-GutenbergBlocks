@@ -22,7 +22,12 @@ import {
 
 frontspec.components.forEach( ( element ) => {
 
-    var initAttributes = {};
+    var initAttributes = {
+        id: {
+            type: 'string',
+            default: element.id
+        }
+    };
 
     for (const [key, value] of Object.entries(element.props)) {
         
@@ -91,23 +96,23 @@ frontspec.components.forEach( ( element ) => {
 
             // Edition mode
             let catReOrder = {
-                default: { props: [] }
+                default: { props: {} }
             };
 
             // 1. Loop Props Categories
             for (const [keyCatProps, valueCatProps] of Object.entries(element.category_props)) {
 
-                catReOrder[valueCatProps.id] = { name: valueCatProps.name, props: [] }
+                catReOrder[valueCatProps.id] = { name: valueCatProps.name, props: {} }
             }
 
             // 2. Loop Props
             for (const [keyProp, valueProp] of Object.entries(element.props)) {
 
                 if( typeof valueProp.category != 'undefined' && valueProp.category in catReOrder ) {
-                    catReOrder[valueProp.category].props.push(valueProp);
+                    catReOrder[valueProp.category].props[keyProp] = valueProp;
                 }
                 else {
-                    catReOrder['default'].props.push(valueProp);
+                    catReOrder['default'].props[keyProp] = valueProp;
                 }
             }
 
@@ -147,7 +152,7 @@ frontspec.components.forEach( ( element ) => {
                                         type="number"
                                         value={ attributes[keyProp] }
                                         onChange={ ( value ) =>
-                                            setAttributes( { [key]: parseInt( value, 10 ) } )
+                                            setAttributes( { [keyProp]: parseInt( value, 10 ) } )
                                         }
                                     />
                                 </div>

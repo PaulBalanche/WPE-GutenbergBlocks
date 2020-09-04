@@ -20,8 +20,7 @@
       "id": "s-google-map",
       "name": "Google map",
       "description": "Allows you to display nice google maps in your website",
-      "tag": "s-google-map",
-      "path": "s-google-map.twig",
+      "path": "s-google-map/render.twig",
       "props": {
         "title": {
           "label": "Title",
@@ -48,7 +47,7 @@
           "default": 4
         }
       },
-      "category_props": [
+      "props_categories": [
         {
           "id": "cat1",
           "name": "Ma super categorie"
@@ -62,12 +61,17 @@
     {
       "id": "demo",
       "name": "Demo",
-      "category": "cat1",
-      "description": "Allows you to display nice google maps in your website",
+      "description": "Ma super demo",
+      "path": "demo.twig",
       "props": {
         "string": {
           "label": "String",
           "type": "string"
+        },
+        "string_repeat": {
+          "label": "String repeatable",
+          "type": "string",
+          "repeatable": true
         },
         "number": {
           "label": "Number",

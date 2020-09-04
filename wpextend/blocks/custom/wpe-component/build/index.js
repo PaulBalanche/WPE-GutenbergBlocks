@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"tag\":\"s-google-map\",\"path\":\"s-google-map.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\",\"category\":\"cat1\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\",\"category\":\"cat1\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"category\":\"cat2\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"category_props\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"category\":\"cat1\",\"description\":\"Allows you to display nice google maps in your website\",\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4},\"text\":{\"label\":\"Text\",\"type\":\"text\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\"},\"image\":{\"label\":\"Image\",\"type\":\"image\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\",\"category\":\"cat1\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\",\"category\":\"cat1\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"category\":\"cat2\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\"},\"string_repeat\":{\"label\":\"String repeatable\",\"type\":\"string\",\"repeatable\":true},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4},\"text\":{\"label\":\"Text\",\"type\":\"text\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\"},\"image\":{\"label\":\"Image\",\"type\":\"image\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\"}}}]}");
 
 /***/ }),
 
@@ -293,10 +293,10 @@ module.exports = _unsupportedIterableToArray;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
@@ -330,54 +330,60 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
 
   for (var _i = 0, _Object$entries = Object.entries(element.props); _i < _Object$entries.length; _i++) {
     var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_Object$entries[_i], 2),
-        _key = _Object$entries$_i[0],
+        key = _Object$entries$_i[0],
         value = _Object$entries$_i[1];
 
-    switch (value.type) {
+    var currentType = value.type;
+
+    if (typeof value.repeatable != 'undefined' && value.repeatable) {
+      currentType = 'array';
+    }
+
+    switch (currentType) {
       case 'string':
-        initAttributes[_key] = {
+        initAttributes[key] = {
           type: 'string'
         };
         break;
 
       case 'text':
-        initAttributes[_key] = {
+        initAttributes[key] = {
           type: 'string'
         };
         break;
 
       case 'boolean':
-        initAttributes[_key] = {
+        initAttributes[key] = {
           type: 'boolean'
         };
         break;
 
       case 'array':
-        initAttributes[_key] = {
+        initAttributes[key] = {
           type: 'array'
         };
         break;
 
       case 'object':
-        initAttributes[_key] = {
+        initAttributes[key] = {
           type: 'object'
         };
         break;
 
       case 'number':
-        initAttributes[_key] = {
+        initAttributes[key] = {
           type: 'number'
         };
         break;
 
       case 'image':
-        initAttributes[_key] = {
+        initAttributes[key] = {
           type: 'object'
         };
         break;
 
       case 'gallery':
-        initAttributes[_key] = {
+        initAttributes[key] = {
           type: 'array'
         };
         break;
@@ -387,6 +393,7 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
   Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_4__["registerBlockType"])('custom/wpe-component-' + element.id, {
     title: element.name,
     attributes: initAttributes,
+    description: element.description,
     edit: function edit(props) {
       var attributes = props.attributes,
           setAttributes = props.setAttributes,
@@ -407,15 +414,17 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
         }
       }; // 1. Loop Props Categories
 
-      for (var _i2 = 0, _Object$entries2 = Object.entries(element.category_props); _i2 < _Object$entries2.length; _i2++) {
-        var _Object$entries2$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_Object$entries2[_i2], 2),
-            keyCatProps = _Object$entries2$_i[0],
-            valueCatProps = _Object$entries2$_i[1];
+      if (typeof element.props_categories != 'undefined') {
+        for (var _i2 = 0, _Object$entries2 = Object.entries(element.props_categories); _i2 < _Object$entries2.length; _i2++) {
+          var _Object$entries2$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_Object$entries2[_i2], 2),
+              keyCatProps = _Object$entries2$_i[0],
+              valueCatProps = _Object$entries2$_i[1];
 
-        catReOrder[valueCatProps.id] = {
-          name: valueCatProps.name,
-          props: {}
-        };
+          catReOrder[valueCatProps.id] = {
+            name: valueCatProps.name,
+            props: {}
+          };
+        }
       } // 2. Loop Props
 
 
@@ -451,16 +460,44 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
 
           switch (valueProp.type) {
             case 'string':
-              currentEditCat.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
-                key: clientId + "-" + keyProp + "-container"
-              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["TextControl"], {
-                key: clientId + "-" + keyProp,
-                label: valueProp.label,
-                value: attributes[keyProp],
-                onChange: function onChange(value) {
-                  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, value));
-                }
-              })));
+              if (typeof valueProp.repeatable != 'undefined' && valueProp.repeatable == true) {
+                if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(attributes[keyProp]) != "object" || attributes[keyProp].length == 0) setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyProp, [""]));
+                var tempHtml = [];
+                attributes[keyProp].forEach(function (valueRepeatableAttribute, indexRepeatableAttribute) {
+                  tempHtml.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["TextControl"], {
+                    key: clientId + "-" + keyProp + "-" + indexRepeatableAttribute,
+                    label: valueProp.label + " " + indexRepeatableAttribute,
+                    value: valueRepeatableAttribute,
+                    onChange: function onChange(value) {
+                      return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyProp, attributes[keyProp].map(function (valueMapTemp, keyMapTemp) {
+                        if (keyMapTemp == indexRepeatableAttribute) return value;
+                        return valueMapTemp;
+                      })));
+                    }
+                  }));
+                });
+                currentEditCat.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+                  key: clientId + "-" + keyProp + "-container"
+                }, tempHtml, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Button"], {
+                  isSecondary: true,
+                  isSmall: true,
+                  onClick: function onClick() {
+                    return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyProp, attributes[keyProp].concat([""])));
+                  }
+                }, "Add")));
+              } else {
+                currentEditCat.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+                  key: clientId + "-" + keyProp + "-container"
+                }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["TextControl"], {
+                  key: clientId + "-" + keyProp,
+                  label: valueProp.label,
+                  value: attributes[keyProp],
+                  onChange: function onChange(value) {
+                    return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyProp, value));
+                  }
+                })));
+              }
+
               break;
 
             case 'number':
@@ -472,7 +509,7 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
                 type: "number",
                 value: attributes[keyProp],
                 onChange: function onChange(value) {
-                  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, parseInt(value, 10)));
+                  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyProp, parseInt(value, 10)));
                 }
               })));
               break;
@@ -485,7 +522,7 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
                 label: valueProp.label,
                 value: attributes[keyProp],
                 onChange: function onChange(value) {
-                  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, value));
+                  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyProp, value));
                 }
               })));
               break;
@@ -498,18 +535,18 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
                 label: valueProp.label,
                 help: 'Help text',
                 checked: false
-              }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_createElement, "help", attributes[keyProp] ? 'Enable' : 'Disable'), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_createElement, "checked", attributes[keyProp]), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_createElement, "onChange", function onChange(value) {
-                return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, value));
+              }, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_createElement, "help", attributes[keyProp] ? 'Enable' : 'Disable'), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_createElement, "checked", attributes[keyProp]), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_createElement, "onChange", function onChange(value) {
+                return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyProp, value));
               }), _createElement))));
               break;
 
             case 'image':
-              var imagePreview = !!(attributes[keyProp] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(attributes[keyProp]) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
+              var imagePreview = !!(attributes[keyProp] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(attributes[keyProp]) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
                 key: clientId + "-edit-image",
                 alt: "Edit image",
                 title: "Edit image",
                 className: "edit-image-preview",
-                src: attributes[key].url
+                src: attributes[keyProp].url
               });
               var removeImage = '';
 
@@ -520,7 +557,7 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
                   isSmall: true,
                   className: "block-library-cover__reset-button",
                   onClick: function onClick() {
-                    return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, undefined));
+                    return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyProp, undefined));
                   }
                 }, "Remove");
               }
@@ -531,7 +568,7 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
                 key: clientId + "-" + keyProp,
                 label: valueProp.label,
                 onSelect: function onSelect(value) {
-                  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, {
+                  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyProp, {
                     id: value.id,
                     url: value.url
                   }));
@@ -545,18 +582,37 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
               break;
 
             case 'gallery':
-              var removeGallery = !!(attributes[keyProp] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(attributes[keyProp]) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Button"], {
+              var removeGallery = !!(attributes[keyProp] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(attributes[keyProp]) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Button"], {
                 key: clientId + "-remove-gallery",
                 isSecondary: true,
                 isSmall: true,
                 className: "block-library-cover__reset-button",
                 onClick: function onClick() {
-                  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, undefined));
+                  return setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyProp, undefined));
                 }
               }, "Remove");
+              var galleryPreview = '';
+
+              if (removeGallery) {
+                var ulGalleryPreview = [];
+                attributes[keyProp].forEach(function (image) {
+                  ulGalleryPreview.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("li", {
+                    className: "blocks-gallery-item"
+                  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
+                    key: clientId + "-gallery-image" + image.id,
+                    src: image.url
+                  })));
+                });
+                galleryPreview = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("figure", {
+                  className: "wp-block-gallery columns-3"
+                }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("ul", {
+                  className: "blocks-gallery-grid"
+                }, ulGalleryPreview));
+              }
+
               currentEditCat.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
                 key: clientId + "-" + keyProp + "-container"
-              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["MediaPlaceholder"], {
+              }, galleryPreview, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["MediaPlaceholder"], {
                 key: clientId + "-" + keyProp,
                 label: valueProp.label,
                 onSelect: function onSelect(value) {
@@ -567,7 +623,7 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_7__.components.forEach(function (elemen
                       url: image.url
                     });
                   });
-                  setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, newGallery));
+                  setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, keyProp, newGallery));
                 },
                 allowedTypes: ['image'],
                 multiple: true,

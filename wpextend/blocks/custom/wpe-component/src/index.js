@@ -1,23 +1,19 @@
-import { createBlock, registerBlockType } from '@wordpress/blocks';
+import { registerBlockType } from '@wordpress/blocks';
 import ServerSideRender from '@wordpress/server-side-render';
 
 import {
     InnerBlocks,
-    InspectorControls,
-    MediaPlaceholder,
-    __experimentalBlock as Block
+    MediaPlaceholder
 } from '@wordpress/block-editor';
 
 import frontspec from '../../../../../frontspec.json';
 
 import {
-    HorizontalRule,
     TextControl,
     TextareaControl,
     ToggleControl,
     Button,
-    Placeholder,
-    Panel, PanelBody, PanelRow
+    Placeholder
 } from '@wordpress/components';
 
 frontspec.components.forEach( ( element ) => {
@@ -31,7 +27,12 @@ frontspec.components.forEach( ( element ) => {
 
     for (const [key, value] of Object.entries(element.props)) {
         
-        switch( value.type ) {
+        let currentType = value.type;
+        if( typeof value.repeatable != 'undefined' && value.repeatable ) {
+            currentType = 'array';
+        }
+
+        switch( currentType ) {
             case 'string':
                 initAttributes[key] = {
                     type: 'string'
@@ -79,6 +80,7 @@ frontspec.components.forEach( ( element ) => {
     registerBlockType( 'custom/wpe-component-' + element.id, {
         title: element.name,
         attributes: initAttributes,
+        description: element.description,
         edit: ( props ) => {
 
             const { attributes, setAttributes, isSelected, clientId } = props;
@@ -100,9 +102,11 @@ frontspec.components.forEach( ( element ) => {
             };
 
             // 1. Loop Props Categories
-            for (const [keyCatProps, valueCatProps] of Object.entries(element.category_props)) {
+            if( typeof element.props_categories != 'undefined' ) {
+                for (const [keyCatProps, valueCatProps] of Object.entries(element.props_categories)) {
 
-                catReOrder[valueCatProps.id] = { name: valueCatProps.name, props: {} }
+                    catReOrder[valueCatProps.id] = { name: valueCatProps.name, props: {} }
+                }
             }
 
             // 2. Loop Props
@@ -129,18 +133,61 @@ frontspec.components.forEach( ( element ) => {
 
                     switch( valueProp.type ) {
                         case 'string':
-                            currentEditCat.push(
-                                <div key={ clientId + "-" + keyProp + "-container" } >
-                                    <TextControl
-                                        key={ clientId + "-" + keyProp }
-                                        label={ valueProp.label }
-                                        value={ attributes[keyProp] }
-                                        onChange={ ( value ) =>
-                                            setAttributes( { [keyProp]: value } )
-                                        }
-                                    />
-                                </div>
-                            );
+
+                            if( typeof valueProp.repeatable != 'undefined' && valueProp.repeatable == true ) {
+
+                                if( typeof attributes[keyProp] != "object" || attributes[keyProp].length == 0 )
+                                    setAttributes( { [keyProp]: [ "" ] } );
+
+                                let tempHtml = [];
+                                attributes[keyProp].forEach( ( valueRepeatableAttribute, indexRepeatableAttribute ) => {
+                                    
+                                    tempHtml.push(
+                                        <TextControl
+                                            key={ clientId + "-" + keyProp + "-" + indexRepeatableAttribute }
+                                            label={ valueProp.label + " " + indexRepeatableAttribute }
+                                            value={ valueRepeatableAttribute }
+                                            onChange={ ( value ) =>
+                                                setAttributes( { [keyProp]: attributes[keyProp].map( function( valueMapTemp, keyMapTemp ) {
+                                                    if( keyMapTemp == indexRepeatableAttribute )
+                                                        return value;
+                                                    
+                                                    return valueMapTemp;
+                                                } ) } )
+                                            }
+                                        />
+                                    );
+                                });
+
+                                currentEditCat.push(
+                                    <div key={ clientId + "-" + keyProp + "-container" } >
+                                        { tempHtml }
+                                        <Button
+                                            isSecondary
+                                            isSmall
+                                            onClick={ () =>
+                                                setAttributes( { [keyProp]: attributes[keyProp].concat([""]) } )
+                                            }
+                                        >Add</Button>
+                                    </div>
+                                );
+                            }
+                            else {
+
+                                currentEditCat.push(
+                                    <div key={ clientId + "-" + keyProp + "-container" } >
+                                        <TextControl
+                                            key={ clientId + "-" + keyProp }
+                                            label={ valueProp.label }
+                                            value={ attributes[keyProp] }
+                                            onChange={ ( value ) =>
+                                                setAttributes( { [keyProp]: value } )
+                                            }
+                                        />
+                                    </div>
+                                );
+                            }
+                            
                             break;
 
                         case 'number':
@@ -200,7 +247,7 @@ frontspec.components.forEach( ( element ) => {
                                     alt="Edit image"
                                     title="Edit image"
                                     className="edit-image-preview"
-                                    src={ attributes[key].url }
+                                    src={ attributes[keyProp].url }
                                 />
                             );
                             let removeImage = '';
@@ -255,9 +302,34 @@ frontspec.components.forEach( ( element ) => {
                                     }
                                 >Remove</Button>
                             );
+                            
+                            let galleryPreview = '';
+                            if( removeGallery ) {
+                                
+                                let ulGalleryPreview = [];
+                                attributes[keyProp].forEach(image => {
+                                    ulGalleryPreview.push(
+                                        <li className="blocks-gallery-item">
+                                            <img
+                                                key={ clientId + "-gallery-image" + image.id }
+                                                src={ image.url }
+                                            />
+                                        </li>
+                                    );
+                                });
+                                
+                                galleryPreview = (
+                                    <figure className="wp-block-gallery columns-3">
+                                        <ul className="blocks-gallery-grid">
+                                            { ulGalleryPreview }
+                                        </ul>
+                                    </figure>
+                                );
+                            }
 
                             currentEditCat.push(
                                 <div key={ clientId + "-" + keyProp + "-container" } >
+                                    { galleryPreview }
                                     <MediaPlaceholder
                                         key={ clientId + "-" + keyProp }
                                         label={ valueProp.label }

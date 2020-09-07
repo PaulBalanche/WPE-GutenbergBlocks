@@ -16,8 +16,13 @@ if( file_exists( get_stylesheet_directory() . '/frontspec.json' ) ) {
                     ]
                 ];
                 foreach( $component['props'] as $key_props => $val_prop ) {
+
+                    $currentType = $val_prop['type'];
+                    if( isset($val_prop['repeatable']) && $val_prop['repeatable'] == true ) {
+                        $currentType = 'array';
+                    }
                     $temp_args_register['attributes'][$key_props] = [
-                        'type' => $val_prop['type']
+                        'type' => $currentType
                     ];
                 }
             }

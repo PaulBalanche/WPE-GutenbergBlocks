@@ -27,70 +27,279 @@ class WpeComponent extends Component {
     }
 
     setAttributes( attributes ) {
-		this.props.setAttributes( attributes );
+        this.props.setAttributes( attributes );
+    }
+
+    updateAttributes( key, currentValue, keyNewValue, newValue, isNumber = false, repeatable = false ) {
+
+        if( ! repeatable ) {
+            newValue = !! isNumber ? parseInt( newValue, 10 ) : newValue;
+        }
+        else {
+            newValue = currentValue.map( function( valueMapTemp, keyMapTemp ) {
+                if( keyMapTemp == keyNewValue )
+                    return !! isNumber ? parseInt( newValue, 10 ) : newValue;
+                
+                return valueMapTemp;
+            } );
+        }
+
+        this.setAttributes( { [key]: newValue } );
     }
     
-    renderTextControl( label, keyProp, isNumber = false, repeatable = false ) {
+    renderControl( type, label, keyProp, repeatable = false ) {
+        
+        let blocReturned = [];
+        let currentValueAttribute = this.getAttribute(keyProp);
 
-        if( !! repeatable ) {
+        if( ! repeatable )
+            currentValueAttribute = [ currentValueAttribute ];
+        else if( typeof currentValueAttribute != "object" || currentValueAttribute.length == 0 )
+            currentValueAttribute = [ "" ];
 
-            let currentValueAttribute = this.getAttribute(keyProp);
-            if( typeof currentValueAttribute != "object" || currentValueAttribute.length == 0 )
-                currentValueAttribute = [ "" ];
+        for (const keyLoop in currentValueAttribute) {
 
-            let tempHtml = [];
-            currentValueAttribute.forEach( ( valueRepeatableAttribute, indexRepeatableAttribute ) => {
+            switch(type) {
+
+                case 'string':
+                    blocReturned.push( this.renderTextControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, keyProp, currentValueAttribute, keyLoop, false, repeatable ) );
+                    break;
+
+                case 'number':
+                    blocReturned.push( this.renderTextControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, keyProp, currentValueAttribute, keyLoop, true, repeatable ) );
+                    break;
+
+                case 'text':
+                    blocReturned.push( this.renderTextareaControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, keyProp, currentValueAttribute, keyLoop, repeatable ) );
+                    break;
+
+                case 'boolean':
+                    blocReturned.push( this.renderToggleControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, 'Help', keyProp, currentValueAttribute, keyLoop, repeatable ) );
+                    break;
+
+                case 'image':
+                    blocReturned.push( this.renderImageControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, keyProp, currentValueAttribute, keyLoop, repeatable ) );
+                    break;
                 
-                tempHtml.push(
-                    <TextControl
-                        key={ this.props.clientId + "-" + keyProp + "-" + indexRepeatableAttribute }
-                        label={ label + " (" + indexRepeatableAttribute + ")" }
-                        type={ !! isNumber ? "number" : "text" }
-                        value={ valueRepeatableAttribute }
-                        onChange={ ( value ) =>
-                            this.setAttributes( { [keyProp]: currentValueAttribute.map( function( valueMapTemp, keyMapTemp ) {
-                                if( keyMapTemp == indexRepeatableAttribute )
-                                    return value;
-                                
-                                return valueMapTemp;
-                            } ) } )
-                        }
-                    />
-                );
-            });
+                case 'gallery':
+                    blocReturned.push( this.renderGalleryControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, keyProp, currentValueAttribute, keyLoop, repeatable ) );
+                    break;
+            }
+        }
 
-            return (
-                <div key={ this.props.clientId + "-" + keyProp + "-container" } >
-                    { tempHtml }
-                    <Button
-                        isSecondary
-                        isSmall
-                        onClick={ () =>
-                            this.setAttributes( { [keyProp]: currentValueAttribute.concat([""]) } )
-                        }
-                    >Add</Button>
-                </div>
+        // Add repeatable button
+        if( !! repeatable ) {
+            blocReturned.push(
+                <Button
+                    key={ this.props.clientId + "-" + keyProp + "-add"}
+                    isSecondary
+                    isSmall
+                    onClick={ () =>
+                        this.setAttributes( { [keyProp]: currentValueAttribute.concat([""]) } )
+                    }
+                >Add</Button>
             );
 
-        }
-        else{
-
-            return (
-                <div key={ this.props.clientId + "-" + keyProp + "-container" } >
-                    <TextControl
-                        key={ this.props.clientId + "-" + keyProp }
-                        label={ label }
-                        type={ !! isNumber ? "number" : "text" }
-                        value={ this.getAttribute(keyProp) }
-                        onChange={ ( value ) =>
-                            this.setAttributes( { [keyProp]: parseInt( value, 10 ) } )
-                        }
-                    />
-                </div>
+            blocReturned = (
+                <fieldset key={ this.props.clientId + "-" + keyProp + "-fieldsetContainer"} >
+                    <legend key={ this.props.clientId + "-" + keyProp + "-fieldsetContainer-legend"} >{ label }</legend>
+                    { blocReturned }
+                </fieldset>
             );
         }
+
+        // Return
+        return (
+            <>
+                { blocReturned }
+            </>
+        );
     }
 
+    renderTextControl( id, label, keyProp, objectValue, keyObjectValue, isNumber = false, repeatable = false ) {
+
+        return (
+            <TextControl
+                key={ id }
+                label={ ! repeatable ? label : false }
+                type={ !! isNumber ? "number" : "text" }
+                value={ objectValue[keyObjectValue] }
+                onChange={ ( newValue ) =>
+                    this.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, isNumber, repeatable)
+                }
+            />
+        );
+    }
+
+    renderTextareaControl( id, label, keyProp, objectValue, keyObjectValue, repeatable = false ) {
+
+        return (
+            <TextareaControl
+                key={ id }
+                label={ ! repeatable ? label : false }
+                value={ objectValue[keyObjectValue] }
+                onChange={ ( newValue ) =>
+                    this.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable)
+                }
+            />
+        );
+    }
+
+    renderToggleControl( id, label, help, keyProp, objectValue, keyObjectValue, repeatable = false ) {
+
+        return (
+            <ToggleControl
+                key={ id }
+                label={ ! repeatable ? label : false }
+                help={ help }
+                checked={ objectValue[keyObjectValue] }
+                onChange={ ( newValue ) =>
+                    this.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable)
+                }
+            />
+        );
+    }
+
+    renderImageControl( id, label, keyProp, objectValue, keyObjectValue, repeatable = false ) {
+
+        let imagePreview = !! ( objectValue[keyObjectValue] && typeof objectValue[keyObjectValue] == 'object' ) && (
+            <img
+                key={ id + "-imagePreview" }
+                alt="Edit image"
+                title="Edit image"
+                className="edit-image-preview"
+                src={ objectValue[keyObjectValue].url }
+            />
+        );
+        let removeImage = '';
+        if ( imagePreview ) {
+            removeImage = (
+                <Button
+                    key={ id + "-removeImage" }
+                    isSecondary
+                    isSmall
+                    className="block-library-cover__reset-button"
+                    onClick={ () =>
+                        this.setAttributes( { [keyProp]: undefined } )
+                    }
+                >Remove</Button>
+            );
+        }
+
+        return (
+            <fieldset key={ id + "-fieldsetMediaPlaceholder"} >
+                <legend key={ id + "-fieldsetMediaPlaceholder-legend"} >{ label }</legend>
+                <MediaPlaceholder
+                    key={ id }
+                    labels={ { title: label } }
+                    onSelect={ ( value ) =>
+                        this.setAttributes( { [keyProp]: {
+                            id: value.id,
+                            url: value.url
+                        } } )
+                    }
+                    allowedTypes= { [ 'image' ] }
+                    mediaPreview={ imagePreview }
+                    value={ objectValue[keyObjectValue] }
+                    disableDropZone={ true }
+                >
+                    { removeImage }
+                </MediaPlaceholder>
+            </fieldset>
+        );
+    }
+
+    renderGalleryControl( id, label, keyProp, objectValue, keyObjectValue, repeatable = false ) {
+
+        let removeGallery = !! ( objectValue[keyObjectValue] && typeof objectValue[keyObjectValue] == 'object' ) && (
+            <Button
+                key={ id + "-removeGallery" }
+                isSecondary
+                isSmall
+                className="block-library-cover__reset-button"
+                onClick={ () => {
+
+                        let countImages = objectValue[keyObjectValue].length;
+                        if( countImages > 1 )
+                            this.setAttributes( { [keyProp]: objectValue[keyObjectValue].slice(0, countImages - 1) } )
+                        else
+                            this.setAttributes( { [keyProp]: undefined } )
+                    }
+                }
+            >Remove</Button>
+        );
+        
+        let galleryPreview = '';
+        if( removeGallery ) {
+            
+            let ulGalleryPreview = [];
+            objectValue[keyObjectValue].forEach(image => {
+                ulGalleryPreview.push(
+                    <li
+                        key={ id + "-galleryImageContainerLi" + image.id }
+                        className="blocks-gallery-item"
+                    >
+                        <img
+                            key={ id + "-galleryImage_" + image.id }
+                            src={ image.url }
+                        />
+                    </li>
+                );
+            });
+            
+            let columns = objectValue[keyObjectValue].length;
+            if( columns > 5 ) {
+                columns = 5;
+            }
+            galleryPreview = (
+                <figure 
+                    key={ id + "-galleryImagefigure" }
+                    className={ "wp-block-gallery columns-" + columns }
+                >
+                    <ul
+                        key={ id + "-galleryImageContainerUl" }
+                        className="blocks-gallery-grid"
+                    >
+                        { ulGalleryPreview }
+                    </ul>
+                </figure>
+            );
+        }
+
+        return (
+            <fieldset key={ id + "-fieldsetMediaPlaceholder"} >
+                <legend key={ id + "-fieldsetMediaPlaceholder-legend"} >{ label }</legend>
+                { galleryPreview }
+                <MediaPlaceholder
+                    key={ id }
+                    labels={ { title: label } }
+                    onSelect={ ( value ) => {
+
+                            let newGallery = [];
+                            value.forEach(image => {
+                                newGallery.push( {
+                                    id: image.id,
+                                    url: image.url
+                                } )
+                            });
+                            this.setAttributes( { [keyProp]: newGallery } )
+                        }
+                    }
+                    allowedTypes= { [ 'image' ] }
+                    multiple= { true }
+                    addToGallery= { !! objectValue[keyObjectValue] }
+                    value={ objectValue[keyObjectValue] }
+                    disableDropZone={ true }
+                >
+                    { removeGallery }
+                </MediaPlaceholder>
+            </fieldset>
+        );
+    }
+
+    /**
+     * Render
+     */
     render() {
 
         const { attributes, setAttributes, isSelected, clientId } = this.props;
@@ -146,187 +355,20 @@ class WpeComponent extends Component {
                         let currentEditCat = [];
 
                         for (const [keyProp, valueProp] of Object.entries(valCat.props)) {
-
-                            switch( valueProp.type ) {
-                                case 'string':
-
-                                    currentEditCat.push(
-                                        this.renderTextControl( valueProp.label, keyProp, false, valueProp.repeatable )
-                                    );
-                                    break;
-
-                                case 'number':
-                                    currentEditCat.push(
-                                        this.renderTextControl( valueProp.label, keyProp, true, valueProp.repeatable )
-                                    );
-                                    break;
-                        
-                                case 'text':
-                                    currentEditCat.push(
-                                        <div key={ clientId + "-" + keyProp + "-container" } >
-                                            <TextareaControl
-                                                key={ clientId + "-" + keyProp }
-                                                label={ valueProp.label }
-                                                value={ attributes[keyProp] }
-                                                onChange={ ( value ) =>
-                                                    this.setAttributes( { [keyProp]: value } )
-                                                }
-                                            />
-                                        </div>
-                                    );
-                                    break;
-                
-                                case 'boolean':
-                                    currentEditCat.push(
-                                        <div key={ clientId + "-" + keyProp + "-container" } >
-                                            <ToggleControl
-                                                key={ clientId + "-" + keyProp }
-                                                label={ valueProp.label }
-                                                help={ 'Help text' }
-                                                checked={ false }
-                                                help={ attributes[keyProp] ? 'Enable' : 'Disable' }
-                                                checked={ attributes[keyProp] }
-                                                onChange={ ( value ) =>
-                                                    setAttributes( { [keyProp]: value } )
-                                                }
-                                            />
-                                        </div>
-                                    );
-                                    break;
-
-                                case 'image':
-
-                                    let imagePreview = !! ( attributes[keyProp] && typeof attributes[keyProp] == 'object' ) && (
-                                        <img
-                                            key={ clientId + "-edit-image" }
-                                            alt="Edit image"
-                                            title="Edit image"
-                                            className="edit-image-preview"
-                                            src={ attributes[keyProp].url }
-                                        />
-                                    );
-                                    let removeImage = '';
-                                    if ( imagePreview ) {
-                                        removeImage = (
-                                            <Button
-                                                key={ clientId + "-remove-image" }
-                                                isSecondary
-                                                isSmall
-                                                className="block-library-cover__reset-button"
-                                                onClick={ () =>
-                                                    setAttributes( { [keyProp]: undefined } )
-                                                }
-                                            >Remove</Button>
-                                        );
-                                    }
-
-                                    currentEditCat.push(
-                                        <div key={ clientId + "-" + keyProp + "-container" } >
-                                            <MediaPlaceholder
-                                                key={ clientId + "-" + keyProp }
-                                                label={ valueProp.label }
-                                                onSelect={ ( value ) =>
-                                                    setAttributes( { [keyProp]: {
-                                                        id: value.id,
-                                                        url: value.url
-                                                    } } )
-                                                }
-                                                allowedTypes= { [ 'image' ] }
-                                                multiple= { false }
-                                                disableMediaButtons={ false }
-                                                mediaPreview={ imagePreview }
-                                                value={ attributes[keyProp] }
-                                            >
-                                                { removeImage }
-                                            </MediaPlaceholder>
-                                        </div>
-                                    );
-                                    
-                                    break;
-
-                                case 'gallery':
-
-                                    let removeGallery = !! ( attributes[keyProp] && typeof attributes[keyProp] == 'object' ) && (
-                                        <Button
-                                            key={ clientId + "-remove-gallery" }
-                                            isSecondary
-                                            isSmall
-                                            className="block-library-cover__reset-button"
-                                            onClick={ () =>
-                                                setAttributes( { [keyProp]: undefined } )
-                                            }
-                                        >Remove</Button>
-                                    );
-                                    
-                                    let galleryPreview = '';
-                                    if( removeGallery ) {
-                                        
-                                        let ulGalleryPreview = [];
-                                        attributes[keyProp].forEach(image => {
-                                            ulGalleryPreview.push(
-                                                <li className="blocks-gallery-item">
-                                                    <img
-                                                        key={ clientId + "-gallery-image" + image.id }
-                                                        src={ image.url }
-                                                    />
-                                                </li>
-                                            );
-                                        });
-                                        
-                                        galleryPreview = (
-                                            <figure className="wp-block-gallery columns-3">
-                                                <ul className="blocks-gallery-grid">
-                                                    { ulGalleryPreview }
-                                                </ul>
-                                            </figure>
-                                        );
-                                    }
-
-                                    currentEditCat.push(
-                                        <div key={ clientId + "-" + keyProp + "-container" } >
-                                            { galleryPreview }
-                                            <MediaPlaceholder
-                                                key={ clientId + "-" + keyProp }
-                                                label={ valueProp.label }
-                                                onSelect={ ( value ) => {
-
-                                                        let newGallery = [];
-                                                        value.forEach(image => {
-                                                            newGallery.push( {
-                                                                id: image.id,
-                                                                url: image.url
-                                                            } )
-                                                        });
-                                                        setAttributes( { [keyProp]: newGallery } )
-                                                    }
-                                                }
-                                                allowedTypes= { [ 'image' ] }
-                                                multiple= { true }
-                                                disableMediaButtons={ false }
-                                                addToGallery= { !! attributes[keyProp] }
-                                                value={ attributes[keyProp] }
-                                                isAppender={ true }
-                                            >
-                                                { removeGallery }
-                                            </MediaPlaceholder>
-                                        </div>
-                                    );
-                                    
-                                    break;
-                            }
+                            currentEditCat.push( this.renderControl( valueProp.type, valueProp.label, keyProp, valueProp.repeatable ) );
                         }
 
                         if( keyCat == "default" ) {
-                            editPlaceHolder.push(
-                                <div>
-                                { currentEditCat }
-                                </div>
+                            editPlaceHolder.push( 
+                                <>
+                                    { currentEditCat }
+                                </>
                             );
                         }
                         else {
                             editPlaceHolder.push(
-                                <fieldset>
-                                    <legend>{ valCat.name }</legend>
+                                <fieldset key={ clientId + "-fieldsetCategory-" + keyCat } >
+                                    <legend key={ clientId + "-fieldsetCategory-" + keyCat + "-legend" } >{ valCat.name }</legend>
                                     { currentEditCat }
                                 </fieldset>
                             );

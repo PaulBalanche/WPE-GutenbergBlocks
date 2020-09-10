@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\",\"category\":\"cat1\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\",\"category\":\"cat1\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"category\":\"cat2\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Catégorie 1\"},{\"id\":\"cat2\",\"name\":\"Catégorie 2\"},{\"id\":\"cat3\",\"name\":\"Catégorie 3\"},{\"id\":\"cat4\",\"name\":\"Catégorie 4\"}],\"props\":{\"object\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"}}},\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String repeatable\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat3\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat4\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"boolean_repeatble\":{\"label\":\"Boolean Repeatable\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat1\"},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat1\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\",\"category\":\"cat1\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\",\"category\":\"cat1\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"category\":\"cat2\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Catégorie 1\"},{\"id\":\"cat2\",\"name\":\"Catégorie 2\"},{\"id\":\"cat3\",\"name\":\"Catégorie 3\"},{\"id\":\"cat4\",\"name\":\"Catégorie 4\"}],\"props\":{\"object\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String repeatable\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat3\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat4\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"boolean_repeatble\":{\"label\":\"Boolean Repeatable\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat1\"},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat1\"}}}]}");
 
 /***/ }),
 
@@ -640,18 +640,26 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
           case 'object':
             if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(valueProp.props) == "object") {
+              var fieldsetObject = [];
+
               for (var _i4 = 0, _Object$entries4 = Object.entries(valueProp.props); _i4 < _Object$entries4.length; _i4++) {
                 var _Object$entries4$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries4[_i4], 2),
                     keySubProp = _Object$entries4$_i[0],
                     valueSubProp = _Object$entries4$_i[1];
 
-                blocReturned.push(this.renderControl(valueSubProp, keySubProp, {
+                fieldsetObject.push(this.renderControl(valueSubProp, keySubProp, {
                   key: keyProp,
                   value: rootValue,
                   keyLoop: keyLoop,
                   repeatable: repeatable
                 }));
               }
+
+              blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("fieldset", {
+                key: this.props.clientId + "-" + keyProp + "-fieldsetObjectContainer"
+              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("legend", {
+                key: this.props.clientId + "-" + keyProp + "-fieldsetObjectContainer-legend"
+              }, valueProp.label), fieldsetObject));
             }
 
             break;
@@ -708,7 +716,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         label: !repeatable ? label : false,
         value: objectValue[keyObjectValue],
         onChange: function onChange(newValue) {
-          return _this3.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable);
+          return _this3.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable, rootProp);
         }
       });
     }
@@ -725,7 +733,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         help: help,
         checked: objectValue[keyObjectValue],
         onChange: function onChange(newValue) {
-          return _this4.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable);
+          return _this4.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable, rootProp);
         }
       });
     }
@@ -904,12 +912,16 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               if (typeof valueProp.category != 'undefined' && valueProp.category in catReOrder) {
                 catReOrder[valueProp.category].props[keyProp] = valueProp;
               } else {
-                catReOrder['default'].props[keyProp] = valueProp;
+                catReOrder.default.props[keyProp] = valueProp;
               }
+            }
+
+            if (Object.keys(catReOrder.default.props).length == 0) {
+              delete catReOrder.default;
             } // 3. Render
 
 
-            var editPlaceHolder = [];
+            var tabPanel = [];
 
             for (var _i7 = 0, _Object$entries7 = Object.entries(catReOrder); _i7 < _Object$entries7.length; _i7++) {
               var _Object$entries7$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries7[_i7], 2),
@@ -928,16 +940,27 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               }
 
               if (keyCat == "default") {
-                editPlaceHolder.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, currentEditCat));
+                tabPanel.push({
+                  name: keyCat,
+                  title: "Default",
+                  content: currentEditCat
+                });
               } else {
-                editPlaceHolder.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("fieldset", {
-                  key: clientId + "-fieldsetCategory-" + keyCat
-                }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("legend", {
-                  key: clientId + "-fieldsetCategory-" + keyCat + "-legend"
-                }, valCat.name), currentEditCat));
+                tabPanel.push({
+                  name: keyCat,
+                  title: valCat.name,
+                  content: currentEditCat
+                });
               }
             }
 
+            var editPlaceHolder = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TabPanel"], {
+              className: "my-tab-panel",
+              activeClass: "active-tab",
+              tabs: tabPanel
+            }, function (tabPanel) {
+              return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, " ", tabPanel.content, " ");
+            }));
             return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Placeholder"], {
               key: clientId + "-placeholder",
               label: element.name,

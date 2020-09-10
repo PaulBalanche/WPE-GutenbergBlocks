@@ -11,7 +11,8 @@ import {
     TextareaControl,
     ToggleControl,
     Button,
-    Placeholder
+    Placeholder,
+    TabPanel
 } from '@wordpress/components';
 
 import frontspec from '../../../../../frontspec.json';
@@ -169,9 +170,17 @@ class WpeComponent extends Component {
 
                 case 'object':
                     if( typeof valueProp.props == "object" ) {
+
+                        let fieldsetObject = [];
                         for (const [keySubProp, valueSubProp] of Object.entries(valueProp.props)) {
-                            blocReturned.push( this.renderControl( valueSubProp, keySubProp, { key: keyProp, value: rootValue, keyLoop: keyLoop, repeatable: repeatable } ) );
+                            fieldsetObject.push( this.renderControl( valueSubProp, keySubProp, { key: keyProp, value: rootValue, keyLoop: keyLoop, repeatable: repeatable } ) );
                         }
+                        blocReturned.push(
+                            <fieldset key={ this.props.clientId + "-" + keyProp + "-fieldsetObjectContainer"} >
+                                <legend key={ this.props.clientId + "-" + keyProp + "-fieldsetObjectContainer-legend"} >{ valueProp.label }</legend>
+                                { fieldsetObject }
+                            </fieldset>
+                        );
                     }
                     break;
             }
@@ -229,7 +238,7 @@ class WpeComponent extends Component {
                 label={ ! repeatable ? label : false }
                 value={ objectValue[keyObjectValue] }
                 onChange={ ( newValue ) =>
-                    this.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable)
+                    this.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable, rootProp)
                 }
             />
         );
@@ -244,7 +253,7 @@ class WpeComponent extends Component {
                 help={ help }
                 checked={ objectValue[keyObjectValue] }
                 onChange={ ( newValue ) =>
-                    this.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable)
+                    this.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable, rootProp)
                 }
             />
         );
@@ -431,12 +440,15 @@ class WpeComponent extends Component {
                             catReOrder[valueProp.category].props[keyProp] = valueProp;
                         }
                         else {
-                            catReOrder['default'].props[keyProp] = valueProp;
+                            catReOrder.default.props[keyProp] = valueProp;
                         }
                     }
+                    if( Object.keys(catReOrder.default.props).length == 0 ) {
+                        delete catReOrder.default;
+                    }     
 
                     // 3. Render
-                    var editPlaceHolder = [];
+                    var tabPanel = [];
                     for (const [keyCat, valCat] of Object.entries(catReOrder)) {
                         
                         if( valCat.props.length == 0 )
@@ -449,21 +461,35 @@ class WpeComponent extends Component {
                         }
 
                         if( keyCat == "default" ) {
-                            editPlaceHolder.push( 
-                                <>
-                                    { currentEditCat }
-                                </>
-                            );
+
+                            tabPanel.push( {
+                                name: keyCat,
+                                title: "Default",
+                                content: currentEditCat
+                            } );
                         }
                         else {
-                            editPlaceHolder.push(
-                                <fieldset key={ clientId + "-fieldsetCategory-" + keyCat } >
-                                    <legend key={ clientId + "-fieldsetCategory-" + keyCat + "-legend" } >{ valCat.name }</legend>
-                                    { currentEditCat }
-                                </fieldset>
-                            );
+
+                            tabPanel.push( {
+                                name: keyCat,
+                                title: valCat.name,
+                                content: currentEditCat
+                            } );
                         }
                     }
+
+                    var editPlaceHolder = (
+                        <>
+                            <TabPanel
+                                className="my-tab-panel"
+                                activeClass="active-tab"
+                                tabs={ tabPanel }>
+                                {
+                                    ( tabPanel ) => <> { tabPanel.content } </>
+                                }
+                            </TabPanel>
+                        </>
+                    );
 
                     return (
                         <>

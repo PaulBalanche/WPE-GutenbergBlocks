@@ -30,27 +30,109 @@ class WpeComponent extends Component {
         this.props.setAttributes( attributes );
     }
 
-    updateAttributes( key, currentValue, keyNewValue, newValue, isNumber = false, repeatable = false ) {
+    updateAttributes( key, currentValue, keyNewValue, newValue, isNumber = false, repeatable = false, rootProp = false ) {
 
-        if( ! repeatable ) {
-            newValue = !! isNumber ? parseInt( newValue, 10 ) : newValue;
+        if( rootProp ) {
+
+            let newValueUpdate = '';
+
+            if( ! rootProp.repeatable ) {
+
+                if( typeof rootProp.value != 'object' ) {
+
+                    newValueUpdate = { [key]: !! isNumber ? parseInt( newValue, 10 ) : newValue };
+                }
+                else {
+                    newValueUpdate = {};
+                    for (const [keyMapTemp, valueMapTemp] of Object.entries(rootProp.value)) {
+                        if( keyMapTemp == key )
+                            newValueUpdate[keyMapTemp] = !! isNumber ? parseInt( newValue, 10 ) : newValue;
+                        else
+                            newValueUpdate[keyMapTemp] = valueMapTemp;
+                    }
+                }
+
+                if( typeof newValueUpdate[key] == 'undefined' )
+                    newValueUpdate[key] = !! isNumber ? parseInt( newValue, 10 ) : newValue;
+            }
+            else {
+
+                newValueUpdate = [];
+                for (const [keyMapTemp, valueMapTemp] of Object.entries(rootProp.value)) {
+                    
+                    if( keyMapTemp == rootProp.keyLoop ) {
+
+                        if( typeof valueMapTemp != 'object' ) {
+
+                            newValueUpdate[keyMapTemp] = { [key]: !! isNumber ? parseInt( newValue, 10 ) : newValue };
+                        }
+                        else {
+                            newValueUpdate[keyMapTemp] = {};
+                            for (const [keyMapTemp2, valueMapTemp2] of Object.entries(valueMapTemp)) {
+                                if( keyMapTemp2 == key )
+                                    newValueUpdate[keyMapTemp][keyMapTemp2] = !! isNumber ? parseInt( newValue, 10 ) : newValue;
+                                else
+                                    newValueUpdate[keyMapTemp][keyMapTemp2] = valueMapTemp2;
+                            }
+                        }
+        
+                        if( typeof newValueUpdate[keyMapTemp][key] == 'undefined' )
+                            newValueUpdate[keyMapTemp][key] = !! isNumber ? parseInt( newValue, 10 ) : newValue;
+                    }
+                    else {
+                        newValueUpdate[keyMapTemp] = valueMapTemp;
+                    }
+                }
+            }
+
+            this.setAttributes( { [rootProp.key]: newValueUpdate } );
+            return;
         }
         else {
-            newValue = currentValue.map( function( valueMapTemp, keyMapTemp ) {
-                if( keyMapTemp == keyNewValue )
-                    return !! isNumber ? parseInt( newValue, 10 ) : newValue;
-                
-                return valueMapTemp;
-            } );
-        }
 
-        this.setAttributes( { [key]: newValue } );
+            if( ! repeatable ) {
+
+                newValue = !! isNumber ? parseInt( newValue, 10 ) : newValue;
+            }
+            else {
+                newValue = currentValue.map( function( valueMapTemp, keyMapTemp ) {
+                    if( keyMapTemp == keyNewValue )
+                        return !! isNumber ? parseInt( newValue, 10 ) : newValue;
+                    
+                    return valueMapTemp;
+                } );
+            }
+
+            this.setAttributes( { [key]: newValue } );
+            return;
+        }
     }
     
-    renderControl( type, label, keyProp, repeatable = false ) {
-        
+    renderControl( valueProp, keyProp, rootProp = false ) {
+
         let blocReturned = [];
-        let currentValueAttribute = this.getAttribute(keyProp);
+        let keyRootProp = ( rootProp ) ? rootProp.key : keyProp;
+        let repeatable = ( typeof valueProp.repeatable != "undefined" && !! valueProp.repeatable ) ? true : false;
+        let currentValueAttribute = "";
+        let rootValue = "";
+        if( rootProp ) {
+            if( ! rootProp.repeatable && typeof rootProp.value == 'object' && typeof rootProp.value[keyProp] != "undefined" ) {
+                currentValueAttribute = rootProp.value[keyProp];
+            }
+            else if( rootProp.repeatable && typeof rootProp.value == 'object' && typeof rootProp.value[rootProp.keyLoop] == "object" && typeof rootProp.value[rootProp.keyLoop][keyProp] != "undefined" ) {
+                currentValueAttribute = rootProp.value[rootProp.keyLoop][keyProp];
+            }
+            else{
+                currentValueAttribute = "";
+            }
+        }
+        else {
+            rootValue = this.getAttribute(keyRootProp);
+            if( repeatable && ( typeof rootValue != "object" || rootValue.length == 0 ) )
+                rootValue = [ "" ];
+
+            currentValueAttribute = rootValue;
+        }
 
         if( ! repeatable )
             currentValueAttribute = [ currentValueAttribute ];
@@ -59,30 +141,38 @@ class WpeComponent extends Component {
 
         for (const keyLoop in currentValueAttribute) {
 
-            switch(type) {
+            switch(valueProp.type) {
 
                 case 'string':
-                    blocReturned.push( this.renderTextControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, keyProp, currentValueAttribute, keyLoop, false, repeatable ) );
+                    blocReturned.push( this.renderTextControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, keyProp, currentValueAttribute, keyLoop, false, repeatable, rootProp ) );
                     break;
 
                 case 'number':
-                    blocReturned.push( this.renderTextControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, keyProp, currentValueAttribute, keyLoop, true, repeatable ) );
+                    blocReturned.push( this.renderTextControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, keyProp, currentValueAttribute, keyLoop, true, repeatable, rootProp ) );
                     break;
 
                 case 'text':
-                    blocReturned.push( this.renderTextareaControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, keyProp, currentValueAttribute, keyLoop, repeatable ) );
+                    blocReturned.push( this.renderTextareaControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, keyProp, currentValueAttribute, keyLoop, repeatable, rootProp ) );
                     break;
 
                 case 'boolean':
-                    blocReturned.push( this.renderToggleControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, 'Help', keyProp, currentValueAttribute, keyLoop, repeatable ) );
+                    blocReturned.push( this.renderToggleControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, 'Help', keyProp, currentValueAttribute, keyLoop, repeatable, rootProp ) );
                     break;
 
                 case 'image':
-                    blocReturned.push( this.renderImageControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, keyProp, currentValueAttribute, keyLoop, repeatable ) );
+                    blocReturned.push( this.renderImageControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, keyProp, currentValueAttribute, keyLoop, repeatable, rootProp ) );
                     break;
                 
                 case 'gallery':
-                    blocReturned.push( this.renderGalleryControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, label, keyProp, currentValueAttribute, keyLoop, repeatable ) );
+                    blocReturned.push( this.renderGalleryControl( this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, keyProp, currentValueAttribute, keyLoop, repeatable, rootProp ) );
+                    break;
+
+                case 'object':
+                    if( typeof valueProp.props == "object" ) {
+                        for (const [keySubProp, valueSubProp] of Object.entries(valueProp.props)) {
+                            blocReturned.push( this.renderControl( valueSubProp, keySubProp, { key: keyProp, value: rootValue, keyLoop: keyLoop, repeatable: repeatable } ) );
+                        }
+                    }
                     break;
             }
         }
@@ -102,7 +192,7 @@ class WpeComponent extends Component {
 
             blocReturned = (
                 <fieldset key={ this.props.clientId + "-" + keyProp + "-fieldsetContainer"} >
-                    <legend key={ this.props.clientId + "-" + keyProp + "-fieldsetContainer-legend"} >{ label }</legend>
+                    <legend key={ this.props.clientId + "-" + keyProp + "-fieldsetContainer-legend"} >{ valueProp.label }</legend>
                     { blocReturned }
                 </fieldset>
             );
@@ -116,7 +206,7 @@ class WpeComponent extends Component {
         );
     }
 
-    renderTextControl( id, label, keyProp, objectValue, keyObjectValue, isNumber = false, repeatable = false ) {
+    renderTextControl( id, label, keyProp, objectValue, keyObjectValue, isNumber = false, repeatable = false, rootProp = false ) {
 
         return (
             <TextControl
@@ -125,13 +215,13 @@ class WpeComponent extends Component {
                 type={ !! isNumber ? "number" : "text" }
                 value={ objectValue[keyObjectValue] }
                 onChange={ ( newValue ) =>
-                    this.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, isNumber, repeatable)
+                    this.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, isNumber, repeatable, rootProp)
                 }
             />
         );
     }
 
-    renderTextareaControl( id, label, keyProp, objectValue, keyObjectValue, repeatable = false ) {
+    renderTextareaControl( id, label, keyProp, objectValue, keyObjectValue, repeatable = false, rootProp = false ) {
 
         return (
             <TextareaControl
@@ -145,7 +235,7 @@ class WpeComponent extends Component {
         );
     }
 
-    renderToggleControl( id, label, help, keyProp, objectValue, keyObjectValue, repeatable = false ) {
+    renderToggleControl( id, label, help, keyProp, objectValue, keyObjectValue, repeatable = false, rootProp = false ) {
 
         return (
             <ToggleControl
@@ -160,7 +250,7 @@ class WpeComponent extends Component {
         );
     }
 
-    renderImageControl( id, label, keyProp, objectValue, keyObjectValue, repeatable = false ) {
+    renderImageControl( id, label, keyProp, objectValue, keyObjectValue, repeatable = false, rootProp = false ) {
 
         let imagePreview = !! ( objectValue[keyObjectValue] && typeof objectValue[keyObjectValue] == 'object' ) && (
             <img
@@ -209,7 +299,7 @@ class WpeComponent extends Component {
         );
     }
 
-    renderGalleryControl( id, label, keyProp, objectValue, keyObjectValue, repeatable = false ) {
+    renderGalleryControl( id, label, keyProp, objectValue, keyObjectValue, repeatable = false, rootProp = false ) {
 
         let removeGallery = !! ( objectValue[keyObjectValue] && typeof objectValue[keyObjectValue] == 'object' ) && (
             <Button
@@ -302,7 +392,7 @@ class WpeComponent extends Component {
      */
     render() {
 
-        const { attributes, setAttributes, isSelected, clientId } = this.props;
+        const { attributes, isSelected, clientId } = this.props;
 
         for (const key in frontspec.components) {
             if (frontspec.components.hasOwnProperty(key)) {
@@ -355,7 +445,7 @@ class WpeComponent extends Component {
                         let currentEditCat = [];
 
                         for (const [keyProp, valueProp] of Object.entries(valCat.props)) {
-                            currentEditCat.push( this.renderControl( valueProp.type, valueProp.label, keyProp, valueProp.repeatable ) );
+                            currentEditCat.push( this.renderControl( valueProp, keyProp ) );
                         }
 
                         if( keyCat == "default" ) {

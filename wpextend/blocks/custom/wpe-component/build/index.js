@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Others\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Others\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"object_repeatable\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
 
 /***/ }),
 
@@ -447,10 +447,10 @@ module.exports = _unsupportedIterableToArray;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
@@ -518,71 +518,61 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var isNumber = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var rootProp = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      var keyToUpdate = '';
+      var newValueToUpdate = '';
+      var repeatableKeyToCompare = '';
 
       if (rootProp) {
-        var newValueUpdate = '';
-
-        if (!rootProp.repeatable) {
-          if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(rootProp.value) != 'object') {
-            newValueUpdate = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, key, !!isNumber ? parseInt(newValue, 10) : newValue);
-          } else {
-            newValueUpdate = {};
-
-            for (var _i = 0, _Object$entries = Object.entries(rootProp.value); _i < _Object$entries.length; _i++) {
-              var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
-                  keyMapTemp = _Object$entries$_i[0],
-                  valueMapTemp = _Object$entries$_i[1];
-
-              if (keyMapTemp == key) newValueUpdate[keyMapTemp] = !!isNumber ? parseInt(newValue, 10) : newValue;else newValueUpdate[keyMapTemp] = valueMapTemp;
-            }
-          }
-
-          if (typeof newValueUpdate[key] == 'undefined') newValueUpdate[key] = !!isNumber ? parseInt(newValue, 10) : newValue;
-        } else {
-          newValueUpdate = [];
-
-          for (var _i2 = 0, _Object$entries2 = Object.entries(rootProp.value); _i2 < _Object$entries2.length; _i2++) {
-            var _Object$entries2$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries2[_i2], 2),
-                _keyMapTemp = _Object$entries2$_i[0],
-                _valueMapTemp = _Object$entries2$_i[1];
-
-            if (_keyMapTemp == rootProp.keyLoop) {
-              if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(_valueMapTemp) != 'object') {
-                newValueUpdate[_keyMapTemp] = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, key, !!isNumber ? parseInt(newValue, 10) : newValue);
-              } else {
-                newValueUpdate[_keyMapTemp] = {};
-
-                for (var _i3 = 0, _Object$entries3 = Object.entries(_valueMapTemp); _i3 < _Object$entries3.length; _i3++) {
-                  var _Object$entries3$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries3[_i3], 2),
-                      keyMapTemp2 = _Object$entries3$_i[0],
-                      valueMapTemp2 = _Object$entries3$_i[1];
-
-                  if (keyMapTemp2 == key) newValueUpdate[_keyMapTemp][keyMapTemp2] = !!isNumber ? parseInt(newValue, 10) : newValue;else newValueUpdate[_keyMapTemp][keyMapTemp2] = valueMapTemp2;
-                }
-              }
-
-              if (typeof newValueUpdate[_keyMapTemp][key] == 'undefined') newValueUpdate[_keyMapTemp][key] = !!isNumber ? parseInt(newValue, 10) : newValue;
-            } else {
-              newValueUpdate[_keyMapTemp] = _valueMapTemp;
-            }
-          }
-        }
-
-        this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, rootProp.key, newValueUpdate));
-        return;
+        keyToUpdate = rootProp.key;
+        repeatableKeyToCompare = rootProp.keyLoop;
+        if (!rootProp.repeatable) newValueToUpdate = this.updateObjectFromObject(rootProp.value, key, newValue, isNumber);else newValueToUpdate = this.objectMap(rootProp.value, newValue, repeatableKeyToCompare, isNumber, false, key);
       } else {
-        if (!repeatable) {
-          newValue = !!isNumber ? parseInt(newValue, 10) : newValue;
-        } else {
-          newValue = currentValue.map(function (valueMapTemp, keyMapTemp) {
-            if (keyMapTemp == keyNewValue) return !!isNumber ? parseInt(newValue, 10) : newValue;
-            return valueMapTemp;
-          });
-        }
+        keyToUpdate = key;
+        repeatableKeyToCompare = keyNewValue;
 
-        this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, key, newValue));
-        return;
+        if (!repeatable) {
+          newValueToUpdate = this.updateObjectFromObject(rootProp.value, key, newValue, isNumber);
+          newValueToUpdate = newValueToUpdate[key];
+        } else newValueToUpdate = this.objectMap(currentValue, newValue, repeatableKeyToCompare, isNumber, false);
       }
+
+      this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyToUpdate, newValueToUpdate));
+    }
+  }, {
+    key: "returnStringOrNumber",
+    value: function returnStringOrNumber(value) {
+      var isNumber = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      return !!isNumber ? parseInt(value, 10) : value;
+    }
+  }, {
+    key: "updateObjectFromObject",
+    value: function updateObjectFromObject(fromObject, key, newValue) {
+      var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      var objectReturned = null;
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(fromObject) != 'object') objectReturned = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, this.returnStringOrNumber(newValue, isNumber));else objectReturned = this.objectMap(fromObject, newValue, key, isNumber);
+      if (typeof objectReturned[key] == 'undefined') objectReturned[key] = this.returnStringOrNumber(newValue, isNumber);
+      return objectReturned;
+    }
+  }, {
+    key: "objectMap",
+    value: function objectMap(object, newValue, keyValue) {
+      var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      var isObject = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
+      var keyUpdateFromObject = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
+      var objectReturned = {};
+      if (!isObject) objectReturned = [];
+
+      for (var _i = 0, _Object$entries = Object.entries(object); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
+            key = _Object$entries$_i[0],
+            val = _Object$entries$_i[1];
+
+        if (key == keyValue) {
+          if (!!keyUpdateFromObject) objectReturned[key] = this.updateObjectFromObject(val, keyUpdateFromObject, newValue, isNumber);else objectReturned[key] = this.returnStringOrNumber(newValue, isNumber);
+        } else objectReturned[key] = val;
+      }
+
+      return objectReturned;
     }
   }, {
     key: "renderControl",
@@ -597,20 +587,20 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var rootValue = "";
 
       if (rootProp) {
-        if (!rootProp.repeatable && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(rootProp.value) == 'object' && typeof rootProp.value[keyProp] != "undefined") {
+        if (!rootProp.repeatable && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(rootProp.value) == 'object' && typeof rootProp.value[keyProp] != "undefined") {
           currentValueAttribute = rootProp.value[keyProp];
-        } else if (rootProp.repeatable && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(rootProp.value) == 'object' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(rootProp.value[rootProp.keyLoop]) == "object" && typeof rootProp.value[rootProp.keyLoop][keyProp] != "undefined") {
+        } else if (rootProp.repeatable && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(rootProp.value) == 'object' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(rootProp.value[rootProp.keyLoop]) == "object" && typeof rootProp.value[rootProp.keyLoop][keyProp] != "undefined") {
           currentValueAttribute = rootProp.value[rootProp.keyLoop][keyProp];
         } else {
           currentValueAttribute = "";
         }
       } else {
         rootValue = this.getAttribute(keyRootProp);
-        if (repeatable && (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(rootValue) != "object" || rootValue.length == 0)) rootValue = [""];
+        if (repeatable && (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(rootValue) != "object" || rootValue.length == 0)) rootValue = [""];
         currentValueAttribute = rootValue;
       }
 
-      if (!repeatable) currentValueAttribute = [currentValueAttribute];else if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(currentValueAttribute) != "object" || currentValueAttribute.length == 0) currentValueAttribute = [""];
+      if (!repeatable) currentValueAttribute = [currentValueAttribute];else if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(currentValueAttribute) != "object" || currentValueAttribute.length == 0) currentValueAttribute = [""];
 
       for (var keyLoop in currentValueAttribute) {
         switch (valueProp.type) {
@@ -639,13 +629,13 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             break;
 
           case 'object':
-            if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(valueProp.props) == "object") {
+            if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(valueProp.props) == "object") {
               var fieldsetObject = [];
 
-              for (var _i4 = 0, _Object$entries4 = Object.entries(valueProp.props); _i4 < _Object$entries4.length; _i4++) {
-                var _Object$entries4$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries4[_i4], 2),
-                    keySubProp = _Object$entries4$_i[0],
-                    valueSubProp = _Object$entries4$_i[1];
+              for (var _i2 = 0, _Object$entries2 = Object.entries(valueProp.props); _i2 < _Object$entries2.length; _i2++) {
+                var _Object$entries2$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries2[_i2], 2),
+                    keySubProp = _Object$entries2$_i[0],
+                    valueSubProp = _Object$entries2$_i[1];
 
                 fieldsetObject.push(this.renderControl(valueSubProp, keySubProp, {
                   key: keyProp,
@@ -678,7 +668,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isSecondary: true,
           isSmall: true,
           onClick: function onClick() {
-            return _this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, currentValueAttribute.concat([""])));
+            return _this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, currentValueAttribute.concat([""])));
           }
         }, "Add"));
         blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
@@ -756,7 +746,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var rootProp = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-      var imagePreview = !!(objectValue[keyObjectValue] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(objectValue[keyObjectValue]) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("img", {
+      var imagePreview = !!(objectValue[keyObjectValue] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue[keyObjectValue]) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("img", {
         key: id + "-imagePreview",
         alt: "Edit image",
         title: "Edit image",
@@ -772,7 +762,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isSmall: true,
           className: "block-library-cover__reset-button",
           onClick: function onClick() {
-            return _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, undefined));
+            return _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, undefined));
           }
         }, "Remove");
       }
@@ -783,7 +773,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           title: label
         },
         onSelect: function onSelect(value) {
-          return _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, {
+          return _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, {
             id: value.id,
             url: value.url
           }));
@@ -801,14 +791,14 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var rootProp = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-      var removeGallery = !!(objectValue[keyObjectValue] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(objectValue[keyObjectValue]) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+      var removeGallery = !!(objectValue[keyObjectValue] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue[keyObjectValue]) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
         key: id + "-removeGallery",
         isSecondary: true,
         isSmall: true,
         className: "block-library-cover__reset-button",
         onClick: function onClick() {
           var countImages = objectValue[keyObjectValue].length;
-          if (countImages > 1) _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, objectValue[keyObjectValue].slice(0, countImages - 1)));else _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, undefined));
+          if (countImages > 1) _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, objectValue[keyObjectValue].slice(0, countImages - 1)));else _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, undefined));
         }
       }, "Remove");
       var galleryPreview = '';
@@ -853,7 +843,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             });
           });
 
-          _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, newGallery));
+          _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, newGallery));
         },
         allowedTypes: ['image'],
         multiple: true,
@@ -895,10 +885,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             }; // 1. Loop Props Categories
 
             if (typeof element.props_categories != 'undefined') {
-              for (var _i5 = 0, _Object$entries5 = Object.entries(element.props_categories); _i5 < _Object$entries5.length; _i5++) {
-                var _Object$entries5$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries5[_i5], 2),
-                    keyCatProps = _Object$entries5$_i[0],
-                    valueCatProps = _Object$entries5$_i[1];
+              for (var _i3 = 0, _Object$entries3 = Object.entries(element.props_categories); _i3 < _Object$entries3.length; _i3++) {
+                var _Object$entries3$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries3[_i3], 2),
+                    keyCatProps = _Object$entries3$_i[0],
+                    valueCatProps = _Object$entries3$_i[1];
 
                 catReOrder[valueCatProps.id] = {
                   name: valueCatProps.name,
@@ -908,10 +898,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             } // 2. Loop Props
 
 
-            for (var _i6 = 0, _Object$entries6 = Object.entries(element.props); _i6 < _Object$entries6.length; _i6++) {
-              var _Object$entries6$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries6[_i6], 2),
-                  keyProp = _Object$entries6$_i[0],
-                  valueProp = _Object$entries6$_i[1];
+            for (var _i4 = 0, _Object$entries4 = Object.entries(element.props); _i4 < _Object$entries4.length; _i4++) {
+              var _Object$entries4$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries4[_i4], 2),
+                  keyProp = _Object$entries4$_i[0],
+                  valueProp = _Object$entries4$_i[1];
 
               if (typeof valueProp.category != 'undefined' && valueProp.category in catReOrder) {
                 catReOrder[valueProp.category].props[keyProp] = valueProp;
@@ -921,10 +911,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             } // 3. Remove empty category
 
 
-            for (var _i7 = 0, _Object$entries7 = Object.entries(catReOrder); _i7 < _Object$entries7.length; _i7++) {
-              var _Object$entries7$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries7[_i7], 2),
-                  _keyProp = _Object$entries7$_i[0],
-                  _valueProp = _Object$entries7$_i[1];
+            for (var _i5 = 0, _Object$entries5 = Object.entries(catReOrder); _i5 < _Object$entries5.length; _i5++) {
+              var _Object$entries5$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries5[_i5], 2),
+                  _keyProp = _Object$entries5$_i[0],
+                  _valueProp = _Object$entries5$_i[1];
 
               if (Object.keys(catReOrder[_keyProp].props).length == 0) {
                 delete catReOrder[_keyProp];
@@ -934,18 +924,18 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
             var tabPanel = [];
 
-            for (var _i8 = 0, _Object$entries8 = Object.entries(catReOrder); _i8 < _Object$entries8.length; _i8++) {
-              var _Object$entries8$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries8[_i8], 2),
-                  keyCat = _Object$entries8$_i[0],
-                  valCat = _Object$entries8$_i[1];
+            for (var _i6 = 0, _Object$entries6 = Object.entries(catReOrder); _i6 < _Object$entries6.length; _i6++) {
+              var _Object$entries6$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries6[_i6], 2),
+                  keyCat = _Object$entries6$_i[0],
+                  valCat = _Object$entries6$_i[1];
 
               if (valCat.props.length == 0) continue;
               var currentEditCat = [];
 
-              for (var _i9 = 0, _Object$entries9 = Object.entries(valCat.props); _i9 < _Object$entries9.length; _i9++) {
-                var _Object$entries9$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries9[_i9], 2),
-                    _keyProp2 = _Object$entries9$_i[0],
-                    _valueProp2 = _Object$entries9$_i[1];
+              for (var _i7 = 0, _Object$entries7 = Object.entries(valCat.props); _i7 < _Object$entries7.length; _i7++) {
+                var _Object$entries7$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries7[_i7], 2),
+                    _keyProp2 = _Object$entries7$_i[0],
+                    _valueProp2 = _Object$entries7$_i[1];
 
                 currentEditCat.push(this.renderControl(_valueProp2, _keyProp2));
               }

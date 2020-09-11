@@ -33,80 +33,74 @@ class WpeComponent extends Component {
 
     updateAttributes( key, currentValue, keyNewValue, newValue, isNumber = false, repeatable = false, rootProp = false ) {
 
+        let keyToUpdate = '';
+        let newValueToUpdate = '';
+        let repeatableKeyToCompare = '';
+
         if( rootProp ) {
 
-            let newValueUpdate = '';
+            keyToUpdate = rootProp.key;
+            repeatableKeyToCompare = rootProp.keyLoop;
 
-            if( ! rootProp.repeatable ) {
-
-                if( typeof rootProp.value != 'object' ) {
-
-                    newValueUpdate = { [key]: !! isNumber ? parseInt( newValue, 10 ) : newValue };
-                }
-                else {
-                    newValueUpdate = {};
-                    for (const [keyMapTemp, valueMapTemp] of Object.entries(rootProp.value)) {
-                        if( keyMapTemp == key )
-                            newValueUpdate[keyMapTemp] = !! isNumber ? parseInt( newValue, 10 ) : newValue;
-                        else
-                            newValueUpdate[keyMapTemp] = valueMapTemp;
-                    }
-                }
-
-                if( typeof newValueUpdate[key] == 'undefined' )
-                    newValueUpdate[key] = !! isNumber ? parseInt( newValue, 10 ) : newValue;
-            }
-            else {
-
-                newValueUpdate = [];
-                for (const [keyMapTemp, valueMapTemp] of Object.entries(rootProp.value)) {
-                    
-                    if( keyMapTemp == rootProp.keyLoop ) {
-
-                        if( typeof valueMapTemp != 'object' ) {
-
-                            newValueUpdate[keyMapTemp] = { [key]: !! isNumber ? parseInt( newValue, 10 ) : newValue };
-                        }
-                        else {
-                            newValueUpdate[keyMapTemp] = {};
-                            for (const [keyMapTemp2, valueMapTemp2] of Object.entries(valueMapTemp)) {
-                                if( keyMapTemp2 == key )
-                                    newValueUpdate[keyMapTemp][keyMapTemp2] = !! isNumber ? parseInt( newValue, 10 ) : newValue;
-                                else
-                                    newValueUpdate[keyMapTemp][keyMapTemp2] = valueMapTemp2;
-                            }
-                        }
-        
-                        if( typeof newValueUpdate[keyMapTemp][key] == 'undefined' )
-                            newValueUpdate[keyMapTemp][key] = !! isNumber ? parseInt( newValue, 10 ) : newValue;
-                    }
-                    else {
-                        newValueUpdate[keyMapTemp] = valueMapTemp;
-                    }
-                }
-            }
-
-            this.setAttributes( { [rootProp.key]: newValueUpdate } );
-            return;
+            if( ! rootProp.repeatable )
+                newValueToUpdate = this.updateObjectFromObject(rootProp.value, key, newValue, isNumber);
+            else
+                newValueToUpdate = this.objectMap(rootProp.value, newValue, repeatableKeyToCompare, isNumber, false, key);
         }
         else {
 
-            if( ! repeatable ) {
+            keyToUpdate = key;
+            repeatableKeyToCompare = keyNewValue;
 
-                newValue = !! isNumber ? parseInt( newValue, 10 ) : newValue;
-            }
-            else {
-                newValue = currentValue.map( function( valueMapTemp, keyMapTemp ) {
-                    if( keyMapTemp == keyNewValue )
-                        return !! isNumber ? parseInt( newValue, 10 ) : newValue;
-                    
-                    return valueMapTemp;
-                } );
-            }
+            if( ! repeatable ){
 
-            this.setAttributes( { [key]: newValue } );
-            return;
+                newValueToUpdate = this.updateObjectFromObject(rootProp.value, key, newValue, isNumber);
+                newValueToUpdate = newValueToUpdate[key];
+            }
+            else
+                newValueToUpdate = this.objectMap(currentValue, newValue, repeatableKeyToCompare, isNumber, false);
         }
+
+        this.setAttributes( { [keyToUpdate]: newValueToUpdate } );
+    }
+
+    returnStringOrNumber(value, isNumber = false) {
+        return !! isNumber ? parseInt( value, 10 ) : value;
+    }
+
+    updateObjectFromObject(fromObject, key, newValue, isNumber = false) {
+
+        let objectReturned = null;
+
+        if( typeof fromObject != 'object' )
+            objectReturned = { [key]: this.returnStringOrNumber(newValue, isNumber) };
+        else
+            objectReturned = this.objectMap(fromObject, newValue, key, isNumber);
+
+        if( typeof objectReturned[key] == 'undefined' )
+            objectReturned[key] = this.returnStringOrNumber(newValue, isNumber);
+
+        return objectReturned;
+    }
+
+    objectMap(object, newValue, keyValue, isNumber = false, isObject = true, keyUpdateFromObject = false) {
+
+        let objectReturned = {};
+        if( ! isObject )
+            objectReturned = [];
+
+        for( const [key, val] of Object.entries(object) ) {
+            if( key == keyValue ) {
+                if( !! keyUpdateFromObject )
+                    objectReturned[key] = this.updateObjectFromObject(val, keyUpdateFromObject, newValue, isNumber);
+                else
+                    objectReturned[key] = this.returnStringOrNumber(newValue, isNumber);
+            }
+            else
+                objectReturned[key] = val;
+        }
+
+        return objectReturned;
     }
     
     renderControl( valueProp, keyProp, rootProp = false ) {

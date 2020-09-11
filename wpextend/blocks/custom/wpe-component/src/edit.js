@@ -33,24 +33,17 @@ class WpeComponent extends Component {
 
     updateAttributes( key, currentValue, keyNewValue, newValue, isNumber = false, repeatable = false, rootProp = false ) {
 
-        let keyToUpdate = '';
         let newValueToUpdate = '';
-        let repeatableKeyToCompare = '';
-
         if( rootProp ) {
-
-            keyToUpdate = rootProp.key;
-            repeatableKeyToCompare = rootProp.keyLoop;
 
             if( ! rootProp.repeatable )
                 newValueToUpdate = this.updateObjectFromObject(rootProp.value, key, newValue, isNumber);
             else
-                newValueToUpdate = this.objectMap(rootProp.value, newValue, repeatableKeyToCompare, isNumber, false, key);
+                newValueToUpdate = this.objectMap(rootProp.value, newValue, rootProp.keyLoop, isNumber, key);
+
+            this.setAttributes( { [rootProp.key]: newValueToUpdate } );
         }
         else {
-
-            keyToUpdate = key;
-            repeatableKeyToCompare = keyNewValue;
 
             if( ! repeatable ){
 
@@ -58,10 +51,10 @@ class WpeComponent extends Component {
                 newValueToUpdate = newValueToUpdate[key];
             }
             else
-                newValueToUpdate = this.objectMap(currentValue, newValue, repeatableKeyToCompare, isNumber, false);
-        }
+                newValueToUpdate = this.objectMap(currentValue, newValue, keyNewValue, isNumber);
 
-        this.setAttributes( { [keyToUpdate]: newValueToUpdate } );
+            this.setAttributes( { [key]: newValueToUpdate } );
+        }
     }
 
     returnStringOrNumber(value, isNumber = false) {
@@ -83,11 +76,9 @@ class WpeComponent extends Component {
         return objectReturned;
     }
 
-    objectMap(object, newValue, keyValue, isNumber = false, isObject = true, keyUpdateFromObject = false) {
+    objectMap(object, newValue, keyValue, isNumber = false, keyUpdateFromObject = false) {
 
-        let objectReturned = {};
-        if( ! isObject )
-            objectReturned = [];
+        let objectReturned = ( Array.isArray(object) ) ? [] : {};
 
         for( const [key, val] of Object.entries(object) ) {
             if( key == keyValue ) {

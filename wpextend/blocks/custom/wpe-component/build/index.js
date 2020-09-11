@@ -518,25 +518,19 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var isNumber = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var rootProp = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-      var keyToUpdate = '';
       var newValueToUpdate = '';
-      var repeatableKeyToCompare = '';
 
       if (rootProp) {
-        keyToUpdate = rootProp.key;
-        repeatableKeyToCompare = rootProp.keyLoop;
-        if (!rootProp.repeatable) newValueToUpdate = this.updateObjectFromObject(rootProp.value, key, newValue, isNumber);else newValueToUpdate = this.objectMap(rootProp.value, newValue, repeatableKeyToCompare, isNumber, false, key);
+        if (!rootProp.repeatable) newValueToUpdate = this.updateObjectFromObject(rootProp.value, key, newValue, isNumber);else newValueToUpdate = this.objectMap(rootProp.value, newValue, rootProp.keyLoop, isNumber, key);
+        this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, rootProp.key, newValueToUpdate));
       } else {
-        keyToUpdate = key;
-        repeatableKeyToCompare = keyNewValue;
-
         if (!repeatable) {
           newValueToUpdate = this.updateObjectFromObject(rootProp.value, key, newValue, isNumber);
           newValueToUpdate = newValueToUpdate[key];
-        } else newValueToUpdate = this.objectMap(currentValue, newValue, repeatableKeyToCompare, isNumber, false);
-      }
+        } else newValueToUpdate = this.objectMap(currentValue, newValue, keyNewValue, isNumber);
 
-      this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyToUpdate, newValueToUpdate));
+        this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, newValueToUpdate));
+      }
     }
   }, {
     key: "returnStringOrNumber",
@@ -557,10 +551,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
     key: "objectMap",
     value: function objectMap(object, newValue, keyValue) {
       var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-      var isObject = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
-      var keyUpdateFromObject = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
-      var objectReturned = {};
-      if (!isObject) objectReturned = [];
+      var keyUpdateFromObject = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+      var objectReturned = Array.isArray(object) ? [] : {};
 
       for (var _i = 0, _Object$entries = Object.entries(object); _i < _Object$entries.length; _i++) {
         var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),

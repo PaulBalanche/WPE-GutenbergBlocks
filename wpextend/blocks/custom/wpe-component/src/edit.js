@@ -176,10 +176,18 @@ class WpeComponent extends Component {
                             fieldsetObject.push( this.renderControl( valueSubProp, keySubProp, { key: keyProp, value: rootValue, keyLoop: keyLoop, repeatable: repeatable } ) );
                         }
                         blocReturned.push(
-                            <fieldset key={ this.props.clientId + "-" + keyProp + "-fieldsetObjectContainer"} >
-                                <legend key={ this.props.clientId + "-" + keyProp + "-fieldsetObjectContainer-legend"} >{ valueProp.label }</legend>
-                                { fieldsetObject }
-                            </fieldset>
+                            <div
+                                key={ this.props.clientId + "-" + keyProp + "-objectContainer"}
+                                className="objectField components-base-control"
+                            >   
+                                <label key={ this.props.clientId + "-" + keyProp + "-fieldsetContainer-label"} className="components-base-control__label" >{ valueProp.label }</label>
+                                <div
+                                    key={ this.props.clientId + "-" + keyProp + "-objectContainer-content"}
+                                    className="objectField-content"
+                                > 
+                                    { fieldsetObject }
+                                </div>
+                            </div>
                         );
                     }
                     break;
@@ -200,10 +208,23 @@ class WpeComponent extends Component {
             );
 
             blocReturned = (
-                <fieldset key={ this.props.clientId + "-" + keyProp + "-fieldsetContainer"} >
-                    <legend key={ this.props.clientId + "-" + keyProp + "-fieldsetContainer-legend"} >{ valueProp.label }</legend>
+                <div
+                    key={ this.props.clientId + "-" + keyProp + "-repeatableContainer"}
+                    className="repeatableField components-base-control"
+                >   
+                    <label key={ this.props.clientId + "-" + keyProp + "-fieldsetContainer-label"} className="components-base-control__label" >{ valueProp.label }</label>
                     { blocReturned }
-                </fieldset>
+                </div>
+            );
+        }
+        else {
+            blocReturned = (
+                <div
+                    key={ this.props.clientId + "-" + keyProp + "-basicContainer"}
+                    className="basicField"
+                >
+                    { blocReturned }
+                </div>
             );
         }
 
@@ -286,25 +307,22 @@ class WpeComponent extends Component {
         }
 
         return (
-            <fieldset key={ id + "-fieldsetMediaPlaceholder"} >
-                <legend key={ id + "-fieldsetMediaPlaceholder-legend"} >{ label }</legend>
-                <MediaPlaceholder
-                    key={ id }
-                    labels={ { title: label } }
-                    onSelect={ ( value ) =>
-                        this.setAttributes( { [keyProp]: {
-                            id: value.id,
-                            url: value.url
-                        } } )
-                    }
-                    allowedTypes= { [ 'image' ] }
-                    mediaPreview={ imagePreview }
-                    value={ objectValue[keyObjectValue] }
-                    disableDropZone={ true }
-                >
-                    { removeImage }
-                </MediaPlaceholder>
-            </fieldset>
+            <MediaPlaceholder
+                key={ id }
+                labels={ { title: label } }
+                onSelect={ ( value ) =>
+                    this.setAttributes( { [keyProp]: {
+                        id: value.id,
+                        url: value.url
+                    } } )
+                }
+                allowedTypes= { [ 'image' ] }
+                mediaPreview={ imagePreview }
+                value={ objectValue[keyObjectValue] }
+                disableDropZone={ true }
+            >
+                { removeImage }
+            </MediaPlaceholder>
         );
     }
 
@@ -366,8 +384,7 @@ class WpeComponent extends Component {
         }
 
         return (
-            <fieldset key={ id + "-fieldsetMediaPlaceholder"} >
-                <legend key={ id + "-fieldsetMediaPlaceholder-legend"} >{ label }</legend>
+            <>
                 { galleryPreview }
                 <MediaPlaceholder
                     key={ id }
@@ -392,7 +409,7 @@ class WpeComponent extends Component {
                 >
                     { removeGallery }
                 </MediaPlaceholder>
-            </fieldset>
+            </>
         );
     }
 
@@ -481,7 +498,7 @@ class WpeComponent extends Component {
                     var editPlaceHolder = (
                         <>
                             <TabPanel
-                                className="my-tab-panel"
+                                className="tab-panel-wpe-component"
                                 activeClass="active-tab"
                                 tabs={ tabPanel }>
                                 {

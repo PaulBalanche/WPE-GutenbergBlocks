@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\",\"category\":\"cat1\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\",\"category\":\"cat1\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"category\":\"cat2\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Catégorie 1\"},{\"id\":\"cat2\",\"name\":\"Catégorie 2\"},{\"id\":\"cat3\",\"name\":\"Catégorie 3\"},{\"id\":\"cat4\",\"name\":\"Catégorie 4\"}],\"props\":{\"object\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String repeatable\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat3\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat4\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"boolean_repeatble\":{\"label\":\"Boolean Repeatable\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat1\"},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat1\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\",\"category\":\"cat1\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\",\"category\":\"cat1\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"category\":\"cat2\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Others\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
 
 /***/ }),
 
@@ -655,11 +655,16 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
                 }));
               }
 
-              blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("fieldset", {
-                key: this.props.clientId + "-" + keyProp + "-fieldsetObjectContainer"
-              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("legend", {
-                key: this.props.clientId + "-" + keyProp + "-fieldsetObjectContainer-legend"
-              }, valueProp.label), fieldsetObject));
+              blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+                key: this.props.clientId + "-" + keyProp + "-objectContainer",
+                className: "objectField components-base-control"
+              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", {
+                key: this.props.clientId + "-" + keyProp + "-fieldsetContainer-label",
+                className: "components-base-control__label"
+              }, valueProp.label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+                key: this.props.clientId + "-" + keyProp + "-objectContainer-content",
+                className: "objectField-content"
+              }, fieldsetObject)));
             }
 
             break;
@@ -676,11 +681,18 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             return _this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, keyProp, currentValueAttribute.concat([""])));
           }
         }, "Add"));
-        blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("fieldset", {
-          key: this.props.clientId + "-" + keyProp + "-fieldsetContainer"
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("legend", {
-          key: this.props.clientId + "-" + keyProp + "-fieldsetContainer-legend"
+        blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+          key: this.props.clientId + "-" + keyProp + "-repeatableContainer",
+          className: "repeatableField components-base-control"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", {
+          key: this.props.clientId + "-" + keyProp + "-fieldsetContainer-label",
+          className: "components-base-control__label"
         }, valueProp.label), blocReturned);
+      } else {
+        blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+          key: this.props.clientId + "-" + keyProp + "-basicContainer",
+          className: "basicField"
+        }, blocReturned);
       } // Return
 
 
@@ -765,11 +777,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }, "Remove");
       }
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("fieldset", {
-        key: id + "-fieldsetMediaPlaceholder"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("legend", {
-        key: id + "-fieldsetMediaPlaceholder-legend"
-      }, label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_10__["MediaPlaceholder"], {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_10__["MediaPlaceholder"], {
         key: id,
         labels: {
           title: label
@@ -784,7 +792,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         mediaPreview: imagePreview,
         value: objectValue[keyObjectValue],
         disableDropZone: true
-      }, removeImage));
+      }, removeImage);
     }
   }, {
     key: "renderGalleryControl",
@@ -831,11 +839,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }, ulGalleryPreview));
       }
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("fieldset", {
-        key: id + "-fieldsetMediaPlaceholder"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("legend", {
-        key: id + "-fieldsetMediaPlaceholder-legend"
-      }, label), galleryPreview, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_10__["MediaPlaceholder"], {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, galleryPreview, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_10__["MediaPlaceholder"], {
         key: id,
         labels: {
           title: label
@@ -955,7 +959,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             }
 
             var editPlaceHolder = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TabPanel"], {
-              className: "my-tab-panel",
+              className: "tab-panel-wpe-component",
               activeClass: "active-tab",
               tabs: tabPanel
             }, function (tabPanel) {

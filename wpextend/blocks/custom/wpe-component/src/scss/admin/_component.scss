@@ -1,47 +1,50 @@
-.tab-panel-wpe-component {
+.wpe-component_edit_placeholder {
 
-    .components-tab-panel__tabs {
-        background: #f3f4f5;
-        border: 1px solid #e2e4e7;
-        border-bottom: none;
+    .tab-panel-wpe-component {
 
-        &-item {
-            margin-bottom: 0;
+        .components-tab-panel__tabs {
+            background: #f3f4f5;
+            border: 1px solid #e2e4e7;
+            border-bottom: none;
 
-            &:focus:not(:disabled), &.active-tab {
-                box-shadow: 0 3px #007CBA;
+            &-item {
+                margin-bottom: 0;
+
+                &:focus:not(:disabled), &.active-tab {
+                    box-shadow: 0 3px #007CBA;
+                }
             }
+        }
+
+        .components-tab-panel__tab-content {
+            padding: 15px 20px 5px 20px;
+            border: 1px solid #e2e4e7;
+            border-top: none;
         }
     }
 
-    .components-tab-panel__tab-content {
-        padding: 15px 20px 5px 20px;
-        border: 1px solid #e2e4e7;
-        border-top: none;
+    .basicField, .repeatableField {
+        border-bottom: 1px solid #f3f4f5;
+        padding: 15px 0;
 
-        .basicField, .repeatableField {
-            border-bottom: 1px solid #f3f4f5;
-            padding: 15px 0;
-
-            &:last-child {
-                border-bottom: none;
-            }
-
-            .block-editor-media-placeholder {
-                box-shadow: none;
-                background: #f3f4f5;
-            }
+        &:last-child {
+            border-bottom: none;
         }
 
-        .objectField {
+        .block-editor-media-placeholder {
+            box-shadow: none;
+            background: #f3f4f5;
+        }
+    }
 
-            .objectField-content {
-                background: #f3f4f5;
-                padding: 0 20px;
+    .objectField {
 
-                .basicField, .repeatableField {
-                    border-color: #e2e4e7;
-                }
+        .objectField-content {
+            background: #f3f4f5;
+            padding: 0 20px;
+
+            .basicField, .repeatableField {
+                border-color: #e2e4e7;
             }
         }
     }

@@ -460,11 +460,16 @@ class WpeComponent extends Component {
                             catReOrder.default.props[keyProp] = valueProp;
                         }
                     }
-                    if( Object.keys(catReOrder.default.props).length == 0 ) {
-                        delete catReOrder.default;
-                    }     
 
-                    // 3. Render
+                    // 3. Remove empty category
+                    for (const [keyProp, valueProp] of Object.entries(catReOrder)) {
+
+                        if( Object.keys(catReOrder[keyProp].props).length == 0 ) {
+                            delete catReOrder[keyProp];
+                        }
+                    }
+
+                    // 4. Render
                     var tabPanel = [];
                     for (const [keyCat, valCat] of Object.entries(catReOrder)) {
                         
@@ -495,18 +500,25 @@ class WpeComponent extends Component {
                         }
                     }
 
-                    var editPlaceHolder = (
-                        <>
-                            <TabPanel
-                                className="tab-panel-wpe-component"
-                                activeClass="active-tab"
-                                tabs={ tabPanel }>
-                                {
-                                    ( tabPanel ) => <> { tabPanel.content } </>
-                                }
-                            </TabPanel>
-                        </>
-                    );
+                    var editPlaceHolder = '';
+                    if( tabPanel.length > 1 ) {
+                        
+                        editPlaceHolder = (
+                            <>
+                                <TabPanel
+                                    className="tab-panel-wpe-component"
+                                    activeClass="active-tab"
+                                    tabs={ tabPanel }>
+                                    {
+                                        ( tabPanel ) => <> { tabPanel.content } </>
+                                    }
+                                </TabPanel>
+                            </>
+                        );
+                    }
+                    else {
+                        editPlaceHolder = tabPanel[0].content;
+                    } 
 
                     return (
                         <>
@@ -514,6 +526,7 @@ class WpeComponent extends Component {
                                 key={ clientId + "-placeholder" }
                                 label={ element.name }
                                 isColumnLayout={ true }
+                                className="wpe-component_edit_placeholder"
                             >
                                 { editPlaceHolder }
                             </Placeholder>

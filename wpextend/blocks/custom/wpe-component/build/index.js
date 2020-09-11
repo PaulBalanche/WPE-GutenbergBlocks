@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\",\"category\":\"cat1\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\",\"category\":\"cat1\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"category\":\"cat2\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Others\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Others\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
 
 /***/ }),
 
@@ -918,29 +918,36 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               } else {
                 catReOrder.default.props[keyProp] = valueProp;
               }
-            }
+            } // 3. Remove empty category
 
-            if (Object.keys(catReOrder.default.props).length == 0) {
-              delete catReOrder.default;
-            } // 3. Render
+
+            for (var _i7 = 0, _Object$entries7 = Object.entries(catReOrder); _i7 < _Object$entries7.length; _i7++) {
+              var _Object$entries7$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries7[_i7], 2),
+                  _keyProp = _Object$entries7$_i[0],
+                  _valueProp = _Object$entries7$_i[1];
+
+              if (Object.keys(catReOrder[_keyProp].props).length == 0) {
+                delete catReOrder[_keyProp];
+              }
+            } // 4. Render
 
 
             var tabPanel = [];
 
-            for (var _i7 = 0, _Object$entries7 = Object.entries(catReOrder); _i7 < _Object$entries7.length; _i7++) {
-              var _Object$entries7$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries7[_i7], 2),
-                  keyCat = _Object$entries7$_i[0],
-                  valCat = _Object$entries7$_i[1];
+            for (var _i8 = 0, _Object$entries8 = Object.entries(catReOrder); _i8 < _Object$entries8.length; _i8++) {
+              var _Object$entries8$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries8[_i8], 2),
+                  keyCat = _Object$entries8$_i[0],
+                  valCat = _Object$entries8$_i[1];
 
               if (valCat.props.length == 0) continue;
               var currentEditCat = [];
 
-              for (var _i8 = 0, _Object$entries8 = Object.entries(valCat.props); _i8 < _Object$entries8.length; _i8++) {
-                var _Object$entries8$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries8[_i8], 2),
-                    _keyProp = _Object$entries8$_i[0],
-                    _valueProp = _Object$entries8$_i[1];
+              for (var _i9 = 0, _Object$entries9 = Object.entries(valCat.props); _i9 < _Object$entries9.length; _i9++) {
+                var _Object$entries9$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries9[_i9], 2),
+                    _keyProp2 = _Object$entries9$_i[0],
+                    _valueProp2 = _Object$entries9$_i[1];
 
-                currentEditCat.push(this.renderControl(_valueProp, _keyProp));
+                currentEditCat.push(this.renderControl(_valueProp2, _keyProp2));
               }
 
               if (keyCat == "default") {
@@ -958,17 +965,25 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               }
             }
 
-            var editPlaceHolder = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TabPanel"], {
-              className: "tab-panel-wpe-component",
-              activeClass: "active-tab",
-              tabs: tabPanel
-            }, function (tabPanel) {
-              return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, " ", tabPanel.content, " ");
-            }));
+            var editPlaceHolder = '';
+
+            if (tabPanel.length > 1) {
+              editPlaceHolder = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TabPanel"], {
+                className: "tab-panel-wpe-component",
+                activeClass: "active-tab",
+                tabs: tabPanel
+              }, function (tabPanel) {
+                return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, " ", tabPanel.content, " ");
+              }));
+            } else {
+              editPlaceHolder = tabPanel[0].content;
+            }
+
             return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Placeholder"], {
               key: clientId + "-placeholder",
               label: element.name,
-              isColumnLayout: true
+              isColumnLayout: true,
+              className: "wpe-component_edit_placeholder"
             }, editPlaceHolder));
           }
         }

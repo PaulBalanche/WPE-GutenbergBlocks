@@ -42,11 +42,11 @@ class WpeComponent extends Component {
 
         const firstElement = arrayKey.shift();
 
-        if( typeof fromObject != 'object' )
+        if( typeof fromObject != 'object' || ( Array.isArray(fromObject) && typeof firstElement == 'string' ) || ( ! Array.isArray(fromObject) && typeof firstElement == 'number' ) )
             fromObject = ( typeof firstElement == 'string' ) ? {} : [];
-
+    
         let objectReturned = ( Array.isArray(fromObject) ) ? [] : {};
-        
+
         for( const [key, val] of Object.entries(fromObject) ) {
             if( key == firstElement )
                 objectReturned[key] = ( arrayKey.length > 0 ) ? this.recursiveUpdateObjectFromObject(arrayKey, val, newValue) : this.returnStringOrNumber(newValue, isNumber);
@@ -65,7 +65,7 @@ class WpeComponent extends Component {
     }
     
     renderControl( prop, keys, valueProp ) {
-
+console.log(keys);
         let blocReturned = [];
 
         let repeatable = ( typeof prop.repeatable != "undefined" && !! prop.repeatable ) ? true : false;
@@ -84,7 +84,9 @@ class WpeComponent extends Component {
         else if( typeof currentValueAttribute != "object" || currentValueAttribute.length == 0 )
             currentValueAttribute = [ "" ];
 
-        for (const keyLoop in currentValueAttribute) {
+        for (var keyLoop in currentValueAttribute) {
+
+            keyLoop = this.returnStringOrNumber(keyLoop, true);
 
             let fieldId = this.props.clientId + "-" + keys[0] + "-" + keyLoop;
             switch(prop.type) {
@@ -119,7 +121,7 @@ class WpeComponent extends Component {
 
                         let fieldsetObject = [];
                         for (const [keySubProp, valueSubProp] of Object.entries(prop.props)) {
-                            fieldsetObject.push( this.renderControl( valueSubProp, keys.concat(keySubProp), valueProp ) );
+                            fieldsetObject.push( this.renderControl( valueSubProp, repeatable ? keys.concat(keyLoop).concat(keySubProp) : keys.concat(keySubProp) , valueProp ) );
                         }
                         blocReturned.push(
                             <div
@@ -147,9 +149,8 @@ class WpeComponent extends Component {
                     key={ this.props.clientId + "-" + keys[0] + "-add"}
                     isSecondary
                     isSmall
-                    onClick={ () => {
-                        this.setAttributes( { [keys[0]]: currentValueAttribute.concat([""]) } )
-                    }
+                    onClick={ () => 
+                        this.updateAttributes(keys, valueProp, currentValueAttribute.concat([""]), false, repeatable)
                     }
                 >Add</Button>
             );

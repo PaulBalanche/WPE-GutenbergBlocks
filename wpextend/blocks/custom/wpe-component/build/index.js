@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Others\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"object_repeatable\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Others\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object2\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"number\"},\"street\":{\"label\":\"Street\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"text\",\"repeatable\":true}}}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"object_repeatable\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
 
 /***/ }),
 
@@ -514,23 +514,30 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "updateAttributes",
-    value: function updateAttributes(key, currentValue, keyNewValue, newValue) {
-      var isNumber = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
-      var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
-      var rootProp = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-      var newValueToUpdate = '';
+    value: function updateAttributes(key, currentValue, newValue) {
+      var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      var keyToUpdate = key[0];
+      var newValueToUpdate = this.recursiveUpdateObjectFromObject(key, currentValue, newValue);
+      this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyToUpdate, newValueToUpdate[keyToUpdate]));
+    }
+  }, {
+    key: "recursiveUpdateObjectFromObject",
+    value: function recursiveUpdateObjectFromObject(arrayKey, fromObject, newValue) {
+      var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      var firstElement = arrayKey.shift();
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(fromObject) != 'object') fromObject = typeof firstElement == 'string' ? {} : [];
+      var objectReturned = Array.isArray(fromObject) ? [] : {};
 
-      if (rootProp) {
-        if (!rootProp.repeatable) newValueToUpdate = this.updateObjectFromObject(rootProp.value, key, newValue, isNumber);else newValueToUpdate = this.objectMap(rootProp.value, newValue, rootProp.keyLoop, isNumber, key);
-        this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, rootProp.key, newValueToUpdate));
-      } else {
-        if (!repeatable) {
-          newValueToUpdate = this.updateObjectFromObject(rootProp.value, key, newValue, isNumber);
-          newValueToUpdate = newValueToUpdate[key];
-        } else newValueToUpdate = this.objectMap(currentValue, newValue, keyNewValue, isNumber);
+      for (var _i = 0, _Object$entries = Object.entries(fromObject); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
+            key = _Object$entries$_i[0],
+            val = _Object$entries$_i[1];
 
-        this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, newValueToUpdate));
+        if (key == firstElement) objectReturned[key] = arrayKey.length > 0 ? this.recursiveUpdateObjectFromObject(arrayKey, val, newValue) : this.returnStringOrNumber(newValue, isNumber);else objectReturned[key] = val;
       }
+
+      if (typeof objectReturned[firstElement] == 'undefined') objectReturned[firstElement] = arrayKey.length > 0 ? this.recursiveUpdateObjectFromObject(arrayKey, undefined, newValue) : this.returnStringOrNumber(newValue, isNumber);
+      return objectReturned;
     }
   }, {
     key: "returnStringOrNumber",
@@ -539,112 +546,66 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       return !!isNumber ? parseInt(value, 10) : value;
     }
   }, {
-    key: "updateObjectFromObject",
-    value: function updateObjectFromObject(fromObject, key, newValue) {
-      var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-      var objectReturned = null;
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(fromObject) != 'object') objectReturned = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, this.returnStringOrNumber(newValue, isNumber));else objectReturned = this.objectMap(fromObject, newValue, key, isNumber);
-      if (typeof objectReturned[key] == 'undefined') objectReturned[key] = this.returnStringOrNumber(newValue, isNumber);
-      return objectReturned;
-    }
-  }, {
-    key: "objectMap",
-    value: function objectMap(object, newValue, keyValue) {
-      var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-      var keyUpdateFromObject = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
-      var objectReturned = Array.isArray(object) ? [] : {};
-
-      for (var _i = 0, _Object$entries = Object.entries(object); _i < _Object$entries.length; _i++) {
-        var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
-            key = _Object$entries$_i[0],
-            val = _Object$entries$_i[1];
-
-        if (key == keyValue) {
-          if (!!keyUpdateFromObject) objectReturned[key] = this.updateObjectFromObject(val, keyUpdateFromObject, newValue, isNumber);else objectReturned[key] = this.returnStringOrNumber(newValue, isNumber);
-        } else objectReturned[key] = val;
-      }
-
-      return objectReturned;
-    }
-  }, {
     key: "renderControl",
-    value: function renderControl(valueProp, keyProp) {
+    value: function renderControl(prop, keys, valueProp) {
       var _this = this;
 
-      var rootProp = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       var blocReturned = [];
-      var keyRootProp = rootProp ? rootProp.key : keyProp;
-      var repeatable = typeof valueProp.repeatable != "undefined" && !!valueProp.repeatable ? true : false;
-      var currentValueAttribute = "";
-      var rootValue = "";
-
-      if (rootProp) {
-        if (!rootProp.repeatable && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(rootProp.value) == 'object' && typeof rootProp.value[keyProp] != "undefined") {
-          currentValueAttribute = rootProp.value[keyProp];
-        } else if (rootProp.repeatable && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(rootProp.value) == 'object' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(rootProp.value[rootProp.keyLoop]) == "object" && typeof rootProp.value[rootProp.keyLoop][keyProp] != "undefined") {
-          currentValueAttribute = rootProp.value[rootProp.keyLoop][keyProp];
-        } else {
-          currentValueAttribute = "";
-        }
-      } else {
-        rootValue = this.getAttribute(keyRootProp);
-        if (repeatable && (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(rootValue) != "object" || rootValue.length == 0)) rootValue = [""];
-        currentValueAttribute = rootValue;
-      }
-
+      var repeatable = typeof prop.repeatable != "undefined" && !!prop.repeatable ? true : false;
+      var currentValueAttribute = valueProp;
+      keys.forEach(function (element) {
+        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(currentValueAttribute) == 'object') currentValueAttribute = currentValueAttribute[element];else currentValueAttribute = currentValueAttribute;
+      });
       if (!repeatable) currentValueAttribute = [currentValueAttribute];else if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(currentValueAttribute) != "object" || currentValueAttribute.length == 0) currentValueAttribute = [""];
 
       for (var keyLoop in currentValueAttribute) {
-        switch (valueProp.type) {
+        var fieldId = this.props.clientId + "-" + keys[0] + "-" + keyLoop;
+
+        switch (prop.type) {
           case 'string':
-            blocReturned.push(this.renderTextControl(this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, keyProp, currentValueAttribute, keyLoop, false, repeatable, rootProp));
+            blocReturned.push(this.renderTextControl(fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], false, repeatable));
             break;
 
           case 'number':
-            blocReturned.push(this.renderTextControl(this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, keyProp, currentValueAttribute, keyLoop, true, repeatable, rootProp));
+            blocReturned.push(this.renderTextControl(fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], true, repeatable));
             break;
 
           case 'text':
-            blocReturned.push(this.renderTextareaControl(this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, keyProp, currentValueAttribute, keyLoop, repeatable, rootProp));
+            blocReturned.push(this.renderTextareaControl(fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
           case 'boolean':
-            blocReturned.push(this.renderToggleControl(this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, 'Help', keyProp, currentValueAttribute, keyLoop, repeatable, rootProp));
+            blocReturned.push(this.renderToggleControl(fieldId, prop.label, 'Help', repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
           case 'image':
-            blocReturned.push(this.renderImageControl(this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, keyProp, currentValueAttribute, keyLoop, repeatable, rootProp));
+            blocReturned.push(this.renderImageControl(fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
           case 'gallery':
-            blocReturned.push(this.renderGalleryControl(this.props.clientId + "-" + keyProp + "-" + keyLoop, valueProp.label, keyProp, currentValueAttribute, keyLoop, repeatable, rootProp));
+            blocReturned.push(this.renderGalleryControl(fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
           case 'object':
-            if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(valueProp.props) == "object") {
+            if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(prop.props) == "object") {
               var fieldsetObject = [];
 
-              for (var _i2 = 0, _Object$entries2 = Object.entries(valueProp.props); _i2 < _Object$entries2.length; _i2++) {
+              for (var _i2 = 0, _Object$entries2 = Object.entries(prop.props); _i2 < _Object$entries2.length; _i2++) {
                 var _Object$entries2$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries2[_i2], 2),
                     keySubProp = _Object$entries2$_i[0],
                     valueSubProp = _Object$entries2$_i[1];
 
-                fieldsetObject.push(this.renderControl(valueSubProp, keySubProp, {
-                  key: keyProp,
-                  value: rootValue,
-                  keyLoop: keyLoop,
-                  repeatable: repeatable
-                }));
+                fieldsetObject.push(this.renderControl(valueSubProp, keys.concat(keySubProp), valueProp));
               }
 
               blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-                key: this.props.clientId + "-" + keyProp + "-objectContainer",
+                key: this.props.clientId + "-" + keys[0] + "-objectContainer",
                 className: "objectField components-base-control"
               }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", {
-                key: this.props.clientId + "-" + keyProp + "-fieldsetContainer-label",
+                key: this.props.clientId + "-" + keys[0] + "-fieldsetContainer-label",
                 className: "components-base-control__label"
-              }, valueProp.label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-                key: this.props.clientId + "-" + keyProp + "-objectContainer-content",
+              }, prop.label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+                key: this.props.clientId + "-" + keys[0] + "-objectContainer-content",
                 className: "objectField-content"
               }, fieldsetObject)));
             }
@@ -656,23 +617,23 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       if (!!repeatable) {
         blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
-          key: this.props.clientId + "-" + keyProp + "-add",
+          key: this.props.clientId + "-" + keys[0] + "-add",
           isSecondary: true,
           isSmall: true,
           onClick: function onClick() {
-            return _this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, currentValueAttribute.concat([""])));
+            _this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys[0], currentValueAttribute.concat([""])));
           }
         }, "Add"));
         blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-          key: this.props.clientId + "-" + keyProp + "-repeatableContainer",
+          key: this.props.clientId + "-" + keys[0] + "-repeatableContainer",
           className: "repeatableField components-base-control"
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", {
-          key: this.props.clientId + "-" + keyProp + "-fieldsetContainer-label",
+          key: this.props.clientId + "-" + keys[0] + "-fieldsetContainer-label",
           className: "components-base-control__label"
-        }, valueProp.label), blocReturned);
+        }, prop.label), blocReturned);
       } else {
         blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-          key: this.props.clientId + "-" + keyProp + "-basicContainer",
+          key: this.props.clientId + "-" + keys[0] + "-basicContainer",
           className: "basicField"
         }, blocReturned);
       } // Return
@@ -682,68 +643,64 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "renderTextControl",
-    value: function renderTextControl(id, label, keyProp, objectValue, keyObjectValue) {
+    value: function renderTextControl(id, label, keys, valueProp, objectValue) {
       var _this2 = this;
 
       var isNumber = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-      var rootProp = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextControl"], {
         key: id,
         label: !repeatable ? label : false,
         type: !!isNumber ? "number" : "text",
-        value: objectValue[keyObjectValue],
+        value: objectValue,
         onChange: function onChange(newValue) {
-          return _this2.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, isNumber, repeatable, rootProp);
+          return _this2.updateAttributes(keys, valueProp, newValue, isNumber, repeatable);
         }
       });
     }
   }, {
     key: "renderTextareaControl",
-    value: function renderTextareaControl(id, label, keyProp, objectValue, keyObjectValue) {
+    value: function renderTextareaControl(id, label, keys, valueProp, objectValue) {
       var _this3 = this;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
-      var rootProp = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextareaControl"], {
         key: id,
         label: !repeatable ? label : false,
-        value: objectValue[keyObjectValue],
+        value: objectValue,
         onChange: function onChange(newValue) {
-          return _this3.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable, rootProp);
+          return _this3.updateAttributes(keys, valueProp, newValue, false, repeatable);
         }
       });
     }
   }, {
     key: "renderToggleControl",
-    value: function renderToggleControl(id, label, help, keyProp, objectValue, keyObjectValue) {
+    value: function renderToggleControl(id, label, help, keys, valueProp, objectValue) {
       var _this4 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-      var rootProp = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["ToggleControl"], {
         key: id,
         label: !repeatable ? label : false,
         help: help,
-        checked: objectValue[keyObjectValue],
+        checked: objectValue,
         onChange: function onChange(newValue) {
-          return _this4.updateAttributes(keyProp, objectValue, keyObjectValue, newValue, false, repeatable, rootProp);
+          return _this4.updateAttributes(keys, valueProp, newValue, false, repeatable);
         }
       });
     }
   }, {
     key: "renderImageControl",
-    value: function renderImageControl(id, label, keyProp, objectValue, keyObjectValue) {
+    value: function renderImageControl(id, label, key, valueProp, objectValue) {
       var _this5 = this;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
-      var rootProp = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-      var imagePreview = !!(objectValue[keyObjectValue] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue[keyObjectValue]) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("img", {
+      var imagePreview = !!(objectValue && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("img", {
         key: id + "-imagePreview",
         alt: "Edit image",
         title: "Edit image",
         className: "edit-image-preview",
-        src: objectValue[keyObjectValue].url
+        src: objectValue.url
       });
       var removeImage = '';
 
@@ -754,7 +711,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isSmall: true,
           className: "block-library-cover__reset-button",
           onClick: function onClick() {
-            return _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, undefined));
+            return _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, undefined));
           }
         }, "Remove");
       }
@@ -765,39 +722,38 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           title: label
         },
         onSelect: function onSelect(value) {
-          return _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, {
+          return _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, {
             id: value.id,
             url: value.url
           }));
         },
         allowedTypes: ['image'],
         mediaPreview: imagePreview,
-        value: objectValue[keyObjectValue],
+        value: objectValue,
         disableDropZone: true
       }, removeImage);
     }
   }, {
     key: "renderGalleryControl",
-    value: function renderGalleryControl(id, label, keyProp, objectValue, keyObjectValue) {
+    value: function renderGalleryControl(id, label, key, valueProp, objectValue) {
       var _this6 = this;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
-      var rootProp = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-      var removeGallery = !!(objectValue[keyObjectValue] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue[keyObjectValue]) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+      var removeGallery = !!(objectValue && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
         key: id + "-removeGallery",
         isSecondary: true,
         isSmall: true,
         className: "block-library-cover__reset-button",
         onClick: function onClick() {
-          var countImages = objectValue[keyObjectValue].length;
-          if (countImages > 1) _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, objectValue[keyObjectValue].slice(0, countImages - 1)));else _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, undefined));
+          var countImages = objectValue.length;
+          if (countImages > 1) _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, objectValue.slice(0, countImages - 1)));else _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, undefined));
         }
       }, "Remove");
       var galleryPreview = '';
 
       if (removeGallery) {
         var ulGalleryPreview = [];
-        objectValue[keyObjectValue].forEach(function (image) {
+        objectValue.forEach(function (image) {
           ulGalleryPreview.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("li", {
             key: id + "-galleryImageContainerLi" + image.id,
             className: "blocks-gallery-item"
@@ -806,7 +762,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             src: image.url
           })));
         });
-        var columns = objectValue[keyObjectValue].length;
+        var columns = objectValue.length;
 
         if (columns > 5) {
           columns = 5;
@@ -835,12 +791,12 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             });
           });
 
-          _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyProp, newGallery));
+          _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, newGallery));
         },
         allowedTypes: ['image'],
         multiple: true,
-        addToGallery: !!objectValue[keyObjectValue],
-        value: objectValue[keyObjectValue],
+        addToGallery: !!objectValue,
+        value: objectValue,
         disableDropZone: true
       }, removeGallery));
     }
@@ -927,9 +883,11 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               for (var _i7 = 0, _Object$entries7 = Object.entries(valCat.props); _i7 < _Object$entries7.length; _i7++) {
                 var _Object$entries7$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries7[_i7], 2),
                     _keyProp2 = _Object$entries7$_i[0],
-                    _valueProp2 = _Object$entries7$_i[1];
+                    prop = _Object$entries7$_i[1];
 
-                currentEditCat.push(this.renderControl(_valueProp2, _keyProp2));
+                var _valueProp2 = this.getAttribute(_keyProp2);
+
+                currentEditCat.push(this.renderControl(prop, [_keyProp2], _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, _keyProp2, _valueProp2)));
               }
 
               if (keyCat == "default") {

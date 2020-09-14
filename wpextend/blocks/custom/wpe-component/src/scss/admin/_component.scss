@@ -48,4 +48,34 @@
             }
         }
     }
+
+    .components-panel {
+
+        margin-bottom: 8px;
+        
+        .components-panel__body {
+            padding: 0;
+
+            .components-panel__body-title {
+                margin: 0;
+                padding: 10px 0 12px 15px;
+                
+                .components-button {
+                    display: block;
+                }
+
+                .components-button:focus {
+                    box-shadow: none;
+                }
+            }
+            &.is-opened > .components-panel__body-title {
+
+                background: #f3f4f5;
+            }
+
+            .objectField-content {
+                background: white;
+            }
+        }
+    }
 }

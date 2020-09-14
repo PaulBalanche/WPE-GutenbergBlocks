@@ -21,6 +21,34 @@ if( file_exists( get_stylesheet_directory() . '/frontspec.json' ) ) {
                     if( isset($val_prop['repeatable']) && $val_prop['repeatable'] == true ) {
                         $currentType = 'array';
                     }
+
+                    switch( $currentType ) {
+                        case 'string':
+                            $currentType = 'string';
+                            break;
+                        case 'text':
+                            $currentType = 'string';
+                            break;
+                        case 'boolean':
+                            $currentType = 'boolean';
+                            break;
+                        case 'array':
+                            $currentType = 'array';
+                            break;
+                        case 'object':
+                            $currentType = 'object';
+                            break;
+                        case 'number':
+                            $currentType = 'number';
+                            break;
+                        case 'image':
+                            $currentType = 'object';
+                            break;
+                        case 'gallery':
+                            $currentType = 'array';
+                            break;
+                    }
+
                     $temp_args_register['attributes'][$key_props] = [
                         'type' => $currentType
                     ];

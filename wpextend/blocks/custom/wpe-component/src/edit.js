@@ -12,7 +12,8 @@ import {
     ToggleControl,
     Button,
     Placeholder,
-    TabPanel
+    TabPanel,
+    Panel, PanelBody, PanelRow
 } from '@wordpress/components';
 
 import frontspec from '../../../../../frontspec.json';
@@ -31,10 +32,43 @@ class WpeComponent extends Component {
         this.props.setAttributes( attributes );
     }
 
-    updateAttributes( key, currentValue, newValue, isNumber = false ) {
+    addEltToRepeatable(arrayKey, currentValueProp, currentValueRepeatableField, isNumber = false) {
+        this.updateAttributes( arrayKey, currentValueProp, currentValueRepeatableField.concat( [ undefined ] ), isNumber );
+    }
 
-        let keyToUpdate = key[0];
-        let newValueToUpdate = this.recursiveUpdateObjectFromObject(key, currentValue, newValue);
+    removeEltToRepeatable(arrayKey, currentValueProp) {
+
+        let index = 1;
+        let tabsplice = undefined;
+        arrayKey.forEach(element => {
+            
+            if( index == arrayKey.length ) {
+                tabsplice.splice(element, 1);
+                arrayKey.pop();
+            }
+            else {
+                if( typeof tabsplice == 'undefined' )
+                    tabsplice = currentValueProp[element];
+                else
+                    tabsplice = tabsplice[element];
+            }
+
+            index++;
+        });
+
+        console.log(arrayKey);
+        console.log(currentValueProp);
+        console.log(tabsplice);
+        this.updateAttributes( arrayKey, currentValueProp, tabsplice );
+    }
+
+    updateAttributes( arrayKey, currentValue, newValue, isNumber = false ) {
+
+        let keyToUpdate = arrayKey[0];
+        let newValueToUpdate = this.recursiveUpdateObjectFromObject(arrayKey, currentValue, newValue, isNumber);
+
+        console.log(keyToUpdate);
+        console.log(newValueToUpdate[keyToUpdate]);
         this.setAttributes( { [keyToUpdate]: newValueToUpdate[keyToUpdate] } );
     }
 
@@ -49,13 +83,13 @@ class WpeComponent extends Component {
 
         for( const [key, val] of Object.entries(fromObject) ) {
             if( key == firstElement )
-                objectReturned[key] = ( arrayKey.length > 0 ) ? this.recursiveUpdateObjectFromObject(arrayKey, val, newValue) : this.returnStringOrNumber(newValue, isNumber);
+                objectReturned[key] = ( arrayKey.length > 0 ) ? this.recursiveUpdateObjectFromObject(arrayKey, val, newValue, isNumber) : this.returnStringOrNumber(newValue, isNumber);
             else
                 objectReturned[key] = val;
         }
 
         if( typeof objectReturned[firstElement] == 'undefined' )
-            objectReturned[firstElement] = ( arrayKey.length > 0 ) ? this.recursiveUpdateObjectFromObject(arrayKey, undefined, newValue) : this.returnStringOrNumber(newValue, isNumber);
+            objectReturned[firstElement] = ( arrayKey.length > 0 ) ? this.recursiveUpdateObjectFromObject(arrayKey, undefined, newValue, isNumber) : this.returnStringOrNumber(newValue, isNumber);
 
         return objectReturned;
     }
@@ -65,7 +99,7 @@ class WpeComponent extends Component {
     }
     
     renderControl( prop, keys, valueProp ) {
-console.log(keys);
+
         let blocReturned = [];
 
         let repeatable = ( typeof prop.repeatable != "undefined" && !! prop.repeatable ) ? true : false;
@@ -123,19 +157,29 @@ console.log(keys);
                         for (const [keySubProp, valueSubProp] of Object.entries(prop.props)) {
                             fieldsetObject.push( this.renderControl( valueSubProp, repeatable ? keys.concat(keyLoop).concat(keySubProp) : keys.concat(keySubProp) , valueProp ) );
                         }
+
+                        let labelObject = prop.label;
+                        if( repeatable ) {
+                            let index = keyLoop + 1;
+                            labelObject = prop.label + " " + index + "/" + currentValueAttribute.length;
+                        }
+                        
                         blocReturned.push(
-                            <div
-                                key={ this.props.clientId + "-" + keys[0] + "-objectContainer"}
-                                className="objectField components-base-control"
-                            >   
-                                <label key={ this.props.clientId + "-" + keys[0] + "-fieldsetContainer-label"} className="components-base-control__label" >{ prop.label }</label>
-                                <div
-                                    key={ this.props.clientId + "-" + keys[0] + "-objectContainer-content"}
-                                    className="objectField-content"
-                                > 
-                                    { fieldsetObject }
+                            <Panel>
+                                <PanelBody title={ labelObject } initialOpen={ false }>
+                                    <div
+                                        key={ this.props.clientId + "-" + keys[0] + "-objectContainer"}
+                                        className="objectField components-base-control"
+                                    >
+                                        <div
+                                            key={ this.props.clientId + "-" + keys[0] + "-objectContainer-content"}
+                                            className="objectField-content"
+                                        > 
+                                        { fieldsetObject }
+                                    </div>
                                 </div>
-                            </div>
+                                </PanelBody>
+                            </Panel>
                         );
                     }
                     break;
@@ -150,17 +194,19 @@ console.log(keys);
                     isSecondary
                     isSmall
                     onClick={ () => 
-                        this.updateAttributes(keys, valueProp, currentValueAttribute.concat([""]), false, repeatable)
+                        this.addEltToRepeatable(keys, valueProp, currentValueAttribute, false)
                     }
                 >Add</Button>
             );
+
+            let label = ( prop.type != 'object' ) ? <label key={ this.props.clientId + "-" + keys[0] + "-fieldsetContainer-label"} className="components-base-control__label" >{ prop.label }</label> : '';
 
             blocReturned = (
                 <div
                     key={ this.props.clientId + "-" + keys[0] + "-repeatableContainer"}
                     className="repeatableField components-base-control"
                 >   
-                    <label key={ this.props.clientId + "-" + keys[0] + "-fieldsetContainer-label"} className="components-base-control__label" >{ prop.label }</label>
+                    { label }
                     { blocReturned }
                 </div>
             );
@@ -186,10 +232,25 @@ console.log(keys);
 
     renderTextControl( id, label, keys, valueProp, objectValue, isNumber = false, repeatable = false) {
 
+        if( repeatable ) {
+            label = (
+                <>
+                    { label }
+                    <Button
+                        isLink={true}
+                        onClick={ () =>
+                            this.removeEltToRepeatable(keys, valueProp)
+                        }
+                    >
+                        Remove
+                    </Button>
+                </>
+            );
+        }
         return (
             <TextControl
                 key={ id }
-                label={ ! repeatable ? label : false }
+                label={ label }
                 type={ !! isNumber ? "number" : "text" }
                 value={ objectValue }
                 onChange={ ( newValue ) =>

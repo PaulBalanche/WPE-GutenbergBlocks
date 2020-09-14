@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Others\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object2\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"number\"},\"street\":{\"label\":\"Street\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"text\"}}},\"neighbours\":{\"label\":\"Neighbours\",\"type\":\"object\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"number\"},\"street\":{\"label\":\"Street\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"text\"}}}}}}}}}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"object_repeatable\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Others\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object2\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"number\"},\"street\":{\"label\":\"Street\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"text\"}}},\"neighbours\":{\"label\":\"Neighbours\",\"type\":\"object\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"number\"},\"street\":{\"label\":\"Street\",\"type\":\"string\",\"repeatable\":true},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"text\"}}}}}}}}}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"object\",\"repeatable\":true,\"category\":\"cat2\",\"props\":{\"un\":{\"label\":\"Un\",\"type\":\"string\"},\"deux\":{\"label\":\"Deux\",\"type\":\"string\"}}},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"object_repeatable\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
 
 /***/ }),
 
@@ -513,11 +513,39 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       this.props.setAttributes(attributes);
     }
   }, {
-    key: "updateAttributes",
-    value: function updateAttributes(key, currentValue, newValue) {
+    key: "addEltToRepeatable",
+    value: function addEltToRepeatable(arrayKey, currentValueProp, currentValueRepeatableField) {
       var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-      var keyToUpdate = key[0];
-      var newValueToUpdate = this.recursiveUpdateObjectFromObject(key, currentValue, newValue);
+      this.updateAttributes(arrayKey, currentValueProp, currentValueRepeatableField.concat([undefined]), isNumber);
+    }
+  }, {
+    key: "removeEltToRepeatable",
+    value: function removeEltToRepeatable(arrayKey, currentValueProp) {
+      var index = 1;
+      var tabsplice = undefined;
+      arrayKey.forEach(function (element) {
+        if (index == arrayKey.length) {
+          tabsplice.splice(element, 1);
+          arrayKey.pop();
+        } else {
+          if (typeof tabsplice == 'undefined') tabsplice = currentValueProp[element];else tabsplice = tabsplice[element];
+        }
+
+        index++;
+      });
+      console.log(arrayKey);
+      console.log(currentValueProp);
+      console.log(tabsplice);
+      this.updateAttributes(arrayKey, currentValueProp, tabsplice);
+    }
+  }, {
+    key: "updateAttributes",
+    value: function updateAttributes(arrayKey, currentValue, newValue) {
+      var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      var keyToUpdate = arrayKey[0];
+      var newValueToUpdate = this.recursiveUpdateObjectFromObject(arrayKey, currentValue, newValue, isNumber);
+      console.log(keyToUpdate);
+      console.log(newValueToUpdate[keyToUpdate]);
       this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyToUpdate, newValueToUpdate[keyToUpdate]));
     }
   }, {
@@ -533,10 +561,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             key = _Object$entries$_i[0],
             val = _Object$entries$_i[1];
 
-        if (key == firstElement) objectReturned[key] = arrayKey.length > 0 ? this.recursiveUpdateObjectFromObject(arrayKey, val, newValue) : this.returnStringOrNumber(newValue, isNumber);else objectReturned[key] = val;
+        if (key == firstElement) objectReturned[key] = arrayKey.length > 0 ? this.recursiveUpdateObjectFromObject(arrayKey, val, newValue, isNumber) : this.returnStringOrNumber(newValue, isNumber);else objectReturned[key] = val;
       }
 
-      if (typeof objectReturned[firstElement] == 'undefined') objectReturned[firstElement] = arrayKey.length > 0 ? this.recursiveUpdateObjectFromObject(arrayKey, undefined, newValue) : this.returnStringOrNumber(newValue, isNumber);
+      if (typeof objectReturned[firstElement] == 'undefined') objectReturned[firstElement] = arrayKey.length > 0 ? this.recursiveUpdateObjectFromObject(arrayKey, undefined, newValue, isNumber) : this.returnStringOrNumber(newValue, isNumber);
       return objectReturned;
     }
   }, {
@@ -550,7 +578,6 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
     value: function renderControl(prop, keys, valueProp) {
       var _this = this;
 
-      console.log(keys);
       var blocReturned = [];
       var repeatable = typeof prop.repeatable != "undefined" && !!prop.repeatable ? true : false;
       var currentValueAttribute = valueProp;
@@ -600,16 +627,23 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
                 fieldsetObject.push(this.renderControl(valueSubProp, repeatable ? keys.concat(keyLoop).concat(keySubProp) : keys.concat(keySubProp), valueProp));
               }
 
-              blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+              var labelObject = prop.label;
+
+              if (repeatable) {
+                var index = keyLoop + 1;
+                labelObject = prop.label + " " + index + "/" + currentValueAttribute.length;
+              }
+
+              blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Panel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["PanelBody"], {
+                title: labelObject,
+                initialOpen: false
+              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
                 key: this.props.clientId + "-" + keys[0] + "-objectContainer",
                 className: "objectField components-base-control"
-              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", {
-                key: this.props.clientId + "-" + keys[0] + "-fieldsetContainer-label",
-                className: "components-base-control__label"
-              }, prop.label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
                 key: this.props.clientId + "-" + keys[0] + "-objectContainer-content",
                 className: "objectField-content"
-              }, fieldsetObject)));
+              }, fieldsetObject)))));
             }
 
             break;
@@ -623,16 +657,17 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isSecondary: true,
           isSmall: true,
           onClick: function onClick() {
-            return _this.updateAttributes(keys, valueProp, currentValueAttribute.concat([""]), false, repeatable);
+            return _this.addEltToRepeatable(keys, valueProp, currentValueAttribute, false);
           }
         }, "Add"));
+        var label = prop.type != 'object' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", {
+          key: this.props.clientId + "-" + keys[0] + "-fieldsetContainer-label",
+          className: "components-base-control__label"
+        }, prop.label) : '';
         blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
           key: this.props.clientId + "-" + keys[0] + "-repeatableContainer",
           className: "repeatableField components-base-control"
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", {
-          key: this.props.clientId + "-" + keys[0] + "-fieldsetContainer-label",
-          className: "components-base-control__label"
-        }, prop.label), blocReturned);
+        }, label, blocReturned);
       } else {
         blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
           key: this.props.clientId + "-" + keys[0] + "-basicContainer",
@@ -650,9 +685,19 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       var isNumber = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+
+      if (repeatable) {
+        label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+          isLink: true,
+          onClick: function onClick() {
+            return _this2.removeEltToRepeatable(keys, valueProp);
+          }
+        }, "Remove"));
+      }
+
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextControl"], {
         key: id,
-        label: !repeatable ? label : false,
+        label: label,
         type: !!isNumber ? "number" : "text",
         value: objectValue,
         onChange: function onChange(newValue) {

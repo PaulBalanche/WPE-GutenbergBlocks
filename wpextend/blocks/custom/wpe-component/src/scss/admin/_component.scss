@@ -4,8 +4,6 @@
 
         .components-tab-panel__tabs {
             background: #f3f4f5;
-            border: 1px solid #e2e4e7;
-            border-bottom: none;
 
             &-item {
                 margin-bottom: 0;
@@ -17,15 +15,13 @@
         }
 
         .components-tab-panel__tab-content {
-            padding: 15px 20px 5px 20px;
-            border: 1px solid #e2e4e7;
-            border-top: none;
+            padding: 10px 10px 0px 10px;
         }
     }
 
     .basicField, .repeatableField {
         border-bottom: 1px solid #f3f4f5;
-        padding: 15px 0;
+        padding: 20px 0;
 
         &:last-child {
             border-bottom: none;
@@ -76,6 +72,22 @@
             .objectField-content {
                 background: white;
             }
+        }
+    }
+
+    .components-base-control__field {
+        
+        position: relative;
+
+        .removeRepeatable {
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding-right: 0;
+        }
+        &:hover .removeRepeatable {
+            visibility: visible;
         }
     }
 }

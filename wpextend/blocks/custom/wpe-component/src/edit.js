@@ -36,30 +36,8 @@ class WpeComponent extends Component {
         this.updateAttributes( arrayKey, currentValueProp, currentValueRepeatableField.concat( [ undefined ] ), isNumber );
     }
 
-    removeEltToRepeatable(arrayKey, currentValueProp) {
-
-        let index = 1;
-        let tabsplice = undefined;
-        arrayKey.forEach(element => {
-            
-            if( index == arrayKey.length ) {
-                tabsplice.splice(element, 1);
-                arrayKey.pop();
-            }
-            else {
-                if( typeof tabsplice == 'undefined' )
-                    tabsplice = currentValueProp[element];
-                else
-                    tabsplice = tabsplice[element];
-            }
-
-            index++;
-        });
-
-        console.log(arrayKey);
-        console.log(currentValueProp);
-        console.log(tabsplice);
-        this.updateAttributes( arrayKey, currentValueProp, tabsplice );
+    removeEltRepeatable(arrayKey, currentValueProp) {
+        this.updateAttributes( arrayKey, currentValueProp, false );
     }
 
     updateAttributes( arrayKey, currentValue, newValue, isNumber = false ) {
@@ -67,8 +45,6 @@ class WpeComponent extends Component {
         let keyToUpdate = arrayKey[0];
         let newValueToUpdate = this.recursiveUpdateObjectFromObject(arrayKey, currentValue, newValue, isNumber);
 
-        console.log(keyToUpdate);
-        console.log(newValueToUpdate[keyToUpdate]);
         this.setAttributes( { [keyToUpdate]: newValueToUpdate[keyToUpdate] } );
     }
 
@@ -82,15 +58,32 @@ class WpeComponent extends Component {
         let objectReturned = ( Array.isArray(fromObject) ) ? [] : {};
 
         for( const [key, val] of Object.entries(fromObject) ) {
-            if( key == firstElement )
-                objectReturned[key] = ( arrayKey.length > 0 ) ? this.recursiveUpdateObjectFromObject(arrayKey, val, newValue, isNumber) : this.returnStringOrNumber(newValue, isNumber);
+            if( key == firstElement ) {
+                if( arrayKey.length > 0 )
+                    objectReturned[key] = this.recursiveUpdateObjectFromObject(arrayKey, val, newValue, isNumber);
+                else if( !! newValue )
+                    objectReturned[key] = this.returnStringOrNumber(newValue, isNumber);
+            }
             else
                 objectReturned[key] = val;
         }
 
-        if( typeof objectReturned[firstElement] == 'undefined' )
-            objectReturned[firstElement] = ( arrayKey.length > 0 ) ? this.recursiveUpdateObjectFromObject(arrayKey, undefined, newValue, isNumber) : this.returnStringOrNumber(newValue, isNumber);
+        if( typeof objectReturned[firstElement] == 'undefined' ) {
 
+            if( arrayKey.length > 0 )
+                objectReturned[firstElement] = this.recursiveUpdateObjectFromObject(arrayKey, undefined, newValue, isNumber);
+            else if( !! newValue )
+                objectReturned[firstElement] = this.returnStringOrNumber(newValue, isNumber);
+        }
+
+        // Re-index in case of element suppression
+        if( arrayKey.length == 0 && ! newValue ) {
+            for (let index = 0; index < objectReturned.length; index++) {
+                if( typeof objectReturned[index] == 'undefined' )
+                    objectReturned.splice(index, 1);
+            }
+        }
+        
         return objectReturned;
     }
 
@@ -199,14 +192,11 @@ class WpeComponent extends Component {
                 >Add</Button>
             );
 
-            let label = ( prop.type != 'object' ) ? <label key={ this.props.clientId + "-" + keys[0] + "-fieldsetContainer-label"} className="components-base-control__label" >{ prop.label }</label> : '';
-
             blocReturned = (
                 <div
                     key={ this.props.clientId + "-" + keys[0] + "-repeatableContainer"}
                     className="repeatableField components-base-control"
                 >   
-                    { label }
                     { blocReturned }
                 </div>
             );
@@ -238,8 +228,9 @@ class WpeComponent extends Component {
                     { label }
                     <Button
                         isLink={true}
+                        className="removeRepeatable"
                         onClick={ () =>
-                            this.removeEltToRepeatable(keys, valueProp)
+                            this.removeEltRepeatable(keys, valueProp)
                         }
                     >
                         Remove
@@ -247,6 +238,7 @@ class WpeComponent extends Component {
                 </>
             );
         }
+
         return (
             <TextControl
                 key={ id }
@@ -262,10 +254,27 @@ class WpeComponent extends Component {
 
     renderTextareaControl( id, label, keys, valueProp, objectValue, repeatable = false) {
 
+        if( repeatable ) {
+            label = (
+                <>
+                    { label }
+                    <Button
+                        isLink={true}
+                        className="removeRepeatable"
+                        onClick={ () =>
+                            this.removeEltRepeatable(keys, valueProp)
+                        }
+                    >
+                        Remove
+                    </Button>
+                </>
+            );
+        }
+
         return (
             <TextareaControl
                 key={ id }
-                label={ ! repeatable ? label : false }
+                label={ label }
                 value={ objectValue }
                 onChange={ ( newValue ) =>
                     this.updateAttributes(keys, valueProp, newValue, false, repeatable)
@@ -276,10 +285,27 @@ class WpeComponent extends Component {
 
     renderToggleControl( id, label, help, keys, valueProp, objectValue, repeatable = false ) {
 
+        if( repeatable ) {
+            label = (
+                <>
+                    { label }
+                    <Button
+                        isLink={true}
+                        className="removeRepeatable"
+                        onClick={ () =>
+                            this.removeEltRepeatable(keys, valueProp)
+                        }
+                    >
+                        Remove
+                    </Button>
+                </>
+            );
+        }
+
         return (
             <ToggleControl
                 key={ id }
-                label={ ! repeatable ? label : false }
+                label={ label }
                 help={ help }
                 checked={ objectValue }
                 onChange={ ( newValue ) =>

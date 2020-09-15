@@ -519,24 +519,9 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       this.updateAttributes(arrayKey, currentValueProp, currentValueRepeatableField.concat([undefined]), isNumber);
     }
   }, {
-    key: "removeEltToRepeatable",
-    value: function removeEltToRepeatable(arrayKey, currentValueProp) {
-      var index = 1;
-      var tabsplice = undefined;
-      arrayKey.forEach(function (element) {
-        if (index == arrayKey.length) {
-          tabsplice.splice(element, 1);
-          arrayKey.pop();
-        } else {
-          if (typeof tabsplice == 'undefined') tabsplice = currentValueProp[element];else tabsplice = tabsplice[element];
-        }
-
-        index++;
-      });
-      console.log(arrayKey);
-      console.log(currentValueProp);
-      console.log(tabsplice);
-      this.updateAttributes(arrayKey, currentValueProp, tabsplice);
+    key: "removeEltRepeatable",
+    value: function removeEltRepeatable(arrayKey, currentValueProp) {
+      this.updateAttributes(arrayKey, currentValueProp, false);
     }
   }, {
     key: "updateAttributes",
@@ -544,8 +529,6 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
       var keyToUpdate = arrayKey[0];
       var newValueToUpdate = this.recursiveUpdateObjectFromObject(arrayKey, currentValue, newValue, isNumber);
-      console.log(keyToUpdate);
-      console.log(newValueToUpdate[keyToUpdate]);
       this.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keyToUpdate, newValueToUpdate[keyToUpdate]));
     }
   }, {
@@ -561,10 +544,22 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             key = _Object$entries$_i[0],
             val = _Object$entries$_i[1];
 
-        if (key == firstElement) objectReturned[key] = arrayKey.length > 0 ? this.recursiveUpdateObjectFromObject(arrayKey, val, newValue, isNumber) : this.returnStringOrNumber(newValue, isNumber);else objectReturned[key] = val;
+        if (key == firstElement) {
+          if (arrayKey.length > 0) objectReturned[key] = this.recursiveUpdateObjectFromObject(arrayKey, val, newValue, isNumber);else if (!!newValue) objectReturned[key] = this.returnStringOrNumber(newValue, isNumber);
+        } else objectReturned[key] = val;
       }
 
-      if (typeof objectReturned[firstElement] == 'undefined') objectReturned[firstElement] = arrayKey.length > 0 ? this.recursiveUpdateObjectFromObject(arrayKey, undefined, newValue, isNumber) : this.returnStringOrNumber(newValue, isNumber);
+      if (typeof objectReturned[firstElement] == 'undefined') {
+        if (arrayKey.length > 0) objectReturned[firstElement] = this.recursiveUpdateObjectFromObject(arrayKey, undefined, newValue, isNumber);else if (!!newValue) objectReturned[firstElement] = this.returnStringOrNumber(newValue, isNumber);
+      } // Re-index in case of element suppression
+
+
+      if (arrayKey.length == 0 && !newValue) {
+        for (var index = 0; index < objectReturned.length; index++) {
+          if (typeof objectReturned[index] == 'undefined') objectReturned.splice(index, 1);
+        }
+      }
+
       return objectReturned;
     }
   }, {
@@ -660,14 +655,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             return _this.addEltToRepeatable(keys, valueProp, currentValueAttribute, false);
           }
         }, "Add"));
-        var label = prop.type != 'object' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", {
-          key: this.props.clientId + "-" + keys[0] + "-fieldsetContainer-label",
-          className: "components-base-control__label"
-        }, prop.label) : '';
         blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
           key: this.props.clientId + "-" + keys[0] + "-repeatableContainer",
           className: "repeatableField components-base-control"
-        }, label, blocReturned);
+        }, blocReturned);
       } else {
         blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
           key: this.props.clientId + "-" + keys[0] + "-basicContainer",
@@ -689,8 +680,9 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
           isLink: true,
+          className: "removeRepeatable",
           onClick: function onClick() {
-            return _this2.removeEltToRepeatable(keys, valueProp);
+            return _this2.removeEltRepeatable(keys, valueProp);
           }
         }, "Remove"));
       }
@@ -711,9 +703,20 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this3 = this;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
+
+      if (repeatable) {
+        label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+          isLink: true,
+          className: "removeRepeatable",
+          onClick: function onClick() {
+            return _this3.removeEltRepeatable(keys, valueProp);
+          }
+        }, "Remove"));
+      }
+
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TextareaControl"], {
         key: id,
-        label: !repeatable ? label : false,
+        label: label,
         value: objectValue,
         onChange: function onChange(newValue) {
           return _this3.updateAttributes(keys, valueProp, newValue, false, repeatable);
@@ -726,9 +729,20 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this4 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+
+      if (repeatable) {
+        label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+          isLink: true,
+          className: "removeRepeatable",
+          onClick: function onClick() {
+            return _this4.removeEltRepeatable(keys, valueProp);
+          }
+        }, "Remove"));
+      }
+
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["ToggleControl"], {
         key: id,
-        label: !repeatable ? label : false,
+        label: label,
         help: help,
         checked: objectValue,
         onChange: function onChange(newValue) {

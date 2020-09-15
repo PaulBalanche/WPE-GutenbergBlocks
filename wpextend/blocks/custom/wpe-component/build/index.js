@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Others\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object2\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"number\"},\"street\":{\"label\":\"Street\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"text\"}}},\"neighbours\":{\"label\":\"Neighbours\",\"type\":\"object\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"number\"},\"street\":{\"label\":\"Street\",\"type\":\"string\",\"repeatable\":true},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"text\"}}}}}}}}}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat1\"},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"object\",\"repeatable\":true,\"category\":\"cat2\",\"props\":{\"un\":{\"label\":\"Un\",\"type\":\"string\"},\"deux\":{\"label\":\"Deux\",\"type\":\"string\"}}},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"object_repeatable\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"text\"}}},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Files\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object2\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"string\"},\"street\":{\"label\":\"Street\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"string\"}}}}}}},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"members\":{\"label\":\"Members\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat3\"},\"file\":{\"label\":\"File\",\"type\":\"file\",\"category\":\"cat3\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
 
 /***/ }),
 
@@ -516,7 +516,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
     key: "addEltToRepeatable",
     value: function addEltToRepeatable(arrayKey, currentValueProp, currentValueRepeatableField) {
       var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-      this.updateAttributes(arrayKey, currentValueProp, currentValueRepeatableField.concat([undefined]), isNumber);
+      this.updateAttributes(arrayKey, currentValueProp, currentValueRepeatableField.concat(""), isNumber);
     }
   }, {
     key: "removeEltRepeatable",
@@ -577,37 +577,46 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var repeatable = typeof prop.repeatable != "undefined" && !!prop.repeatable ? true : false;
       var currentValueAttribute = valueProp;
       keys.forEach(function (element) {
-        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(currentValueAttribute) == 'object') currentValueAttribute = currentValueAttribute[element];else currentValueAttribute = currentValueAttribute;
+        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(currentValueAttribute) == 'object') {
+          if (currentValueAttribute.hasOwnProperty(element) && typeof currentValueAttribute[element] != "undefined") currentValueAttribute = currentValueAttribute[element];else currentValueAttribute = "";
+        }
       });
       if (!repeatable) currentValueAttribute = [currentValueAttribute];else if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(currentValueAttribute) != "object" || currentValueAttribute.length == 0) currentValueAttribute = [""];
 
       for (var keyLoop in currentValueAttribute) {
         keyLoop = this.returnStringOrNumber(keyLoop, true);
-        var fieldId = this.props.clientId + "-" + keys[0] + "-" + keyLoop;
+        var label = prop.label;
+
+        if (repeatable) {
+          var index = keyLoop + 1;
+          label = label + " " + index + "/" + currentValueAttribute.length;
+        }
+
+        var fieldId = this.props.clientId + "-" + keys.join("-") + "-" + keyLoop;
 
         switch (prop.type) {
           case 'string':
-            blocReturned.push(this.renderTextControl(fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], false, repeatable));
+            blocReturned.push(this.renderTextControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], false, repeatable));
             break;
 
           case 'number':
-            blocReturned.push(this.renderTextControl(fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], true, repeatable));
+            blocReturned.push(this.renderTextControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], true, repeatable));
             break;
 
           case 'text':
-            blocReturned.push(this.renderTextareaControl(fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderTextareaControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
           case 'boolean':
-            blocReturned.push(this.renderToggleControl(fieldId, prop.label, 'Help', repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderToggleControl(fieldId, label, 'Help', repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
           case 'image':
-            blocReturned.push(this.renderImageControl(fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderImageControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
           case 'gallery':
-            blocReturned.push(this.renderGalleryControl(fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderGalleryControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
           case 'object':
@@ -622,21 +631,17 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
                 fieldsetObject.push(this.renderControl(valueSubProp, repeatable ? keys.concat(keyLoop).concat(keySubProp) : keys.concat(keySubProp), valueProp));
               }
 
-              var labelObject = prop.label;
-
-              if (repeatable) {
-                var index = keyLoop + 1;
-                labelObject = prop.label + " " + index + "/" + currentValueAttribute.length;
-              }
-
-              blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Panel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["PanelBody"], {
-                title: labelObject,
+              blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Panel"], {
+                key: fieldId + "-panelObject"
+              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["PanelBody"], {
+                key: fieldId + "-panelBodyObject",
+                title: label,
                 initialOpen: false
               }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-                key: this.props.clientId + "-" + keys[0] + "-objectContainer",
+                key: fieldId + "-panelBodyDivObject",
                 className: "objectField components-base-control"
               }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-                key: this.props.clientId + "-" + keys[0] + "-objectContainer-content",
+                key: fieldId + "-panelBodySubDivObject",
                 className: "objectField-content"
               }, fieldsetObject)))));
             }
@@ -648,7 +653,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       if (!!repeatable) {
         blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
-          key: this.props.clientId + "-" + keys[0] + "-add",
+          key: this.props.clientId + "-" + keys.join("-") + "-repeatableAddElt",
           isSecondary: true,
           isSmall: true,
           onClick: function onClick() {
@@ -656,18 +661,18 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           }
         }, "Add"));
         blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-          key: this.props.clientId + "-" + keys[0] + "-repeatableContainer",
+          key: this.props.clientId + "-" + keys.join("-") + "-repeatableContainer",
           className: "repeatableField components-base-control"
         }, blocReturned);
       } else {
         blocReturned = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-          key: this.props.clientId + "-" + keys[0] + "-basicContainer",
+          key: this.props.clientId + "-" + keys.join("-") + "-basicContainer",
           className: "basicField"
         }, blocReturned);
       } // Return
 
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, blocReturned);
+      return blocReturned;
     }
   }, {
     key: "renderTextControl",
@@ -679,6 +684,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+          key: id + "-repeatableAddElt",
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
@@ -706,6 +712,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+          key: id + "-repeatableAddElt",
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
@@ -732,6 +739,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+          key: id + "-repeatableAddElt",
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
@@ -838,7 +846,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }, ulGalleryPreview));
       }
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, galleryPreview, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_10__["MediaPlaceholder"], {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_10__["MediaPlaceholder"], {
         key: id,
         labels: {
           title: label
@@ -859,7 +867,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         addToGallery: !!objectValue,
         value: objectValue,
         disableDropZone: true
-      }, removeGallery));
+      }, galleryPreview, removeGallery);
     }
     /**
      * Render
@@ -881,6 +889,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             // Visual mode
             if (!isSelected) {
               return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_9___default.a, {
+                key: clientId + "-serverSideRender",
                 block: "custom/wpe-component-" + element.id,
                 attributes: attributes
               });
@@ -970,11 +979,12 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
             if (tabPanel.length > 1) {
               editPlaceHolder = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["TabPanel"], {
+                key: clientId + "-tabPanel",
                 className: "tab-panel-wpe-component",
                 activeClass: "active-tab",
                 tabs: tabPanel
               }, function (tabPanel) {
-                return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, " ", tabPanel.content, " ");
+                return tabPanel.content;
               }));
             } else {
               editPlaceHolder = tabPanel[0].content;

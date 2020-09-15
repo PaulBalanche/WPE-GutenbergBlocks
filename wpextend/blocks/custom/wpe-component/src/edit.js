@@ -33,7 +33,7 @@ class WpeComponent extends Component {
     }
 
     addEltToRepeatable(arrayKey, currentValueProp, currentValueRepeatableField, isNumber = false) {
-        this.updateAttributes( arrayKey, currentValueProp, currentValueRepeatableField.concat( [ undefined ] ), isNumber );
+        this.updateAttributes( arrayKey, currentValueProp, currentValueRepeatableField.concat(""), isNumber );
     }
 
     removeEltRepeatable(arrayKey, currentValueProp) {
@@ -100,10 +100,13 @@ class WpeComponent extends Component {
         let currentValueAttribute = valueProp;
         keys.forEach(element => {
 
-            if( typeof currentValueAttribute == 'object' )
-                currentValueAttribute = currentValueAttribute[element];
-            else
-                currentValueAttribute = currentValueAttribute;
+            if( typeof currentValueAttribute == 'object' ) {
+
+                if ( currentValueAttribute.hasOwnProperty(element) && typeof currentValueAttribute[element] != "undefined" )
+                    currentValueAttribute = currentValueAttribute[element];
+                else
+                    currentValueAttribute = "";
+            }
         });
 
         if( ! repeatable )
@@ -115,31 +118,37 @@ class WpeComponent extends Component {
 
             keyLoop = this.returnStringOrNumber(keyLoop, true);
 
-            let fieldId = this.props.clientId + "-" + keys[0] + "-" + keyLoop;
+            let label = prop.label;
+            if( repeatable ) {
+                let index = keyLoop + 1;
+                label = label + " " + index + "/" + currentValueAttribute.length;
+            }
+
+            let fieldId = this.props.clientId + "-" + keys.join("-") + "-" + keyLoop;
             switch(prop.type) {
 
                 case 'string':
-                    blocReturned.push( this.renderTextControl( fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], false, repeatable ) );
+                    blocReturned.push( this.renderTextControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], false, repeatable ) );
                     break;
 
                 case 'number':
-                    blocReturned.push( this.renderTextControl( fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], true, repeatable ) );
+                    blocReturned.push( this.renderTextControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], true, repeatable ) );
                     break;
 
                 case 'text':
-                    blocReturned.push( this.renderTextareaControl( fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderTextareaControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
 
                 case 'boolean':
-                    blocReturned.push( this.renderToggleControl( fieldId, prop.label, 'Help', repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderToggleControl( fieldId, label, 'Help', repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
 
                 case 'image':
-                    blocReturned.push( this.renderImageControl( fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderImageControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
                 
                 case 'gallery':
-                    blocReturned.push( this.renderGalleryControl( fieldId, prop.label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderGalleryControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
 
                 case 'object':
@@ -150,27 +159,27 @@ class WpeComponent extends Component {
                         for (const [keySubProp, valueSubProp] of Object.entries(prop.props)) {
                             fieldsetObject.push( this.renderControl( valueSubProp, repeatable ? keys.concat(keyLoop).concat(keySubProp) : keys.concat(keySubProp) , valueProp ) );
                         }
-
-                        let labelObject = prop.label;
-                        if( repeatable ) {
-                            let index = keyLoop + 1;
-                            labelObject = prop.label + " " + index + "/" + currentValueAttribute.length;
-                        }
                         
                         blocReturned.push(
-                            <Panel>
-                                <PanelBody title={ labelObject } initialOpen={ false }>
+                            <Panel
+                                key={ fieldId + "-panelObject"}
+                            >
+                                <PanelBody
+                                    key={ fieldId + "-panelBodyObject"}
+                                    title={ label }
+                                    initialOpen={ false }
+                                >
                                     <div
-                                        key={ this.props.clientId + "-" + keys[0] + "-objectContainer"}
+                                        key={ fieldId + "-panelBodyDivObject"}
                                         className="objectField components-base-control"
                                     >
                                         <div
-                                            key={ this.props.clientId + "-" + keys[0] + "-objectContainer-content"}
+                                            key={ fieldId + "-panelBodySubDivObject"}
                                             className="objectField-content"
                                         > 
-                                        { fieldsetObject }
+                                            { fieldsetObject }
+                                        </div>
                                     </div>
-                                </div>
                                 </PanelBody>
                             </Panel>
                         );
@@ -183,7 +192,7 @@ class WpeComponent extends Component {
         if( !! repeatable ) {
             blocReturned.push(
                 <Button
-                    key={ this.props.clientId + "-" + keys[0] + "-add"}
+                    key={ this.props.clientId + "-" + keys.join("-") + "-repeatableAddElt"}
                     isSecondary
                     isSmall
                     onClick={ () => 
@@ -194,7 +203,7 @@ class WpeComponent extends Component {
 
             blocReturned = (
                 <div
-                    key={ this.props.clientId + "-" + keys[0] + "-repeatableContainer"}
+                    key={ this.props.clientId + "-" + keys.join("-") + "-repeatableContainer"}
                     className="repeatableField components-base-control"
                 >   
                     { blocReturned }
@@ -204,7 +213,7 @@ class WpeComponent extends Component {
         else {
             blocReturned = (
                 <div
-                    key={ this.props.clientId + "-" + keys[0] + "-basicContainer"}
+                    key={ this.props.clientId + "-" + keys.join("-") + "-basicContainer"}
                     className="basicField"
                 >
                     { blocReturned }
@@ -213,20 +222,17 @@ class WpeComponent extends Component {
         }
 
         // Return
-        return (
-            <>
-                { blocReturned }
-            </>
-        );
+        return blocReturned;
     }
 
-    renderTextControl( id, label, keys, valueProp, objectValue, isNumber = false, repeatable = false) {
+    renderTextControl( id, label, keys, valueProp, objectValue, isNumber = false, repeatable = false ) {
 
         if( repeatable ) {
             label = (
                 <>
                     { label }
                     <Button
+                        key={ id + "-repeatableAddElt" }
                         isLink={true}
                         className="removeRepeatable"
                         onClick={ () =>
@@ -252,13 +258,14 @@ class WpeComponent extends Component {
         );
     }
 
-    renderTextareaControl( id, label, keys, valueProp, objectValue, repeatable = false) {
+    renderTextareaControl( id, label, keys, valueProp, objectValue, repeatable = false ) {
 
         if( repeatable ) {
             label = (
                 <>
                     { label }
                     <Button
+                        key={ id + "-repeatableAddElt" }
                         isLink={true}
                         className="removeRepeatable"
                         onClick={ () =>
@@ -290,6 +297,7 @@ class WpeComponent extends Component {
                 <>
                     { label }
                     <Button
+                        key={ id + "-repeatableAddElt" }
                         isLink={true}
                         className="removeRepeatable"
                         onClick={ () =>
@@ -419,8 +427,6 @@ class WpeComponent extends Component {
         }
 
         return (
-            <>
-                { galleryPreview }
                 <MediaPlaceholder
                     key={ id }
                     labels={ { title: label } }
@@ -442,9 +448,9 @@ class WpeComponent extends Component {
                     value={ objectValue }
                     disableDropZone={ true }
                 >
+                    { galleryPreview }
                     { removeGallery }
                 </MediaPlaceholder>
-            </>
         );
     }
 
@@ -466,6 +472,7 @@ class WpeComponent extends Component {
 
                         return (
                             <ServerSideRender
+                                key={ clientId + "-serverSideRender" }
                                 block={ "custom/wpe-component-" + element.id }
                                 attributes={ attributes }
                             />
@@ -542,12 +549,12 @@ class WpeComponent extends Component {
                         editPlaceHolder = (
                             <>
                                 <TabPanel
+                                    key={ clientId + "-tabPanel" }
                                     className="tab-panel-wpe-component"
                                     activeClass="active-tab"
-                                    tabs={ tabPanel }>
-                                    {
-                                        ( tabPanel ) => <> { tabPanel.content } </>
-                                    }
+                                    tabs={ tabPanel }
+                                >
+                                    { ( tabPanel ) => tabPanel.content }
                                 </TabPanel>
                             </>
                         );

@@ -64,6 +64,11 @@ frontspec.components.forEach( ( element ) => {
                     type: 'object'
                 };
                 break;
+            case 'file':
+                initAttributes[key] = {
+                    type: 'object'
+                };
+                break;
             case 'gallery':
                 initAttributes[key] = {
                     type: 'array'

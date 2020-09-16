@@ -44,6 +44,9 @@ if( file_exists( get_stylesheet_directory() . '/frontspec.json' ) ) {
                         case 'image':
                             $currentType = 'object';
                             break;
+                        case 'file':
+                            $currentType = 'object';
+                            break;
                         case 'gallery':
                             $currentType = 'array';
                             break;

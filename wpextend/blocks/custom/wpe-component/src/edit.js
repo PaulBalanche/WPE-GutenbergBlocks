@@ -13,7 +13,8 @@ import {
     Button,
     Placeholder,
     TabPanel,
-    Panel, PanelBody, PanelRow
+    Panel, PanelBody, PanelRow,
+    FormFileUpload
 } from '@wordpress/components';
 
 import frontspec from '../../../../../frontspec.json';
@@ -30,6 +31,18 @@ class WpeComponent extends Component {
 
     setAttributes( attributes ) {
         this.props.setAttributes( attributes );
+    }
+
+    returnStringOrNumber( value, isNumber = false ) {
+        return !! isNumber ? parseInt( value, 10 ) : value;
+    }
+    
+    fileSizeFormat(filesizeInBytes) {
+
+        if( filesizeInBytes > 1000000 )
+            return Math.round( filesizeInBytes / 10000 ) / 100 + " Mo";
+        else
+            return Math.round(filesizeInBytes / 1000) + " Ko";
     }
 
     addEltToRepeatable(arrayKey, currentValueProp, currentValueRepeatableField, isNumber = false) {
@@ -86,10 +99,6 @@ class WpeComponent extends Component {
         
         return objectReturned;
     }
-
-    returnStringOrNumber( value, isNumber = false ) {
-        return !! isNumber ? parseInt( value, 10 ) : value;
-    }
     
     renderControl( prop, keys, valueProp ) {
 
@@ -140,15 +149,19 @@ class WpeComponent extends Component {
                     break;
 
                 case 'boolean':
-                    blocReturned.push( this.renderToggleControl( fieldId, label, 'Help', repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderToggleControl( fieldId, label, prop.help, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
 
                 case 'image':
-                    blocReturned.push( this.renderImageControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    break;
+                
+                case 'file':
+                    blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
                 
                 case 'gallery':
-                    blocReturned.push( this.renderGalleryControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
 
                 case 'object':
@@ -314,7 +327,7 @@ class WpeComponent extends Component {
             <ToggleControl
                 key={ id }
                 label={ label }
-                help={ help }
+                help={ ( typeof help == 'object' && Array.isArray(help) && help.length == 2 ) ? ( !! objectValue ? help[1] : help[0] ) : false }
                 checked={ objectValue }
                 onChange={ ( newValue ) =>
                     this.updateAttributes(keys, valueProp, newValue, false, repeatable)
@@ -323,134 +336,149 @@ class WpeComponent extends Component {
         );
     }
 
-    renderImageControl( id, label, key, valueProp, objectValue, repeatable = false ) {
+    renderFileControl( type, id, label, keys, valueProp, objectValue, repeatable = false ) {
 
-        let imagePreview = !! ( objectValue && typeof objectValue == 'object' ) && (
-            <img
-                key={ id + "-imagePreview" }
-                alt="Edit image"
-                title="Edit image"
-                className="edit-image-preview"
-                src={ objectValue.url }
-            />
-        );
-        let removeImage = '';
-        if ( imagePreview ) {
-            removeImage = (
-                <Button
-                    key={ id + "-removeImage" }
-                    isSecondary
-                    isSmall
-                    className="block-library-cover__reset-button"
-                    onClick={ () =>
-                        this.setAttributes( { [key]: undefined } )
-                    }
-                >Remove</Button>
+        let preview = false;
+        if( objectValue && typeof objectValue == 'object' ) {
+
+            switch( type ) {
+                case "image":
+                    preview = (
+                        <>
+                            <img
+                                key={ id + "-imagePreview" }
+                                alt="Edit image"
+                                title="Edit image"
+                                className="edit-image-preview"
+                                src={ objectValue.preview }
+                            />
+                        </>
+                    );
+                    break;
+
+                case "file":
+                    preview = (
+                        <>
+                            <img
+                                key={ id + "-filePreview" }
+                                alt="Edit file"
+                                title="Edit file"
+                                className="edit-file-preview"
+                                src={ objectValue.preview }
+                            />
+                            <div
+                                key={ id + "-fileDetails" }
+                                className="file-details"
+                            >
+                                { objectValue.name }<br />
+                                { objectValue.mime}<br />
+                                { this.fileSizeFormat(objectValue.size) }
+                            </div>
+                        </>
+                    );
+                    break;
+
+                case "gallery":
+                    preview = [];
+                    objectValue.forEach(image => {
+                        preview.push(
+                            <li
+                                key={ id + "-galleryImageContainerLi" + image.id }
+                                className="blocks-gallery-item"
+                            >
+                                <img
+                                    key={ id + "-galleryImage_" + image.id }
+                                    src={ image.preview }
+                                />
+                            </li>
+                        );
+                    });
+                    
+                    let columns = ( objectValue.length > 5 ) ? 5 : objectValue.length;
+                    preview = (
+                        <>
+                            <figure 
+                                key={ id + "-galleryImagefigure" }
+                                className={ "wp-block-gallery columns-" + columns }
+                            >
+                                <ul
+                                    key={ id + "-galleryImageContainerUl" }
+                                    className="blocks-gallery-grid"
+                                >
+                                    { preview }
+                                </ul>
+                            </figure>
+                        </>
+                    );
+                    break;
+            }
+            preview = (
+                <div
+                    key={ id + "-mediaPreviewContainer" }
+                    className="media-preview-container"
+                >
+                    { preview }
+                    <Button
+                        key={ id + "-removeMedia" }
+                        isSecondary
+                        isSmall
+                        className="reset-button"
+                        onClick={ () => {
+                                if( type == "gallery" && objectValue.length > 1 )
+                                    this.setAttributes( { [keys]: objectValue.slice(0, objectValue.length - 1) } );
+                                else if( repeatable )
+                                    this.removeEltRepeatable( keys, valueProp );
+                                else
+                                    this.setAttributes( { [keys]: undefined } );
+                            }
+                        }
+                    >Remove</Button>
+                </div>
             );
         }
-
+        
         return (
             <MediaPlaceholder
                 key={ id }
                 labels={ { title: label } }
-                onSelect={ ( value ) =>
-                    this.setAttributes( { [key]: {
-                        id: value.id,
-                        url: value.url
-                    } } )
+                onSelect={ ( value ) => {
+                        let newValue = undefined;
+                        switch( type ) {
+                            case "image":
+                                newValue = {
+                                    id: value.id,
+                                    preview: value.url
+                                };
+                                break;
+
+                            case "file":
+                                newValue = {
+                                    id: value.id,
+                                    preview: value.icon,
+                                    name: value.filename,
+                                    mime: value.mime,
+                                    size: value.filesizeInBytes
+                                };
+                                break;
+
+                            case "gallery":
+                                newValue = [];
+                                value.forEach(image => {
+                                    newValue.push( {
+                                        id: image.id,
+                                        preview: image.url
+                                    } )
+                                });
+                                break;
+                        }
+                        this.updateAttributes(keys, valueProp, newValue, false, repeatable);
+                    }
                 }
-                allowedTypes= { [ 'image' ] }
-                mediaPreview={ imagePreview }
+                multiple= { type == 'gallery' }
+                addToGallery= { type == 'gallery' && !! objectValue }
                 value={ objectValue }
                 disableDropZone={ true }
-            >
-                { removeImage }
-            </MediaPlaceholder>
-        );
-    }
-
-    renderGalleryControl( id, label, key, valueProp, objectValue, repeatable = false ) {
-
-        let removeGallery = !! ( objectValue && typeof objectValue == 'object' ) && (
-            <Button
-                key={ id + "-removeGallery" }
-                isSecondary
-                isSmall
-                className="block-library-cover__reset-button"
-                onClick={ () => {
-
-                        let countImages = objectValue.length;
-                        if( countImages > 1 )
-                            this.setAttributes( { [key]: objectValue.slice(0, countImages - 1) } )
-                        else
-                            this.setAttributes( { [key]: undefined } )
-                    }
-                }
-            >Remove</Button>
-        );
-        
-        let galleryPreview = '';
-        if( removeGallery ) {
-            
-            let ulGalleryPreview = [];
-            objectValue.forEach(image => {
-                ulGalleryPreview.push(
-                    <li
-                        key={ id + "-galleryImageContainerLi" + image.id }
-                        className="blocks-gallery-item"
-                    >
-                        <img
-                            key={ id + "-galleryImage_" + image.id }
-                            src={ image.url }
-                        />
-                    </li>
-                );
-            });
-            
-            let columns = objectValue.length;
-            if( columns > 5 ) {
-                columns = 5;
-            }
-            galleryPreview = (
-                <figure 
-                    key={ id + "-galleryImagefigure" }
-                    className={ "wp-block-gallery columns-" + columns }
-                >
-                    <ul
-                        key={ id + "-galleryImageContainerUl" }
-                        className="blocks-gallery-grid"
-                    >
-                        { ulGalleryPreview }
-                    </ul>
-                </figure>
-            );
-        }
-
-        return (
-                <MediaPlaceholder
-                    key={ id }
-                    labels={ { title: label } }
-                    onSelect={ ( value ) => {
-
-                            let newGallery = [];
-                            value.forEach(image => {
-                                newGallery.push( {
-                                    id: image.id,
-                                    url: image.url
-                                } )
-                            });
-                            this.setAttributes( { [key]: newGallery } )
-                        }
-                    }
-                    allowedTypes= { [ 'image' ] }
-                    multiple= { true }
-                    addToGallery= { !! objectValue }
-                    value={ objectValue }
-                    disableDropZone={ true }
-                >
-                    { galleryPreview }
-                    { removeGallery }
-                </MediaPlaceholder>
+            >{ preview }</MediaPlaceholder>
         );
     }
 

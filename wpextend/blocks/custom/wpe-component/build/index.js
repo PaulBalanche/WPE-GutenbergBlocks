@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Files\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object2\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"string\"},\"street\":{\"label\":\"Street\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"string\"}}}}}}},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"members\":{\"label\":\"Members\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat3\"},\"file\":{\"label\":\"File\",\"type\":\"file\",\"category\":\"cat3\"},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"s-google-map\",\"name\":\"Google map\",\"description\":\"Allows you to display nice google maps in your website\",\"path\":\"s-google-map/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"subtitle\":{\"label\":\"Subtitle\",\"type\":\"string\"},\"api-key\":{\"label\":\"API key\",\"type\":\"string\",\"required\":true,\"description\":\"Google map API key\",\"default\":\"AIzaSyDzFfEzhmYXRTlONUCtMWQ88uHJhsbtXY4\"},\"zoom\":{\"label\":\"Zoom\",\"type\":\"number\",\"description\":\"Specify the zoom you want on the map\",\"default\":4}},\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Ma super categorie\"},{\"id\":\"cat2\",\"name\":\"Hého !!!\"}]},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Files\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"help\":[\"Oh no....\",\"Yes!!!\"],\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object2\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"string\"},\"street\":{\"label\":\"Street\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"string\"}}}}}}},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"members\":{\"label\":\"Members\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat3\"},\"file\":{\"label\":\"File\",\"type\":\"file\",\"category\":\"cat3\",\"repeatable\":true},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
 
 /***/ }),
 
@@ -513,6 +513,17 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       this.props.setAttributes(attributes);
     }
   }, {
+    key: "returnStringOrNumber",
+    value: function returnStringOrNumber(value) {
+      var isNumber = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      return !!isNumber ? parseInt(value, 10) : value;
+    }
+  }, {
+    key: "fileSizeFormat",
+    value: function fileSizeFormat(filesizeInBytes) {
+      if (filesizeInBytes > 1000000) return Math.round(filesizeInBytes / 10000) / 100 + " Mo";else return Math.round(filesizeInBytes / 1000) + " Ko";
+    }
+  }, {
     key: "addEltToRepeatable",
     value: function addEltToRepeatable(arrayKey, currentValueProp, currentValueRepeatableField) {
       var isNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
@@ -563,12 +574,6 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       return objectReturned;
     }
   }, {
-    key: "returnStringOrNumber",
-    value: function returnStringOrNumber(value) {
-      var isNumber = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      return !!isNumber ? parseInt(value, 10) : value;
-    }
-  }, {
     key: "renderControl",
     value: function renderControl(prop, keys, valueProp) {
       var _this = this;
@@ -608,15 +613,19 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             break;
 
           case 'boolean':
-            blocReturned.push(this.renderToggleControl(fieldId, label, 'Help', repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderToggleControl(fieldId, label, prop.help, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
           case 'image':
-            blocReturned.push(this.renderImageControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            break;
+
+          case 'file':
+            blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
           case 'gallery':
-            blocReturned.push(this.renderGalleryControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
           case 'object':
@@ -751,7 +760,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["ToggleControl"], {
         key: id,
         label: label,
-        help: help,
+        help: _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(help) == 'object' && Array.isArray(help) && help.length == 2 ? !!objectValue ? help[1] : help[0] : false,
         checked: objectValue,
         onChange: function onChange(newValue) {
           return _this4.updateAttributes(keys, valueProp, newValue, false, repeatable);
@@ -759,30 +768,72 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
-    key: "renderImageControl",
-    value: function renderImageControl(id, label, key, valueProp, objectValue) {
+    key: "renderFileControl",
+    value: function renderFileControl(type, id, label, keys, valueProp, objectValue) {
       var _this5 = this;
 
-      var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
-      var imagePreview = !!(objectValue && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("img", {
-        key: id + "-imagePreview",
-        alt: "Edit image",
-        title: "Edit image",
-        className: "edit-image-preview",
-        src: objectValue.url
-      });
-      var removeImage = '';
+      var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      var preview = false;
 
-      if (imagePreview) {
-        removeImage = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
-          key: id + "-removeImage",
+      if (objectValue && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue) == 'object') {
+        switch (type) {
+          case "image":
+            preview = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("img", {
+              key: id + "-imagePreview",
+              alt: "Edit image",
+              title: "Edit image",
+              className: "edit-image-preview",
+              src: objectValue.preview
+            }));
+            break;
+
+          case "file":
+            preview = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("img", {
+              key: id + "-filePreview",
+              alt: "Edit file",
+              title: "Edit file",
+              className: "edit-file-preview",
+              src: objectValue.preview
+            }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+              key: id + "-fileDetails",
+              className: "file-details"
+            }, objectValue.name, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("br", null), objectValue.mime, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("br", null), this.fileSizeFormat(objectValue.size)));
+            break;
+
+          case "gallery":
+            preview = [];
+            objectValue.forEach(function (image) {
+              preview.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("li", {
+                key: id + "-galleryImageContainerLi" + image.id,
+                className: "blocks-gallery-item"
+              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("img", {
+                key: id + "-galleryImage_" + image.id,
+                src: image.preview
+              })));
+            });
+            var columns = objectValue.length > 5 ? 5 : objectValue.length;
+            preview = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("figure", {
+              key: id + "-galleryImagefigure",
+              className: "wp-block-gallery columns-" + columns
+            }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("ul", {
+              key: id + "-galleryImageContainerUl",
+              className: "blocks-gallery-grid"
+            }, preview)));
+            break;
+        }
+
+        preview = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+          key: id + "-mediaPreviewContainer",
+          className: "media-preview-container"
+        }, preview, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+          key: id + "-removeMedia",
           isSecondary: true,
           isSmall: true,
-          className: "block-library-cover__reset-button",
+          className: "reset-button",
           onClick: function onClick() {
-            return _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, undefined));
+            if (type == "gallery" && objectValue.length > 1) _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, objectValue.slice(0, objectValue.length - 1)));else if (repeatable) _this5.removeEltRepeatable(keys, valueProp);else _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, undefined));
           }
-        }, "Remove");
+        }, "Remove"));
       }
 
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_10__["MediaPlaceholder"], {
@@ -791,83 +842,44 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           title: label
         },
         onSelect: function onSelect(value) {
-          return _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, {
-            id: value.id,
-            url: value.url
-          }));
+          var newValue = undefined;
+
+          switch (type) {
+            case "image":
+              newValue = {
+                id: value.id,
+                preview: value.url
+              };
+              break;
+
+            case "file":
+              newValue = {
+                id: value.id,
+                preview: value.icon,
+                name: value.filename,
+                mime: value.mime,
+                size: value.filesizeInBytes
+              };
+              break;
+
+            case "gallery":
+              newValue = [];
+              value.forEach(function (image) {
+                newValue.push({
+                  id: image.id,
+                  preview: image.url
+                });
+              });
+              break;
+          }
+
+          _this5.updateAttributes(keys, valueProp, newValue, false, repeatable);
         },
-        allowedTypes: ['image'],
-        mediaPreview: imagePreview,
+        multiple: type == 'gallery',
+        addToGallery: type == 'gallery' && !!objectValue,
         value: objectValue,
         disableDropZone: true
-      }, removeImage);
-    }
-  }, {
-    key: "renderGalleryControl",
-    value: function renderGalleryControl(id, label, key, valueProp, objectValue) {
-      var _this6 = this;
-
-      var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
-      var removeGallery = !!(objectValue && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue) == 'object') && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
-        key: id + "-removeGallery",
-        isSecondary: true,
-        isSmall: true,
-        className: "block-library-cover__reset-button",
-        onClick: function onClick() {
-          var countImages = objectValue.length;
-          if (countImages > 1) _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, objectValue.slice(0, countImages - 1)));else _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, undefined));
-        }
-      }, "Remove");
-      var galleryPreview = '';
-
-      if (removeGallery) {
-        var ulGalleryPreview = [];
-        objectValue.forEach(function (image) {
-          ulGalleryPreview.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("li", {
-            key: id + "-galleryImageContainerLi" + image.id,
-            className: "blocks-gallery-item"
-          }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("img", {
-            key: id + "-galleryImage_" + image.id,
-            src: image.url
-          })));
-        });
-        var columns = objectValue.length;
-
-        if (columns > 5) {
-          columns = 5;
-        }
-
-        galleryPreview = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("figure", {
-          key: id + "-galleryImagefigure",
-          className: "wp-block-gallery columns-" + columns
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("ul", {
-          key: id + "-galleryImageContainerUl",
-          className: "blocks-gallery-grid"
-        }, ulGalleryPreview));
-      }
-
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_10__["MediaPlaceholder"], {
-        key: id,
-        labels: {
-          title: label
-        },
-        onSelect: function onSelect(value) {
-          var newGallery = [];
-          value.forEach(function (image) {
-            newGallery.push({
-              id: image.id,
-              url: image.url
-            });
-          });
-
-          _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, key, newGallery));
-        },
-        allowedTypes: ['image'],
-        multiple: true,
-        addToGallery: !!objectValue,
-        value: objectValue,
-        disableDropZone: true
-      }, galleryPreview, removeGallery);
+      }, preview);
     }
     /**
      * Render
@@ -1096,6 +1108,12 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_4__.components.forEach(function (elemen
         break;
 
       case 'image':
+        initAttributes[key] = {
+          type: 'object'
+        };
+        break;
+
+      case 'file':
         initAttributes[key] = {
           type: 'object'
         };

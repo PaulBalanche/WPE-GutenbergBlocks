@@ -70,6 +70,10 @@
                 .components-button:focus {
                     box-shadow: none;
                 }
+
+                .removeRepeatable {
+                    right: 55px;
+                }
             }
             &.is-opened > .components-panel__body-title {
 
@@ -80,9 +84,13 @@
                 background: white;
             }
         }
+        
+        &:hover .removeRepeatable {
+            visibility: visible;
+        }
     }
 
-    .components-base-control__field {
+    .components-base-control {
         
         position: relative;
 
@@ -93,6 +101,10 @@
             right: 0;
             padding-right: 0;
         }
+    }
+
+    .components-base-control__field {
+
         &:hover .removeRepeatable {
             visibility: visible;
         }

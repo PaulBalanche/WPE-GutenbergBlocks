@@ -14,9 +14,8 @@ import edit from './edit';
 frontspec.components.forEach( ( element ) => {
 
     var initAttributes = {
-        id: {
-            type: 'string',
-            default: element.id
+        id_component: {
+            type: 'string'
         }
     };
 

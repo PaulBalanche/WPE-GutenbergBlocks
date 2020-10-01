@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"test\",\"name\":\"Test\",\"path\":\"test.twig\",\"props\":{\"header\":{\"label\":\"Title\",\"type\":\"object\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"caption\":{\"label\":\"Caption\",\"type\":\"text\"}}},\"members\":{\"label\":\"Members\",\"type\":\"object\",\"repeatable\":true,\"props\":{\"firsname\":{\"label\":\"Firsname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"}}}}},{\"id\":\"demo\",\"name\":\"Demo\",\"description\":\"Ma super demo\",\"path\":\"demo.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Files\"}],\"props\":{\"string\":{\"label\":\"String\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"help\":[\"Oh no....\",\"Yes!!!\"],\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object2\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"string\"},\"street\":{\"label\":\"Street\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"string\"}}}}}}},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"members\":{\"label\":\"Members\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat3\"},\"file\":{\"label\":\"File\",\"type\":\"file\",\"category\":\"cat3\",\"repeatable\":true},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"component-1\",\"name\":\"Component 1\",\"path\":\"component-1.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Files\"}],\"props\":{\"title\":{\"label\":\"title\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"help\":[\"Oh no....\",\"Yes!!!\"],\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object2\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"string\"},\"street\":{\"label\":\"Street\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"string\"}}}}}}},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"members\":{\"label\":\"Members\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat3\"},\"file\":{\"label\":\"File\",\"type\":\"file\",\"category\":\"cat3\",\"repeatable\":true},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
 
 /***/ }),
 
@@ -532,6 +532,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "removeEltRepeatable",
     value: function removeEltRepeatable(arrayKey, currentValueProp) {
+      console.log(arrayKey);
+      console.log(currentValueProp);
       this.updateAttributes(arrayKey, currentValueProp, false);
     }
   }, {
@@ -630,29 +632,43 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
           case 'object':
             if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(prop.props) == "object") {
-              var fieldsetObject = [];
+              (function () {
+                var tempKeyObject = repeatable ? keys.concat(keyLoop) : keys;
+                var fieldsetObject = [];
 
-              for (var _i2 = 0, _Object$entries2 = Object.entries(prop.props); _i2 < _Object$entries2.length; _i2++) {
-                var _Object$entries2$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries2[_i2], 2),
-                    keySubProp = _Object$entries2$_i[0],
-                    valueSubProp = _Object$entries2$_i[1];
+                for (var _i2 = 0, _Object$entries2 = Object.entries(prop.props); _i2 < _Object$entries2.length; _i2++) {
+                  var _Object$entries2$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries2[_i2], 2),
+                      keySubProp = _Object$entries2$_i[0],
+                      valueSubProp = _Object$entries2$_i[1];
 
-                fieldsetObject.push(this.renderControl(valueSubProp, repeatable ? keys.concat(keyLoop).concat(keySubProp) : keys.concat(keySubProp), valueProp));
-              }
+                  fieldsetObject.push(_this.renderControl(valueSubProp, tempKeyObject.concat(keySubProp), valueProp));
+                }
 
-              blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Panel"], {
-                key: fieldId + "-panelObject"
-              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["PanelBody"], {
-                key: fieldId + "-panelBodyObject",
-                title: label,
-                initialOpen: false
-              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-                key: fieldId + "-panelBodyDivObject",
-                className: "objectField components-base-control"
-              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-                key: fieldId + "-panelBodySubDivObject",
-                className: "objectField-content"
-              }, fieldsetObject)))));
+                if (repeatable) {
+                  label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+                    key: fieldId + "-repeatableRemoveElt",
+                    isLink: true,
+                    className: "removeRepeatable",
+                    onClick: function onClick() {
+                      return _this.removeEltRepeatable(tempKeyObject, valueProp);
+                    }
+                  }, "Remove"));
+                }
+
+                blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Panel"], {
+                  key: fieldId + "-panelObject"
+                }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["PanelBody"], {
+                  key: fieldId + "-panelBodyObject",
+                  title: label,
+                  initialOpen: false
+                }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+                  key: fieldId + "-panelBodyDivObject",
+                  className: "objectField components-base-control"
+                }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+                  key: fieldId + "-panelBodySubDivObject",
+                  className: "objectField-content"
+                }, fieldsetObject)))));
+              })();
             }
 
             break;
@@ -693,7 +709,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
-          key: id + "-repeatableAddElt",
+          key: id + "-repeatableRemoveElt",
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
@@ -721,7 +737,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
-          key: id + "-repeatableAddElt",
+          key: id + "-repeatableRemoveElt",
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
@@ -748,7 +764,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
-          key: id + "-repeatableAddElt",
+          key: id + "-repeatableRemoveElt",
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
@@ -891,20 +907,27 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this$props = this.props,
           attributes = _this$props.attributes,
           isSelected = _this$props.isSelected,
-          clientId = _this$props.clientId;
+          clientId = _this$props.clientId,
+          className = _this$props.className;
 
       for (var key in _frontspec_json__WEBPACK_IMPORTED_MODULE_12__.components) {
         if (_frontspec_json__WEBPACK_IMPORTED_MODULE_12__.components.hasOwnProperty(key)) {
           var element = _frontspec_json__WEBPACK_IMPORTED_MODULE_12__.components[key];
 
           if (this.props.name == "custom/wpe-component-" + element.id) {
-            // Visual mode
+            // Because of default attribute will be not saved to the block’s comment delimiter, we manually set it.
+            if (typeof attributes.id_component == 'undefined') this.setAttributes({
+              id_component: element.id
+            }); // Visual mode
+
             if (!isSelected) {
-              return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_9___default.a, {
+              return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+                className: className
+              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_9___default.a, {
                 key: clientId + "-serverSideRender",
                 block: "custom/wpe-component-" + element.id,
                 attributes: attributes
-              });
+              }));
             } // Edition mode
 
 
@@ -1053,9 +1076,8 @@ var _frontspec_json__WEBPACK_IMPORTED_MODULE_4___namespace = /*#__PURE__*/__webp
 
 _frontspec_json__WEBPACK_IMPORTED_MODULE_4__.components.forEach(function (element) {
   var initAttributes = {
-    id: {
-      type: 'string',
-      default: element.id
+    id_component: {
+      type: 'string'
     }
   };
 

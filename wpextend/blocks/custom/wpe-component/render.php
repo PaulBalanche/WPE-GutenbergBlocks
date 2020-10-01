@@ -2,7 +2,7 @@
 
 function custom_wpe_component_render_callback( $attributes, $content ) {
 
-    if( ! isset( $attributes['id'] ) ) {
+    if( ! isset( $attributes['id_component'] ) ) {
         return;
     }
     
@@ -14,9 +14,9 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
     
             foreach( $frontspec['components'] as $component ) {
 
-                if( $component['id'] == $attributes['id'] ) {
+                if( $component['id'] == $attributes['id_component'] ) {
 
-                    unset($attributes['id']);
+                    unset($attributes['id_component']);
                     return \Wpextend\Timber::render_view($component['path'], $attributes);
                 }
             }

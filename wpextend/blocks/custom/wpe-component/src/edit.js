@@ -50,6 +50,8 @@ class WpeComponent extends Component {
     }
 
     removeEltRepeatable(arrayKey, currentValueProp) {
+        console.log(arrayKey);
+        console.log(currentValueProp);
         this.updateAttributes( arrayKey, currentValueProp, false );
     }
 
@@ -167,12 +169,31 @@ class WpeComponent extends Component {
                 case 'object':
 
                     if( typeof prop.props == "object" ) {
-
+                        
+                        let tempKeyObject = repeatable ? keys.concat(keyLoop) : keys;
                         let fieldsetObject = [];
                         for (const [keySubProp, valueSubProp] of Object.entries(prop.props)) {
-                            fieldsetObject.push( this.renderControl( valueSubProp, repeatable ? keys.concat(keyLoop).concat(keySubProp) : keys.concat(keySubProp) , valueProp ) );
+                            fieldsetObject.push( this.renderControl( valueSubProp, tempKeyObject.concat(keySubProp), valueProp ) );
                         }
                         
+                        if( repeatable ) {
+                            label = (
+                                <>
+                                    { label }
+                                    <Button
+                                        key={ fieldId + "-repeatableRemoveElt" }
+                                        isLink={true}
+                                        className="removeRepeatable"
+                                        onClick={ () =>
+                                            this.removeEltRepeatable(tempKeyObject, valueProp)
+                                        }
+                                    >
+                                        Remove
+                                    </Button>
+                                </>
+                            );
+                        }
+
                         blocReturned.push(
                             <Panel
                                 key={ fieldId + "-panelObject"}
@@ -245,7 +266,7 @@ class WpeComponent extends Component {
                 <>
                     { label }
                     <Button
-                        key={ id + "-repeatableAddElt" }
+                        key={ id + "-repeatableRemoveElt" }
                         isLink={true}
                         className="removeRepeatable"
                         onClick={ () =>
@@ -278,7 +299,7 @@ class WpeComponent extends Component {
                 <>
                     { label }
                     <Button
-                        key={ id + "-repeatableAddElt" }
+                        key={ id + "-repeatableRemoveElt" }
                         isLink={true}
                         className="removeRepeatable"
                         onClick={ () =>
@@ -310,7 +331,7 @@ class WpeComponent extends Component {
                 <>
                     { label }
                     <Button
-                        key={ id + "-repeatableAddElt" }
+                        key={ id + "-repeatableRemoveElt" }
                         isLink={true}
                         className="removeRepeatable"
                         onClick={ () =>
@@ -487,7 +508,7 @@ class WpeComponent extends Component {
      */
     render() {
 
-        const { attributes, isSelected, clientId } = this.props;
+        const { attributes, isSelected, clientId, className } = this.props;
 
         for (const key in frontspec.components) {
             if (frontspec.components.hasOwnProperty(key)) {
@@ -495,15 +516,21 @@ class WpeComponent extends Component {
 
                 if( this.props.name == "custom/wpe-component-" + element.id ) {
 
+                    // Because of default attribute will be not saved to the block’s comment delimiter, we manually set it.
+                    if( typeof attributes.id_component == 'undefined' )
+                        this.setAttributes( { id_component: element.id } );
+
                     // Visual mode
                     if( ! isSelected ) {
 
                         return (
-                            <ServerSideRender
-                                key={ clientId + "-serverSideRender" }
-                                block={ "custom/wpe-component-" + element.id }
-                                attributes={ attributes }
-                            />
+                            <div className={ className }>
+                                <ServerSideRender
+                                    key={ clientId + "-serverSideRender" }
+                                    block={ "custom/wpe-component-" + element.id }
+                                    attributes={ attributes }
+                                    />
+                            </div>
                         );
                     }
 

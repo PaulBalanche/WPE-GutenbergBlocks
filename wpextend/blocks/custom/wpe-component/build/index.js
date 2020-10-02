@@ -921,13 +921,11 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             }); // Visual mode
 
             if (!isSelected) {
-              return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-                className: className
-              }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_9___default.a, {
+              return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_9___default.a, {
                 key: clientId + "-serverSideRender",
                 block: "custom/wpe-component-" + element.id,
                 attributes: attributes
-              }));
+              });
             } // Edition mode
 
 

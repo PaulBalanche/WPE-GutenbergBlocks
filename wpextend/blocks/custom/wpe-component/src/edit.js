@@ -524,13 +524,11 @@ class WpeComponent extends Component {
                     if( ! isSelected ) {
 
                         return (
-                            <div className={ className }>
-                                <ServerSideRender
-                                    key={ clientId + "-serverSideRender" }
-                                    block={ "custom/wpe-component-" + element.id }
-                                    attributes={ attributes }
-                                    />
-                            </div>
+                            <ServerSideRender
+                                key={ clientId + "-serverSideRender" }
+                                block={ "custom/wpe-component-" + element.id }
+                                attributes={ attributes }
+                            />
                         );
                     }
 

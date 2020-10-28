@@ -1,31 +1,21 @@
 <?php
 
 function custom_wpe_column_render_callback( $attributes, $content ) {
-// pre($attributes);die;
 
     $className = '';
 
-    // Desktop
-    if( isset($attributes['startDesktop'], $attributes['widthDesktop']) ) {
-        $className .= ' gridColumnStartDesktop-' . $attributes['startDesktop'];
-        $gridColumnEndDesktop = intval($attributes['startDesktop']) + intval($attributes['widthDesktop']);
-        $className .= ' gridColumnEndDesktop-' . $gridColumnEndDesktop;
-    }
+    foreach( [ 'Desktop', 'Tablet', 'Mobile' ] as $device ) {
 
-    // Tablet
-    if( isset($attributes['startTablet'], $attributes['widthTablet']) ) {
-        $className .= ' gridColumnStartTablet-' . $attributes['startTablet'];
-        $gridColumnEndTablet = intval($attributes['startTablet']) + intval($attributes['widthTablet']);
-        $className .= ' gridColumnEndTablet-' . $gridColumnEndTablet;
-    }
-
-    // Mobile
-    if( isset($attributes['startMobile'], $attributes['widthMobile']) ) {
-        $className .= ' gridColumnStartMobile-' . $attributes['startMobile'];
-        $gridColumnEndMobile = intval($attributes['startMobile']) + intval($attributes['widthMobile']);
-        $className .= ' gridColumnEndMobile-' . $gridColumnEndMobile;
+        // Column
+        $startColumn = ( isset($attributes['columnStart' . $device]) ) ? intval($attributes['columnStart' . $device]) : 1;
+        $endColumn = ( isset($attributes['width' . $device]) ) ? $startColumn + intval($attributes['width' . $device]) : $startColumn + 1;
+        $className .= ' gridColumnStart' . $device . '-' . $startColumn . ' gridColumnEnd' . $device . '-' . $endColumn;
+        
+        // Row
+        $startRow = ( isset($attributes['rowStart' . $device]) ) ? intval($attributes['rowStart' . $device]) : 1;
+        $endRow = ( isset($attributes['height' . $device]) ) ? $startRow + intval($attributes['height' . $device]) : $startRow + 1;
+        $className .= ' gridRowStart' . $device . '-' . $startRow . ' gridRowEnd' . $device . '-' . $endRow;
     }
     
-
     return '<div class="' . $className . '">' . $content . '</div>';
 }

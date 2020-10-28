@@ -13,8 +13,8 @@ import {
     Button,
     Placeholder,
     TabPanel,
-    Panel, PanelBody, PanelRow,
-    FormFileUpload
+    Panel, PanelBody,
+    SelectControl
 } from '@wordpress/components';
 
 import frontspec from '../../../../../frontspec.json';
@@ -152,6 +152,10 @@ class WpeComponent extends Component {
 
                 case 'boolean':
                     blocReturned.push( this.renderToggleControl( fieldId, label, prop.help, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    break;
+
+                case 'select':
+                    blocReturned.push( this.renderSelectControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
 
                 case 'image':
@@ -317,6 +321,42 @@ class WpeComponent extends Component {
                 key={ id }
                 label={ label }
                 value={ objectValue }
+                onChange={ ( newValue ) =>
+                    this.updateAttributes(keys, valueProp, newValue, false, repeatable)
+                }
+            />
+        );
+    }
+
+    renderSelectControl( id, label, options, keys, valueProp, objectValue, repeatable = false ) {
+
+        if( repeatable ) {
+            label = (
+                <>
+                    { label }
+                    <Button
+                        key={ id + "-repeatableRemoveElt" }
+                        isLink={true}
+                        className="removeRepeatable"
+                        onClick={ () =>
+                            this.removeEltRepeatable(keys, valueProp)
+                        }
+                    >
+                        Remove
+                    </Button>
+                </>
+            );
+        }
+        
+        return (
+            <SelectControl
+                key={ id }
+                label={ label }
+                value={ objectValue }
+                options={ options.map( function(value) {
+                        return { label: value, value: value }
+                    } )
+                }
                 onChange={ ( newValue ) =>
                     this.updateAttributes(keys, valueProp, newValue, false, repeatable)
                 }

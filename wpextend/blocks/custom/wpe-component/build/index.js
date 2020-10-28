@@ -87,13 +87,13 @@
 /******/ ({
 
 /***/ "../../../../frontspec.json":
-/*!****************************************************************************************************!*\
-  !*** /Applications/MAMP/htdocs/github.com/WPtoWPextend/web/app/themes/custom-theme/frontspec.json ***!
-  \****************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** /Users/paulbalanche/www/github.com/WPtoWPextend/web/app/themes/tailwindui/frontspec.json ***!
+  \************************************************************************************************/
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"component-1\",\"name\":\"Component 1\",\"path\":\"component-1.twig\",\"props_categories\":[{\"id\":\"cat1\",\"name\":\"Basic fields\"},{\"id\":\"cat2\",\"name\":\"Repeatable fields\"},{\"id\":\"cat3\",\"name\":\"Files\"}],\"props\":{\"title\":{\"label\":\"title\",\"type\":\"string\",\"category\":\"cat1\"},\"number\":{\"label\":\"Number\",\"type\":\"number\",\"default\":4,\"category\":\"cat1\"},\"boolean\":{\"label\":\"Boolean\",\"help\":[\"Oh no....\",\"Yes!!!\"],\"type\":\"boolean\",\"category\":\"cat1\"},\"text\":{\"label\":\"Text\",\"type\":\"text\",\"category\":\"cat1\"},\"object2\":{\"label\":\"Object\",\"type\":\"object\",\"category\":\"cat1\",\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"},\"address\":{\"label\":\"Address\",\"type\":\"object\",\"props\":{\"street_number\":{\"label\":\"Street number\",\"type\":\"string\"},\"street\":{\"label\":\"Street\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"object\",\"props\":{\"postal_code\":{\"label\":\"Postal code\",\"type\":\"string\"},\"city\":{\"label\":\"City\",\"type\":\"string\"},\"country\":{\"label\":\"Country\",\"type\":\"string\"}}}}}}},\"string_repeat\":{\"label\":\"String\",\"type\":\"string\",\"repeatable\":true,\"category\":\"cat2\"},\"number_repeatable\":{\"label\":\"Number\",\"type\":\"number\",\"repeatable\":true,\"category\":\"cat2\"},\"text_repeatable\":{\"label\":\"Text\",\"type\":\"text\",\"repeatable\":true,\"category\":\"cat2\"},\"boolean_repeatble\":{\"label\":\"Boolean\",\"type\":\"boolean\",\"repeatable\":true,\"category\":\"cat2\"},\"members\":{\"label\":\"Members\",\"type\":\"object\",\"category\":\"cat2\",\"repeatable\":true,\"props\":{\"firstname\":{\"label\":\"Firstname\",\"type\":\"string\"},\"lastname\":{\"label\":\"Lastname\",\"type\":\"string\"}}},\"image\":{\"label\":\"Image\",\"type\":\"image\",\"category\":\"cat3\"},\"file\":{\"label\":\"File\",\"type\":\"file\",\"category\":\"cat3\",\"repeatable\":true},\"gallery\":{\"label\":\"Gallery\",\"type\":\"gallery\",\"category\":\"cat3\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"bootstrap-components-alert\",\"name\":\"Bootstrap Alert\",\"path\":\"bootstrap-components-alert.twig\",\"props\":{\"content\":{\"label\":\"Content\",\"type\":\"text\"},\"type\":{\"label\":\"Type\",\"type\":\"select\",\"options\":[\"primary\",\"secondary\",\"success\",\"danger\",\"warning\",\"info\",\"light\",\"dark\"]}}}]}");
 
 /***/ }),
 
@@ -618,6 +618,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             blocReturned.push(this.renderToggleControl(fieldId, label, prop.help, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
+          case 'select':
+            blocReturned.push(this.renderSelectControl(fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            break;
+
           case 'image':
             blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
@@ -756,8 +760,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
-    key: "renderToggleControl",
-    value: function renderToggleControl(id, label, help, keys, valueProp, objectValue) {
+    key: "renderSelectControl",
+    value: function renderSelectControl(id, label, options, keys, valueProp, objectValue) {
       var _this4 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
@@ -773,20 +777,53 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }, "Remove"));
       }
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["ToggleControl"], {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["SelectControl"], {
         key: id,
         label: label,
-        help: _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(help) == 'object' && Array.isArray(help) && help.length == 2 ? !!objectValue ? help[1] : help[0] : false,
-        checked: objectValue,
+        value: objectValue,
+        options: options.map(function (value) {
+          return {
+            label: value,
+            value: value
+          };
+        }),
         onChange: function onChange(newValue) {
           return _this4.updateAttributes(keys, valueProp, newValue, false, repeatable);
         }
       });
     }
   }, {
+    key: "renderToggleControl",
+    value: function renderToggleControl(id, label, help, keys, valueProp, objectValue) {
+      var _this5 = this;
+
+      var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+
+      if (repeatable) {
+        label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+          key: id + "-repeatableRemoveElt",
+          isLink: true,
+          className: "removeRepeatable",
+          onClick: function onClick() {
+            return _this5.removeEltRepeatable(keys, valueProp);
+          }
+        }, "Remove"));
+      }
+
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["ToggleControl"], {
+        key: id,
+        label: label,
+        help: _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(help) == 'object' && Array.isArray(help) && help.length == 2 ? !!objectValue ? help[1] : help[0] : false,
+        checked: objectValue,
+        onChange: function onChange(newValue) {
+          return _this5.updateAttributes(keys, valueProp, newValue, false, repeatable);
+        }
+      });
+    }
+  }, {
     key: "renderFileControl",
     value: function renderFileControl(type, id, label, keys, valueProp, objectValue) {
-      var _this5 = this;
+      var _this6 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
       var preview = false;
@@ -847,7 +884,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isSmall: true,
           className: "reset-button",
           onClick: function onClick() {
-            if (type == "gallery" && objectValue.length > 1) _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, objectValue.slice(0, objectValue.length - 1)));else if (repeatable) _this5.removeEltRepeatable(keys, valueProp);else _this5.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, undefined));
+            if (type == "gallery" && objectValue.length > 1) _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, objectValue.slice(0, objectValue.length - 1)));else if (repeatable) _this6.removeEltRepeatable(keys, valueProp);else _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, undefined));
           }
         }, "Remove"));
       }
@@ -889,7 +926,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               break;
           }
 
-          _this5.updateAttributes(keys, valueProp, newValue, false, repeatable);
+          _this6.updateAttributes(keys, valueProp, newValue, false, repeatable);
         },
         multiple: type == 'gallery',
         addToGallery: type == 'gallery' && !!objectValue,
@@ -1106,6 +1143,12 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_4__.components.forEach(function (elemen
       case 'boolean':
         initAttributes[key] = {
           type: 'boolean'
+        };
+        break;
+
+      case 'select':
+        initAttributes[key] = {
+          type: 'string'
         };
         break;
 

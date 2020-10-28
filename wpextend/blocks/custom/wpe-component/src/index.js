@@ -43,6 +43,11 @@ frontspec.components.forEach( ( element ) => {
                     type: 'boolean'
                 };
                 break;
+            case 'select':
+                initAttributes[key] = {
+                    type: 'string'
+                };
+                break;
             case 'array':
                 initAttributes[key] = {
                     type: 'array'

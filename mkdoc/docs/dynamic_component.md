@@ -15,13 +15,15 @@ The type will influence the back-office rendering and the structure of the saved
 - Required: Yes
 - Value:
   - string
-  - number
-  - boolean
   - text
+  - boolean
+  - select
+  - array
+  - object
+  - number
   - image
   - file
   - gallery
-  - object
 
 *__object__ type allows to have child properties.*
 *In this case, __props__ property should be defined.*

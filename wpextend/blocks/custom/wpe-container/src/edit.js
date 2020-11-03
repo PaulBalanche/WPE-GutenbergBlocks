@@ -23,8 +23,7 @@ import {
     ToolbarGroup,
     MenuGroup,
     MenuItem,
-    HorizontalRule,
-    TextControl
+    HorizontalRule
 } from '@wordpress/components';
 
 import { withSelect, dispatch } from '@wordpress/data';
@@ -367,13 +366,14 @@ class WpeContainer extends Component {
              */
             var editDisplay = (
                 <InnerBlocks
+                    allowedBlocks={ ALLOWED_BLOCKS }
+                    __experimentalMoverDirection="horizontal"
                     __experimentalTagName={ Block.div }
                     __experimentalPassedProps={ {
                         className: className,
                         style: sectionStyle
                     } }
-                    allowedBlocks={ ALLOWED_BLOCKS }
-                    renderAppender={ false }
+                    renderAppender={ false } 
                 />
             );
         }

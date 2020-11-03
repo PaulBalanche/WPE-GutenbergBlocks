@@ -6608,12 +6608,13 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
          */
 
         var editDisplay = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["InnerBlocks"], {
+          allowedBlocks: ALLOWED_BLOCKS,
+          __experimentalMoverDirection: "horizontal",
           __experimentalTagName: _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["__experimentalBlock"].div,
           __experimentalPassedProps: {
             className: className,
             style: sectionStyle
           },
-          allowedBlocks: ALLOWED_BLOCKS,
           renderAppender: false
         });
       }
@@ -6831,7 +6832,8 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
   })))))),
   supports: {
     align: ['full', 'wide'],
-    lightBlockWrapper: true
+    lightBlockWrapper: true,
+    anchor: true
   },
   attributes: {
     style: {

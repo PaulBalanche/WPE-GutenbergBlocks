@@ -36,16 +36,27 @@
         padding: 2px 10px;
     }
 
-    &:after {
+    &:hover::after,
+    &:focus::after,
+    &:active::after,
+    &.is-selected::after,
+    &.has-child-selected::after {
         // box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-        border: 1px dashed rgba(0, 0, 0, 0.1);
+        border: 1px dashed rgba(0, 124, 186, 0.5);
         top: 2px;
         right: 1px;
         bottom: 2px;
         left: 1px;
     }
-    &:not([contenteditable]):focus:after {
+    &:not([contenteditable])::focus::after {
         border: none;
+    }
+
+    .block-list-appender {
+        visibility: hidden;
+    }
+    &:hover > .block-list-appender {
+        visibility: visible;
     }
 
     @for $i from 1 through 100 {

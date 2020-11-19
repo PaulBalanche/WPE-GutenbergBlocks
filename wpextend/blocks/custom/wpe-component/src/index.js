@@ -29,11 +29,15 @@ frontspec.components.forEach( ( element ) => {
         switch( currentType ) {
             case 'string':
                 initAttributes[key] = {
-                    type: 'string',
+                    type: 'string'
                 };
                 break;
-
             case 'text':
+                initAttributes[key] = {
+                    type: 'string'
+                };
+                break;
+            case 'richText':
                 initAttributes[key] = {
                     type: 'string'
                 };

@@ -93,7 +93,7 @@
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"bootstrap-components-alert\",\"name\":\"Bootstrap Alert\",\"path\":\"bootstrap-components-alert.twig\",\"props\":{\"content\":{\"label\":\"Content\",\"type\":\"text\"},\"type\":{\"label\":\"Type\",\"type\":\"select\",\"options\":[\"primary\",\"secondary\",\"success\",\"danger\",\"warning\",\"info\",\"light\",\"dark\"]}}},{\"id\":\"bootstrap-components-badge\",\"name\":\"Bootstrap Badge\",\"path\":\"bootstrap-components-badge.twig\",\"props\":{\"content\":{\"label\":\"Content\",\"type\":\"text\"},\"type\":{\"label\":\"Type\",\"type\":\"select\",\"options\":[\"primary\",\"secondary\",\"success\",\"danger\",\"warning\",\"info\",\"light\",\"dark\"]},\"rounded\":{\"label\":\"Rounded\",\"type\":\"boolean\"}}},{\"id\":\"bootstrap-components-card\",\"name\":\"Bootstrap Card\",\"path\":\"bootstrap-components-card.twig\",\"props\":{\"image\":{\"label\":\"Image\",\"type\":\"image\"},\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"content\":{\"label\":\"Content\",\"type\":\"text\"}}},{\"id\":\"bootstrap-components-jumbotron\",\"name\":\"Bootstrap Jumbotron\",\"path\":\"bootstrap-components-jumbotron.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"lead\":{\"label\":\"Lead\",\"type\":\"text\"},\"content\":{\"label\":\"Content\",\"type\":\"text\"}}}]}");
+module.exports = JSON.parse("{\"assets\":{\"css\":[{\"name\":\"main\",\"type\":\"style\",\"path\":\"./dist/index.css\"}],\"js\":[{\"name\":\"main\",\"type\":\"bare\",\"path\":\"./dist/index.js\"}]},\"components\":[{\"id\":\"bootstrap-components-alert\",\"name\":\"Bootstrap Alert\",\"path\":\"bootstrap-components-alert.twig\",\"props\":{\"content\":{\"label\":\"text\",\"type\":\"richText\"},\"type\":{\"label\":\"Type\",\"type\":\"select\",\"options\":[\"primary\",\"secondary\",\"success\",\"danger\",\"warning\",\"info\",\"light\",\"dark\"]}}},{\"id\":\"bootstrap-components-badge\",\"name\":\"Bootstrap Badge\",\"path\":\"bootstrap-components-badge.twig\",\"props_categories\":[{\"id\":\"settings\",\"name\":\"Settings\"}],\"props\":{\"content\":{\"label\":\"Content\",\"type\":\"text\"},\"type\":{\"label\":\"Type\",\"type\":\"select\",\"options\":[\"primary\",\"secondary\",\"success\",\"danger\",\"warning\",\"info\",\"light\",\"dark\"],\"category\":\"settings\"},\"rounded\":{\"label\":\"Rounded\",\"type\":\"boolean\",\"category\":\"settings\"}}},{\"id\":\"bootstrap-components-card\",\"name\":\"Bootstrap Card\",\"path\":\"bootstrap-components-card.twig\",\"props\":{\"image\":{\"label\":\"Image\",\"type\":\"image\"},\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"content\":{\"label\":\"Content\",\"type\":\"text\"}}},{\"id\":\"bootstrap-components-jumbotron\",\"name\":\"Bootstrap Jumbotron\",\"path\":\"bootstrap-components-jumbotron.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"lead\":{\"label\":\"Lead\",\"type\":\"text\"},\"content\":{\"label\":\"Content\",\"type\":\"text\"}}}]}");
 
 /***/ }),
 
@@ -614,6 +614,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             blocReturned.push(this.renderTextareaControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 
+          case 'richText':
+            blocReturned.push(this.renderRichTextControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            break;
+
           case 'boolean':
             blocReturned.push(this.renderToggleControl(fieldId, label, prop.help, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
@@ -760,11 +764,11 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
-    key: "renderSelectControl",
-    value: function renderSelectControl(id, label, options, keys, valueProp, objectValue) {
+    key: "renderRichTextControl",
+    value: function renderRichTextControl(id, label, keys, valueProp, objectValue) {
       var _this4 = this;
 
-      var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
@@ -777,24 +781,31 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }, "Remove"));
       }
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["SelectControl"], {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-RichTextCmponentsBaseControl",
+        className: "components-base-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-RichTextCmponentsBaseControlField",
+        className: "components-base-control__field"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-RichTextContainer",
+        className: "rich-text-container"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", {
+        class: "components-base-control__label",
+        key: id + "-label"
+      }, label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_10__["RichText"], {
         key: id,
-        label: label,
-        value: objectValue,
-        options: options.map(function (value) {
-          return {
-            label: value,
-            value: value
-          };
-        }),
+        value: objectValue // Any existing content, either from the database or an attribute default
+        ,
+        multiline: true,
         onChange: function onChange(newValue) {
           return _this4.updateAttributes(keys, valueProp, newValue, false, repeatable);
         }
-      });
+      }))));
     }
   }, {
-    key: "renderToggleControl",
-    value: function renderToggleControl(id, label, help, keys, valueProp, objectValue) {
+    key: "renderSelectControl",
+    value: function renderSelectControl(id, label, options, keys, valueProp, objectValue) {
       var _this5 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
@@ -810,20 +821,53 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }, "Remove"));
       }
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["ToggleControl"], {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["SelectControl"], {
         key: id,
         label: label,
-        help: _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(help) == 'object' && Array.isArray(help) && help.length == 2 ? !!objectValue ? help[1] : help[0] : false,
-        checked: objectValue,
+        value: objectValue,
+        options: options.map(function (value) {
+          return {
+            label: value,
+            value: value
+          };
+        }),
         onChange: function onChange(newValue) {
           return _this5.updateAttributes(keys, valueProp, newValue, false, repeatable);
         }
       });
     }
   }, {
+    key: "renderToggleControl",
+    value: function renderToggleControl(id, label, help, keys, valueProp, objectValue) {
+      var _this6 = this;
+
+      var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+
+      if (repeatable) {
+        label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
+          key: id + "-repeatableRemoveElt",
+          isLink: true,
+          className: "removeRepeatable",
+          onClick: function onClick() {
+            return _this6.removeEltRepeatable(keys, valueProp);
+          }
+        }, "Remove"));
+      }
+
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["ToggleControl"], {
+        key: id,
+        label: label,
+        help: _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(help) == 'object' && Array.isArray(help) && help.length == 2 ? !!objectValue ? help[1] : help[0] : false,
+        checked: objectValue,
+        onChange: function onChange(newValue) {
+          return _this6.updateAttributes(keys, valueProp, newValue, false, repeatable);
+        }
+      });
+    }
+  }, {
     key: "renderFileControl",
     value: function renderFileControl(type, id, label, keys, valueProp, objectValue) {
-      var _this6 = this;
+      var _this7 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
       var preview = false;
@@ -884,7 +928,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isSmall: true,
           className: "reset-button",
           onClick: function onClick() {
-            if (type == "gallery" && objectValue.length > 1) _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, objectValue.slice(0, objectValue.length - 1)));else if (repeatable) _this6.removeEltRepeatable(keys, valueProp);else _this6.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, undefined));
+            if (type == "gallery" && objectValue.length > 1) _this7.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, objectValue.slice(0, objectValue.length - 1)));else if (repeatable) _this7.removeEltRepeatable(keys, valueProp);else _this7.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, undefined));
           }
         }, "Remove"));
       }
@@ -926,7 +970,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               break;
           }
 
-          _this6.updateAttributes(keys, valueProp, newValue, false, repeatable);
+          _this7.updateAttributes(keys, valueProp, newValue, false, repeatable);
         },
         multiple: type == 'gallery',
         addToGallery: type == 'gallery' && !!objectValue,
@@ -1135,6 +1179,12 @@ _frontspec_json__WEBPACK_IMPORTED_MODULE_4__.components.forEach(function (elemen
         break;
 
       case 'text':
+        initAttributes[key] = {
+          type: 'string'
+        };
+        break;
+
+      case 'richText':
         initAttributes[key] = {
           type: 'string'
         };

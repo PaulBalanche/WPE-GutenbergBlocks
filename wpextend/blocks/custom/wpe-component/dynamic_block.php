@@ -29,6 +29,9 @@ if( file_exists( get_stylesheet_directory() . '/frontspec.json' ) ) {
                         case 'text':
                             $currentType = 'string';
                             break;
+                        case 'richText':
+                            $currentType = 'string';
+                            break;
                         case 'boolean':
                             $currentType = 'boolean';
                             break;

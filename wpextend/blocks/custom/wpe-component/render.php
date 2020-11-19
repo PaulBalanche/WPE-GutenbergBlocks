@@ -25,8 +25,10 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
                             switch( $prop['type'] ) {
                                 
                                 case 'image':
-                                    $attachment_image_src = wp_get_attachment_image_src($attributes[$key_prop]['id'], 'large');
-                                    $attributes[$key_prop]['src'] = $attachment_image_src[0];
+                                    if( isset($attributes[$key_prop]) && is_array($attributes[$key_prop]) && isset($attributes[$key_prop]['id']) ) {
+                                        $attachment_image_src = wp_get_attachment_image_src($attributes[$key_prop]['id'], 'large');
+                                        $attributes[$key_prop]['src'] = $attachment_image_src[0];
+                                    }
                                     break;
                             }
                         }

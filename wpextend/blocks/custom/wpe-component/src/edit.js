@@ -3,7 +3,8 @@ import { Component } from '@wordpress/element';
 import ServerSideRender from '@wordpress/server-side-render';
 
 import {
-    MediaPlaceholder
+    MediaPlaceholder,
+    RichText
 } from '@wordpress/block-editor';
 
 import {
@@ -148,6 +149,10 @@ class WpeComponent extends Component {
 
                 case 'text':
                     blocReturned.push( this.renderTextareaControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    break;
+                
+                case 'richText':
+                    blocReturned.push( this.renderRichTextControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
 
                 case 'boolean':
@@ -325,6 +330,54 @@ class WpeComponent extends Component {
                     this.updateAttributes(keys, valueProp, newValue, false, repeatable)
                 }
             />
+        );
+    }
+    
+    renderRichTextControl( id, label, keys, valueProp, objectValue, repeatable = false ) {
+
+        if( repeatable ) {
+            label = (
+                <>
+                    { label }
+                    <Button
+                        key={ id + "-repeatableRemoveElt" }
+                        isLink={true}
+                        className="removeRepeatable"
+                        onClick={ () =>
+                            this.removeEltRepeatable(keys, valueProp)
+                        }
+                    >
+                        Remove
+                    </Button>
+                </>
+            );
+        }
+
+        return (
+            <div
+                key={ id + "-RichTextCmponentsBaseControl" }
+                className="components-base-control"
+            >
+                <div
+                    key={ id + "-RichTextCmponentsBaseControlField" }
+                    className="components-base-control__field"
+                >
+                    <div
+                        key={ id + "-RichTextContainer" }
+                        className="rich-text-container"
+                    >
+                        <label class="components-base-control__label" key={ id + "-label" }>{ label }</label>
+                        <RichText
+                            key={ id }
+                            value={ objectValue } // Any existing content, either from the database or an attribute default
+                            multiline={true}
+                            onChange={ ( newValue ) =>
+                                this.updateAttributes(keys, valueProp, newValue, false, repeatable)
+                            }
+                        />
+                    </div>
+                </div>
+            </div>
         );
     }
 

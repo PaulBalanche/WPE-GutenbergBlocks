@@ -79,7 +79,7 @@ Set the category id defined in the props_categories properties.
 - Type: `String`
 - Required: No
 
-### props
+#### props
 Related to __object__ type. Allows to define child properties.
 - Type: `Object`
 - Required: No

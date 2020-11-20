@@ -1,5 +1,9 @@
 # WPE-GutenbergBlocks
 
+## How it works ?
+This package have to be included in your current Wordpress theme.
+It allow you to easily design your page content with Gutenberg editor and **wpe-container**, **wpe-column** and **wpe-component**.
+
 ## Requirements
 - plugins : wpextend/wpextend
 
@@ -23,21 +27,30 @@ A theme can opt-in for this feature by calling:
 
 ## Update some variable
 
-1. Update file _vars.scss
+### SCSS
+- wpe_column_container_class_name:
+*-- default: bb_container*
+- wpe_column_container_max_width:
+*-- default:  1400px*
+
+1. Update file ***current_theme/wpextend/_var.scss***
 2.  ```npm run build```
 
+## WPE components
 
-## Dynamic component properties:
+### # wpe-container:
 
-### label
+### # wpe-column:
 
+### # wpe-component (the dynamic component):
+
+#### label
 Name of the property displayed on top of the input.
 - Type: `String`
 - Required: Yes
 
-### type
+#### type
 The type will influence the back-office rendering and the structure of the saved data.
-
 - Type: `String`
 - Required: Yes
 - Value:
@@ -55,33 +68,18 @@ The type will influence the back-office rendering and the structure of the saved
 *__object__ type allows to have child properties.*
 *In this case, __props__ property should be defined.*
 
-### repeatable
+#### repeatable
 Set to true if the properties could be defined more than once.
 - Type: `Boolean`
-
 - Required: No
-
-  
-
-### category
-
-  
-
+ 
+#### category
 Allows to lighten the back-office display, and to structure the controls in tabs.
-
 Set the category id defined in the props_categories properties.
-
-  
-
 - Type: `String`
-
 - Required: No
-
-  
 
 ### props
-
 Related to __object__ type. Allows to define child properties.
-
 - Type: `Object`
 - Required: No

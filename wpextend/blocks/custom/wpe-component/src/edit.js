@@ -18,6 +18,8 @@ import {
     SelectControl
 } from '@wordpress/components';
 
+// import { select } from '@wordpress/data';
+
 import frontspec from '../../../../../frontspec.json';
 
 class WpeComponent extends Component {
@@ -366,7 +368,7 @@ class WpeComponent extends Component {
                         key={ id + "-RichTextContainer" }
                         className="rich-text-container"
                     >
-                        <label class="components-base-control__label" key={ id + "-label" }>{ label }</label>
+                        <label className="components-base-control__label" key={ id + "-label" }>{ label }</label>
                         <RichText
                             key={ id }
                             value={ objectValue } // Any existing content, either from the database or an attribute default
@@ -382,6 +384,9 @@ class WpeComponent extends Component {
     }
 
     renderSelectControl( id, label, options, keys, valueProp, objectValue, repeatable = false ) {
+
+        // console.log( select( 'core' ).getEntityRecords( 'postType', 'post' ) );
+
 
         if( repeatable ) {
             label = (

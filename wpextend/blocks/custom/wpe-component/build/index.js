@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../../../frontspec.json":
-/*!************************************************************************************************!*\
-  !*** /Users/paulbalanche/www/github.com/WPtoWPextend/web/app/themes/tailwindui/frontspec.json ***!
-  \************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /Users/paulbalanche/www/github.com/WPtoWPextend/web/app/themes/twentytwentyone-trunk/frontspec.json ***!
+  \***********************************************************************************************************/
 /*! exports provided: assets, components, default */
 /***/ (function(module) {
 
@@ -488,6 +488,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
+ // import { select } from '@wordpress/data';
 
 
 
@@ -791,7 +792,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         key: id + "-RichTextContainer",
         className: "rich-text-container"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("label", {
-        class: "components-base-control__label",
+        className: "components-base-control__label",
         key: id + "-label"
       }, label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_10__["RichText"], {
         key: id,
@@ -810,6 +811,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
 
+      // console.log( select( 'core' ).getEntityRecords( 'postType', 'post' ) );
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["Button"], {
           key: id + "-repeatableRemoveElt",

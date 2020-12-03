@@ -2,6 +2,9 @@
   "name": "wpe-gutenberg-blocks",
   "version": "1.0.0",
   "scripts": {
-    "build": "sass --style=compressed --no-source-map blocks/custom/wpe-column/src/scss/style.scss blocks/custom/wpe-column/assets/style/theme.min.css && sass --style=compressed --no-source-map blocks/custom/wpe-column/src/scss/admin/editor.scss blocks/custom/wpe-column/assets/style/editor.min.css"
+    "build": "npm-run-all wpe-component-js-build wpe-column-css-front-build wpe-column-css-editor-build",
+    "wpe-component-js-build": "cd blocks/custom/wpe-component && npm run build",
+    "wpe-column-css-front-build": "sass --style=compressed --no-source-map blocks/custom/wpe-column/src/scss/style.scss blocks/custom/wpe-column/assets/style/theme.min.css",
+    "wpe-column-css-editor-build": "sass --style=compressed --no-source-map blocks/custom/wpe-column/src/scss/admin/editor.scss blocks/custom/wpe-column/assets/style/editor.min.css"
   }
 }

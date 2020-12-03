@@ -30,6 +30,27 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
                                         $attributes[$key_prop]['src'] = $attachment_image_src[0];
                                     }
                                     break;
+
+                                case 'relation':
+
+                                    if( isset($attributes[$key_prop]) ) {
+
+                                        if( isset($prop['repeatable']) && $prop['repeatable'] && is_array($attributes[$key_prop]) && count($attributes[$key_prop]) > 0 ) {
+
+                                            $attributes[$key_prop] = get_posts([
+                                                'post_type' => $prop['entity'],
+                                                'post__in' => $attributes[$key_prop],
+                                                'orderby' => 'post__in'
+                                            ]);
+                                        }
+                                        elseif( ( ! isset($prop['repeatable']) || ! $prop['repeatable'] ) && is_numeric($attributes[$key_prop]) ) {
+
+                                            $attributes[$key_prop] = get_post($attributes[$key_prop]);
+                                        }
+
+                                        $attributes[$key_prop] = apply_filters('wpextend/pre_render_component_relation', $attributes[$key_prop], $component['id'], $key_prop);
+                                    }
+                                    break;
                             }
                         }
                     }

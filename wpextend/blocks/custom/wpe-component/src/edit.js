@@ -18,7 +18,7 @@ import {
     SelectControl
 } from '@wordpress/components';
 
-// import { select } from '@wordpress/data';
+import { withSelect } from '@wordpress/data';
 
 import frontspec from '../../../../../frontspec.json';
 
@@ -163,6 +163,10 @@ class WpeComponent extends Component {
 
                 case 'select':
                     blocReturned.push( this.renderSelectControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    break;
+
+                case 'relation':
+                    blocReturned.push( this.renderRelationControl( fieldId, label, prop.entity, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
 
                 case 'image':
@@ -385,8 +389,41 @@ class WpeComponent extends Component {
 
     renderSelectControl( id, label, options, keys, valueProp, objectValue, repeatable = false ) {
 
-        // console.log( select( 'core' ).getEntityRecords( 'postType', 'post' ) );
+        if( repeatable ) {
+            label = (
+                <>
+                    { label }
+                    <Button
+                        key={ id + "-repeatableRemoveElt" }
+                        isLink={true}
+                        className="removeRepeatable"
+                        onClick={ () =>
+                            this.removeEltRepeatable(keys, valueProp)
+                        }
+                    >
+                        Remove
+                    </Button>
+                </>
+            );
+        }
 
+        return (
+            <SelectControl
+                key={ id }
+                label={ label }
+                value={ objectValue }
+                options={ options.map( function(value) {
+                        return { label: value, value: value }
+                    } )
+                }
+                onChange={ ( newValue ) =>
+                    this.updateAttributes(keys, valueProp, newValue, false, repeatable)
+                }
+            />
+        );
+    }
+
+    renderRelationControl( id, label, entity, keys, valueProp, objectValue, repeatable = false ) {
 
         if( repeatable ) {
             label = (
@@ -405,14 +442,14 @@ class WpeComponent extends Component {
                 </>
             );
         }
-        
+
         return (
             <SelectControl
                 key={ id }
                 label={ label }
                 value={ objectValue }
-                options={ options.map( function(value) {
-                        return { label: value, value: value }
+                options={ this.props.relations[entity].map( function(value) {
+                        return { label: value.title.raw, value: value.id }
                     } )
                 }
                 onChange={ ( newValue ) =>
@@ -614,7 +651,7 @@ class WpeComponent extends Component {
 
                 if( this.props.name == "custom/wpe-component-" + element.id ) {
 
-                    // Because of default attribute will be not saved to the block’s comment delimiter, we manually set it.
+                    // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
                     if( typeof attributes.id_component == 'undefined' )
                         this.setAttributes( { id_component: element.id } );
 
@@ -732,4 +769,30 @@ class WpeComponent extends Component {
     }
 }
 
-export default WpeComponent;
+export default withSelect( ( select, props ) => {
+
+    const { getEntityRecords } = select( 'core' );
+    let relations = [];
+
+    for (const key in frontspec.components) {
+        if (frontspec.components.hasOwnProperty(key)) {
+            const element = frontspec.components[key];
+
+            if( props.name == "custom/wpe-component-" + element.id ) {
+                
+                // 2. Loop Props
+                for (const [keyProp, valueProp] of Object.entries(element.props)) {
+
+                    if( valueProp.type == 'relation' && relations[ valueProp.entity ] == null ) {
+                        relations[ valueProp.entity ] = getEntityRecords( 'postType', valueProp.entity );
+                    }
+                }
+            }
+        }
+    }
+
+    return {
+        relations: relations
+    };
+} )( WpeComponent );
+    

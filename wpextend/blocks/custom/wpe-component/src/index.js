@@ -52,6 +52,11 @@ frontspec.components.forEach( ( element ) => {
                     type: 'string'
                 };
                 break;
+            case 'relation':
+                initAttributes[key] = {
+                    type: 'number'
+                };
+                break;
             case 'array':
                 initAttributes[key] = {
                     type: 'array'

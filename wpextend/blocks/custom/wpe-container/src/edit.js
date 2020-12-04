@@ -96,10 +96,12 @@ class WpeContainer extends Component {
             blockVariations,
             blockType
         } = this.props;
-        
+
         const deviceType = this.getDeviceType();
 
-        className += ' ' + deviceType;       
+        if( typeof className == 'undefined' && typeof deviceType != 'undefined' )
+            className = deviceType;
+            
         let sectionStyle = {};
         var heightGridTemplateRows = 1;
 
@@ -183,6 +185,16 @@ class WpeContainer extends Component {
                     attributes[attribute.name] = attribute.default;
             }
         });
+
+
+
+        /**
+         * Style
+         */
+        if( typeof attributes.style != 'undefined' && attributes.style != '' )
+            className += ' st-' + attributes.style;
+
+
 
 
         
@@ -373,14 +385,13 @@ class WpeContainer extends Component {
                         className: className,
                         style: sectionStyle
                     } }
-                    renderAppender={ false } 
+                    renderAppender={ false }
                 />
             );
         }
 
         Object.assign(sectionStyle, {
-            gridTemplateColumns: 'repeat(' + configTotalColumns + ', [col-start] 1fr)',
-            gridTemplateRows: 'repeat(' + heightGridTemplateRows + ', [row-start] 1fr)'
+            gridTemplateColumns: 'repeat(' + configTotalColumns + ', [col-start] 1fr)'
         });
 
 

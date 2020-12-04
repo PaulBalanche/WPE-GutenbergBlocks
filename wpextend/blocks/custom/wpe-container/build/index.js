@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../../json/wpe-container_config.json":
-/*!*************************************************************************************************************************!*\
-  !*** /Users/paulbalanche/www/github.com/WPtoWPextend/web/app/themes/tailwindui/wpextend/json/wpe-container_config.json ***!
-  \*************************************************************************************************************************/
+/*!************************************************************************************************************************************!*\
+  !*** /Users/paulbalanche/www/github.com/WPtoWPextend/web/app/themes/twentytwentyone-trunk/wpextend/json/wpe-container_config.json ***!
+  \************************************************************************************************************************************/
 /*! exports provided: totalColumns, variations, default */
 /***/ (function(module) {
 
@@ -6372,7 +6372,7 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
           blockVariations = _this$props.blockVariations,
           blockType = _this$props.blockType;
       var deviceType = this.getDeviceType();
-      className += ' ' + deviceType;
+      if (typeof className == 'undefined' && typeof deviceType != 'undefined') className = deviceType;
       var sectionStyle = {};
       var heightGridTemplateRows = 1; // Custom style section
 
@@ -6468,6 +6468,11 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
             attributes[attribute.name] = attribute.default;
         }
       });
+      /**
+       * Style
+       */
+
+      if (typeof attributes.style != 'undefined' && attributes.style != '') className += ' st-' + attributes.style;
       /**
        * Define innerBlocks
        */
@@ -6620,8 +6625,7 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
       }
 
       Object.assign(sectionStyle, {
-        gridTemplateColumns: 'repeat(' + configTotalColumns + ', [col-start] 1fr)',
-        gridTemplateRows: 'repeat(' + heightGridTemplateRows + ', [row-start] 1fr)'
+        gridTemplateColumns: 'repeat(' + configTotalColumns + ', [col-start] 1fr)'
       });
 
       function updateColumnAttribute(indexFunction, attributeName, newValue) {
@@ -6795,9 +6799,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../json/wpe-container_config.json */ "../../../json/wpe-container_config.json");
-var _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_4___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../../../../json/wpe-container_config.json */ "../../../json/wpe-container_config.json", 1);
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../json/wpe-container_config.json */ "../../../json/wpe-container_config.json");
+var _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_7___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../../../../json/wpe-container_config.json */ "../../../json/wpe-container_config.json", 1);
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
 
 
 /**
@@ -6807,7 +6817,11 @@ var _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_4___namespace = /*#
 
 
 
-var variations = _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_4__["variations"];
+
+
+
+
+var variations = _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_7__["variations"];
 /**
  * Internal dependencies
  */
@@ -6869,11 +6883,73 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
     }
   },
   variations: variations,
-  edit: _edit__WEBPACK_IMPORTED_MODULE_5__["default"],
+  edit: _edit__WEBPACK_IMPORTED_MODULE_8__["default"],
   save: function save() {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"].Content, null);
   }
 });
+/**
+ * Used to filter the block settings.
+ * It receives the block settings and the name of the registered block as arguments.
+ * Since v6.1.0 this filter is also applied to each of a block’s deprecated settings.
+ * 
+ */
+
+function updateSettingsParent(settings, name) {
+  if (name == 'custom/wpe-container' || typeof settings.parent != 'undefined' && settings.parent[0] == 'custom/wpe-column') {
+    return settings;
+  } else {
+    settings = lodash.assign({}, settings, {
+      parent: ['custom/wpe-column']
+    });
+  }
+
+  return settings;
+}
+
+Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_4__["addFilter"])('blocks.registerBlockType', 'wpextend/updateSettingsParent', updateSettingsParent); // const withInspectorControls =  createHigherOrderComponent( ( BlockEdit ) => {
+//     return ( props ) => {
+//         return (
+//             <Fragment>
+//                 <BlockEdit { ...props } />
+//                 <InspectorControls>
+//                     <PanelBody title={ 'Padding/Margin' } initialOpen={ false }>
+//                         <RangeControl
+//                             label="Padding Top"
+//                             value={ props.attributes.paddingTop }
+//                             min={ 0 }
+//                             max={ 5 }
+//                         />
+//                         <RangeControl
+//                             label="Padding Bottom"
+//                             value={ props.attributes.paddingBottom }
+//                             min={ 0 }
+//                             max={ 5 }
+//                         />
+//                         <RangeControl
+//                             label="Margin Top"
+//                             value={ props.attributes.marginTop }
+//                             min={ 0 }
+//                             max={ 5 }
+//                         />
+//                         <RangeControl
+//                             label="Margin Bottom"
+//                             value={ props.attributes.marginBottom }
+//                             min={ 0 }
+//                             max={ 5 }
+//                         />
+//                     </PanelBody>
+//                 </InspectorControls>
+//             </Fragment>
+//         );
+//     };
+// }, "withInspectorControl" );
+// addFilter( 'editor.BlockEdit', 'custom/wpe-component-bootstrap-components-alert', withInspectorControls );
+// function addMarginPaddingAttributes( props ) {
+//     console.log(props);
+//     return lodash.assign( props, { attributes: { paddingTop: 2 } } );
+// }
+// addFilter( 'blocks.getSaveContent.extraProps', 'custom/wpe-component-bootstrap-components-alert', addMarginPaddingAttributes );
 
 /***/ }),
 
@@ -6940,6 +7016,17 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
 /***/ (function(module, exports) {
 
 (function() { module.exports = this["wp"]["element"]; }());
+
+/***/ }),
+
+/***/ "@wordpress/hooks":
+/*!****************************************!*\
+  !*** external {"this":["wp","hooks"]} ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["hooks"]; }());
 
 /***/ }),
 

@@ -19,7 +19,7 @@ function custom_wpe_container_render_callback( $attributes, $content ) {
     return '
     <section class="section ' . $align_section . ' ' . $marginTopSection . ' ' . $marginBottomSection . ' ' . $style_section . '">
         <div class="section__content ' . $paddingTopSection . ' ' . $paddingBottomSection . '">
-            <div class="container">
+            <div class="' . \Wpextend\GutenbergBlock::get_container_class_name() . '">
                 <div class="row grid">' . $content . '</div>
             </div>
         </div>

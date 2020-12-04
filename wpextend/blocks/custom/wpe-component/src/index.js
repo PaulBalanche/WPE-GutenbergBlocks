@@ -92,6 +92,7 @@ frontspec.components.forEach( ( element ) => {
 
     registerBlockType( 'custom/wpe-component-' + element.id, {
         title: element.name,
+        parent: [ 'custom/wpe-column' ],
         attributes: initAttributes,
         description: element.description,
         edit,

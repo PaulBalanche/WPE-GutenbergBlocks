@@ -1,6 +1,6 @@
 .entry-content {
 
-    *:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.is-style-wide) {
+    .section__content:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.is-style-wide) {
         max-width: initial;
         width: initial;
     }
@@ -16,7 +16,7 @@
         &:not(.alignwide):not(.alignfull){
             
             .section__content {
-                max-width: 1200px !important;
+                max-width: $wpe_column_container_max_width !important;
                 margin: 0 auto;
             }
         }
@@ -25,8 +25,8 @@
 
             .section__content {
 
-                .container {
-                    max-width: 1200px !important;
+                .#{$wpe_column_container_class_name} {
+                    max-width: $wpe_column_container_max_width !important;
                     margin: 0 auto;
                 }
             }
@@ -35,12 +35,9 @@
         .section__content {
             position: relative;
 
-            .container {
+            .#{$wpe_column_container_class_name} {
                 margin: 0 auto;
-                padding: 0 40px;
-            }
-
-            .container {
+                padding: 0 15px;
 
                 .grid {
                     display: grid;

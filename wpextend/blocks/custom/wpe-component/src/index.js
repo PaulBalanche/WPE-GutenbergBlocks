@@ -16,6 +16,9 @@ frontspec.components.forEach( ( element ) => {
     var initAttributes = {
         id_component: {
             type: 'string'
+        },
+        margin: {
+            type: 'object'
         }
     };
 

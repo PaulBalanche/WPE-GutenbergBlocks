@@ -13,6 +13,9 @@ if( file_exists( get_stylesheet_directory() . '/frontspec.json' ) ) {
                 $temp_args_register['attributes'] = [
                     'id_component' => [
                         'type' => 'string'
+                    ],
+                    'margin' => [
+                        'type' => 'object'
                     ]
                 ];
                 foreach( $component['props'] as $key_props => $val_prop ) {

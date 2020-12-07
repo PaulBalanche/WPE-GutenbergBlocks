@@ -39,17 +39,8 @@ registerBlockType( 'custom/wpe-container', {
         backgroundType: {
             type: 'string'
         },
-        paddingTop: {
-            type: 'number'
-        },
-        paddingBottom: {
-            type: 'number'
-        },
-        marginTop: {
-            type: 'number'
-        },
-        marginBottom: {
-            type: 'number'
+        margin: {
+            type: 'object'
         },
         gridCountColumns: {
             type: 'number'
@@ -60,7 +51,7 @@ registerBlockType( 'custom/wpe-container', {
         }
     },
     variations,
-    edit, 
+    edit,
     save: () => {
         return <InnerBlocks.Content />;
     },
@@ -88,52 +79,3 @@ function updateSettingsParent( settings, name ) {
     return settings
 }
 addFilter( 'blocks.registerBlockType', 'wpextend/updateSettingsParent', updateSettingsParent );
-
-
-
-// const withInspectorControls =  createHigherOrderComponent( ( BlockEdit ) => {
-//     return ( props ) => {
-//         return (
-//             <Fragment>
-//                 <BlockEdit { ...props } />
-//                 <InspectorControls>
-//                     <PanelBody title={ 'Padding/Margin' } initialOpen={ false }>
-//                         <RangeControl
-//                             label="Padding Top"
-//                             value={ props.attributes.paddingTop }
-//                             min={ 0 }
-//                             max={ 5 }
-//                         />
-//                         <RangeControl
-//                             label="Padding Bottom"
-//                             value={ props.attributes.paddingBottom }
-//                             min={ 0 }
-//                             max={ 5 }
-//                         />
-//                         <RangeControl
-//                             label="Margin Top"
-//                             value={ props.attributes.marginTop }
-//                             min={ 0 }
-//                             max={ 5 }
-//                         />
-//                         <RangeControl
-//                             label="Margin Bottom"
-//                             value={ props.attributes.marginBottom }
-//                             min={ 0 }
-//                             max={ 5 }
-//                         />
-//                     </PanelBody>
-//                 </InspectorControls>
-//             </Fragment>
-//         );
-//     };
-// }, "withInspectorControl" );
-// addFilter( 'editor.BlockEdit', 'custom/wpe-component-bootstrap-components-alert', withInspectorControls );
-
-
-
-// function addMarginPaddingAttributes( props ) {
-//     console.log(props);
-//     return lodash.assign( props, { attributes: { paddingTop: 2 } } );
-// }
-// addFilter( 'blocks.getSaveContent.extraProps', 'custom/wpe-component-bootstrap-components-alert', addMarginPaddingAttributes );

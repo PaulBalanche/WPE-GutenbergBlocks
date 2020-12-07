@@ -55,6 +55,15 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
                         }
                     }
 
+                    // Format margin to className
+                    $attributes['marginClassFormatted'] = ( isset($attributes['margin']) && is_array($attributes['margin']) ) ? implode(' ', array_map(
+                        function ($v, $k) {
+                            return $k . '-' . $v;
+                        },
+                        $attributes['margin'],
+                        array_keys($attributes['margin'])
+                    )) : '';
+
                     return \Wpextend\Timber::render_view($component['path'], $attributes);
                 }
             }

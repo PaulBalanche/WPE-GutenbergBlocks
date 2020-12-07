@@ -78,9 +78,25 @@ class WpeContainer extends Component {
 		return this.state.selectedDevice;
     }
 
-
     setDeviceType(deviceType) {
         this.setState( { selectedDevice: deviceType } );
+    }
+
+    getMargin(type) {
+        let currentMargin = this.props.attributes.margin;
+        if( typeof currentMargin == 'object' && currentMargin.hasOwnProperty(type) ) {
+            return currentMargin[type];
+        }
+        
+        return null;
+    }
+
+    setMargin( type, value ) {
+        let currentMargin = this.props.attributes.margin;
+        if( typeof currentMargin == 'undefined' ) {
+            currentMargin = {};
+        }
+        this.props.setAttributes( { margin: Object.assign(currentMargin, { [type]: value }) } )
     }
 
     render() {
@@ -145,46 +161,35 @@ class WpeContainer extends Component {
             </MediaPlaceholder>
         );
 
+
+
         /**
          * Padding & Margin
          */
-        [
-            { name: 'paddingTop', prefix: 'pt', default: 3 },
-            { name: 'paddingBottom', prefix: 'pb', default: 3 },
-            { name: 'marginTop', prefix: 'mt', default: 0 },
-            { name: 'marginBottom', prefix: 'mb', default: 0 }
-        ].forEach( ( attribute ) => {
-
-            switch( attributes[attribute.name] ) {
-
-                case 0:
-                    className += ' ' + attribute.prefix + '-none';
-                    break;
-        
-                case 1:
-                    className += ' ' + attribute.prefix + '-smaller';
-                    break;
-        
-                case 2:
-                    className += ' ' + attribute.prefix + '-small';
-                    break;
-        
-                case 3:
-                    className += ' ' + attribute.prefix + '-medium';
-                    break;
-        
-                case 4:
-                    className += ' ' + attribute.prefix + '-big';
-                    break;
-        
-                case 5:
-                    className += ' ' + attribute.prefix + '-bigger';
-                    break;
-        
-                default:
-                    attributes[attribute.name] = attribute.default;
+        if( typeof attributes.margin == 'object' ) {        
+            for( const [key, value] of Object.entries(attributes.margin) ) {
+                switch( value ) {
+                    case 0:
+                        className += ' ' + key + '-none';
+                        break;
+                    case 1:
+                        className += ' ' + key + '-smaller';
+                        break;
+                    case 2:
+                        className += ' ' + key + '-small';
+                        break;
+                    case 3:
+                        className += ' ' + key + '-medium';
+                        break;
+                    case 4:
+                        className += ' ' + key + '-big';
+                        break;
+                    case 5:
+                        className += ' ' + key + '-bigger';
+                        break;
+                }
             }
-        });
+        }
 
 
 
@@ -459,36 +464,36 @@ class WpeContainer extends Component {
                     <PanelBody title={ 'Padding/Margin' } initialOpen={ false }>
                         <RangeControl
                             label="Padding Top"
-                            value={ attributes.paddingTop }
-                            onChange={ ( value ) =>
-                                setAttributes( { paddingTop: value } )
+                            value={ this.getMargin('pt') }
+                            onChange={ ( value ) => 
+                                this.setMargin('pt', value)
                             }
                             min={ 0 }
                             max={ 5 }
                         />
                         <RangeControl
                             label="Padding Bottom"
-                            value={ attributes.paddingBottom }
+                            value={ this.getMargin('pb') }
                             onChange={ ( value ) =>
-                                setAttributes( { paddingBottom: value } )
+                                this.setMargin('pb', value)
                             }
                             min={ 0 }
                             max={ 5 }
                         />
                         <RangeControl
                             label="Margin Top"
-                            value={ attributes.marginTop }
+                            value={ this.getMargin('mt') }
                             onChange={ ( value ) =>
-                                setAttributes( { marginTop: value } )
+                                this.setMargin('mt', value)
                             }
                             min={ 0 }
                             max={ 5 }
                         />
                         <RangeControl
                             label="Margin Bottom"
-                            value={ attributes.marginBottom }
+                            value={ this.getMargin('mb') }
                             onChange={ ( value ) =>
-                                setAttributes( { marginBottom: value } )
+                                this.setMargin('mb', value)
                             }
                             min={ 0 }
                             max={ 5 }

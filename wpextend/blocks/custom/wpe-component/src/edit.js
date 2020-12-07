@@ -4,7 +4,8 @@ import ServerSideRender from '@wordpress/server-side-render';
 
 import {
     MediaPlaceholder,
-    RichText
+    RichText,
+    InspectorControls
 } from '@wordpress/block-editor';
 
 import {
@@ -15,7 +16,8 @@ import {
     Placeholder,
     TabPanel,
     Panel, PanelBody,
-    SelectControl
+    SelectControl,
+    RangeControl
 } from '@wordpress/components';
 
 import { withSelect } from '@wordpress/data';
@@ -34,6 +36,23 @@ class WpeComponent extends Component {
 
     setAttributes( attributes ) {
         this.props.setAttributes( attributes );
+    }
+
+    getMargin(type) {
+        let currentMargin = this.props.attributes.margin;
+        if( typeof currentMargin == 'object' && currentMargin.hasOwnProperty(type) ) {
+            return currentMargin[type];
+        }
+        
+        return null;
+    }
+
+    setMargin( type, value ) {
+        let currentMargin = this.props.attributes.margin;
+        if( typeof currentMargin == 'undefined' ) {
+            currentMargin = {};
+        }
+        this.props.setAttributes( { margin: Object.assign(currentMargin, { [type]: value }) } )
     }
 
     returnStringOrNumber( value, isNumber = false ) {
@@ -753,6 +772,46 @@ class WpeComponent extends Component {
 
                     return (
                         <>
+                            <InspectorControls>
+                                <PanelBody title={ 'Padding/Margin' } initialOpen={ false }>
+                                    <RangeControl
+                                        label="Padding Top"
+                                        value={ this.getMargin('pt') }
+                                        onChange={ ( value ) => 
+                                            this.setMargin('pt', value)
+                                        }
+                                        min={ 0 }
+                                        max={ 5 }
+                                    />
+                                    <RangeControl
+                                        label="Padding Bottom"
+                                        value={ this.getMargin('pb') }
+                                        onChange={ ( value ) =>
+                                            this.setMargin('pb', value)
+                                        }
+                                        min={ 0 }
+                                        max={ 5 }
+                                    />
+                                    <RangeControl
+                                        label="Margin Top"
+                                        value={ this.getMargin('mt') }
+                                        onChange={ ( value ) =>
+                                            this.setMargin('mt', value)
+                                        }
+                                        min={ 0 }
+                                        max={ 5 }
+                                    />
+                                    <RangeControl
+                                        label="Margin Bottom"
+                                        value={ this.getMargin('mb') }
+                                        onChange={ ( value ) =>
+                                            this.setMargin('mb', value)
+                                        }
+                                        min={ 0 }
+                                        max={ 5 }
+                                    />
+                                </PanelBody>
+                            </InspectorControls>
                             <Placeholder
                                 key={ clientId + "-placeholder" }
                                 label={ element.name }

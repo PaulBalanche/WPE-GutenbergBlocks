@@ -30,6 +30,8 @@
     .block-editor-block-list__block[data-type="custom/wpe-container"] {
 
         display: grid;
+        column-gap: 10px;
+        row-gap: 10px;
         max-width: $max_width_main_column;
         padding-top: 1%;
         padding-right: 1%;
@@ -67,7 +69,7 @@
         &.mb-bigger { margin-bottom: $base_padding * 4; }
 
         .wp-block {
-            max-width: 99%;
+            max-width: 100%;
         }
 
         &.is-selected {
@@ -100,18 +102,20 @@
         }
 
         // &:hover::after,
-        // &:focus::after,
-        // &:active::after,
-        // &.is-selected::after,
-        // &.has-child-selected::after {
-            &::after {
+        &:focus::after,
+        &:active::after,
+        &.is-selected::after,
+        &.has-child-selected::after {
+            // &::after {
             // box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
             // border: 1px dashed rgba(0, 124, 186, 0.2);
             background: rgba(0, 124, 186, 0.05);
+            box-shadow: none;
+            border: 1px solid rgba(0,124,186,.5);
         }
-        &:not([contenteditable]):focus::after {
-            border: none;
-        }
+        // &:not([contenteditable]):focus::after {
+        //     border: none;
+        // }
 
         // &:hover > .block-editor-block-list__block[data-type="custom/wpe-column"],
         // &:focus > .block-editor-block-list__block[data-type="custom/wpe-column"],
@@ -119,7 +123,8 @@
         // &.is-selected > .block-editor-block-list__block[data-type="custom/wpe-column"],
         // &.has-child-selected > .block-editor-block-list__block[data-type="custom/wpe-column"] {
         & > .block-editor-block-list__block[data-type="custom/wpe-column"] {
-            background: rgba(0, 124, 186, 0.05);
+            // background: rgba(0, 124, 186, 0.05);
+            border: 1px dashed rgba(0,124,186,.25);
         }
     }
 

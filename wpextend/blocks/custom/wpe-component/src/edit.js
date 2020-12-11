@@ -2,10 +2,15 @@ import { Component } from '@wordpress/element';
 
 import ServerSideRender from '@wordpress/server-side-render';
 
+import { withSelect } from '@wordpress/data';
+
+import { withState } from '@wordpress/compose';
+
 import {
     MediaPlaceholder,
     RichText,
-    InspectorControls
+    InspectorControls,
+    __experimentalLinkControl as LinkControl
 } from '@wordpress/block-editor';
 
 import {
@@ -17,10 +22,9 @@ import {
     TabPanel,
     Panel, PanelBody,
     SelectControl,
-    RangeControl
+    RangeControl,
+    RadioControl
 } from '@wordpress/components';
-
-import { withSelect } from '@wordpress/data';
 
 import frontspec from '../../../../../frontspec.json';
 
@@ -183,6 +187,14 @@ class WpeComponent extends Component {
                 case 'select':
                     blocReturned.push( this.renderSelectControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
+                
+                case 'radio':
+                    blocReturned.push( this.renderRadioControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    break;
+
+                case 'link':
+                    blocReturned.push( this.renderLinkControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    break;
 
                 case 'relation':
                     blocReturned.push( this.renderRelationControl( fieldId, label, prop.entity, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
@@ -320,7 +332,7 @@ class WpeComponent extends Component {
                 type={ !! isNumber ? "number" : "text" }
                 value={ objectValue }
                 onChange={ ( newValue ) =>
-                    this.updateAttributes(keys, valueProp, newValue, isNumber, repeatable)
+                    this.updateAttributes(keys, valueProp, newValue, isNumber)
                 }
             />
         );
@@ -352,7 +364,7 @@ class WpeComponent extends Component {
                 label={ label }
                 value={ objectValue }
                 onChange={ ( newValue ) =>
-                    this.updateAttributes(keys, valueProp, newValue, false, repeatable)
+                    this.updateAttributes(keys, valueProp, newValue, false)
                 }
             />
         );
@@ -380,25 +392,86 @@ class WpeComponent extends Component {
 
         return (
             <div
-                key={ id + "-RichTextCmponentsBaseControl" }
+                key={ id + "-RichTextComponentsBaseControl" }
                 className="components-base-control"
             >
                 <div
-                    key={ id + "-RichTextCmponentsBaseControlField" }
+                    key={ id + "-RichTextComponentsBaseControlField" }
                     className="components-base-control__field"
                 >
                     <div
                         key={ id + "-RichTextContainer" }
                         className="rich-text-container"
                     >
-                        <label className="components-base-control__label" key={ id + "-label" }>{ label }</label>
+                        <div className="components-base-control__label" key={ id + "-label" }>{ label }</div>
                         <RichText
                             key={ id }
                             value={ objectValue } // Any existing content, either from the database or an attribute default
                             multiline={true}
                             onChange={ ( newValue ) =>
-                                this.updateAttributes(keys, valueProp, newValue, false, repeatable)
+                                this.updateAttributes(keys, valueProp, newValue, false)
                             }
+                        />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    renderLinkControl( id, label, keys, valueProp, objectValue, repeatable = false ) {
+
+        if( repeatable ) {
+            label = (
+                <>
+                    { label }
+                    <Button
+                        key={ id + "-repeatableRemoveElt" }
+                        isLink={true}
+                        className="removeRepeatable"
+                        onClick={ () =>
+                            this.removeEltRepeatable(keys, valueProp)
+                        }
+                    >
+                        Remove
+                    </Button>
+                </>
+            );
+        }
+
+        const { text, url, opensInNewTab } = objectValue;
+        return (
+            <div
+                key={ id + "-LinkControlComponentsBaseControl" }
+                className="components-base-control"
+            >
+                <div
+                    key={ id + "-LinkControlComponentsBaseControlField" }
+                    className="components-base-control__field"
+                >
+                    <div
+                        key={ id + "-LinkControlContainer" }
+                        className="link-control-container"
+                    >
+                        <div className="components-base-control__label" key={ id + "-label" }>{ label }</div>
+                        <TextControl
+                            key={ id + "-text" }
+                            label={ "Text" }
+                            type={ "text" }
+                            value={ text }
+                            onChange={ ( newValue ) =>
+                                this.updateAttributes(keys.concat('text'), valueProp, newValue, false)
+                            }
+                        />
+                        <LinkControl
+                            key={ id + "-LinkControl" }
+                            className="wp-block-navigation-link__inline-link-input"
+                            value={ { url, opensInNewTab } }
+                            onChange={ ( {
+                                url: newURL,
+                                opensInNewTab: newOpensInNewTab,
+                            } ) => {
+                                this.updateAttributes(keys, valueProp, { text: text, url: newURL, opensInNewTab: newOpensInNewTab }, false)
+                            } }
                         />
                     </div>
                 </div>
@@ -431,14 +504,72 @@ class WpeComponent extends Component {
                 key={ id }
                 label={ label }
                 value={ objectValue }
-                options={ options.map( function(value) {
-                        return { label: value, value: value }
-                    } )
+                options={
+                   [ { label: 'Choose...', value: '' } ].concat( options.map( function(value) {
+                        return { label: value.label, value: value.key }
+                    } ) )
                 }
                 onChange={ ( newValue ) =>
-                    this.updateAttributes(keys, valueProp, newValue, false, repeatable)
+                    this.updateAttributes(keys, valueProp, newValue, false)
                 }
             />
+        );
+    }
+
+    renderRadioControl( id, label, options, keys, valueProp, objectValue, repeatable = false ) {
+
+        if( repeatable ) {
+            label = (
+                <>
+                    { label }
+                    <Button
+                        key={ id + "-repeatableRemoveElt" }
+                        isLink={true}
+                        className="removeRepeatable"
+                        onClick={ () =>
+                            this.removeEltRepeatable(keys, valueProp)
+                        }
+                    >
+                        Remove
+                    </Button>
+                </>
+            );
+        }
+
+        const MyRadioControl = withState( {
+            option: objectValue,
+        } )( ( { option, setState } ) => (
+            <RadioControl
+                key={ id }
+                label={ label }
+                selected={ option }
+                options={ options.map( function(value) {
+                    return { label: value.label, value: value.key }
+                } ) }
+                onChange={ ( newValue ) => {
+                    setState( { newValue } );
+                    this.updateAttributes(keys, valueProp, newValue, false);
+                } }
+            />
+        ) );
+
+        return(
+            <div
+                key={ id + "-RadioControlComponentsBaseControl" }
+                className="components-base-control"
+            >
+                <div
+                    key={ id + "-RadioControlComponentsBaseControlField" }
+                    className="components-base-control__field"
+                >
+                    <div
+                        key={ id + "-RadioControlContainer" }
+                        className="radio-control-container"
+                    >
+                        <MyRadioControl />
+                    </div>
+                </div>
+            </div>
         );
     }
 
@@ -472,7 +603,7 @@ class WpeComponent extends Component {
                     } )
                 }
                 onChange={ ( newValue ) =>
-                    this.updateAttributes(keys, valueProp, newValue, false, repeatable)
+                    this.updateAttributes(keys, valueProp, newValue, false)
                 }
             />
         );
@@ -505,7 +636,7 @@ class WpeComponent extends Component {
                 help={ ( typeof help == 'object' && Array.isArray(help) && help.length == 2 ) ? ( !! objectValue ? help[1] : help[0] ) : false }
                 checked={ objectValue }
                 onChange={ ( newValue ) =>
-                    this.updateAttributes(keys, valueProp, newValue, false, repeatable)
+                    this.updateAttributes(keys, valueProp, newValue, false)
                 }
             />
         );
@@ -646,7 +777,7 @@ class WpeComponent extends Component {
                                 });
                                 break;
                         }
-                        this.updateAttributes(keys, valueProp, newValue, false, repeatable);
+                        this.updateAttributes(keys, valueProp, newValue, false);
                     }
                 }
                 multiple= { type == 'gallery' }

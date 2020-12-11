@@ -101,6 +101,10 @@
             right: 0;
             padding-right: 0;
         }
+
+        .components-select-control__input {
+            margin-left: 16px;
+        }
     }
 
     .components-base-control__field {
@@ -145,5 +149,36 @@
             border-radius: 2px;
             border: 1px solid #757575;
         }
+    }
+
+    .link-control-container {
+
+        padding: 1em 0;
+        background: white;
+        border: 1px solid #cce4f1;
+
+        .components-base-control__label {
+            margin: 0 16px;
+        }
+        
+        .components-text-control__input {
+            width: auto;
+        }
+
+        .components-button.removeRepeatable {
+            right: 16px;
+        }
+
+        .block-editor-link-control {
+            border-top: 1px solid #e2e4e7;
+        }
+        
+    }
+
+    .radio-control-container {
+        
+        padding: 1em;
+        background: white;
+        border: 1px solid #cce4f1;
     }
 }

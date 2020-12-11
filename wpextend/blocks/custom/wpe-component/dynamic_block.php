@@ -41,6 +41,9 @@ if( file_exists( get_stylesheet_directory() . '/frontspec.json' ) ) {
                         case 'select':
                             $currentType = 'string';
                             break;
+                        case 'radio':
+                            $currentType = 'string';
+                            break;
                         case 'relation':
                             $currentType = 'number';
                             break;
@@ -48,6 +51,9 @@ if( file_exists( get_stylesheet_directory() . '/frontspec.json' ) ) {
                             $currentType = 'array';
                             break;
                         case 'object':
+                            $currentType = 'object';
+                            break;
+                        case 'link':
                             $currentType = 'object';
                             break;
                         case 'number':

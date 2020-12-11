@@ -55,6 +55,11 @@ frontspec.components.forEach( ( element ) => {
                     type: 'string'
                 };
                 break;
+            case 'radio':
+                initAttributes[key] = {
+                    type: 'string'
+                };
+                break;
             case 'relation':
                 initAttributes[key] = {
                     type: 'number'
@@ -66,6 +71,11 @@ frontspec.components.forEach( ( element ) => {
                 };
                 break;
             case 'object':
+                initAttributes[key] = {
+                    type: 'object'
+                };
+                break;
+            case 'link':
                 initAttributes[key] = {
                     type: 'object'
                 };

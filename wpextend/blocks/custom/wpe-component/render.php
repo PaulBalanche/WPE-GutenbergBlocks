@@ -29,7 +29,6 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
                         array_keys($attributes['margin'])
                     )) : '';
 
-
                     $attributes = apply_filters('wpextend/pre_render_component_attributes', $attributes, $component['id']);
 
                     return Wpextend\GutenbergBlock::render($component['path'], $attributes);
@@ -83,9 +82,7 @@ function custom_wpe_component_render_callback_recursive_treatment($component, $a
 
                 case 'relation':
                     if( isset($attributes[$key_prop]) ) {
-
                         if( isset($prop['repeatable']) && $prop['repeatable'] && is_array($attributes[$key_prop]) && count($attributes[$key_prop]) > 0 ) {
-
                             $attributes[$key_prop] = get_posts([
                                 'post_type' => $prop['entity'],
                                 'post__in' => $attributes[$key_prop],
@@ -93,7 +90,6 @@ function custom_wpe_component_render_callback_recursive_treatment($component, $a
                             ]);
                         }
                         elseif( ( ! isset($prop['repeatable']) || ! $prop['repeatable'] ) && is_numeric($attributes[$key_prop]) ) {
-
                             $attributes[$key_prop] = get_post($attributes[$key_prop]);
                         }
 
@@ -102,8 +98,15 @@ function custom_wpe_component_render_callback_recursive_treatment($component, $a
                     break;
 
                 case 'object':
-                    if( isset($attributes[$key_prop]) )
-                        $attributes[$key_prop] = (object) custom_wpe_component_render_callback_recursive_treatment($prop, $attributes[$key_prop]);
+                    if( isset($attributes[$key_prop]) ) {
+                        if( isset($prop['repeatable']) && $prop['repeatable'] ) {
+                            foreach( $attributes[$key_prop] as $key => $val ) {
+                                $attributes[$key_prop][$key] = (object) custom_wpe_component_render_callback_recursive_treatment($prop, $val);
+                            }
+                        }
+                        else
+                            $attributes[$key_prop] = (object) custom_wpe_component_render_callback_recursive_treatment($prop, $attributes[$key_prop]);
+                    }
 
                     break;
             }

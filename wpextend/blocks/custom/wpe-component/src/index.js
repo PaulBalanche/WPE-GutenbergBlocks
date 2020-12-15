@@ -13,6 +13,8 @@ import edit from './edit';
 
 frontspec.components.forEach( ( element ) => {
 
+    var parent = ( typeof element.standalone != 'undefined' && element.standalone ) ? null : [ 'custom/wpe-column' ];
+
     var initAttributes = {
         id_component: {
             type: 'string'
@@ -24,11 +26,7 @@ frontspec.components.forEach( ( element ) => {
 
     for (const [key, value] of Object.entries(element.props)) {
         
-        let currentType = value.type;
-        if( typeof value.repeatable != 'undefined' && value.repeatable ) {
-            currentType = 'array';
-        }
-
+        let currentType = ( typeof value.repeatable != 'undefined' && value.repeatable ) ? 'array' : value.type;
         switch( currentType ) {
             case 'string':
                 initAttributes[key] = {
@@ -105,7 +103,7 @@ frontspec.components.forEach( ( element ) => {
 
     registerBlockType( 'custom/wpe-component-' + element.id, {
         title: element.name,
-        parent: [ 'custom/wpe-column' ],
+        parent: parent,
         attributes: initAttributes,
         description: element.description,
         edit,

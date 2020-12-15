@@ -6,10 +6,6 @@ import { InnerBlocks, InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { addFilter } from '@wordpress/hooks';
 
-import { createHigherOrderComponent } from '@wordpress/compose';
-import { Fragment } from '@wordpress/element';
-import { PanelBody, RangeControl } from '@wordpress/components';
-
 import * as blockConfig from '../../../../json/wpe-container_config.json';
 const variations = blockConfig.variations;
 

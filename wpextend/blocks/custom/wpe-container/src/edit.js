@@ -233,6 +233,9 @@ class WpeContainer extends Component {
                         className: className,
                         style: sectionStyle
                     } }
+                    renderAppender={ () => (
+                        <InnerBlocks.ButtonBlockAppender />
+                    ) }
                 />
             </>
         );

@@ -33,14 +33,11 @@
 
     .block-editor-block-list__block[data-type="custom/wpe-container"] {
 
-        display: grid;
-        column-gap: 10px;
-        row-gap: 10px;
         max-width: $max_width_main_column;
-        padding-top: 1%;
-        padding-right: 1%;
-        padding-bottom: 1%;
-        padding-left: 1%;
+        padding-top: 2%;
+        padding-right: 0.6%;
+        padding-bottom: 0;
+        padding-left: 0.6%;
         margin-top: 0;
         margin-bottom: 0;
 
@@ -98,14 +95,16 @@
             position: absolute;
             left: 0;
             top: 0;
-            font-size: .65rem;
-            font-weight: 600;
+            font-size: .6rem;
             background: #007cba;
             color: white;
-            padding: 1px 6px;
+            padding: 0px 10px;
         }
 
-        // &:hover::after,
+        &:hover::after {
+            border: 1px dashed rgba(0,124,186,.5);
+        }
+
         &:focus::after,
         &:active::after,
         &.is-selected::after,
@@ -120,16 +119,22 @@
         // &:not([contenteditable]):focus::after {
         //     border: none;
         // }
-
-        // &:hover > .block-editor-block-list__block[data-type="custom/wpe-column"],
-        // &:focus > .block-editor-block-list__block[data-type="custom/wpe-column"],
-        // &:active > .block-editor-block-list__block[data-type="custom/wpe-column"],
-        // &.is-selected > .block-editor-block-list__block[data-type="custom/wpe-column"],
-        // &.has-child-selected > .block-editor-block-list__block[data-type="custom/wpe-column"] {
-        & > .block-editor-block-list__block[data-type="custom/wpe-column"] {
+        
+        &:hover .block-editor-block-list__block[data-type="custom/wpe-column"]::after,
+        &:focus .block-editor-block-list__block[data-type="custom/wpe-column"]::after,
+        &:active .block-editor-block-list__block[data-type="custom/wpe-column"]::after,
+        &.is-selected .block-editor-block-list__block[data-type="custom/wpe-column"]::after,
+        &.has-child-selected .block-editor-block-list__block[data-type="custom/wpe-column"]::after {
             // background: rgba(0, 124, 186, 0.05);
             border: 1px dashed rgba(0,124,186,.25);
             overflow: initial;
+        }
+
+        .block-list-appender {
+            visibility: hidden;
+        }
+        &:hover > .block-list-appender {
+            visibility: visible;
         }
     }
 
@@ -149,11 +154,5 @@
                 border: 1px solid #007cba;
             }
         }
-    }
-
-    .block-editor-block-list__layout.is-root-container > .block-editor-block-variation-picker {
-        max-width: $max_width_main_column;
-        margin: auto;
-        margin-top: $base_padding;
     }
 }

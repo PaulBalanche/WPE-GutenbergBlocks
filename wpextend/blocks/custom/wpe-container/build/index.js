@@ -6524,6 +6524,9 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
         __experimentalPassedProps: {
           className: className,
           style: sectionStyle
+        },
+        renderAppender: function renderAppender() {
+          return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["InnerBlocks"].ButtonBlockAppender, null);
         }
       }));
     }

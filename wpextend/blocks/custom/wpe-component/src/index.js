@@ -13,7 +13,7 @@ import edit from './edit';
 
 frontspec.components.forEach( ( element ) => {
 
-    var parent = ( typeof element.standalone != 'undefined' && element.standalone ) ? null : [ 'custom/wpe-column' ];
+    var parent = ( typeof element.standalone != 'undefined' && element.standalone ) ? null : [ 'custom/wpe-container' , 'custom/wpe-column' ];
 
     var initAttributes = {
         id_component: {
@@ -103,6 +103,7 @@ frontspec.components.forEach( ( element ) => {
 
     registerBlockType( 'custom/wpe-component-' + element.id, {
         title: element.name,
+        category: 'formatting',
         parent: parent,
         attributes: initAttributes,
         description: element.description,

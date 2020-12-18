@@ -86,17 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../json/wpe-container_config.json":
-/*!*************************************************************************************************************************!*\
-  !*** /Users/paulbalanche/www/github.com/WPtoWPextend/web/app/themes/tailwindui/wpextend/json/wpe-container_config.json ***!
-  \*************************************************************************************************************************/
-/*! exports provided: totalColumns, variations, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"attributes\":{\"gridCountColumns\":1},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":1,\"widthDesktop\":12,\"columnStartTablet\":1,\"widthTablet\":12,\"columnStartMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-2\",\"title\":\"2 column\",\"attributes\":{\"gridCountColumns\":2},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":1,\"widthDesktop\":6,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":7,\"widthDesktop\":6,\"columnStartTablet\":7,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-3\",\"title\":\"3 column\",\"attributes\":{\"gridCountColumns\":3},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":1,\"widthDesktop\":4,\"columnStartTablet\":1,\"widthTablet\":4,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":5,\"widthDesktop\":4,\"columnStartTablet\":5,\"widthTablet\":4,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":9,\"widthDesktop\":4,\"columnStartTablet\":9,\"widthTablet\":4,\"columnStartMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-4\",\"title\":\"4 column\",\"attributes\":{\"gridCountColumns\":4,\"gridLocked\":true},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":1,\"widthDesktop\":3,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":4,\"widthDesktop\":3,\"columnStartTablet\":7,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":7,\"widthDesktop\":3,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":10,\"widthDesktop\":3,\"columnStartTablet\":7,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-6\",\"title\":\"6 column\",\"attributes\":{\"gridCountColumns\":6},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":1,\"widthDesktop\":2,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":3,\"widthDesktop\":2,\"columnStartTablet\":7,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":5,\"widthDesktop\":2,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":7,\"widthDesktop\":2,\"columnStartTablet\":7,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":9,\"widthDesktop\":2,\"columnStartTablet\":1,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":11,\"widthDesktop\":2,\"columnStartTablet\":7,\"widthTablet\":6,\"columnStartMobile\":1,\"widthMobile\":12}}],\"scope\":[\"block\"]}]}");
-
-/***/ }),
-
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -112,13 +101,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../json/wpe-container_config.json */ "../../../json/wpe-container_config.json");
-var _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_3___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../../../../json/wpe-container_config.json */ "../../../json/wpe-container_config.json", 1);
 
 
 
-
-var configTotalColumns = _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_3__["totalColumns"];
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('custom/wpe-column', {
   title: 'Col',
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
@@ -141,7 +126,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
     reusable: false,
     html: false
   },
-  parent: ['custom/wpe-container'],
+  parent: ['custom/wpe-grid'],
   attributes: {
     columnStartDesktop: {
       type: 'number',

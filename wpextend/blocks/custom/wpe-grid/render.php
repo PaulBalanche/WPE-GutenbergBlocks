@@ -1,6 +1,6 @@
 <?php
 
-function custom_wpe_container_render_callback( $attributes, $content ) {
+function custom_wpe_grid_render_callback( $attributes, $content ) {
 
     // Align
     $align_section = ( isset($attributes['align']) ) ? 'align' . $attributes['align'] : '';

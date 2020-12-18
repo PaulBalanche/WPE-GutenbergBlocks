@@ -17,7 +17,7 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
                 if( $component['id'] == $attributes['id_component'] ) {
 
                     unset($attributes['id_component']);
-
+// pre($attributes);
                     $attributes = custom_wpe_component_render_callback_recursive_treatment($component, $attributes);
 
                     // Format margin to className

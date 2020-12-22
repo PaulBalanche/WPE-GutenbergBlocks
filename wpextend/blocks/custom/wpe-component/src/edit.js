@@ -22,11 +22,11 @@ import {
     TabPanel,
     Panel, PanelBody,
     SelectControl,
-    RangeControl,
     RadioControl
 } from '@wordpress/components';
 
 import frontspec from '../../../../../frontspec.json';
+import { MarginControls, generateMarginClassName } from './_marginControls';
 
 class WpeComponent extends Component {
 
@@ -40,23 +40,6 @@ class WpeComponent extends Component {
 
     setAttributes( attributes ) {
         this.props.setAttributes( attributes );
-    }
-
-    getMargin(type) {
-        let currentMargin = this.props.attributes.margin;
-        if( typeof currentMargin == 'object' && currentMargin.hasOwnProperty(type) ) {
-            return currentMargin[type];
-        }
-        
-        return null;
-    }
-
-    setMargin( type, value ) {
-        let currentMargin = this.props.attributes.margin;
-        if( typeof currentMargin == 'undefined' ) {
-            currentMargin = {};
-        }
-        this.props.setAttributes( { margin: Object.assign(currentMargin, { [type]: value }) } )
     }
 
     returnStringOrNumber( value, isNumber = false ) {
@@ -793,7 +776,7 @@ class WpeComponent extends Component {
      */
     render() {
 
-        const { attributes, isSelected, clientId, className } = this.props;
+        const { attributes, isSelected, clientId } = this.props;
 
         for (const key in frontspec.components) {
             if (frontspec.components.hasOwnProperty(key)) {
@@ -904,44 +887,7 @@ class WpeComponent extends Component {
                     return (
                         <>
                             <InspectorControls>
-                                <PanelBody title={ 'Padding/Margin' } initialOpen={ false }>
-                                    <RangeControl
-                                        label="Padding Top"
-                                        value={ this.getMargin('pt') }
-                                        onChange={ ( value ) => 
-                                            this.setMargin('pt', value)
-                                        }
-                                        min={ 0 }
-                                        max={ 5 }
-                                    />
-                                    <RangeControl
-                                        label="Padding Bottom"
-                                        value={ this.getMargin('pb') }
-                                        onChange={ ( value ) =>
-                                            this.setMargin('pb', value)
-                                        }
-                                        min={ 0 }
-                                        max={ 5 }
-                                    />
-                                    <RangeControl
-                                        label="Margin Top"
-                                        value={ this.getMargin('mt') }
-                                        onChange={ ( value ) =>
-                                            this.setMargin('mt', value)
-                                        }
-                                        min={ 0 }
-                                        max={ 5 }
-                                    />
-                                    <RangeControl
-                                        label="Margin Bottom"
-                                        value={ this.getMargin('mb') }
-                                        onChange={ ( value ) =>
-                                            this.setMargin('mb', value)
-                                        }
-                                        min={ 0 }
-                                        max={ 5 }
-                                    />
-                                </PanelBody>
+                                <MarginControls props={ this.props }/>
                             </InspectorControls>
                             <Placeholder
                                 key={ clientId + "-placeholder" }

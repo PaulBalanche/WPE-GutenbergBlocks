@@ -28,6 +28,9 @@ registerBlockType( 'custom/wpe-grid', {
         gridLocked: {
             type: 'boolean',
             default: false
+        },
+        margin: {
+            type: 'object'
         }
     },
     variations,

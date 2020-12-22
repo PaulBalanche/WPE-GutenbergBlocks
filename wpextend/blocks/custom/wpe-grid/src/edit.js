@@ -8,7 +8,6 @@ import {
     InnerBlocks,
     InspectorControls,
     BlockControls,
-    MediaPlaceholder,
     __experimentalBlockVariationPicker,
     __experimentalBlock as Block
 } from '@wordpress/block-editor';
@@ -28,6 +27,8 @@ import {
 import { withSelect, dispatch } from '@wordpress/data';
 import { get, map, times } from 'lodash';
 import { mobile, tablet, desktop } from '@wordpress/icons';
+
+import { MarginControls, generateMarginClassName } from '../../wpe-component/src/_marginControls';
 
 import * as blockConfig from '../../../../json/wpe-container_config.json';
 const configTotalColumns = blockConfig.totalColumns;
@@ -89,10 +90,14 @@ class WpeGrid extends Component {
             blockType
         } = this.props;
 
-        const deviceType = this.getDeviceType();
+        // Padding & Margin
+        className = generateMarginClassName(this.props);     
 
-        if( typeof className == 'undefined' && typeof deviceType != 'undefined' )
-            className = deviceType;
+        // Device
+        const deviceType = this.getDeviceType();
+        if( typeof deviceType != 'undefined' ) {
+            className = ( typeof className == 'undefined' ) ? deviceType : className + '' + deviceType;
+        }
             
         let sectionStyle = {};
         var heightGridTemplateRows = 1;
@@ -340,6 +345,7 @@ class WpeGrid extends Component {
                             { gridForm }
                         </div>
                     </PanelBody>
+                    <MarginControls props={ this.props }/>
                 </InspectorControls>
             );
         }

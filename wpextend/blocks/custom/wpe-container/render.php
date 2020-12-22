@@ -48,7 +48,7 @@ function custom_wpe_container_render_callback( $attributes, $content ) {
         ' . $section_background . '
         <div class="section__content ' . apply_filters('wpextend/container_padding_class_formatted', $paddingClassFormatted, $attributes) . '">
             <div class="' . \Wpextend\GutenbergBlock::get_container_class_name() . '">
-                <div class="row grid">' . $content . '</div>
+                ' . $content . '
             </div>
         </div>
     </section>';

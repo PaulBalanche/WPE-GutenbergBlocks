@@ -136,6 +136,10 @@
         &:hover > .block-list-appender {
             visibility: visible;
         }
+
+        .block-editor-block-variation-picker {
+            z-index: 1;
+        }
     }
 
     .block-list-appender {

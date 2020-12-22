@@ -7,7 +7,6 @@ import { compose } from '@wordpress/compose';
 import {
     InnerBlocks,
     InspectorControls,
-    BlockControls,
     MediaPlaceholder,
     __experimentalBlockVariationPicker,
     __experimentalBlock as Block
@@ -16,22 +15,13 @@ import {
 import {
     PanelBody,
     SelectControl,
-    Button,
-    ButtonGroup,
-    RangeControl,
-    Dropdown,
-    ToolbarGroup,
-    MenuGroup,
-    MenuItem,
-    HorizontalRule
+    Button
 } from '@wordpress/components';
 
-import { withSelect, dispatch } from '@wordpress/data';
-import { get, map, times } from 'lodash';
-import { mobile, tablet, desktop } from '@wordpress/icons';
+import { withSelect } from '@wordpress/data';
+import { map } from 'lodash';
 
-import * as blockConfig from '../../../../json/wpe-container_config.json';
-const configTotalColumns = blockConfig.totalColumns;
+import { MarginControls, generateMarginClassName } from '../../wpe-component/src/_marginControls';
 
 /**
  * Add some columns in wpe-container based on variation selected
@@ -58,23 +48,6 @@ class WpeContainer extends Component {
         super( ...arguments );
     }
 
-    getMargin(type) {
-        let currentMargin = this.props.attributes.margin;
-        if( typeof currentMargin == 'object' && currentMargin.hasOwnProperty(type) ) {
-            return currentMargin[type];
-        }
-        
-        return null;
-    }
-
-    setMargin( type, value ) {
-        let currentMargin = this.props.attributes.margin;
-        if( typeof currentMargin == 'undefined' ) {
-            currentMargin = {};
-        }
-        this.props.setAttributes( { margin: Object.assign(currentMargin, { [type]: value }) } )
-    }
-
     render() {
 
         var {
@@ -83,7 +56,10 @@ class WpeContainer extends Component {
 			className,
 			backgroundData
         } = this.props;
-            
+        
+        // Padding & Margin
+        className = generateMarginClassName(this.props);     
+        
         let sectionStyle = {};
 
         // Custom style section
@@ -129,40 +105,11 @@ class WpeContainer extends Component {
 
 
         /**
-         * Padding & Margin
-         */
-        if( typeof attributes.margin == 'object' ) {        
-            for( const [key, value] of Object.entries(attributes.margin) ) {
-                switch( value ) {
-                    case 0:
-                        className += ' ' + key + '-none';
-                        break;
-                    case 1:
-                        className += ' ' + key + '-smaller';
-                        break;
-                    case 2:
-                        className += ' ' + key + '-small';
-                        break;
-                    case 3:
-                        className += ' ' + key + '-medium';
-                        break;
-                    case 4:
-                        className += ' ' + key + '-big';
-                        break;
-                    case 5:
-                        className += ' ' + key + '-bigger';
-                        break;
-                }
-            }
-        }
-
-
-
-        /**
          * Style
          */
         if( typeof attributes.style != 'undefined' && attributes.style != '' )
             className += ' st-' + attributes.style;
+
 
 
         /**
@@ -188,44 +135,7 @@ class WpeContainer extends Component {
                     <PanelBody title={ 'Background' } initialOpen={ false }>
                         { mediaPlaceholder }
                     </PanelBody>
-                    <PanelBody title={ 'Padding/Margin' } initialOpen={ false }>
-                        <RangeControl
-                            label="Padding Top"
-                            value={ this.getMargin('pt') }
-                            onChange={ ( value ) => 
-                                this.setMargin('pt', value)
-                            }
-                            min={ 0 }
-                            max={ 5 }
-                        />
-                        <RangeControl
-                            label="Padding Bottom"
-                            value={ this.getMargin('pb') }
-                            onChange={ ( value ) =>
-                                this.setMargin('pb', value)
-                            }
-                            min={ 0 }
-                            max={ 5 }
-                        />
-                        <RangeControl
-                            label="Margin Top"
-                            value={ this.getMargin('mt') }
-                            onChange={ ( value ) =>
-                                this.setMargin('mt', value)
-                            }
-                            min={ 0 }
-                            max={ 5 }
-                        />
-                        <RangeControl
-                            label="Margin Bottom"
-                            value={ this.getMargin('mb') }
-                            onChange={ ( value ) =>
-                                this.setMargin('mb', value)
-                            }
-                            min={ 0 }
-                            max={ 5 }
-                        />
-                    </PanelBody>
+                    <MarginControls props={ this.props }/>
                 </InspectorControls>
                 <InnerBlocks
                     __experimentalTagName={ Block.div }

@@ -24,7 +24,8 @@ registerBlockType( 'custom/wpe-container', {
     },
     attributes: {
         style: {
-            type: 'string'
+            type: 'string',
+            default: false
         },
         align: {
             type: 'string'

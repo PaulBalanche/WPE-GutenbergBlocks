@@ -1,7 +1,6 @@
 /**
  * WordPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
 import { Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import {
@@ -19,25 +18,19 @@ import {
 } from '@wordpress/components';
 
 import { withSelect } from '@wordpress/data';
-import { map } from 'lodash';
 
 import { MarginControls, generateMarginClassName } from '../../wpe-component/src/_marginControls';
 
-/**
- * Add some columns in wpe-container based on variation selected
- *
- */
-function createBlocksFromInnerBlocksTemplate ( innerBlocksTemplate ) {
+import frontspec from '../../../../../frontspec.json';
 
-    return map(
-        innerBlocksTemplate,
-        ( { name, attributes } ) =>
-            createBlock(
-                name,
-                attributes
-            )
-    );
+var styleContainer = null;
+if( typeof frontspec.container != 'undefined' && typeof frontspec.container.style != 'undefined' ) {
+    styleContainer = frontspec.container.style.map( function(value) {
+        return { label: value.label, value: value.value }
+    } );
 }
+
+
 
 /**
  * registerBlockType edit function
@@ -105,11 +98,28 @@ class WpeContainer extends Component {
 
 
         /**
-         * Style
+         * Container Style
+         * 
          */
-        if( typeof attributes.style != 'undefined' && attributes.style != '' )
-            className += ' st-' + attributes.style;
+        var containerStyleSelect = '';
+        if( styleContainer !== null ) {
 
+            containerStyleSelect = (
+                <PanelBody title={ 'Style' } initialOpen={ false }>
+                    <SelectControl
+                        label="Style"
+                        value={ attributes.style }
+                        options={ [ { label: 'Default', value: 'null' } ].concat(styleContainer) }
+                        onChange={ ( value ) => 
+                            setAttributes( { style: ( value == 'null' ) ? false : value } )
+                        }
+                    />
+                </PanelBody>
+            );
+
+            if( typeof attributes.style != 'undefined' && attributes.style != '' )
+                className += ' st-' + attributes.style;
+        }
 
 
         /**
@@ -118,20 +128,7 @@ class WpeContainer extends Component {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title={ 'Style' } initialOpen={ false }>
-                        <SelectControl
-                            label="Style"
-                            value={ attributes.style }
-                            options={ [
-                                { label: 'Default', value: '' },
-                                { label: 'Light', value: 'light' },
-                                { label: 'Dark', value: 'dark' }
-                            ] }
-                            onChange={ ( value ) =>
-                                setAttributes( { style: value } )
-                            }
-                        />
-                    </PanelBody>
+                    { containerStyleSelect }
                     <PanelBody title={ 'Background' } initialOpen={ false }>
                         { mediaPlaceholder }
                     </PanelBody>

@@ -52,16 +52,6 @@ class WpeContainer extends Component {
         
         // Padding & Margin
         className = generateMarginClassName(this.props);     
-        
-        let sectionStyle = {};
-
-        // Custom style section
-        if( backgroundData !== null && typeof backgroundData != 'undefined' && backgroundData.media_type == 'image' ) {
-            Object.assign(sectionStyle, {
-                background: 'url(' + backgroundData.media_details.sizes.thumbnail.source_url + ') no-repeat center center',
-                backgroundSize: 'cover'
-            });
-        }
 
         // Section background
         const titleMediaPlaceholder = ( backgroundData !== null && typeof backgroundData != 'undefined' ) ? backgroundData.media_type == 'image' ? 'Edit image' : backgroundData.title.raw + ' (' + backgroundData.mime_type + ')' : 'Image/Video';
@@ -137,8 +127,7 @@ class WpeContainer extends Component {
                 <InnerBlocks
                     __experimentalTagName={ Block.div }
                     __experimentalPassedProps={ {
-                        className: className,
-                        style: sectionStyle
+                        className: className
                     } }
                     renderAppender={ () => (
                         <InnerBlocks.ButtonBlockAppender />

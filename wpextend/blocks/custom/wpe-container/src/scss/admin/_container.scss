@@ -1,8 +1,8 @@
 #editor {
 
-    .wp-block {
-        overflow: auto;
-    }
+    // .wp-block {
+    //     overflow: auto;
+    // }
 
     .wp-block[data-align="full"] {
         margin-left: 0;
@@ -36,7 +36,7 @@
         max-width: $max_width_main_column;
         padding-top: 2%;
         padding-right: 0.6%;
-        padding-bottom: 0;
+        padding-bottom: 0.6%;
         padding-left: 0.6%;
         margin-top: 0;
         margin-bottom: 0;

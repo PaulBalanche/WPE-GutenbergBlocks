@@ -17,7 +17,7 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
                 if( $component['id'] == $attributes['id_component'] ) {
 
                     unset($attributes['id_component']);
-// pre($attributes);
+
                     $attributes = custom_wpe_component_render_callback_recursive_treatment($component, $attributes);
 
                     // Format margin to className
@@ -29,8 +29,7 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
                         array_keys($attributes['margin'])
                     )) : '';
 
-                    $attributes = apply_filters('wpextend/pre_render_component_attributes', $attributes, $component['id']);
-
+                    $attributes = apply_filters('wpextend/wpe_component_attributes', $attributes, $component['id']);
                     return Wpextend\GutenbergBlock::render($component['path'], $attributes);
                 }
             }

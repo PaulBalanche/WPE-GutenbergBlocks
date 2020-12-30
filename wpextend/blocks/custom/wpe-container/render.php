@@ -2,6 +2,7 @@
 
 function custom_wpe_container_render_callback( $attributes, $content ) {
 
+    // Define data
     $data = [
         'content' => $content,
         'align' => ( isset($attributes['align']) ) ? 'align' . $attributes['align'] : '',
@@ -18,7 +19,9 @@ function custom_wpe_container_render_callback( $attributes, $content ) {
         $data['background'] = $background_image_src[0];
     }
 
-    $container_view_path = apply_filters('wpextend/wpe_container_view_path', 'wpe-container');
-    $container_data = apply_filters('wpextend/wpe_container_data', $data, $attributes);
-    return \Wpextend\GutenbergBlock::render($container_view_path, $container_data);
+    // Render
+    return \Wpextend\GutenbergBlock::render(
+        apply_filters('wpextend/wpe_container_view_path', 'wpe-container'),
+        apply_filters('wpextend/wpe_container_data', $data, $attributes)
+    );
 }

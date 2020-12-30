@@ -3,7 +3,6 @@
 function custom_wpe_column_render_callback( $attributes, $content ) {
 
     $className = '';
-
     foreach( [ 'Desktop', 'Tablet', 'Mobile' ] as $device ) {
 
         // Column
@@ -16,6 +15,16 @@ function custom_wpe_column_render_callback( $attributes, $content ) {
         $endRow = ( isset($attributes['height' . $device]) ) ? $startRow + intval($attributes['height' . $device]) : $startRow + 1;
         $className .= ' gridRowStart' . $device . '-' . $startRow . ' gridRowEnd' . $device . '-' . $endRow;
     }
-    
-    return '<div class="' . $className . '">' . $content . '</div>';
+
+    // Define data
+    $data = [
+        'content' => $content,
+        'className' => $className
+    ];
+
+    // Render
+    return \Wpextend\GutenbergBlock::render(
+        apply_filters('wpextend/wpe_column_view_path', 'wpe-column'),
+        apply_filters('wpextend/wpe_column_data', $data, $attributes)
+    );
 }

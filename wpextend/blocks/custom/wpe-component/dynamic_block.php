@@ -16,6 +16,9 @@ if( file_exists( get_stylesheet_directory() . '/frontspec.json' ) ) {
                     ],
                     'margin' => [
                         'type' => 'object'
+                    ],
+                    'editor' => [
+                        'type' => 'boolean'
                     ]
                 ];
                 foreach( $component['props'] as $key_props => $val_prop ) {

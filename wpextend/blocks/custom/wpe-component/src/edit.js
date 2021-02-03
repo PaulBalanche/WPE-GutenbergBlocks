@@ -172,6 +172,7 @@ class WpeComponent extends Component {
                     break;
                 
                 case 'radio':
+                    console.log(prop);
                     blocReturned.push( this.renderRadioControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
 
@@ -789,13 +790,13 @@ class WpeComponent extends Component {
                         this.setAttributes( { id_component: element.id } );
 
                     // Visual mode
-                    if( ! isSelected ) {
+                    if( ! isSelected || ! parseInt(global_localized.current_user_can_edit_posts) ) {
 
                         return (
                             <ServerSideRender
                                 key={ clientId + "-serverSideRender" }
                                 block={ "custom/wpe-component-" + element.id }
-                                attributes={ attributes }
+                                attributes={ Object.assign(attributes, { "editor": true } ) }
                             />
                         );
                     }

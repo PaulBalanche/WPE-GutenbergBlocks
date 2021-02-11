@@ -8,6 +8,8 @@ import {
     InnerBlocks,
     InspectorControls,
     BlockControls,
+    useBlockProps,
+    __experimentalUseInnerBlocksProps as useInnerBlocksProps,
     __experimentalBlockVariationPicker,
     __experimentalBlock as Block
 } from '@wordpress/block-editor';
@@ -65,7 +67,8 @@ class WpeGrid extends Component {
         super( ...arguments );
 
         this.state = {
-			selectedDevice: getLayouts()[0].value
+            selectedDevice: getLayouts()[0].value,
+            defaultClassName: null
 		};
     }
 
@@ -81,28 +84,33 @@ class WpeGrid extends Component {
 
         var {
 			attributes,
-			setAttributes,
-			className,
+            setAttributes,
             clientId,
             inner_blocks,
+            innerBlocksProps,
             countColumns,
             blockVariations,
             blockType
         } = this.props;
 
-        // Padding & Margin
-        className = generateMarginClassName(this.props);     
+        if( this.state.defaultClassName === null )
+            this.state.defaultClassName = innerBlocksProps.className;
 
         // Device
         const deviceType = this.getDeviceType();
-        if( typeof deviceType != 'undefined' ) {
-            className = ( typeof className == 'undefined' ) ? deviceType : className + '' + deviceType;
+        if( typeof deviceType != 'undefined' && deviceType != 'undefined' ) {
+            innerBlocksProps.className = this.state.defaultClassName + ' ' + deviceType;
+        }
+
+        // Padding & Margin
+        const className = generateMarginClassName(this.props);
+        if( className ) {
+            innerBlocksProps.className += className;
         }
             
         let sectionStyle = {};
         var heightGridTemplateRows = 1;
 
-        
 
         /**
          * Define innerBlocks
@@ -283,17 +291,8 @@ class WpeGrid extends Component {
              * Render edit
              */
             var editDisplay = (
-                <InnerBlocks
-                    allowedBlocks={ [ 'custom/wpe-column' ] }
-                    __experimentalMoverDirection="horizontal"
-                    __experimentalTagName={ Block.div }
-                    __experimentalPassedProps={ {
-                        className: className,
-                        style: sectionStyle
-                    } }
-                    renderAppender={ false }
-                />
-            );
+                <div { ...innerBlocksProps } />
+            )
         }
 
         Object.assign(sectionStyle, {
@@ -395,6 +394,7 @@ export default compose( [
         return {
             backgroundData: ! props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile ),
             inner_blocks: select('core/block-editor').getBlocks(props.clientId),
+            innerBlocksProps: useInnerBlocksProps( useBlockProps( { className: '' } ), { renderAppender: false } ),
             countColumns: select( 'core/block-editor' ).getBlockCount(props.clientId),
             blockVariations: select('core/blocks').getBlockVariations(props.name, 'block'),
             blockType: select('core/blocks').getBlockType(props.name)

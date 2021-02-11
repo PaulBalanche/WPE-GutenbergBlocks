@@ -7,8 +7,9 @@ import {
     InnerBlocks,
     InspectorControls,
     MediaPlaceholder,
-    __experimentalBlockVariationPicker,
-    __experimentalBlock as Block
+    useBlockProps,
+    __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+    __experimentalBlockVariationPicker
 } from '@wordpress/block-editor';
 
 import {
@@ -46,12 +47,15 @@ class WpeContainer extends Component {
         var {
 			attributes,
 			setAttributes,
-			className,
-			backgroundData
+            backgroundData,
+            innerBlocksProps
         } = this.props;
-        
+
         // Padding & Margin
-        className = generateMarginClassName(this.props);     
+        const className = generateMarginClassName(this.props);
+        if( className ) {
+            innerBlocksProps.className += className;
+        }
 
         // Section background
         const titleMediaPlaceholder = ( backgroundData !== null && typeof backgroundData != 'undefined' ) ? backgroundData.media_type == 'image' ? 'Edit image' : backgroundData.title.raw + ' (' + backgroundData.mime_type + ')' : 'Image/Video';
@@ -111,7 +115,6 @@ class WpeContainer extends Component {
                 className += ' st-' + attributes.style;
         }
 
-
         /**
          * Render
          */
@@ -124,15 +127,7 @@ class WpeContainer extends Component {
                     </PanelBody>
                     <MarginControls props={ this.props }/>
                 </InspectorControls>
-                <InnerBlocks
-                    __experimentalTagName={ Block.div }
-                    __experimentalPassedProps={ {
-                        className: className
-                    } }
-                    renderAppender={ () => (
-                        <InnerBlocks.ButtonBlockAppender />
-                    ) }
-                />
+                <div { ...innerBlocksProps } />
             </>
         );
     }
@@ -142,6 +137,7 @@ export default compose( [
 	withSelect( ( select, props ) => {
 
         return {
+            innerBlocksProps: useInnerBlocksProps( useBlockProps( { className: '' } ), { renderAppender: InnerBlocks.ButtonBlockAppender } ),
             backgroundData: ! props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile )
         };
     } ),

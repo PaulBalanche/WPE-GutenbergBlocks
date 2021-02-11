@@ -123,8 +123,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
   })))))),
   supports: {
     lightBlockWrapper: true,
-    reusable: false,
-    html: false
+    reusable: false
   },
   parent: ['custom/wpe-grid'],
   attributes: {
@@ -210,18 +209,16 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
     if (Number.isInteger(attributes.rowStartMobile) && attributes.rowStartMobile > 0 && Number.isInteger(attributes.heightMobile) && attributes.heightMobile > 0) {
       var RowEndMobile = attributes.rowStartMobile + attributes.heightMobile;
       newClassName += "gridRowStartMobile-" + attributes.rowStartMobile + " gridRowEndMobile-" + RowEndMobile + " ";
-    } // Render
+    }
 
+    var blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"])({
+      className: newClassName
+    });
+    var innerBlocksProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["__experimentalUseInnerBlocksProps"])(blockProps, {
+      renderAppender: _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"].ButtonBlockAppender
+    }); // Render
 
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"], {
-      __experimentalTagName: _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["__experimentalBlock"].div,
-      __experimentalPassedProps: {
-        className: newClassName
-      },
-      renderAppender: function renderAppender() {
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"].ButtonBlockAppender, null);
-      }
-    }));
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", innerBlocksProps);
   },
   save: function save() {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"].Content, null);

@@ -59,8 +59,6 @@ class WpeComponent extends Component {
     }
 
     removeEltRepeatable(arrayKey, currentValueProp) {
-        console.log(arrayKey);
-        console.log(currentValueProp);
         this.updateAttributes( arrayKey, currentValueProp, false );
     }
 
@@ -172,7 +170,6 @@ class WpeComponent extends Component {
                     break;
                 
                 case 'radio':
-                    console.log(prop);
                     blocReturned.push( this.renderRadioControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
 

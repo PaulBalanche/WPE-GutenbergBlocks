@@ -1,12 +1,16 @@
 <?php
 
-function core_buttons_render_callback( $attributes, $content ) {
+if( ! function_exists( 'core_buttons_render_callback' ) ) {
 
-    preg_match( '/^<div class="wp-block-buttons[^"]*">(.*)<\/div>$/ms', $content, $matches );
-    if( count($matches) == 2 ) {
+    function core_buttons_render_callback( $attributes, $content ) {
 
-        return '<div class="container">
-            <div class="row">' . $matches[1] . '</div>
-        </div>';
+        preg_match( '/^<div class="wp-block-buttons[^"]*">(.*)<\/div>$/ms', $content, $matches );
+        if( count($matches) == 2 ) {
+
+            return '<div class="' . \Wpextend\GutenbergBlock::get_container_class_name() . '">
+                <div class="row">' . $matches[1] . '</div>
+            </div>';
+        }
     }
+
 }

@@ -10,14 +10,12 @@ export class MarginControls extends Component {
 	constructor(attr) {
         super( ...arguments );
         this.parentProps = attr.props;
-
         this.currentMargin = { ...this.parentProps.attributes.margin };
     }
 
     getMargin(type) {
-        let currentMargin = { ...this.parentProps.attributes.margin };
-        if( typeof currentMargin == 'object' && currentMargin.hasOwnProperty(type) ) {
-            return currentMargin[type];
+        if( typeof this.currentMargin == 'object' && this.currentMargin.hasOwnProperty(type) ) {
+            return this.currentMargin[type];
         }
         
         return null;
@@ -30,7 +28,7 @@ export class MarginControls extends Component {
         }
         
         this.currentMargin = Object.assign(this.currentMargin, { [type]: value });
-        this.parentProps.setAttributes( { margin: this.currentMargin } );
+        console.log( this.parentProps.setAttributes( { margin: this.currentMargin } ) );
     }
 
     render() {
@@ -90,7 +88,6 @@ export function generateMarginClassName(props) {
         className = '';
 
     if( typeof attributes.margin == 'object' ) {
-        console.log(attributes.margin);
         for( const [key, value] of Object.entries(attributes.margin) ) {
             switch( value ) {
                 case 0:

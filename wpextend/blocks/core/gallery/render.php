@@ -1,15 +1,19 @@
 <?php
 
-function core_gallery_render_callback( $attributes, $content ) {
+if( ! function_exists( 'core_gallery_render_callback' ) ) {
 
-    if( isset($attributes['ids']) && is_array($attributes['ids']) ) {
+    function core_gallery_render_callback( $attributes, $content ) {
 
-        $ids_images = $attributes['ids'];
-        $nb_colums = ( isset($attributes['columns']) ) ? $attributes['columns'] : 1;
-        $size_img = ( isset($attributes['sizeSlug']) ) ? $attributes['sizeSlug'] : 'full';
+        if( isset($attributes['ids']) && is_array($attributes['ids']) ) {
 
-        return'<div class="container">
-            <div class="row">' . $content . '</div>
-        </div>';
+            $ids_images = $attributes['ids'];
+            $nb_colums = ( isset($attributes['columns']) ) ? $attributes['columns'] : 1;
+            $size_img = ( isset($attributes['sizeSlug']) ) ? $attributes['sizeSlug'] : 'full';
+
+            return'<div class="' . \Wpextend\GutenbergBlock::get_container_class_name() . '">
+                <div class="row">' . $content . '</div>
+            </div>';
+        }
     }
+
 }

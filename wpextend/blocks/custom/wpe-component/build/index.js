@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../../../frontspec.json":
-/*!********************************************************************************************************************************!*\
-  !*** /Users/paulbalanche/www/bitbucket.org/Wordpress/wordpress-bedrock-docker/web/app/themes/wpe-starter-theme/frontspec.json ***!
-  \********************************************************************************************************************************/
+/*!************************************************************************************************************************************!*\
+  !*** /Users/paulbalanche/www/bitbucket.org/Wordpress/wordpress-bedrock-docker/web/app/themes/twentytwentyone-child/frontspec.json ***!
+  \************************************************************************************************************************************/
 /*! exports provided: components, default */
 /***/ (function(module) {
 
@@ -506,10 +506,8 @@ var MarginControls = /*#__PURE__*/function (_Component) {
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4___default()(MarginControls, [{
     key: "getMargin",
     value: function getMargin(type) {
-      var currentMargin = _objectSpread({}, this.parentProps.attributes.margin);
-
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(currentMargin) == 'object' && currentMargin.hasOwnProperty(type)) {
-        return currentMargin[type];
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.currentMargin) == 'object' && this.currentMargin.hasOwnProperty(type)) {
+        return this.currentMargin[type];
       }
 
       return null;
@@ -522,9 +520,9 @@ var MarginControls = /*#__PURE__*/function (_Component) {
       }
 
       this.currentMargin = Object.assign(this.currentMargin, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, type, value));
-      this.parentProps.setAttributes({
+      console.log(this.parentProps.setAttributes({
         margin: this.currentMargin
-      });
+      }));
     }
   }, {
     key: "render",
@@ -578,8 +576,6 @@ function generateMarginClassName(props) {
   if (typeof className == 'undefined') className = '';
 
   if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(attributes.margin) == 'object') {
-    console.log(attributes.margin);
-
     for (var _i = 0, _Object$entries = Object.entries(attributes.margin); _i < _Object$entries.length; _i++) {
       var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
           key = _Object$entries$_i[0],
@@ -722,8 +718,6 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "removeEltRepeatable",
     value: function removeEltRepeatable(arrayKey, currentValueProp) {
-      console.log(arrayKey);
-      console.log(currentValueProp);
       this.updateAttributes(arrayKey, currentValueProp, false);
     }
   }, {
@@ -817,7 +811,6 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             break;
 
           case 'radio':
-            console.log(prop);
             blocReturned.push(this.renderRadioControl(fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
             break;
 

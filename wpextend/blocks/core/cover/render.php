@@ -1,9 +1,13 @@
 <?php
 
-function core_cover_render_callback( $attributes, $content ) {
+if( ! function_exists( 'core_cover_render_callback' ) ) {
 
-    // print_r($attributes);
-    // echo htmlentities($content);die;
+    function core_cover_render_callback( $attributes, $content ) {
 
-    return '<div class="container">' . $content . '</div>';
+        // print_r($attributes);
+        // echo htmlentities($content);die;
+
+        return $content;
+    }
+
 }

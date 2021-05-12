@@ -6,9 +6,6 @@ import { InnerBlocks } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { addFilter } from '@wordpress/hooks';
 
-import * as blockConfig from '../../../../json/wpe-container_config.json';
-const variations = blockConfig.variations;
-
 /**
  * Internal dependencies
  */
@@ -40,7 +37,6 @@ registerBlockType( 'custom/wpe-container', {
             type: 'object'
         }
     },
-    variations,
     edit,
     save: () => {
         return <InnerBlocks.Content />;

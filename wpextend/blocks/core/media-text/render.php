@@ -29,17 +29,17 @@ if( ! function_exists( 'core_media_text_render_callback' ) ) {
             preg_match( '/<div class="wp-block-media-text__content[^"]*">(.*)<\/div><\/div>/ms', $content, $matches );
             if( count($matches) == 2 ) {
                 
-                $return = '<div class="' . \Wpextend\GutenbergBlock::get_container_class_name() . '">
+                $return = '<div class="block-media-text ' . \Wpextend\GutenbergBlock::get_container_class_name() . '">
                     <div class="row box">';
 
                 if( $mediaPosition == 'left' ) {
 
-                    $return .= '<div class="col">' . $html_media . '</div>
+                    $return .= '<div class="col media">' . $html_media . '</div>
                         <div class="col">' . $matches[1] . '</div>';
                 }
                 else {
                     $return .= '<div class="col">' . $matches[1] . '</div>
-                        <div class="col">' . $html_media . '</div>';
+                        <div class="col media">' . $html_media . '</div>';
                 }
 
                 $return .= '</div>
@@ -49,5 +49,4 @@ if( ! function_exists( 'core_media_text_render_callback' ) ) {
             }
         }
     }
-
 }

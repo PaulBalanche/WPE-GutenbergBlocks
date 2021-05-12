@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { createBlock } from '@wordpress/blocks';
-import { Component } from '@wordpress/element';
+import { Component, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import {
     InnerBlocks,
@@ -32,8 +32,8 @@ import { mobile, tablet, desktop } from '@wordpress/icons';
 
 import { MarginControls, generateMarginClassName } from '../../wpe-component/src/_marginControls';
 
-import * as blockConfig from '../../../../json/wpe-container_config.json';
-const configTotalColumns = blockConfig.totalColumns;
+import * as gridConfig from '../../../../json/wpe-grid_config.json';
+const configTotalColumns = gridConfig.totalColumns;
 
 /**
  * Add some columns in wpe-container based on variation selected
@@ -118,23 +118,25 @@ class WpeGrid extends Component {
         if( typeof(inner_blocks ) != 'object' || ( typeof(inner_blocks ) == 'object' && countColumns == 0 ) ) {
 
             var editDisplay = (
-                <__experimentalBlockVariationPicker
-                    icon={ get( blockType, [ 'icon', 'src' ] ) }
-                    label={ get( blockType, [ 'title' ] ) }
-                    variations={ blockVariations }
-                    onSelect={ ( nextVariation ) => {
-                        if ( nextVariation.innerBlocks ) {
-                            dispatch( 'core/block-editor' ).replaceInnerBlocks(
-                                clientId,
-                                createBlocksFromInnerBlocksTemplate( nextVariation.innerBlocks ),
-                                false
-                            );
-                        }
-                        if( nextVariation.attributes ) {
-                            dispatch('core/editor').updateBlockAttributes( clientId, nextVariation.attributes );
-                        }
-                    } }
-                />
+                <div { ...innerBlocksProps }>
+                    <__experimentalBlockVariationPicker
+                        icon={ get( blockType, [ 'icon', 'src' ] ) }
+                        label={ get( blockType, [ 'title' ] ) }
+                        variations={ blockVariations }
+                        onSelect={ ( nextVariation ) => {
+                            if ( nextVariation.innerBlocks ) {
+                                dispatch( 'core/block-editor' ).replaceInnerBlocks(
+                                    clientId,
+                                    createBlocksFromInnerBlocksTemplate( nextVariation.innerBlocks ),
+                                    false
+                                );
+                            }
+                            if( nextVariation.attributes ) {
+                                dispatch('core/editor').updateBlockAttributes( clientId, nextVariation.attributes );
+                            }
+                        } }
+                    />
+                </div>
             );
 
             var gridForm = null;

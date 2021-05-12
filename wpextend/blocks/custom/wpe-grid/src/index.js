@@ -2,12 +2,11 @@
  * WordPress dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { InnerBlocks, InspectorControls } from '@wordpress/block-editor';
+import { InnerBlocks } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { addFilter } from '@wordpress/hooks';
 
-import * as blockConfig from '../../../../json/wpe-container_config.json';
-const variations = blockConfig.variations;
+import * as gridConfig from '../../../../json/wpe-grid_config.json';
+const variations = gridConfig.variations;
 
 /**
  * Internal dependencies

@@ -2,8 +2,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import {
     InnerBlocks,
     useBlockProps,
-    __experimentalUseInnerBlocksProps as useInnerBlocksProps,
-    __experimentalBlock as Block
+    __experimentalUseInnerBlocksProps as useInnerBlocksProps
 } from '@wordpress/block-editor';
 
 registerBlockType( 'custom/wpe-column', {

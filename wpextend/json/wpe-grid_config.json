@@ -4,26 +4,26 @@
     {
       "name": "column-1",
       "title": "1 column",
-      "attributes": { "grid": "12" },
+      "attributes": { "gridCountColumns": "1" },
       "innerBlocks": [
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 1, "width": 12 } }
+          "attributes": { "widthDesktop": 12 } }
       ],
       "scope": [ "block" ]
     },
     {
       "name": "column-2",
       "title": "2 column",
-      "attributes": { "grid": "6-6" },
+      "attributes": { "gridCountColumns": "2" },
       "innerBlocks": [
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 1, "width": 6 }
+          "attributes": { "widthDesktop": 6 }
         },
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 7, "width": 6 }
+          "attributes": { "columnStartDesktop": 7, "widthDesktop": 6 }
         }
       ],
       "scope": [ "block" ]
@@ -31,19 +31,19 @@
     {
       "name": "column-3",
       "title": "3 column",
-      "attributes": { "grid": "4-4-4" },
+      "attributes": { "gridCountColumns": "3" },
       "innerBlocks": [
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 1, "width": 4 }
+          "attributes": { "widthDesktop": 4 }
         },
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 5, "width": 4 }
+          "attributes": { "columnStartDesktop": 5, "widthDesktop": 4 }
         },
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 9, "width": 4 }
+          "attributes": { "columnStartDesktop": 9, "widthDesktop": 4 }
         }
       ],
       "scope": [ "block" ]
@@ -51,23 +51,23 @@
     {
       "name": "column-4",
       "title": "4 column",
-      "attributes": { "grid": "3-3-3-3" },
+      "attributes": { "gridCountColumns": "4" },
       "innerBlocks": [
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 1, "width": 3 }
+          "attributes": { "widthDesktop": 3 }
         },
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 4, "width": 3 }
+          "attributes": { "columnStartDesktop": 4, "widthDesktop": 3 }
         },
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 7, "width": 3 }
+          "attributes": { "columnStartDesktop": 7, "widthDesktop": 3 }
         },
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 10, "width": 3 }
+          "attributes": { "columnStartDesktop": 10, "widthDesktop": 3 }
         }
       ],
       "scope": [ "block" ]
@@ -75,31 +75,31 @@
     {
       "name": "column-6",
       "title": "6 column",
-      "attributes": { "grid": "2-2-2-2-2-2" },
+      "attributes": { "gridCountColumns": "6" },
       "innerBlocks": [
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 1, "width": 2 }
+          "attributes": { "widthDesktop": 2 }
         },
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 3, "width": 2 }
+          "attributes": { "columnStartDesktop": 3, "widthDesktop": 2 }
         },
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 5, "width": 2 }
+          "attributes": { "columnStartDesktop": 5, "widthDesktop": 2 }
         },
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 7, "width": 2 }
+          "attributes": { "columnStartDesktop": 7, "widthDesktop": 2 }
         },
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 9, "width": 2 }
+          "attributes": { "columnStartDesktop": 9, "widthDesktop": 2 }
         },
         {
           "name": "custom/wpe-column",
-          "attributes": { "start": 11, "width": 2 }
+          "attributes": { "columnStartDesktop": 11, "widthDesktop": 2 }
         }
       ],
       "scope": [ "block" ]

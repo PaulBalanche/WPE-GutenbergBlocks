@@ -87,24 +87,13 @@
 /******/ ({
 
 /***/ "../../../../frontspec.json":
-/*!************************************************************************************************************************************!*\
-  !*** /Users/paulbalanche/www/bitbucket.org/Wordpress/wordpress-bedrock-docker/web/app/themes/twentytwentyone-child/frontspec.json ***!
-  \************************************************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /Users/paulbalanche/www/github.com/coline/kine/web/app/themes/twentytwentyone-child/frontspec.json ***!
+  \**********************************************************************************************************/
 /*! exports provided: components, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"components\":[{\"id\":\"my-first-component\",\"name\":\"My first component\",\"description\":\"\",\"path\":\"my-first-component/render.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"content\":{\"label\":\"Content\",\"type\":\"richText\"}}}]}");
-
-/***/ }),
-
-/***/ "../../../json/wpe-container_config.json":
-/*!*************************************************************************************************************************************************************!*\
-  !*** /Users/paulbalanche/www/bitbucket.org/Wordpress/wordpress-bedrock-docker/web/app/themes/twentytwentyone-child/wpextend/json/wpe-container_config.json ***!
-  \*************************************************************************************************************************************************************/
-/*! exports provided: totalColumns, variations, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"attributes\":{\"grid\":\"12\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":12}}],\"scope\":[\"block\"]},{\"name\":\"column-2\",\"title\":\"2 column\",\"attributes\":{\"grid\":\"6-6\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":6}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":6}}],\"scope\":[\"block\"]},{\"name\":\"column-3\",\"title\":\"3 column\",\"attributes\":{\"grid\":\"4-4-4\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":5,\"width\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":9,\"width\":4}}],\"scope\":[\"block\"]},{\"name\":\"column-4\",\"title\":\"4 column\",\"attributes\":{\"grid\":\"3-3-3-3\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":4,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":10,\"width\":3}}],\"scope\":[\"block\"]},{\"name\":\"column-6\",\"title\":\"6 column\",\"attributes\":{\"grid\":\"2-2-2-2-2-2\"},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":1,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":3,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":5,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":7,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":9,\"width\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"start\":11,\"width\":2}}],\"scope\":[\"block\"]}]}");
+module.exports = JSON.parse("{\"components\":[{\"id\":\"card-persona\",\"name\":\"Card Persona\",\"description\":\"\",\"path\":\"card-persona/card-persona.twig\",\"props\":{\"title\":{\"label\":\"Title\",\"type\":\"string\"},\"content\":{\"label\":\"Content\",\"type\":\"richText\"},\"image\":{\"label\":\"Image\",\"type\":\"image\"}}}]}");
 
 /***/ }),
 
@@ -1026,9 +1015,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
 /* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../json/wpe-container_config.json */ "../../../json/wpe-container_config.json");
-var _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_5___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../../../../json/wpe-container_config.json */ "../../../json/wpe-container_config.json", 1);
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
 
 
 /**
@@ -1038,8 +1025,6 @@ var _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_5___namespace = /*#
 
 
 
-
-var variations = _json_wpe_container_config_json__WEBPACK_IMPORTED_MODULE_5__["variations"];
 /**
  * Internal dependencies
  */
@@ -1085,8 +1070,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
       type: 'object'
     }
   },
-  variations: variations,
-  edit: _edit__WEBPACK_IMPORTED_MODULE_6__["default"],
+  edit: _edit__WEBPACK_IMPORTED_MODULE_5__["default"],
   save: function save() {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"].Content, null);
   }

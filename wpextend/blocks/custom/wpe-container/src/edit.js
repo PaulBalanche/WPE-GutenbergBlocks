@@ -112,7 +112,7 @@ class WpeContainer extends Component {
             );
 
             if( typeof attributes.style != 'undefined' && attributes.style != '' )
-                className += ' st-' + attributes.style;
+                innerBlocksProps.className += ' st-' + attributes.style;
         }
 
         /**

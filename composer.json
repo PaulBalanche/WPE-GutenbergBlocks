@@ -1,9 +1,17 @@
 {
-    "name": "paul.balanche/custom-theme",
+    "name": "wpextend/wpe-gutenberg-blocks",
+    "version": "1.0.0",
+    "type": "library",
+    "license": "proprietary",
     "authors": [
         {
-            "name": "paul.balanche",
-            "email": "pb@buzzbrothers.ch"
+            "name": "Paul Balanche",
+            "email": "paul.balanche@gmail.com",
+            "homepage": "https://github.com/PaulBalanche/",
+            "role": "Developer"
         }
-    ]
+    ],
+    "require": {
+        "php": ">=7.0.0"
+    }
 }

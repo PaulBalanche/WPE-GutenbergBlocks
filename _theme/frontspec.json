@@ -1,0 +1,20 @@
+{
+  "components": [
+    {
+      "id": "my-first-component",
+      "name": "My first component",
+      "description": "",
+      "path": "my-first-component/render.twig",
+      "props": {
+        "title": {
+          "label": "Title",
+          "type": "string"
+        },
+        "content": {
+          "label": "Content",
+          "type": "richText"
+        }
+      }
+    }
+  ]
+}

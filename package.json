@@ -1,0 +1,12 @@
+{
+  "name": "wpe-gutenberg-blocks",
+  "version": "1.0.0",
+  "scripts": {
+    "install": "npm-run-all wpe-component-js-install wpe-grid-js-install",
+    "wpe-component-js-install": "cd blocks/custom/wpe-component && npm install",
+    "wpe-grid-js-install": "cd blocks/custom/wpe-grid && npm install",
+    "build": "npm-run-all wpe-component-js-build wpe-grid-js-build",
+    "wpe-component-js-build": "cd blocks/custom/wpe-component && npm run build",
+    "wpe-grid-js-build": "cd blocks/custom/wpe-grid && npm run build"
+  }
+}

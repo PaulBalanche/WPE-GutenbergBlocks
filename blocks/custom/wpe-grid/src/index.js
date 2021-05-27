@@ -7,7 +7,7 @@ import { __ } from '@wordpress/i18n';
 
 import * as gridConfig from '../config.json';
 import frontspec from '../../../../../../themes/twentytwentyone-child/frontspec';
-const variations = ( frontspec.gridConfig.variations ) ? frontspec.gridConfig.variations : gridConfig.variations;
+const variations = ( frontspec.gridConfig && frontspec.gridConfig.variations ) ? frontspec.gridConfig.variations : gridConfig.variations;
 
 /**
  * Internal dependencies

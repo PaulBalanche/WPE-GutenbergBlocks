@@ -34,7 +34,7 @@ import { MarginControls, generateMarginClassName } from '../../wpe-component/src
 
 import * as gridConfig from '../config.json';
 import frontspec from '../../../../../../themes/twentytwentyone-child/frontspec';
-const configTotalColumns = ( frontspec.gridConfig.totalColumns ) ? frontspec.gridConfig.totalColumns : gridConfig.totalColumns;
+const configTotalColumns = ( frontspec.gridConfig && frontspec.gridConfig.totalColumns ) ? frontspec.gridConfig.totalColumns : gridConfig.totalColumns;
 
 /**
  * Add some columns in wpe-container based on variation selected

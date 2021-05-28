@@ -25,8 +25,7 @@ import {
     RadioControl
 } from '@wordpress/components';
 
-import frontspec from '../../../../../../themes/twentytwentyone-child/frontspec';
-import { MarginControls, generateMarginClassName } from './_marginControls';
+import { MarginControls } from './_marginControls';
 
 class WpeComponent extends Component {
 
@@ -774,159 +773,144 @@ class WpeComponent extends Component {
      */
     render() {
 
-        const { attributes, isSelected, clientId } = this.props;
+        const { attributes, isSelected, clientId, element } = this.props;
 
-        for (const key in frontspec.components) {
-            if (frontspec.components.hasOwnProperty(key)) {
-                const element = frontspec.components[key];
+        // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
+        if( typeof attributes.id_component == 'undefined' )
+            this.setAttributes( { id_component: element.id } );
 
-                if( this.props.name == "custom/wpe-component-" + element.id ) {
+        // Visual mode
+        if( ! isSelected || ! parseInt(global_localized.current_user_can_edit_posts) ) {
 
-                    // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
-                    if( typeof attributes.id_component == 'undefined' )
-                        this.setAttributes( { id_component: element.id } );
+            return (
+                <ServerSideRender
+                    key={ clientId + "-serverSideRender" }
+                    block={ "custom/wpe-component-" + element.id }
+                    attributes={ Object.assign(attributes, { "editor": true } ) }
+                />
+            );
+        }
 
-                    // Visual mode
-                    if( ! isSelected || ! parseInt(global_localized.current_user_can_edit_posts) ) {
+        // Edition mode
+        let catReOrder = {
+            default: { props: {} }
+        };
 
-                        return (
-                            <ServerSideRender
-                                key={ clientId + "-serverSideRender" }
-                                block={ "custom/wpe-component-" + element.id }
-                                attributes={ Object.assign(attributes, { "editor": true } ) }
-                            />
-                        );
-                    }
+        // 1. Loop Props Categories
+        if( typeof element.props_categories != 'undefined' ) {
+            for (const [keyCatProps, valueCatProps] of Object.entries(element.props_categories)) {
 
-                    // Edition mode
-                    let catReOrder = {
-                        default: { props: {} }
-                    };
-
-                    // 1. Loop Props Categories
-                    if( typeof element.props_categories != 'undefined' ) {
-                        for (const [keyCatProps, valueCatProps] of Object.entries(element.props_categories)) {
-
-                            catReOrder[valueCatProps.id] = { name: valueCatProps.name, props: {} }
-                        }
-                    }
-
-                    // 2. Loop Props
-                    for (const [keyProp, valueProp] of Object.entries(element.props)) {
-
-                        if( typeof valueProp.category != 'undefined' && valueProp.category in catReOrder ) {
-                            catReOrder[valueProp.category].props[keyProp] = valueProp;
-                        }
-                        else {
-                            catReOrder.default.props[keyProp] = valueProp;
-                        }
-                    }
-
-                    // 3. Remove empty category
-                    for (const [keyProp, valueProp] of Object.entries(catReOrder)) {
-
-                        if( Object.keys(catReOrder[keyProp].props).length == 0 ) {
-                            delete catReOrder[keyProp];
-                        }
-                    }
-
-                    // 4. Render
-                    var tabPanel = [];
-                    for (const [keyCat, valCat] of Object.entries(catReOrder)) {
-                        
-                        if( valCat.props.length == 0 )
-                            continue;
-                        
-                        let currentEditCat = [];
-
-                        for (const [keyProp, prop] of Object.entries(valCat.props)) {
-                            let valueProp = this.getAttribute( keyProp );
-                            currentEditCat.push( this.renderControl( prop, [ keyProp ], { [keyProp]: valueProp } ) );
-                        }
-
-                        if( keyCat == "default" ) {
-
-                            tabPanel.push( {
-                                name: keyCat,
-                                title: "Default",
-                                content: currentEditCat
-                            } );
-                        }
-                        else {
-
-                            tabPanel.push( {
-                                name: keyCat,
-                                title: valCat.name,
-                                content: currentEditCat
-                            } );
-                        }
-                    }
-
-                    var editPlaceHolder = '';
-                    if( tabPanel.length > 1 ) {
-                        
-                        editPlaceHolder = (
-                            <>
-                                <TabPanel
-                                    key={ clientId + "-tabPanel" }
-                                    className="tab-panel-wpe-component"
-                                    activeClass="active-tab"
-                                    tabs={ tabPanel }
-                                >
-                                    { ( tabPanel ) => tabPanel.content }
-                                </TabPanel>
-                            </>
-                        );
-                    }
-                    else {
-                        editPlaceHolder = tabPanel[0].content;
-                    } 
-
-                    return (
-                        <>
-                            <InspectorControls>
-                                <MarginControls props={ this.props }/>
-                            </InspectorControls>
-                            <Placeholder
-                                key={ clientId + "-placeholder" }
-                                label={ element.name }
-                                isColumnLayout={ true }
-                                className="wpe-component_edit_placeholder"
-                            >
-                                { editPlaceHolder }
-                            </Placeholder>
-                        </>
-                    );
-                }
+                catReOrder[valueCatProps.id] = { name: valueCatProps.name, props: {} }
             }
         }
+
+        // 2. Loop Props
+        for (const [keyProp, valueProp] of Object.entries(element.props)) {
+
+            if( typeof valueProp.category != 'undefined' && valueProp.category in catReOrder ) {
+                catReOrder[valueProp.category].props[keyProp] = valueProp;
+            }
+            else {
+                catReOrder.default.props[keyProp] = valueProp;
+            }
+        }
+
+        // 3. Remove empty category
+        for (const [keyProp, valueProp] of Object.entries(catReOrder)) {
+
+            if( Object.keys(catReOrder[keyProp].props).length == 0 ) {
+                delete catReOrder[keyProp];
+            }
+        }
+
+        // 4. Render
+        var tabPanel = [];
+        for (const [keyCat, valCat] of Object.entries(catReOrder)) {
+            
+            if( valCat.props.length == 0 )
+                continue;
+            
+            let currentEditCat = [];
+
+            for (const [keyProp, prop] of Object.entries(valCat.props)) {
+                let valueProp = this.getAttribute( keyProp );
+                currentEditCat.push( this.renderControl( prop, [ keyProp ], { [keyProp]: valueProp } ) );
+            }
+
+            if( keyCat == "default" ) {
+
+                tabPanel.push( {
+                    name: keyCat,
+                    title: "Default",
+                    content: currentEditCat
+                } );
+            }
+            else {
+
+                tabPanel.push( {
+                    name: keyCat,
+                    title: valCat.name,
+                    content: currentEditCat
+                } );
+            }
+        }
+
+        var editPlaceHolder = '';
+        if( tabPanel.length > 1 ) {
+            
+            editPlaceHolder = (
+                <>
+                    <TabPanel
+                        key={ clientId + "-tabPanel" }
+                        className="tab-panel-wpe-component"
+                        activeClass="active-tab"
+                        tabs={ tabPanel }
+                    >
+                        { ( tabPanel ) => tabPanel.content }
+                    </TabPanel>
+                </>
+            );
+        }
+        else {
+            editPlaceHolder = tabPanel[0].content;
+        } 
+
+        return (
+            <>
+                <InspectorControls>
+                    <MarginControls props={ this.props }/>
+                </InspectorControls>
+                <Placeholder
+                    key={ clientId + "-placeholder" }
+                    label={ element.name }
+                    isColumnLayout={ true }
+                    className="wpe-component_edit_placeholder"
+                >
+                    { editPlaceHolder }
+                </Placeholder>
+            </>
+        );
     }
 }
 
-export default withSelect( ( select, props ) => {
+export default (element) => withSelect( ( select, props ) => {
 
     const { getEntityRecords } = select( 'core' );
     let relations = [];
 
-    for (const key in frontspec.components) {
-        if (frontspec.components.hasOwnProperty(key)) {
-            const element = frontspec.components[key];
-
-            if( props.name == "custom/wpe-component-" + element.id ) {
+    if( props.name == "custom/wpe-component-" + element.id ) {
                 
-                // 2. Loop Props
-                for (const [keyProp, valueProp] of Object.entries(element.props)) {
+        // 2. Loop Props
+        for (const [keyProp, valueProp] of Object.entries(element.props)) {
 
-                    if( valueProp.type == 'relation' && relations[ valueProp.entity ] == null ) {
-                        relations[ valueProp.entity ] = getEntityRecords( 'postType', valueProp.entity );
-                    }
-                }
+            if( valueProp.type == 'relation' && relations[ valueProp.entity ] == null ) {
+                relations[ valueProp.entity ] = getEntityRecords( 'postType', valueProp.entity );
             }
         }
     }
 
     return {
-        relations: relations
+        relations: relations,
+        element
     };
-} )( WpeComponent );
-    
+} )( WpeComponent )

@@ -22,16 +22,6 @@ import { withSelect } from '@wordpress/data';
 
 import { MarginControls, generateMarginClassName } from '../../wpe-component/src/_marginControls';
 
-import frontspec from '../../../../../../themes/twentytwentyone-child/frontspec';
-
-var styleContainer = null;
-if( typeof frontspec.container != 'undefined' && typeof frontspec.container.style != 'undefined' ) {
-    styleContainer = frontspec.container.style.map( function(value) {
-        return { label: value.label, value: value.value }
-    } );
-}
-
-
 
 /**
  * registerBlockType edit function
@@ -47,6 +37,7 @@ class WpeContainer extends Component {
         var {
 			attributes,
 			setAttributes,
+            containerConfig,
             backgroundData,
             innerBlocksProps
         } = this.props;
@@ -96,8 +87,11 @@ class WpeContainer extends Component {
          * 
          */
         var containerStyleSelect = '';
-        if( styleContainer !== null ) {
+        if( containerConfig && containerConfig.style && typeof containerConfig.style != 'undefined' ) {
 
+            var styleContainer = containerConfig.style.map( function(value) {
+                return { label: value.label, value: value.value }
+            } );
             containerStyleSelect = (
                 <PanelBody title={ 'Style' } initialOpen={ false }>
                     <SelectControl
@@ -133,10 +127,11 @@ class WpeContainer extends Component {
     }
 }
 
-export default compose( [
+export default (containerConfig) => compose( [
 	withSelect( ( select, props ) => {
 
         return {
+            containerConfig: containerConfig,
             innerBlocksProps: useInnerBlocksProps( useBlockProps( { className: '' } ), { renderAppender: InnerBlocks.ButtonBlockAppender } ),
             backgroundData: ! props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile )
         };

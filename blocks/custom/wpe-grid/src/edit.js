@@ -32,10 +32,6 @@ import { mobile, tablet, desktop } from '@wordpress/icons';
 
 import { MarginControls, generateMarginClassName } from '../../wpe-component/src/_marginControls';
 
-import * as gridConfig from '../config.json';
-import frontspec from '../../../../../../themes/twentytwentyone-child/frontspec';
-const configTotalColumns = ( frontspec.gridConfig && frontspec.gridConfig.totalColumns ) ? frontspec.gridConfig.totalColumns : gridConfig.totalColumns;
-
 /**
  * Add some columns in wpe-container based on variation selected
  *
@@ -91,7 +87,8 @@ class WpeGrid extends Component {
             innerBlocksProps,
             countColumns,
             blockVariations,
-            blockType
+            blockType,
+            configTotalColumns
         } = this.props;
 
         if( this.state.defaultClassName === null )
@@ -391,10 +388,11 @@ class WpeGrid extends Component {
     }
 }
 
-export default compose( [
+export default (configTotalColumns) => compose( [
 	withSelect( ( select, props ) => {
 
         return {
+            configTotalColumns: configTotalColumns,
             backgroundData: ! props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile ),
             inner_blocks: select('core/block-editor').getBlocks(props.clientId),
             innerBlocksProps: useInnerBlocksProps( useBlockProps( { className: '' } ), { renderAppender: false } ),

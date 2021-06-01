@@ -29,6 +29,38 @@
       ]
     },
     {
+      "name": "column-2-bis",
+      "title": "2 columns bis",
+      "icon": "columns2bis",
+      "attributes": { "gridCountColumns": 2 },
+      "innerBlocks": [
+        {
+          "name": "custom/wpe-column",
+          "attributes": { "widthDesktop": 4, "widthTablet": 6, "widthMobile": 12 }
+        },
+        {
+          "name": "custom/wpe-column",
+          "attributes": { "columnStartDesktop": 5, "columnStartTablet": 7, "widthDesktop": 8, "widthTablet": 6, "widthMobile": 12, "rowStartMobile": 2 }
+        }
+      ]
+    },
+    {
+      "name": "column-2-ter",
+      "title": "2 columns ter",
+      "icon": "columns2ter",
+      "attributes": { "gridCountColumns": 2 },
+      "innerBlocks": [
+        {
+          "name": "custom/wpe-column",
+          "attributes": { "widthDesktop": 8, "widthTablet": 6, "widthMobile": 12 }
+        },
+        {
+          "name": "custom/wpe-column",
+          "attributes": { "columnStartDesktop": 9, "columnStartTablet": 7, "widthDesktop": 4, "widthTablet": 6, "widthMobile": 12, "rowStartMobile": 2 }
+        }
+      ]
+    },
+    {
       "name": "column-3",
       "title": "3 columns",
       "icon": "columns3",

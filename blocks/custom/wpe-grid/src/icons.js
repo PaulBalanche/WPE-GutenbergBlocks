@@ -11,6 +11,20 @@ const columns2 = (
     </svg>
 )
 
+const columns2bis = (
+    <svg width="205" height="100" viewBox="0 0 205 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="56" height="100" fill="#007CBA"/>
+        <rect x="68" width="137" height="100" fill="#007CBA"/>
+    </svg>
+)
+
+const columns2ter = (
+    <svg width="205" height="100" viewBox="0 0 205 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="137" height="100" fill="#007CBA"/>
+        <rect x="149" width="56" height="100" fill="#007CBA"/>
+    </svg>
+)
+
 const columns3 = (
     <svg width="205" height="100" viewBox="0 0 205 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="61" height="100" fill="#007CBA"/>
@@ -39,4 +53,4 @@ const columns6 = (
     </svg>
 )
 
-export { column1, columns2, columns3, columns4, columns6  }
+export { column1, columns2, columns2bis, columns2ter, columns3, columns4, columns6  }

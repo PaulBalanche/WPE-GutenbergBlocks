@@ -5,6 +5,9 @@ import { registerBlockType } from '@wordpress/blocks';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import axios from 'axios';
+import { Icon } from '@wordpress/icons';
+
+import * as gridIcons from './icons';
 
 import * as gridConfig from '../config.json';
 
@@ -22,6 +25,16 @@ axios.get( ajaxurl, {
 .then(res => {
 
     var variations = ( res.data && res.data.variations ) ? res.data.variations : gridConfig.variations;
+    variations.forEach( function (elt, index){
+        if( typeof elt.scope != 'object' ) {
+            variations[index].scope = [ "block" ];
+        }
+        
+        if( typeof elt.icon == 'string' ) {
+            variations[index].icon = <Icon icon={ gridIcons[elt.icon] } />
+        }
+    });
+    console.log(variations);
     var configTotalColumns = ( res.data && res.data.totalColumns ) ? res.data.totalColumns : gridConfig.totalColumns;
 
     registerBlockType( 'custom/wpe-grid', {

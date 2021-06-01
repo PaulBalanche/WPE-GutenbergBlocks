@@ -610,7 +610,7 @@ function generateMarginClassName(props) {
 /*! exports provided: totalColumns, variations, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"icon\":\"column1\",\"attributes\":{\"gridCountColumns\":1},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":12}}]},{\"name\":\"column-2\",\"title\":\"2 columns\",\"icon\":\"columns2\",\"attributes\":{\"gridCountColumns\":2},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":6}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":7,\"widthDesktop\":6}}]},{\"name\":\"column-3\",\"title\":\"3 columns\",\"icon\":\"columns3\",\"attributes\":{\"gridCountColumns\":3},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":5,\"widthDesktop\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":9,\"widthDesktop\":4}}]},{\"name\":\"column-4\",\"title\":\"4 columns\",\"icon\":\"columns4\",\"attributes\":{\"gridCountColumns\":4},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":4,\"widthDesktop\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":7,\"widthDesktop\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":10,\"widthDesktop\":3}}]},{\"name\":\"column-6\",\"title\":\"6 columns\",\"icon\":\"columns6\",\"attributes\":{\"gridCountColumns\":6},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":3,\"widthDesktop\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":5,\"widthDesktop\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":7,\"widthDesktop\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":9,\"widthDesktop\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":11,\"widthDesktop\":2}}]}]}");
+module.exports = JSON.parse("{\"totalColumns\":12,\"variations\":[{\"name\":\"column-1\",\"title\":\"1 column\",\"icon\":\"column1\",\"attributes\":{\"gridCountColumns\":1},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":12}}]},{\"name\":\"column-2\",\"title\":\"2 columns\",\"icon\":\"columns2\",\"attributes\":{\"gridCountColumns\":2},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":6}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":7,\"widthDesktop\":6}}]},{\"name\":\"column-2-bis\",\"title\":\"2 columns bis\",\"icon\":\"columns2bis\",\"attributes\":{\"gridCountColumns\":2},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":4,\"widthTablet\":6,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":5,\"columnStartTablet\":7,\"widthDesktop\":8,\"widthTablet\":6,\"widthMobile\":12,\"rowStartMobile\":2}}]},{\"name\":\"column-2-ter\",\"title\":\"2 columns ter\",\"icon\":\"columns2ter\",\"attributes\":{\"gridCountColumns\":2},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":8,\"widthTablet\":6,\"widthMobile\":12}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":9,\"columnStartTablet\":7,\"widthDesktop\":4,\"widthTablet\":6,\"widthMobile\":12,\"rowStartMobile\":2}}]},{\"name\":\"column-3\",\"title\":\"3 columns\",\"icon\":\"columns3\",\"attributes\":{\"gridCountColumns\":3},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":5,\"widthDesktop\":4}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":9,\"widthDesktop\":4}}]},{\"name\":\"column-4\",\"title\":\"4 columns\",\"icon\":\"columns4\",\"attributes\":{\"gridCountColumns\":4},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":4,\"widthDesktop\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":7,\"widthDesktop\":3}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":10,\"widthDesktop\":3}}]},{\"name\":\"column-6\",\"title\":\"6 columns\",\"icon\":\"columns6\",\"attributes\":{\"gridCountColumns\":6},\"innerBlocks\":[{\"name\":\"custom/wpe-column\",\"attributes\":{\"widthDesktop\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":3,\"widthDesktop\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":5,\"widthDesktop\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":7,\"widthDesktop\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":9,\"widthDesktop\":2}},{\"name\":\"custom/wpe-column\",\"attributes\":{\"columnStartDesktop\":11,\"widthDesktop\":2}}]}]}");
 
 /***/ }),
 
@@ -9980,13 +9980,15 @@ var WpeGrid = /*#__PURE__*/function (_Component) {
 /*!**********************!*\
   !*** ./src/icons.js ***!
   \**********************/
-/*! exports provided: column1, columns2, columns3, columns4, columns6 */
+/*! exports provided: column1, columns2, columns2bis, columns2ter, columns3, columns4, columns6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "column1", function() { return column1; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "columns2", function() { return columns2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "columns2bis", function() { return columns2bis; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "columns2ter", function() { return columns2ter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "columns3", function() { return columns3; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "columns4", function() { return columns4; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "columns6", function() { return columns6; });
@@ -10017,6 +10019,38 @@ var columns2 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("rect", {
   x: "108",
   width: "97",
+  height: "100",
+  fill: "#007CBA"
+}));
+var columns2bis = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+  width: "205",
+  height: "100",
+  viewBox: "0 0 205 100",
+  fill: "none",
+  xmlns: "http://www.w3.org/2000/svg"
+}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("rect", {
+  width: "56",
+  height: "100",
+  fill: "#007CBA"
+}), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("rect", {
+  x: "68",
+  width: "137",
+  height: "100",
+  fill: "#007CBA"
+}));
+var columns2ter = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+  width: "205",
+  height: "100",
+  viewBox: "0 0 205 100",
+  fill: "none",
+  xmlns: "http://www.w3.org/2000/svg"
+}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("rect", {
+  width: "137",
+  height: "100",
+  fill: "#007CBA"
+}), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("rect", {
+  x: "149",
+  width: "56",
   height: "100",
   fill: "#007CBA"
 }));

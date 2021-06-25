@@ -6,13 +6,25 @@ if( ! function_exists( 'core_gallery_render_callback' ) ) {
 
         if( isset($attributes['ids']) && is_array($attributes['ids']) ) {
 
-            $ids_images = $attributes['ids'];
-            $nb_colums = ( isset($attributes['columns']) ) ? $attributes['columns'] : 1;
-            $size_img = ( isset($attributes['sizeSlug']) ) ? $attributes['sizeSlug'] : 'full';
+            preg_match_all( '/<img src="([^"]+)"[^>]*>(?:<figcaption[^>]*>((?:(?!<\/figcaption>).)+)<\/figcaption>)*/', $content, $slides, PREG_SET_ORDER );
 
-            return'<div class="' . \Wpextend\GutenbergBlock::get_container_class_name() . '">
-                <div class="row">' . $content . '</div>
-            </div>';
+            // Define data
+            $data = [
+                'content' => $content,
+                'slides' => $slides,
+                'container_class_name' => \Wpextend\GutenbergBlock::get_container_class_name(),
+                'ids_images' => $attributes['ids'],
+                'nb_colums' => ( isset($attributes['columns']) ) ? $attributes['columns'] : 1,
+                'size_img' => ( isset($attributes['sizeSlug']) ) ? $attributes['sizeSlug'] : 'full',
+            ];
+
+            $view_path = ( isset($attributes['galleryType']) && $attributes['galleryType'] != 'default' ) ? 'core-gallery-' . $attributes['galleryType'] : 'core-gallery';
+
+            // Render
+            return \Wpextend\GutenbergBlock::render(
+                apply_filters('wpextend/core_gallery_view_path', $view_path),
+                apply_filters('wpextend/core_gallery_data', $data, $attributes)
+            );
         }
     }
 

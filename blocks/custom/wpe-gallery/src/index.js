@@ -1,78 +1,88 @@
 /**
  * WordPress Dependencies
  */
-// const { addFilter } = wp.hooks; 
+import axios from 'axios';
+import { SelectControl } from '@wordpress/components';
 
+const { addFilter } = wp.hooks;
+const { createHigherOrderComponent } = wp.compose;
+const { Fragment } = wp.element;
+const { InspectorControls } = wp.blockEditor;
+const { PanelBody } = wp.components;
 
-// function addAttributesCoreGallery( settings ) {
-	
-// 	//check if object exists for old Gutenberg version compatibility
-// 	if( typeof settings.attributes !== 'undefined' ){
-	
-// 		settings.attributes = Object.assign( settings.attributes, {
-// 			monSuperAttribute:{ 
-// 				type: 'boolean',
-// 				default: true,
-// 			}
-// 		});
+function addAttributesCoreGallery( settings, name ) {
+            
+    if ( name !== 'core/gallery' ) {
+        return settings;
+    }
+
+    return lodash.assign( {}, settings, {
+        attributes: lodash.assign( {}, settings.attributes, {
+            galleryType:{ 
+                type: 'string'
+            }
+        } )
+    } );
+}
+addFilter(
+    'blocks.registerBlockType',
+    'core/gallery',
+    addAttributesCoreGallery
+);
+
+axios.get( ajaxurl, {
+    params: {
+        action: 'wpe_frontspec',
+        data: 'galleryType'
+    }
+})
+.then(res => {
+
+    var galleryTypeOptions = [ { label: 'Default', value: 'default' } ];
+
+    if( res.data && res.data != 'undefined' )
+        galleryTypeOptions = galleryTypeOptions.concat( res.data );
+
+    const addAttributesCoreGallerywithInspectorControls =  createHigherOrderComponent( ( BlockEdit ) => {
+        return ( props ) => {
+
+            if( props.name == 'core/gallery' ) {
+
+                const {
+                    attributes,
+                    setAttributes
+                } = props;
+        
+                return (
+                    <Fragment>
+                        <BlockEdit { ...props } />
+                        <InspectorControls>
+                            <PanelBody>
+                                <SelectControl
+                                    label="Type"
+                                    value={ attributes.galleryType }
+                                    options={ galleryTypeOptions }
+                                    onChange={ ( value ) => {
+                                        setAttributes( { galleryType: value } )
+                                    } }
+                                />
+                            </PanelBody>
+                        </InspectorControls>
+                    </Fragment>
+                );
+            }
+
+            return <BlockEdit { ...props } />;
+        };
+    }, "withInspectorControl" );
     
-// 	}
-
-// 	return settings;
-// }
-
-// addFilter(
-// 	'blocks.registerBlockType',
-// 	'core/gallery',
-// 	addAttributesCoreGallery
-// );
-
-
-
-// const { createHigherOrderComponent } = wp.compose;
-// const { Fragment } = wp.element;
-// const { InspectorControls } = wp.blockEditor;
-// const { PanelBody, ToggleControl } = wp.components;
- 
-// const addAttributesCoreGallerywithInspectorControls =  createHigherOrderComponent( ( BlockEdit ) => {
-//     return ( props ) => {
-
-//         if( props.name == 'core/gallery' ) {
-
-//             const {
-//                 attributes,
-//                 setAttributes,
-//                 isSelected,
-//             } = props;
-    
-//             const {
-//                 monSuperAttribute,
-//             } = attributes;        
-    
-//             return (
-//                 <Fragment>
-//                     <BlockEdit { ...props } />
-//                     <InspectorControls>
-//                         <PanelBody>
-//                             <ToggleControl
-//                                 label='Mon super attribut'
-//                                 checked={ !! monSuperAttribute }
-//                                 onChange={ ( value ) =>
-//                                     setAttributes( { monSuperAttribute: value } )
-//                                 }
-//                             />
-//                         </PanelBody>
-//                     </InspectorControls>
-//                 </Fragment>
-//             );
-//         }
-
-//         return <BlockEdit { ...props } />;
-//     };
-// }, "withInspectorControl" );
- 
-// addFilter(
-//     'editor.BlockEdit',
-//     'core/gallery',
-//     addAttributesCoreGallerywithInspectorControls
-// );
+    addFilter(
+        'editor.BlockEdit',
+        'core/gallery',
+        addAttributesCoreGallerywithInspectorControls
+    );
+})
+.catch(function (error) {
+    // handle error
+    console.log(error);
+})

@@ -34,7 +34,7 @@ axios.get( ajaxurl, {
             variations[index].icon = <Icon icon={ gridIcons[elt.icon] } />
         }
     });
-    console.log(variations);
+    
     var configTotalColumns = ( res.data && res.data.totalColumns ) ? res.data.totalColumns : gridConfig.totalColumns;
 
     registerBlockType( 'custom/wpe-grid', {

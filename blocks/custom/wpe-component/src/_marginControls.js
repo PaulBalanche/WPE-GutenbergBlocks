@@ -2,7 +2,9 @@ import { Component } from '@wordpress/element';
 
 import {
     PanelBody,
-    RangeControl
+    RangeControl,
+    Button,
+    HorizontalRule
 } from '@wordpress/components';
 
 export class MarginControls extends Component {
@@ -28,10 +30,33 @@ export class MarginControls extends Component {
         }
         
         this.currentMargin = Object.assign(this.currentMargin, { [type]: value });
-        console.log( this.parentProps.setAttributes( { margin: this.currentMargin } ) );
+        this.parentProps.setAttributes( { margin: this.currentMargin } );
+    }
+
+    resetMargin() {
+        this.currentMargin = undefined;
+        this.parentProps.setAttributes( { margin: this.currentMargin } );
     }
 
     render() {
+
+        var resetPart = [];
+        if( typeof this.currentMargin != 'undefined' ) {
+            resetPart.push(
+                <div key={ "containerResetMargin-" + this.parentProps.clientId }>
+                    <HorizontalRule />
+                    <Button
+                        variant="secondary"
+                        className="is-secondary"
+                        onClick={ () => 
+                            this.resetMargin()
+                        }
+                    >
+                        Reset
+                    </Button>
+                </div>
+            )
+        }
 
         return (
             <PanelBody title={ 'Padding/Margin' } initialOpen={ false }>
@@ -71,6 +96,7 @@ export class MarginControls extends Component {
                     min={ 0 }
                     max={ 5 }
                 />
+                { resetPart }
             </PanelBody>
         );
     }

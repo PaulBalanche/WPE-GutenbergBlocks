@@ -1,6 +1,20 @@
 <?php
 
-function custom_wpe_container_render_callback( $attributes, $content ) {
+function custom_wpe_container_render_callback( $attributes, $content_wrapped ) {
+
+    preg_match( '/<div(.*)class="wp-block-custom-wpe-container">(.*)<\/div>/s', $content_wrapped, $content );
+   
+    $anchor_wrapped = $content[1];
+    $content = $content[2];
+    $anchor = false;
+
+    if( strpos($anchor_wrapped, 'id="') !== false ) {
+
+        preg_match( '/id="(.*)"/', $anchor_wrapped, $match_anchor );
+        if( is_array($match_anchor) && count($match_anchor) == 2 ) {
+            $anchor = $match_anchor[1];
+        }
+    }
 
     // Define data
     $data = [
@@ -10,7 +24,8 @@ function custom_wpe_container_render_callback( $attributes, $content ) {
         'padding' => ( isset($attributes['padding']) && is_array($attributes['padding']) ) ? implode(' ', array_map( function ($v, $k) { if( strpos($k, 'p') == 0 ) { return $k . '-' . $v; } }, $attributes['padding'], array_keys($attributes['padding']) )) : '',
         'style' => ( isset($attributes['style']) ) ? 'st-' . $attributes['style'] : '',
         'container_class_name' => \Wpextend\GutenbergBlock::get_container_class_name(),
-        'background' => ''
+        'background' => '',
+        'anchor' => $anchor
     ];
 
     // Background

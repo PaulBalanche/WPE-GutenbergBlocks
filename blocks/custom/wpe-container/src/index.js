@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { InnerBlocks } from '@wordpress/block-editor';
+import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { addFilter } from '@wordpress/hooks';
 import axios from 'axios';
@@ -48,7 +48,11 @@ axios.get( ajaxurl, {
         },
         edit: edit(res.data),
         save: () => {
-            return <InnerBlocks.Content />;
+            return (
+                <div { ...useBlockProps.save() } >
+                    <InnerBlocks.Content />
+                </div>
+            );
         },
     } );
 

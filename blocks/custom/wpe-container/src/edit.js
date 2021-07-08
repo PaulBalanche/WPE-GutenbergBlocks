@@ -47,7 +47,7 @@ class WpeContainer extends Component {
         if( className ) {
             innerBlocksProps.className += className;
         }
-
+        
         // Section background
         const titleMediaPlaceholder = ( backgroundData !== null && typeof backgroundData != 'undefined' ) ? backgroundData.media_type == 'image' ? 'Edit image' : backgroundData.title.raw + ' (' + backgroundData.mime_type + ')' : 'Image/Video';
         const mediaPreview = !! backgroundData && (

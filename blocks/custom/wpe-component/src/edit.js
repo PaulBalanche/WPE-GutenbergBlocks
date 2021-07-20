@@ -773,14 +773,14 @@ class WpeComponent extends Component {
      */
     render() {
 
-        const { attributes, isSelected, clientId, element } = this.props;
+        const { attributes, isSelected, clientId, element, current_user_can_edit_posts } = this.props;
 
         // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
         if( typeof attributes.id_component == 'undefined' )
             this.setAttributes( { id_component: element.id } );
 
         // Visual mode
-        if( ! isSelected || ! parseInt(global_localized.current_user_can_edit_posts) ) {
+        if( ! isSelected || ! parseInt(current_user_can_edit_posts) ) {
 
             return (
                 <ServerSideRender
@@ -893,13 +893,13 @@ class WpeComponent extends Component {
     }
 }
 
-export default (element) => withSelect( ( select, props ) => {
+export default (element, current_user_can_edit_posts) => withSelect( ( select, props ) => {
 
     const { getEntityRecords } = select( 'core' );
     let relations = [];
 
     if( props.name == "custom/wpe-component-" + element.id ) {
-                
+
         // 2. Loop Props
         for (const [keyProp, valueProp] of Object.entries(element.props)) {
 
@@ -911,6 +911,7 @@ export default (element) => withSelect( ( select, props ) => {
 
     return {
         relations: relations,
-        element
+        element,
+        current_user_can_edit_posts: current_user_can_edit_posts
     };
 } )( WpeComponent )

@@ -1,1 +1,264 @@
-!function(e){var t={};function r(o){if(t[o])return t[o].exports;var n=t[o]={i:o,l:!1,exports:{}};return e[o].call(n.exports,n,n.exports,r),n.l=!0,n.exports}r.m=e,r.c=t,r.d=function(e,t,o){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(r.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var n in e)r.d(o,n,function(t){return e[t]}.bind(null,n));return o},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r(r.s=3)}([function(e,t){!function(){e.exports=this.wp.element}()},function(e,t){!function(){e.exports=this.wp.blockEditor}()},function(e,t){!function(){e.exports=this.wp.blocks}()},function(e,t,r){"use strict";r.r(t);var o=r(0),n=r(2),l=r(1);Object(n.registerBlockType)("custom/wpe-column",{title:"Col",icon:Object(o.createElement)("svg",{enableBackground:"new 0 0 24 24",height:"24px",id:"Layer_1",version:"1.1",viewBox:"0 0 24 24",width:"24px",xmlns:"http://www.w3.org/2000/svg"},Object(o.createElement)("g",null,Object(o.createElement)("g",null,Object(o.createElement)("g",null,Object(o.createElement)("g",null,Object(o.createElement)("path",{d:"M12,10.9c-0.1,0-0.2,0-0.2-0.1L3.5,6.1C3.4,6,3.3,5.8,3.3,5.6c0-0.2,0.1-0.3,0.2-0.4l8.2-4.7c0.2-0.1,0.3-0.1,0.5,0      l8.2,4.7c0.2,0.1,0.2,0.3,0.2,0.4S20.6,6,20.5,6.1l-8.2,4.7C12.2,10.8,12.1,10.9,12,10.9z M4.8,5.6L12,9.8l7.2-4.2L12,1.5      L4.8,5.6z"})),Object(o.createElement)("g",null,Object(o.createElement)("path",{d:"M10.4,23.6c-0.1,0-0.2,0-0.2-0.1l-8.2-4.7c-0.2-0.1-0.3-0.3-0.3-0.4V8.9c0-0.2,0.1-0.3,0.2-0.4c0.2-0.1,0.3-0.1,0.5,0      l8.2,4.7c0.2,0.1,0.2,0.3,0.2,0.4v9.5c0,0.2-0.1,0.3-0.2,0.4C10.5,23.6,10.5,23.6,10.4,23.6z M2.7,18.1l7.2,4.2v-8.3L2.7,9.8      V18.1z"})),Object(o.createElement)("g",null,Object(o.createElement)("path",{d:"M13.6,23.6c-0.1,0-0.2,0-0.2-0.1c-0.2-0.1-0.2-0.3-0.2-0.4v-9.5c0-0.2,0.1-0.3,0.2-0.4l8.2-4.7c0.2-0.1,0.3-0.1,0.5,0      c0.2,0.1,0.2,0.3,0.2,0.4v9.5c0,0.2-0.1,0.3-0.3,0.4l-8.2,4.7C13.8,23.6,13.7,23.6,13.6,23.6z M14.1,13.9v8.3l7.2-4.2V9.8      L14.1,13.9z"})))))),supports:{lightBlockWrapper:!0,reusable:!1},parent:["custom/wpe-grid"],attributes:{columnStartDesktop:{type:"number",default:1},columnStartTablet:{type:"number",default:1},columnStartMobile:{type:"number",default:1},widthDesktop:{type:"number",default:1},widthTablet:{type:"number",default:1},widthMobile:{type:"number",default:1},rowStartDesktop:{type:"number",default:1},rowStartTablet:{type:"number",default:1},rowStartMobile:{type:"number",default:1},heightDesktop:{type:"number",default:1},heightTablet:{type:"number",default:1},heightMobile:{type:"number",default:1}},edit:function(e){var t=e.attributes,r=(e.className,"");if(Number.isInteger(t.columnStartDesktop)&&t.columnStartDesktop>0&&Number.isInteger(t.widthDesktop)&&t.widthDesktop>0){var n=t.columnStartDesktop+t.widthDesktop;r+="gridColumnStartDesktop-"+t.columnStartDesktop+" gridColumnEndDesktop-"+n+" "}if(Number.isInteger(t.columnStartTablet)&&t.columnStartTablet>0&&Number.isInteger(t.widthTablet)&&t.widthTablet>0){var i=t.columnStartTablet+t.widthTablet;r+="gridColumnStartTablet-"+t.columnStartTablet+" gridColumnEndTablet-"+i+" "}if(Number.isInteger(t.columnStartMobile)&&t.columnStartMobile>0&&Number.isInteger(t.widthMobile)&&t.widthMobile>0){var a=t.columnStartMobile+t.widthMobile;r+="gridColumnStartMobile-"+t.columnStartMobile+" gridColumnEndMobile-"+a+" "}if(Number.isInteger(t.rowStartDesktop)&&t.rowStartDesktop>0&&Number.isInteger(t.heightDesktop)&&t.heightDesktop>0){var u=t.rowStartDesktop+t.heightDesktop;r+="gridRowStartDesktop-"+t.rowStartDesktop+" gridRowEndDesktop-"+u+" "}if(Number.isInteger(t.rowStartTablet)&&t.rowStartTablet>0&&Number.isInteger(t.heightTablet)&&t.heightTablet>0){var c=t.rowStartTablet+t.heightTablet;r+="gridRowStartTablet-"+t.rowStartTablet+" gridRowEndTablet-"+c+" "}if(Number.isInteger(t.rowStartMobile)&&t.rowStartMobile>0&&Number.isInteger(t.heightMobile)&&t.heightMobile>0){var b=t.rowStartMobile+t.heightMobile;r+="gridRowStartMobile-"+t.rowStartMobile+" gridRowEndMobile-"+b+" "}var s=Object(l.useBlockProps)({className:r}),p=Object(l.__experimentalUseInnerBlocksProps)(s,{renderAppender:l.InnerBlocks.ButtonBlockAppender});return Object(o.createElement)("div",p)},save:function(){return Object(o.createElement)(l.InnerBlocks.Content,null)}})}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('custom/wpe-column', {
+  title: 'Col',
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+    enableBackground: "new 0 0 24 24",
+    height: "24px",
+    id: "Layer_1",
+    version: "1.1",
+    viewBox: "0 0 24 24",
+    width: "24px",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("g", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("g", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("g", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("g", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    d: "M12,10.9c-0.1,0-0.2,0-0.2-0.1L3.5,6.1C3.4,6,3.3,5.8,3.3,5.6c0-0.2,0.1-0.3,0.2-0.4l8.2-4.7c0.2-0.1,0.3-0.1,0.5,0      l8.2,4.7c0.2,0.1,0.2,0.3,0.2,0.4S20.6,6,20.5,6.1l-8.2,4.7C12.2,10.8,12.1,10.9,12,10.9z M4.8,5.6L12,9.8l7.2-4.2L12,1.5      L4.8,5.6z"
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("g", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    d: "M10.4,23.6c-0.1,0-0.2,0-0.2-0.1l-8.2-4.7c-0.2-0.1-0.3-0.3-0.3-0.4V8.9c0-0.2,0.1-0.3,0.2-0.4c0.2-0.1,0.3-0.1,0.5,0      l8.2,4.7c0.2,0.1,0.2,0.3,0.2,0.4v9.5c0,0.2-0.1,0.3-0.2,0.4C10.5,23.6,10.5,23.6,10.4,23.6z M2.7,18.1l7.2,4.2v-8.3L2.7,9.8      V18.1z"
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("g", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    d: "M13.6,23.6c-0.1,0-0.2,0-0.2-0.1c-0.2-0.1-0.2-0.3-0.2-0.4v-9.5c0-0.2,0.1-0.3,0.2-0.4l8.2-4.7c0.2-0.1,0.3-0.1,0.5,0      c0.2,0.1,0.2,0.3,0.2,0.4v9.5c0,0.2-0.1,0.3-0.3,0.4l-8.2,4.7C13.8,23.6,13.7,23.6,13.6,23.6z M14.1,13.9v8.3l7.2-4.2V9.8      L14.1,13.9z"
+  })))))),
+  supports: {
+    lightBlockWrapper: true,
+    reusable: false
+  },
+  parent: ['custom/wpe-grid'],
+  attributes: {
+    columnStartDesktop: {
+      type: 'number',
+      default: 1
+    },
+    columnStartTablet: {
+      type: 'number',
+      default: 1
+    },
+    columnStartMobile: {
+      type: 'number',
+      default: 1
+    },
+    widthDesktop: {
+      type: 'number',
+      default: 1
+    },
+    widthTablet: {
+      type: 'number',
+      default: 1
+    },
+    widthMobile: {
+      type: 'number',
+      default: 1
+    },
+    rowStartDesktop: {
+      type: 'number',
+      default: 1
+    },
+    rowStartTablet: {
+      type: 'number',
+      default: 1
+    },
+    rowStartMobile: {
+      type: 'number',
+      default: 1
+    },
+    heightDesktop: {
+      type: 'number',
+      default: 1
+    },
+    heightTablet: {
+      type: 'number',
+      default: 1
+    },
+    heightMobile: {
+      type: 'number',
+      default: 1
+    }
+  },
+  edit: function edit(_ref) {
+    var attributes = _ref.attributes,
+        className = _ref.className;
+    var newClassName = '';
+
+    if (Number.isInteger(attributes.columnStartDesktop) && attributes.columnStartDesktop > 0 && Number.isInteger(attributes.widthDesktop) && attributes.widthDesktop > 0) {
+      var ColumnEndDesktop = attributes.columnStartDesktop + attributes.widthDesktop;
+      newClassName += "gridColumnStartDesktop-" + attributes.columnStartDesktop + " gridColumnEndDesktop-" + ColumnEndDesktop + " ";
+    }
+
+    if (Number.isInteger(attributes.columnStartTablet) && attributes.columnStartTablet > 0 && Number.isInteger(attributes.widthTablet) && attributes.widthTablet > 0) {
+      var ColumnEndTablet = attributes.columnStartTablet + attributes.widthTablet;
+      newClassName += "gridColumnStartTablet-" + attributes.columnStartTablet + " gridColumnEndTablet-" + ColumnEndTablet + " ";
+    }
+
+    if (Number.isInteger(attributes.columnStartMobile) && attributes.columnStartMobile > 0 && Number.isInteger(attributes.widthMobile) && attributes.widthMobile > 0) {
+      var ColumnEndMobile = attributes.columnStartMobile + attributes.widthMobile;
+      newClassName += "gridColumnStartMobile-" + attributes.columnStartMobile + " gridColumnEndMobile-" + ColumnEndMobile + " ";
+    }
+
+    if (Number.isInteger(attributes.rowStartDesktop) && attributes.rowStartDesktop > 0 && Number.isInteger(attributes.heightDesktop) && attributes.heightDesktop > 0) {
+      var RowEndDesktop = attributes.rowStartDesktop + attributes.heightDesktop;
+      newClassName += "gridRowStartDesktop-" + attributes.rowStartDesktop + " gridRowEndDesktop-" + RowEndDesktop + " ";
+    }
+
+    if (Number.isInteger(attributes.rowStartTablet) && attributes.rowStartTablet > 0 && Number.isInteger(attributes.heightTablet) && attributes.heightTablet > 0) {
+      var RowEndTablet = attributes.rowStartTablet + attributes.heightTablet;
+      newClassName += "gridRowStartTablet-" + attributes.rowStartTablet + " gridRowEndTablet-" + RowEndTablet + " ";
+    }
+
+    if (Number.isInteger(attributes.rowStartMobile) && attributes.rowStartMobile > 0 && Number.isInteger(attributes.heightMobile) && attributes.heightMobile > 0) {
+      var RowEndMobile = attributes.rowStartMobile + attributes.heightMobile;
+      newClassName += "gridRowStartMobile-" + attributes.rowStartMobile + " gridRowEndMobile-" + RowEndMobile + " ";
+    }
+
+    var blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"])({
+      className: newClassName
+    });
+    var innerBlocksProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["__experimentalUseInnerBlocksProps"])(blockProps, {
+      renderAppender: _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"].ButtonBlockAppender
+    }); // Render
+
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", innerBlocksProps);
+  },
+  save: function save() {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"].Content, null);
+  }
+});
+
+/***/ }),
+
+/***/ "@wordpress/block-editor":
+/*!**********************************************!*\
+  !*** external {"this":["wp","blockEditor"]} ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["blockEditor"]; }());
+
+/***/ }),
+
+/***/ "@wordpress/blocks":
+/*!*****************************************!*\
+  !*** external {"this":["wp","blocks"]} ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["blocks"]; }());
+
+/***/ }),
+
+/***/ "@wordpress/element":
+/*!******************************************!*\
+  !*** external {"this":["wp","element"]} ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["element"]; }());
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=index.js.map

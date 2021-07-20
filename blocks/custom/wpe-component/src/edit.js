@@ -791,89 +791,93 @@ class WpeComponent extends Component {
             );
         }
 
-        // Edition mode
-        let catReOrder = {
-            default: { props: {} }
-        };
-
-        // 1. Loop Props Categories
-        if( typeof element.props_categories != 'undefined' ) {
-            for (const [keyCatProps, valueCatProps] of Object.entries(element.props_categories)) {
-
-                catReOrder[valueCatProps.id] = { name: valueCatProps.name, props: {} }
-            }
-        }
-
-        // 2. Loop Props
-        for (const [keyProp, valueProp] of Object.entries(element.props)) {
-
-            if( typeof valueProp.category != 'undefined' && valueProp.category in catReOrder ) {
-                catReOrder[valueProp.category].props[keyProp] = valueProp;
-            }
-            else {
-                catReOrder.default.props[keyProp] = valueProp;
-            }
-        }
-
-        // 3. Remove empty category
-        for (const [keyProp, valueProp] of Object.entries(catReOrder)) {
-
-            if( Object.keys(catReOrder[keyProp].props).length == 0 ) {
-                delete catReOrder[keyProp];
-            }
-        }
-
-        // 4. Render
-        var tabPanel = [];
-        for (const [keyCat, valCat] of Object.entries(catReOrder)) {
-            
-            if( valCat.props.length == 0 )
-                continue;
-            
-            let currentEditCat = [];
-
-            for (const [keyProp, prop] of Object.entries(valCat.props)) {
-                let valueProp = this.getAttribute( keyProp );
-                currentEditCat.push( this.renderControl( prop, [ keyProp ], { [keyProp]: valueProp } ) );
-            }
-
-            if( keyCat == "default" ) {
-
-                tabPanel.push( {
-                    name: keyCat,
-                    title: "Default",
-                    content: currentEditCat
-                } );
-            }
-            else {
-
-                tabPanel.push( {
-                    name: keyCat,
-                    title: valCat.name,
-                    content: currentEditCat
-                } );
-            }
-        }
-
         var editPlaceHolder = '';
-        if( tabPanel.length > 1 ) {
-            
-            editPlaceHolder = (
-                <>
-                    <TabPanel
-                        key={ clientId + "-tabPanel" }
-                        className="tab-panel-wpe-component"
-                        activeClass="active-tab"
-                        tabs={ tabPanel }
-                    >
-                        { ( tabPanel ) => tabPanel.content }
-                    </TabPanel>
-                </>
-            );
+        
+        if( typeof element.props == 'object' && Object.keys(element.props).length > 0 ) {
+
+            // Edition mode
+            let catReOrder = {
+                default: { props: {} }
+            };
+
+            // 1. Loop Props Categories
+            if( typeof element.props_categories != 'undefined' ) {
+                for (const [keyCatProps, valueCatProps] of Object.entries(element.props_categories)) {
+
+                    catReOrder[valueCatProps.id] = { name: valueCatProps.name, props: {} }
+                }
+            }
+
+            // 2. Loop Props
+            for (const [keyProp, valueProp] of Object.entries(element.props)) {
+
+                if( typeof valueProp.category != 'undefined' && valueProp.category in catReOrder ) {
+                    catReOrder[valueProp.category].props[keyProp] = valueProp;
+                }
+                else {
+                    catReOrder.default.props[keyProp] = valueProp;
+                }
+            }
+
+            // 3. Remove empty category
+            for (const [keyProp, valueProp] of Object.entries(catReOrder)) {
+
+                if( Object.keys(catReOrder[keyProp].props).length == 0 ) {
+                    delete catReOrder[keyProp];
+                }
+            }
+
+            // 4. Render
+            var tabPanel = [];
+            for (const [keyCat, valCat] of Object.entries(catReOrder)) {
+                
+                if( valCat.props.length == 0 )
+                    continue;
+                
+                let currentEditCat = [];
+
+                for (const [keyProp, prop] of Object.entries(valCat.props)) {
+                    let valueProp = this.getAttribute( keyProp );
+                    currentEditCat.push( this.renderControl( prop, [ keyProp ], { [keyProp]: valueProp } ) );
+                }
+
+                if( keyCat == "default" ) {
+
+                    tabPanel.push( {
+                        name: keyCat,
+                        title: "Default",
+                        content: currentEditCat
+                    } );
+                }
+                else {
+
+                    tabPanel.push( {
+                        name: keyCat,
+                        title: valCat.name,
+                        content: currentEditCat
+                    } );
+                }
+            }
+        
+            if( tabPanel.length > 1 ) {
+                
+                editPlaceHolder = (
+                    <>
+                        <TabPanel
+                            key={ clientId + "-tabPanel" }
+                            className="tab-panel-wpe-component"
+                            activeClass="active-tab"
+                            tabs={ tabPanel }
+                        >
+                            { ( tabPanel ) => tabPanel.content }
+                        </TabPanel>
+                    </>
+                );
+            }
+            else {
+                editPlaceHolder = tabPanel[0].content;
+            }
         }
-        else {
-            editPlaceHolder = tabPanel[0].content;
-        } 
 
         return (
             <>

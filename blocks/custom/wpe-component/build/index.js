@@ -1357,101 +1357,103 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             "editor": true
           })
         });
-      } // Edition mode
-
-
-      var catReOrder = {
-        default: {
-          props: {}
-        }
-      }; // 1. Loop Props Categories
-
-      if (typeof element.props_categories != 'undefined') {
-        for (var _i3 = 0, _Object$entries3 = Object.entries(element.props_categories); _i3 < _Object$entries3.length; _i3++) {
-          var _Object$entries3$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries3[_i3], 2),
-              keyCatProps = _Object$entries3$_i[0],
-              valueCatProps = _Object$entries3$_i[1];
-
-          catReOrder[valueCatProps.id] = {
-            name: valueCatProps.name,
-            props: {}
-          };
-        }
-      } // 2. Loop Props
-
-
-      for (var _i4 = 0, _Object$entries4 = Object.entries(element.props); _i4 < _Object$entries4.length; _i4++) {
-        var _Object$entries4$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries4[_i4], 2),
-            keyProp = _Object$entries4$_i[0],
-            valueProp = _Object$entries4$_i[1];
-
-        if (typeof valueProp.category != 'undefined' && valueProp.category in catReOrder) {
-          catReOrder[valueProp.category].props[keyProp] = valueProp;
-        } else {
-          catReOrder.default.props[keyProp] = valueProp;
-        }
-      } // 3. Remove empty category
-
-
-      for (var _i5 = 0, _Object$entries5 = Object.entries(catReOrder); _i5 < _Object$entries5.length; _i5++) {
-        var _Object$entries5$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries5[_i5], 2),
-            _keyProp = _Object$entries5$_i[0],
-            _valueProp = _Object$entries5$_i[1];
-
-        if (Object.keys(catReOrder[_keyProp].props).length == 0) {
-          delete catReOrder[_keyProp];
-        }
-      } // 4. Render
-
-
-      var tabPanel = [];
-
-      for (var _i6 = 0, _Object$entries6 = Object.entries(catReOrder); _i6 < _Object$entries6.length; _i6++) {
-        var _Object$entries6$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries6[_i6], 2),
-            keyCat = _Object$entries6$_i[0],
-            valCat = _Object$entries6$_i[1];
-
-        if (valCat.props.length == 0) continue;
-        var currentEditCat = [];
-
-        for (var _i7 = 0, _Object$entries7 = Object.entries(valCat.props); _i7 < _Object$entries7.length; _i7++) {
-          var _Object$entries7$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries7[_i7], 2),
-              _keyProp2 = _Object$entries7$_i[0],
-              prop = _Object$entries7$_i[1];
-
-          var _valueProp2 = this.getAttribute(_keyProp2);
-
-          currentEditCat.push(this.renderControl(prop, [_keyProp2], _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, _keyProp2, _valueProp2)));
-        }
-
-        if (keyCat == "default") {
-          tabPanel.push({
-            name: keyCat,
-            title: "Default",
-            content: currentEditCat
-          });
-        } else {
-          tabPanel.push({
-            name: keyCat,
-            title: valCat.name,
-            content: currentEditCat
-          });
-        }
       }
 
       var editPlaceHolder = '';
 
-      if (tabPanel.length > 1) {
-        editPlaceHolder = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["TabPanel"], {
-          key: clientId + "-tabPanel",
-          className: "tab-panel-wpe-component",
-          activeClass: "active-tab",
-          tabs: tabPanel
-        }, function (tabPanel) {
-          return tabPanel.content;
-        }));
-      } else {
-        editPlaceHolder = tabPanel[0].content;
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(element.props) == 'object' && Object.keys(element.props).length > 0) {
+        // Edition mode
+        var catReOrder = {
+          default: {
+            props: {}
+          }
+        }; // 1. Loop Props Categories
+
+        if (typeof element.props_categories != 'undefined') {
+          for (var _i3 = 0, _Object$entries3 = Object.entries(element.props_categories); _i3 < _Object$entries3.length; _i3++) {
+            var _Object$entries3$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries3[_i3], 2),
+                keyCatProps = _Object$entries3$_i[0],
+                valueCatProps = _Object$entries3$_i[1];
+
+            catReOrder[valueCatProps.id] = {
+              name: valueCatProps.name,
+              props: {}
+            };
+          }
+        } // 2. Loop Props
+
+
+        for (var _i4 = 0, _Object$entries4 = Object.entries(element.props); _i4 < _Object$entries4.length; _i4++) {
+          var _Object$entries4$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries4[_i4], 2),
+              keyProp = _Object$entries4$_i[0],
+              valueProp = _Object$entries4$_i[1];
+
+          if (typeof valueProp.category != 'undefined' && valueProp.category in catReOrder) {
+            catReOrder[valueProp.category].props[keyProp] = valueProp;
+          } else {
+            catReOrder.default.props[keyProp] = valueProp;
+          }
+        } // 3. Remove empty category
+
+
+        for (var _i5 = 0, _Object$entries5 = Object.entries(catReOrder); _i5 < _Object$entries5.length; _i5++) {
+          var _Object$entries5$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries5[_i5], 2),
+              _keyProp = _Object$entries5$_i[0],
+              _valueProp = _Object$entries5$_i[1];
+
+          if (Object.keys(catReOrder[_keyProp].props).length == 0) {
+            delete catReOrder[_keyProp];
+          }
+        } // 4. Render
+
+
+        var tabPanel = [];
+
+        for (var _i6 = 0, _Object$entries6 = Object.entries(catReOrder); _i6 < _Object$entries6.length; _i6++) {
+          var _Object$entries6$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries6[_i6], 2),
+              keyCat = _Object$entries6$_i[0],
+              valCat = _Object$entries6$_i[1];
+
+          if (valCat.props.length == 0) continue;
+          var currentEditCat = [];
+
+          for (var _i7 = 0, _Object$entries7 = Object.entries(valCat.props); _i7 < _Object$entries7.length; _i7++) {
+            var _Object$entries7$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries7[_i7], 2),
+                _keyProp2 = _Object$entries7$_i[0],
+                prop = _Object$entries7$_i[1];
+
+            var _valueProp2 = this.getAttribute(_keyProp2);
+
+            currentEditCat.push(this.renderControl(prop, [_keyProp2], _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, _keyProp2, _valueProp2)));
+          }
+
+          if (keyCat == "default") {
+            tabPanel.push({
+              name: keyCat,
+              title: "Default",
+              content: currentEditCat
+            });
+          } else {
+            tabPanel.push({
+              name: keyCat,
+              title: valCat.name,
+              content: currentEditCat
+            });
+          }
+        }
+
+        if (tabPanel.length > 1) {
+          editPlaceHolder = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["TabPanel"], {
+            key: clientId + "-tabPanel",
+            className: "tab-panel-wpe-component",
+            activeClass: "active-tab",
+            tabs: tabPanel
+          }, function (tabPanel) {
+            return tabPanel.content;
+          }));
+        } else {
+          editPlaceHolder = tabPanel[0].content;
+        }
       }
 
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_12__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_marginControls__WEBPACK_IMPORTED_MODULE_14__["MarginControls"], {

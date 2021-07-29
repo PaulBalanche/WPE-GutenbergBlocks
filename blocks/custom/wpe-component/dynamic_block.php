@@ -38,6 +38,9 @@ if( file_exists( Wpextend\GutenbergBlock::get_fontspec_path() ) ) {
                         case 'richText':
                             $currentType = 'string';
                             break;
+                        case 'wysiwyg':
+                            $currentType = 'string';
+                            break;
                         case 'boolean':
                             $currentType = 'boolean';
                             break;

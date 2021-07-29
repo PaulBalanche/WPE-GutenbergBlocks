@@ -27,6 +27,11 @@ import {
 
 import { MarginControls } from './_marginControls';
 
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+
+
 class WpeComponent extends Component {
 
 	constructor() {
@@ -62,7 +67,6 @@ class WpeComponent extends Component {
     }
 
     updateAttributes( arrayKey, currentValue, newValue, isNumber = false ) {
-
         let keyToUpdate = arrayKey[0];
         let newValueToUpdate = this.recursiveUpdateObjectFromObject(arrayKey, currentValue, newValue, isNumber);
 
@@ -158,6 +162,10 @@ class WpeComponent extends Component {
                 
                 case 'richText':
                     blocReturned.push( this.renderRichTextControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    break;
+
+                case 'wysiwyg':
+                    blocReturned.push( this.renderWysiwygControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
                     break;
 
                 case 'boolean':
@@ -397,7 +405,61 @@ class WpeComponent extends Component {
             </div>
         );
     }
+    
+    renderWysiwygControl( id, label, keys, valueProp, objectValue, repeatable = false ) {
 
+        if( repeatable ) {
+            label = (
+                <>
+                    { label }
+                    <Button
+                        key={ id + "-repeatableRemoveElt" }
+                        isLink={true}
+                        className="removeRepeatable"
+                        onClick={ () =>
+                            this.removeEltRepeatable(keys, valueProp)
+                        }
+                    >
+                        Remove
+                    </Button>
+                </>
+            );
+        }
+
+        return (
+            <div
+                key={ id + "-WysiwygComponentsBaseControl" }
+                className="components-base-control"
+            >
+                <div
+                    key={ id + "-WysiwygComponentsBaseControlField" }
+                    className="components-base-control__field"
+                >
+                    <div
+                        key={ id + "-WysiwygContainer" }
+                        className="wysiwyg-container"
+                    >
+                        <div className="components-base-control__label" key={ id + "-label" }>{ label }</div>
+                        <CKEditor
+                            editor={ ClassicEditor }
+                            data={ objectValue }
+                            onChange={ ( event, editor ) => {
+                                const data = editor.getData();
+                                this.updateAttributes(keys, valueProp, data, false)
+                            } }
+                            config={ {
+                                toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'alignment' ],
+                                alignment: {
+                                    options: [ 'left', 'center', 'right', 'justify' ]
+                                }
+                            } }
+                        />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    
     renderLinkControl( id, label, keys, valueProp, objectValue, repeatable = false ) {
 
         if( repeatable ) {
@@ -461,6 +523,9 @@ class WpeComponent extends Component {
 
     renderSelectControl( id, label, options, keys, valueProp, objectValue, repeatable = false ) {
 
+        if( typeof options == 'undefined' )
+            return null;
+
         if( repeatable ) {
             label = (
                 <>
@@ -497,6 +562,9 @@ class WpeComponent extends Component {
     }
 
     renderRadioControl( id, label, options, keys, valueProp, objectValue, repeatable = false ) {
+
+        if( typeof options == 'undefined' )
+            return null;
 
         if( repeatable ) {
             label = (
@@ -554,6 +622,9 @@ class WpeComponent extends Component {
     }
 
     renderRelationControl( id, label, entity, keys, valueProp, objectValue, repeatable = false ) {
+
+        if( typeof entity == 'undefined' || typeof this.props.relations[entity] == 'undefined' || this.props.relations[entity] == null || Object.keys(this.props.relations[entity]).length == 0 )
+            return null;
 
         if( repeatable ) {
             label = (
@@ -907,7 +978,7 @@ export default (element, current_user_can_edit_posts) => withSelect( ( select, p
         // 2. Loop Props
         for (const [keyProp, valueProp] of Object.entries(element.props)) {
 
-            if( valueProp.type == 'relation' && relations[ valueProp.entity ] == null ) {
+            if( valueProp.type == 'relation' && typeof valueProp.entity != 'undefined' && relations[ valueProp.entity ] == null ) {
                 relations[ valueProp.entity ] = getEntityRecords( 'postType', valueProp.entity );
             }
         }

@@ -43,6 +43,11 @@ global_localized.components.forEach( ( element ) => {
                     type: 'string'
                 };
                 break;
+            case 'wysiwyg':
+                initAttributes[key] = {
+                    type: 'string'
+                };
+                break;
             case 'boolean':
                 initAttributes[key] = {
                     type: 'boolean'

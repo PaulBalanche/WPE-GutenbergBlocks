@@ -28,8 +28,7 @@ import {
 import { MarginControls } from './_marginControls';
 
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
+import ClassicEditor from '@paulbalanche/ckeditor5-build-classic-with-alignment';
 
 
 class WpeComponent extends Component {
@@ -446,12 +445,6 @@ class WpeComponent extends Component {
                             onChange={ ( event, editor ) => {
                                 const data = editor.getData();
                                 this.updateAttributes(keys, valueProp, data, false)
-                            } }
-                            config={ {
-                                toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'alignment' ],
-                                alignment: {
-                                    options: [ 'left', 'center', 'right', 'justify' ]
-                                }
                             } }
                         />
                     </div>

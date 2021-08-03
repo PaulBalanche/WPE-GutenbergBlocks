@@ -19,6 +19,9 @@ global_localized.components.forEach( ( element ) => {
         id_component: {
             type: 'string'
         },
+        padding: {
+            type: 'object'
+        },
         margin: {
             type: 'object'
         }

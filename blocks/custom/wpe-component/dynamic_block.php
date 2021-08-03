@@ -14,6 +14,9 @@ if( file_exists( Wpextend\GutenbergBlock::get_fontspec_path() ) ) {
                     'id_component' => [
                         'type' => 'string'
                     ],
+                    'padding' => [
+                        'type' => 'object'
+                    ],
                     'margin' => [
                         'type' => 'object'
                     ],

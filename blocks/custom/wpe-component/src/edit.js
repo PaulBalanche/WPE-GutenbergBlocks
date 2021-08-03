@@ -446,6 +446,29 @@ class WpeComponent extends Component {
                                 const data = editor.getData();
                                 this.updateAttributes(keys, valueProp, data, false)
                             } }
+                            config={ {
+                                heading: {
+                                    options: [
+                                        { model: 'paragraph', title: 'Paragraph' },
+                                        {
+                                            model: 'h1',
+                                            view: {
+                                                name: 'h1',
+                                                classes: 's-typo:h1'
+                                            },
+                                            title: 'Heading #1'
+                                        },
+                                        {
+                                            model: 'h2',
+                                            view: {
+                                                name: 'h2',
+                                                classes: 's-typo:h2'
+                                            },
+                                            title: 'Heading #2'
+                                        }
+                                    ]
+                                }
+                            } }
                         />
                     </div>
                 </div>

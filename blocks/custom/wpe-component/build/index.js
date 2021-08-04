@@ -546,9 +546,19 @@ var MarginControls = /*#__PURE__*/function (_Component) {
         top: undefined,
         bottom: undefined,
         left: undefined,
-        right: undefined
+        right: undefined,
+        x: undefined,
+        y: undefined
       }, _this.parentProps.attributes.padding),
-      margin: _this.parentProps.attributes.margin
+      margin: Object.assign({
+        all: undefined,
+        top: undefined,
+        bottom: undefined,
+        left: undefined,
+        right: undefined,
+        x: undefined,
+        y: undefined
+      }, _this.parentProps.attributes.margin)
     };
     return _this;
   }
@@ -558,10 +568,6 @@ var MarginControls = /*#__PURE__*/function (_Component) {
     value: function getPadding(type) {
       if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.padding) == 'object' && this.state.padding.hasOwnProperty(type)) {
         return this.state.padding[type];
-      } else if (type == 'x' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.padding) == 'object') {
-        if (this.state.padding.hasOwnProperty('left') && this.state.padding.hasOwnProperty('right') && this.state.padding['left'] == this.state.padding['right']) return this.state.padding['left'];
-      } else if (type == 'y' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.padding) == 'object') {
-        if (this.state.padding.hasOwnProperty('top') && this.state.padding.hasOwnProperty('bottom') && this.state.padding['top'] == this.state.padding['bottom']) return this.state.padding['top'];
       }
 
       return null;
@@ -569,12 +575,12 @@ var MarginControls = /*#__PURE__*/function (_Component) {
   }, {
     key: "getMargin",
     value: function getMargin(type) {
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.currentMargin) == 'object' && this.currentMargin.hasOwnProperty(type)) {
-        return this.currentMargin[type];
-      } else if (type == 'x' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.currentMargin) == 'object') {
-        if (this.currentMargin.hasOwnProperty('left') && this.currentMargin.hasOwnProperty('right') && this.currentMargin['left'] == this.currentMargin['right']) return this.currentMargin['left'];
-      } else if (type == 'y' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.currentMargin) == 'object') {
-        if (this.currentMargin.hasOwnProperty('top') && this.currentMargin.hasOwnProperty('bottom') && this.currentMargin['top'] == this.currentMargin['bottom']) return this.currentMargin['top'];
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.margin) == 'object' && this.state.margin.hasOwnProperty(type)) {
+        return this.state.margin[type];
+      } else if (type == 'x' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.margin) == 'object') {
+        if (this.state.margin.hasOwnProperty('left') && this.state.margin.hasOwnProperty('right') && this.state.margin.left == this.state.margin.right) return this.state.margin.left;
+      } else if (type == 'y' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.margin) == 'object') {
+        if (this.state.margin.hasOwnProperty('top') && this.state.margin.hasOwnProperty('bottom') && this.state.margin.top == this.state.margin.bottom) return this.state.margin.top;
       }
 
       return null;
@@ -598,16 +604,17 @@ var MarginControls = /*#__PURE__*/function (_Component) {
   }, {
     key: "setMargin",
     value: function setMargin(type, value) {
-      if (typeof this.currentMargin == 'undefined') {
-        this.currentMargin = {};
+      if (typeof this.state.margin == 'undefined') {
+        this.setState({
+          margin: {}
+        });
       }
 
-      this.currentMargin = Object.assign(this.currentMargin, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, type, value));
-      this.parentProps.setAttributes({
-        margin: this.currentMargin
-      });
       this.setState({
-        margin: this.currentMargin
+        margin: Object.assign(this.state.margin, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, type, value))
+      });
+      this.parentProps.setAttributes({
+        margin: this.state.margin
       });
     }
   }, {
@@ -619,7 +626,9 @@ var MarginControls = /*#__PURE__*/function (_Component) {
           top: undefined,
           bottom: undefined,
           left: undefined,
-          right: undefined
+          right: undefined,
+          x: undefined,
+          y: undefined
         }
       });
       this.parentProps.setAttributes({
@@ -629,9 +638,19 @@ var MarginControls = /*#__PURE__*/function (_Component) {
   }, {
     key: "resetMargin",
     value: function resetMargin() {
-      this.currentMargin = undefined;
+      this.setState({
+        margin: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        }
+      });
       this.parentProps.setAttributes({
-        margin: this.currentMargin
+        margin: undefined
       });
     }
   }, {
@@ -655,7 +674,7 @@ var MarginControls = /*#__PURE__*/function (_Component) {
 
       var btnResetMargin = [];
 
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.currentMargin) == 'object' && Object.keys(this.currentMargin).length > 0) {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.margin) == 'object' && Object.keys(this.state.margin).length > 0) {
         btnResetMargin.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
           key: "containerResetMargin-" + this.parentProps.clientId
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
@@ -671,34 +690,26 @@ var MarginControls = /*#__PURE__*/function (_Component) {
         title: 'Padding',
         initialOpen: false
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Padding",
+        label: "All",
         value: this.state.padding.all,
         onChange: function onChange(value) {
           _this2.setPadding('all', value);
         },
         min: 0,
         max: 5
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Padding X",
-        value: this.getPadding('x'),
-        onChange: function onChange(value) {
-          _this2.setPadding('left', value);
-
-          _this2.setPadding('right', value);
-        },
-        min: 0,
-        max: 5
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        class: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
         label: "Padding Y",
-        value: this.getPadding('y'),
+        value: this.state.padding.y,
         onChange: function onChange(value) {
-          _this2.setPadding('top', value);
-
-          _this2.setPadding('bottom', value);
+          _this2.setPadding('y', value);
         },
         min: 0,
         max: 5
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        class: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
         label: "Padding Top",
         value: this.state.padding.top,
         onChange: function onChange(value) {
@@ -714,7 +725,17 @@ var MarginControls = /*#__PURE__*/function (_Component) {
         },
         min: 0,
         max: 5
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "Padding X",
+        value: this.state.padding.x,
+        onChange: function onChange(value) {
+          _this2.setPadding('x', value);
+        },
+        min: 0,
+        max: 5
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        class: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
         label: "Padding Left",
         value: this.state.padding.left,
         onChange: function onChange(value) {
@@ -730,7 +751,7 @@ var MarginControls = /*#__PURE__*/function (_Component) {
         },
         min: 0,
         max: 5
-      }), btnResetPadding), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["PanelBody"], {
+      }))), btnResetPadding), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["PanelBody"], {
         title: 'Margin',
         initialOpen: false
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
@@ -741,27 +762,19 @@ var MarginControls = /*#__PURE__*/function (_Component) {
         },
         min: 0,
         max: 5
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Margin X",
-        value: this.getMargin('x'),
-        onChange: function onChange(value) {
-          _this2.setMargin('left', value);
-
-          _this2.setMargin('right', value);
-        },
-        min: 0,
-        max: 5
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        class: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
         label: "Margin Y",
-        value: this.getMargin('y'),
+        value: this.state.margin.y,
         onChange: function onChange(value) {
-          _this2.setMargin('top', value);
-
-          _this2.setMargin('bottom', value);
+          _this2.setMargin('y', value);
         },
         min: 0,
         max: 5
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        class: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
         label: "Margin Top",
         value: this.state.margin.top,
         onChange: function onChange(value) {
@@ -777,7 +790,17 @@ var MarginControls = /*#__PURE__*/function (_Component) {
         },
         min: 0,
         max: 5
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "Margin X",
+        value: this.state.margin.x,
+        onChange: function onChange(value) {
+          _this2.setMargin('x', value);
+        },
+        min: 0,
+        max: 5
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        class: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
         label: "Margin Left",
         value: this.state.margin.left,
         onChange: function onChange(value) {
@@ -793,7 +816,7 @@ var MarginControls = /*#__PURE__*/function (_Component) {
         },
         min: 0,
         max: 5
-      }), btnResetMargin));
+      }))), btnResetMargin));
     }
   }]);
 

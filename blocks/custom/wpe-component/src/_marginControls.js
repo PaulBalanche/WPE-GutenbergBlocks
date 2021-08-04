@@ -15,8 +15,8 @@ export class MarginControls extends Component {
         this.parentProps = attr.props;
 
         this.state = {
-            padding: Object.assign( { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined }, this.parentProps.attributes.padding),
-            margin: this.parentProps.attributes.margin
+            padding: Object.assign( { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined }, this.parentProps.attributes.padding),
+            margin: Object.assign( { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined }, this.parentProps.attributes.margin)
 		};
     }
 
@@ -24,33 +24,23 @@ export class MarginControls extends Component {
         if( typeof this.state.padding == 'object' && this.state.padding.hasOwnProperty(type) ) {
             return this.state.padding[type];
         }
-        else if( type == 'x' && typeof this.state.padding == 'object' ) {
-
-            if( this.state.padding.hasOwnProperty('left') && this.state.padding.hasOwnProperty('right') && this.state.padding['left'] == this.state.padding['right'] )
-                return this.state.padding['left'];
-        }
-        else if( type == 'y' && typeof this.state.padding == 'object' ) {
-
-            if( this.state.padding.hasOwnProperty('top') && this.state.padding.hasOwnProperty('bottom') && this.state.padding['top'] == this.state.padding['bottom'] )
-                return this.state.padding['top'];
-        }
         
         return null;
     }
 
     getMargin(type) {
-        if( typeof this.currentMargin == 'object' && this.currentMargin.hasOwnProperty(type) ) {
-            return this.currentMargin[type];
+        if( typeof this.state.margin == 'object' && this.state.margin.hasOwnProperty(type) ) {
+            return this.state.margin[type];
         }
-        else if( type == 'x' && typeof this.currentMargin == 'object' ) {
+        else if( type == 'x' && typeof this.state.margin == 'object' ) {
 
-            if( this.currentMargin.hasOwnProperty('left') && this.currentMargin.hasOwnProperty('right') && this.currentMargin['left'] == this.currentMargin['right'] )
-                return this.currentMargin['left'];
+            if( this.state.margin.hasOwnProperty('left') && this.state.margin.hasOwnProperty('right') && this.state.margin.left == this.state.margin.right )
+                return this.state.margin.left;
         }
-        else if( type == 'y' && typeof this.currentMargin == 'object' ) {
+        else if( type == 'y' && typeof this.state.margin == 'object' ) {
 
-            if( this.currentMargin.hasOwnProperty('top') && this.currentMargin.hasOwnProperty('bottom') && this.currentMargin['top'] == this.currentMargin['bottom'] )
-                return this.currentMargin['top'];
+            if( this.state.margin.hasOwnProperty('top') && this.state.margin.hasOwnProperty('bottom') && this.state.margin.top == this.state.margin.bottom )
+                return this.state.margin.top;
         }
         
         return null;
@@ -68,24 +58,22 @@ export class MarginControls extends Component {
     
     setMargin( type, value ) {
 
-        if( typeof this.currentMargin == 'undefined' ) {
-            this.currentMargin = {};
+        if( typeof this.state.margin == 'undefined' ) {
+            this.setState( { margin: {} } );
         }
         
-        this.currentMargin = Object.assign(this.currentMargin, { [type]: value });
-        this.parentProps.setAttributes( { margin: this.currentMargin } );
-
-        this.setState( { margin: this.currentMargin } );
+        this.setState( { margin: Object.assign(this.state.margin, { [type]: value }) } );
+        this.parentProps.setAttributes( { margin: this.state.margin } );
     }
 
     resetPadding() {
-        this.setState( { padding: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined } } );
+        this.setState( { padding: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } );
         this.parentProps.setAttributes( { padding: undefined } );
     }
     
     resetMargin() {
-        this.currentMargin = undefined;
-        this.parentProps.setAttributes( { margin: this.currentMargin } );
+        this.setState( { margin: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } );
+        this.parentProps.setAttributes( { margin: undefined } );
     }
 
     render() {
@@ -109,7 +97,7 @@ export class MarginControls extends Component {
         }
 
         var btnResetMargin = [];
-        if( typeof this.currentMargin == 'object' && Object.keys(this.currentMargin).length > 0 ) {
+        if( typeof this.state.margin == 'object' && Object.keys(this.state.margin).length > 0 ) {
             btnResetMargin.push(
                 <div key={ "containerResetMargin-" + this.parentProps.clientId }>
                     <HorizontalRule />
@@ -130,7 +118,7 @@ export class MarginControls extends Component {
             <>
                 <PanelBody title={ 'Padding' } initialOpen={ false }>
                     <RangeControl
-                        label="Padding"
+                        label="All"
                         value={ this.state.padding.all }
                         onChange={ ( value ) => {
                             this.setPadding('all', value);
@@ -139,63 +127,67 @@ export class MarginControls extends Component {
                         max={ 5 }
                     />
                     <HorizontalRule />
-                    <RangeControl
-                        label="Padding X"
-                        value={ this.getPadding('x') }
-                        onChange={ ( value ) => {
-                            this.setPadding('left', value);
-                            this.setPadding('right', value);
-                        } }
-                        min={ 0 }
-                        max={ 5 }
-                    />
-                    <RangeControl
-                        label="Padding Y"
-                        value={ this.getPadding('y') }
-                        onChange={ ( value ) => {
-                            this.setPadding('top', value);
-                            this.setPadding('bottom', value);
-                        } }
-                        min={ 0 }
-                        max={ 5 }
-                    />
-                    <HorizontalRule />
-                    <RangeControl
-                        label="Padding Top"
-                        value={ this.state.padding.top }
-                        onChange={ ( value ) => 
-                            this.setPadding('top', value)
-                        }
-                        min={ 0 }
-                        max={ 5 }
-                    />
-                    <RangeControl
-                        label="Padding Bottom"
-                        value={ this.state.padding.bottom }
-                        onChange={ ( value ) =>
-                            this.setPadding('bottom', value)
-                        }
-                        min={ 0 }
-                        max={ 5 }
-                    />
-                    <RangeControl
-                        label="Padding Left"
-                        value={ this.state.padding.left }
-                        onChange={ ( value ) => 
-                            this.setPadding('left', value)
-                        }
-                        min={ 0 }
-                        max={ 5 }
-                    />
-                    <RangeControl
-                        label="Padding Right"
-                        value={ this.state.padding.right }
-                        onChange={ ( value ) =>
-                            this.setPadding('right', value)
-                        }
-                        min={ 0 }
-                        max={ 5 }
-                    />
+                    <div class="child-range-control">
+                        <RangeControl
+                            label="Padding Y"
+                            value={ this.state.padding.y }
+                            onChange={ ( value ) => {
+                                this.setPadding('y', value);
+                            } }
+                            min={ 0 }
+                            max={ 5 }
+                        />
+                        <div class="child-range-control">
+                            <RangeControl
+                                label="Padding Top"
+                                value={ this.state.padding.top }
+                                onChange={ ( value ) => 
+                                    this.setPadding('top', value)
+                                }
+                                min={ 0 }
+                                max={ 5 }
+                            />
+                            <RangeControl
+                                label="Padding Bottom"
+                                value={ this.state.padding.bottom }
+                                onChange={ ( value ) =>
+                                    this.setPadding('bottom', value)
+                                }
+                                min={ 0 }
+                                max={ 5 }
+                            />
+                        </div>
+                        <HorizontalRule />
+                        <RangeControl
+                            label="Padding X"
+                            value={ this.state.padding.x }
+                            onChange={ ( value ) => {
+                                this.setPadding('x', value);
+                            } }
+                            min={ 0 }
+                            max={ 5 }
+                        />
+                        <div class="child-range-control">
+                            <RangeControl
+                                label="Padding Left"
+                                value={ this.state.padding.left }
+                                onChange={ ( value ) => 
+                                    this.setPadding('left', value)
+                                }
+                                min={ 0 }
+                                max={ 5 }
+                            />
+                            <RangeControl
+                                label="Padding Right"
+                                value={ this.state.padding.right }
+                                onChange={ ( value ) =>
+                                    this.setPadding('right', value)
+                                }
+                                min={ 0 }
+                                max={ 5 }
+                            />
+                        </div>
+                    </div>
                     { btnResetPadding }
                 </PanelBody>
                 <PanelBody title={ 'Margin' } initialOpen={ false }>
@@ -209,63 +201,67 @@ export class MarginControls extends Component {
                         max={ 5 }
                     />
                     <HorizontalRule />
-                    <RangeControl
-                        label="Margin X"
-                        value={ this.getMargin('x') }
-                        onChange={ ( value ) => {
-                            this.setMargin('left', value);
-                            this.setMargin('right', value);
-                        } }
-                        min={ 0 }
-                        max={ 5 }
-                    />
-                    <RangeControl
-                        label="Margin Y"
-                        value={ this.getMargin('y') }
-                        onChange={ ( value ) => {
-                            this.setMargin('top', value);
-                            this.setMargin('bottom', value);
-                        } }
-                        min={ 0 }
-                        max={ 5 }
-                    />
-                    <HorizontalRule />
-                    <RangeControl
-                        label="Margin Top"
-                        value={ this.state.margin.top }
-                        onChange={ ( value ) =>
-                            this.setMargin('top', value)
-                        }
-                        min={ 0 }
-                        max={ 5 }
-                    />
-                    <RangeControl
-                        label="Margin Bottom"
-                        value={ this.state.margin.bottom }
-                        onChange={ ( value ) =>
-                            this.setMargin('bottom', value)
-                        }
-                        min={ 0 }
-                        max={ 5 }
-                    />
-                    <RangeControl
-                        label="Margin Left"
-                        value={ this.state.margin.left }
-                        onChange={ ( value ) =>
-                            this.setMargin('left', value)
-                        }
-                        min={ 0 }
-                        max={ 5 }
-                    />
-                    <RangeControl
-                        label="Margin Right"
-                        value={ this.state.margin.right }
-                        onChange={ ( value ) =>
-                            this.setMargin('right', value)
-                        }
-                        min={ 0 }
-                        max={ 5 }
-                    />
+                    <div class="child-range-control">
+                        <RangeControl
+                            label="Margin Y"
+                            value={ this.state.margin.y }
+                            onChange={ ( value ) => {
+                                this.setMargin('y', value);
+                            } }
+                            min={ 0 }
+                            max={ 5 }
+                        />
+                        <div class="child-range-control">
+                            <RangeControl
+                                label="Margin Top"
+                                value={ this.state.margin.top }
+                                onChange={ ( value ) =>
+                                    this.setMargin('top', value)
+                                }
+                                min={ 0 }
+                                max={ 5 }
+                            />
+                            <RangeControl
+                                label="Margin Bottom"
+                                value={ this.state.margin.bottom }
+                                onChange={ ( value ) =>
+                                    this.setMargin('bottom', value)
+                                }
+                                min={ 0 }
+                                max={ 5 }
+                            />
+                        </div>
+                        <HorizontalRule />
+                        <RangeControl
+                            label="Margin X"
+                            value={ this.state.margin.x }
+                            onChange={ ( value ) => {
+                                this.setMargin('x', value);
+                            } }
+                            min={ 0 }
+                            max={ 5 }
+                        />
+                        <div class="child-range-control">
+                            <RangeControl
+                                label="Margin Left"
+                                value={ this.state.margin.left }
+                                onChange={ ( value ) =>
+                                    this.setMargin('left', value)
+                                }
+                                min={ 0 }
+                                max={ 5 }
+                            />
+                            <RangeControl
+                                label="Margin Right"
+                                value={ this.state.margin.right }
+                                onChange={ ( value ) =>
+                                    this.setMargin('right', value)
+                                }
+                                min={ 0 }
+                                max={ 5 }
+                            />
+                        </div>
+                    </div>
                     { btnResetMargin }
                 </PanelBody>
             </>

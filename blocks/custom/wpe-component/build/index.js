@@ -481,6 +481,516 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ "./node_modules/is-what/dist/index.esm.js":
+/*!************************************************!*\
+  !*** ./node_modules/is-what/dist/index.esm.js ***!
+  \************************************************/
+/*! exports provided: getType, isAnyObject, isArray, isBlob, isBoolean, isDate, isEmptyArray, isEmptyObject, isEmptyString, isError, isFile, isFullArray, isFullObject, isFullString, isFunction, isMap, isNaNValue, isNull, isNullOrUndefined, isNumber, isObject, isObjectLike, isOneOf, isPlainObject, isPrimitive, isPromise, isRegExp, isSet, isString, isSymbol, isType, isUndefined, isWeakMap, isWeakSet */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getType", function() { return getType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAnyObject", function() { return isAnyObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isArray", function() { return isArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBlob", function() { return isBlob; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBoolean", function() { return isBoolean; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isDate", function() { return isDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmptyArray", function() { return isEmptyArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmptyObject", function() { return isEmptyObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmptyString", function() { return isEmptyString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isError", function() { return isError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return isFile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFullArray", function() { return isFullArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFullObject", function() { return isFullObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFullString", function() { return isFullString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFunction", function() { return isFunction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isMap", function() { return isMap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNaNValue", function() { return isNaNValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNull", function() { return isNull; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNullOrUndefined", function() { return isNullOrUndefined; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNumber", function() { return isNumber; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObject", function() { return isObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObjectLike", function() { return isObjectLike; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isOneOf", function() { return isOneOf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlainObject", function() { return isPlainObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPrimitive", function() { return isPrimitive; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPromise", function() { return isPromise; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isRegExp", function() { return isRegExp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isSet", function() { return isSet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isString", function() { return isString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isSymbol", function() { return isSymbol; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isType", function() { return isType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isUndefined", function() { return isUndefined; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isWeakMap", function() { return isWeakMap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isWeakSet", function() { return isWeakSet; });
+/**
+ * Returns the object type of the given payload
+ *
+ * @param {*} payload
+ * @returns {string}
+ */
+function getType(payload) {
+    return Object.prototype.toString.call(payload).slice(8, -1);
+}
+/**
+ * Returns whether the payload is undefined
+ *
+ * @param {*} payload
+ * @returns {payload is undefined}
+ */
+function isUndefined(payload) {
+    return getType(payload) === 'Undefined';
+}
+/**
+ * Returns whether the payload is null
+ *
+ * @param {*} payload
+ * @returns {payload is null}
+ */
+function isNull(payload) {
+    return getType(payload) === 'Null';
+}
+/**
+ * Returns whether the payload is a plain JavaScript object (excluding special classes or objects with other prototypes)
+ *
+ * @param {*} payload
+ * @returns {payload is PlainObject}
+ */
+function isPlainObject(payload) {
+    if (getType(payload) !== 'Object')
+        return false;
+    return payload.constructor === Object && Object.getPrototypeOf(payload) === Object.prototype;
+}
+/**
+ * Returns whether the payload is a plain JavaScript object (excluding special classes or objects with other prototypes)
+ *
+ * @param {*} payload
+ * @returns {payload is PlainObject}
+ */
+function isObject(payload) {
+    return isPlainObject(payload);
+}
+/**
+ * Returns whether the payload is a an empty object (excluding special classes or objects with other prototypes)
+ *
+ * @param {*} payload
+ * @returns {payload is { [K in any]: never }}
+ */
+function isEmptyObject(payload) {
+    return isPlainObject(payload) && Object.keys(payload).length === 0;
+}
+/**
+ * Returns whether the payload is a an empty object (excluding special classes or objects with other prototypes)
+ *
+ * @param {*} payload
+ * @returns {payload is PlainObject}
+ */
+function isFullObject(payload) {
+    return isPlainObject(payload) && Object.keys(payload).length > 0;
+}
+/**
+ * Returns whether the payload is an any kind of object (including special classes or objects with different prototypes)
+ *
+ * @param {*} payload
+ * @returns {payload is PlainObject}
+ */
+function isAnyObject(payload) {
+    return getType(payload) === 'Object';
+}
+/**
+ * Returns whether the payload is an object like a type passed in < >
+ *
+ * Usage: isObjectLike<{id: any}>(payload) // will make sure it's an object and has an `id` prop.
+ *
+ * @template T this must be passed in < >
+ * @param {*} payload
+ * @returns {payload is T}
+ */
+function isObjectLike(payload) {
+    return isAnyObject(payload);
+}
+/**
+ * Returns whether the payload is a function (regular or async)
+ *
+ * @param {*} payload
+ * @returns {payload is AnyFunction}
+ */
+function isFunction(payload) {
+    return typeof payload === 'function';
+}
+/**
+ * Returns whether the payload is an array
+ *
+ * @param {any} payload
+ * @returns {payload is any[]}
+ */
+function isArray(payload) {
+    return getType(payload) === 'Array';
+}
+/**
+ * Returns whether the payload is a an array with at least 1 item
+ *
+ * @param {*} payload
+ * @returns {payload is any[]}
+ */
+function isFullArray(payload) {
+    return isArray(payload) && payload.length > 0;
+}
+/**
+ * Returns whether the payload is a an empty array
+ *
+ * @param {*} payload
+ * @returns {payload is []}
+ */
+function isEmptyArray(payload) {
+    return isArray(payload) && payload.length === 0;
+}
+/**
+ * Returns whether the payload is a string
+ *
+ * @param {*} payload
+ * @returns {payload is string}
+ */
+function isString(payload) {
+    return getType(payload) === 'String';
+}
+/**
+ * Returns whether the payload is a string, BUT returns false for ''
+ *
+ * @param {*} payload
+ * @returns {payload is string}
+ */
+function isFullString(payload) {
+    return isString(payload) && payload !== '';
+}
+/**
+ * Returns whether the payload is ''
+ *
+ * @param {*} payload
+ * @returns {payload is string}
+ */
+function isEmptyString(payload) {
+    return payload === '';
+}
+/**
+ * Returns whether the payload is a number (but not NaN)
+ *
+ * This will return `false` for `NaN`!!
+ *
+ * @param {*} payload
+ * @returns {payload is number}
+ */
+function isNumber(payload) {
+    return getType(payload) === 'Number' && !isNaN(payload);
+}
+/**
+ * Returns whether the payload is a boolean
+ *
+ * @param {*} payload
+ * @returns {payload is boolean}
+ */
+function isBoolean(payload) {
+    return getType(payload) === 'Boolean';
+}
+/**
+ * Returns whether the payload is a regular expression (RegExp)
+ *
+ * @param {*} payload
+ * @returns {payload is RegExp}
+ */
+function isRegExp(payload) {
+    return getType(payload) === 'RegExp';
+}
+/**
+ * Returns whether the payload is a Map
+ *
+ * @param {*} payload
+ * @returns {payload is Map<any, any>}
+ */
+function isMap(payload) {
+    return getType(payload) === 'Map';
+}
+/**
+ * Returns whether the payload is a WeakMap
+ *
+ * @param {*} payload
+ * @returns {payload is WeakMap<any, any>}
+ */
+function isWeakMap(payload) {
+    return getType(payload) === 'WeakMap';
+}
+/**
+ * Returns whether the payload is a Set
+ *
+ * @param {*} payload
+ * @returns {payload is Set<any>}
+ */
+function isSet(payload) {
+    return getType(payload) === 'Set';
+}
+/**
+ * Returns whether the payload is a WeakSet
+ *
+ * @param {*} payload
+ * @returns {payload is WeakSet<any>}
+ */
+function isWeakSet(payload) {
+    return getType(payload) === 'WeakSet';
+}
+/**
+ * Returns whether the payload is a Symbol
+ *
+ * @param {*} payload
+ * @returns {payload is symbol}
+ */
+function isSymbol(payload) {
+    return getType(payload) === 'Symbol';
+}
+/**
+ * Returns whether the payload is a Date, and that the date is valid
+ *
+ * @param {*} payload
+ * @returns {payload is Date}
+ */
+function isDate(payload) {
+    return getType(payload) === 'Date' && !isNaN(payload);
+}
+/**
+ * Returns whether the payload is a Blob
+ *
+ * @param {*} payload
+ * @returns {payload is Blob}
+ */
+function isBlob(payload) {
+    return getType(payload) === 'Blob';
+}
+/**
+ * Returns whether the payload is a File
+ *
+ * @param {*} payload
+ * @returns {payload is File}
+ */
+function isFile(payload) {
+    return getType(payload) === 'File';
+}
+/**
+ * Returns whether the payload is a Promise
+ *
+ * @param {*} payload
+ * @returns {payload is Promise<any>}
+ */
+function isPromise(payload) {
+    return getType(payload) === 'Promise';
+}
+/**
+ * Returns whether the payload is an Error
+ *
+ * @param {*} payload
+ * @returns {payload is Error}
+ */
+function isError(payload) {
+    return getType(payload) === 'Error';
+}
+/**
+ * Returns whether the payload is literally the value `NaN` (it's `NaN` and also a `number`)
+ *
+ * @param {*} payload
+ * @returns {payload is typeof NaN}
+ */
+function isNaNValue(payload) {
+    return getType(payload) === 'Number' && isNaN(payload);
+}
+/**
+ * Returns whether the payload is a primitive type (eg. Boolean | Null | Undefined | Number | String | Symbol)
+ *
+ * @param {*} payload
+ * @returns {(payload is boolean | null | undefined | number | string | symbol)}
+ */
+function isPrimitive(payload) {
+    return (isBoolean(payload) ||
+        isNull(payload) ||
+        isUndefined(payload) ||
+        isNumber(payload) ||
+        isString(payload) ||
+        isSymbol(payload));
+}
+/**
+ * Returns true whether the payload is null or undefined
+ *
+ * @param {*} payload
+ * @returns {(payload is null | undefined)}
+ */
+var isNullOrUndefined = isOneOf(isNull, isUndefined);
+function isOneOf(a, b, c, d, e) {
+    return function (value) {
+        return a(value) || b(value) || (!!c && c(value)) || (!!d && d(value)) || (!!e && e(value));
+    };
+}
+/**
+ * Does a generic check to check that the given payload is of a given type.
+ * In cases like Number, it will return true for NaN as NaN is a Number (thanks javascript!);
+ * It will, however, differentiate between object and null
+ *
+ * @template T
+ * @param {*} payload
+ * @param {T} type
+ * @throws {TypeError} Will throw type error if type is an invalid type
+ * @returns {payload is T}
+ */
+function isType(payload, type) {
+    if (!(type instanceof Function)) {
+        throw new TypeError('Type must be a function');
+    }
+    if (!Object.prototype.hasOwnProperty.call(type, 'prototype')) {
+        throw new TypeError('Type is not a class');
+    }
+    // Classes usually have names (as functions usually have names)
+    var name = type.name;
+    return getType(payload) === name || Boolean(payload && payload.constructor === type);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/merge-anything/dist/index.esm.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/merge-anything/dist/index.esm.js ***!
+  \*******************************************************/
+/*! exports provided: concatArrays, merge, mergeAndCompare, mergeAndConcat */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "concatArrays", function() { return concatArrays; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "merge", function() { return merge; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mergeAndCompare", function() { return mergeAndCompare; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mergeAndConcat", function() { return mergeAndConcat; });
+/* harmony import */ var is_what__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! is-what */ "./node_modules/is-what/dist/index.esm.js");
+
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+function __spreadArray(to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+}
+
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+function concatArrays(originVal, newVal) {
+    if (Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isArray"])(originVal) && Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isArray"])(newVal)) {
+        // concat logic
+        return originVal.concat(newVal);
+    }
+    return newVal; // always return newVal as fallback!!
+}
+
+function assignProp(carry, key, newVal, originalObject) {
+    var propType = {}.propertyIsEnumerable.call(originalObject, key)
+        ? 'enumerable'
+        : 'nonenumerable';
+    if (propType === 'enumerable')
+        carry[key] = newVal;
+    if (propType === 'nonenumerable') {
+        Object.defineProperty(carry, key, {
+            value: newVal,
+            enumerable: false,
+            writable: true,
+            configurable: true,
+        });
+    }
+}
+function mergeRecursively(origin, newComer, compareFn) {
+    // always return newComer if its not an object
+    if (!Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isPlainObject"])(newComer))
+        return newComer;
+    // define newObject to merge all values upon
+    var newObject = {};
+    if (Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isPlainObject"])(origin)) {
+        var props_1 = Object.getOwnPropertyNames(origin);
+        var symbols_1 = Object.getOwnPropertySymbols(origin);
+        newObject = __spreadArray(__spreadArray([], props_1), symbols_1).reduce(function (carry, key) {
+            var targetVal = origin[key];
+            if ((!Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isSymbol"])(key) && !Object.getOwnPropertyNames(newComer).includes(key)) ||
+                (Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isSymbol"])(key) && !Object.getOwnPropertySymbols(newComer).includes(key))) {
+                assignProp(carry, key, targetVal, origin);
+            }
+            return carry;
+        }, {});
+    }
+    // newObject has all properties that newComer hasn't
+    var props = Object.getOwnPropertyNames(newComer);
+    var symbols = Object.getOwnPropertySymbols(newComer);
+    var result = __spreadArray(__spreadArray([], props), symbols).reduce(function (carry, key) {
+        // re-define the origin and newComer as targetVal and newVal
+        var newVal = newComer[key];
+        var targetVal = Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isPlainObject"])(origin) ? origin[key] : undefined;
+        // When newVal is an object do the merge recursively
+        if (targetVal !== undefined && Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isPlainObject"])(newVal)) {
+            newVal = mergeRecursively(targetVal, newVal, compareFn);
+        }
+        var propToAssign = compareFn ? compareFn(targetVal, newVal, key) : newVal;
+        assignProp(carry, key, propToAssign, newComer);
+        return carry;
+    }, newObject);
+    return result;
+}
+/**
+ * Merge anything recursively.
+ * Objects get merged, special objects (classes etc.) are re-assigned "as is".
+ * Basic types overwrite objects or other basic types.
+ * @param object
+ * @param otherObjects
+ */
+function merge(object) {
+    var otherObjects = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        otherObjects[_i - 1] = arguments[_i];
+    }
+    return otherObjects.reduce(function (result, newComer) {
+        return mergeRecursively(result, newComer);
+    }, object);
+}
+function mergeAndCompare(compareFn, object) {
+    var otherObjects = [];
+    for (var _i = 2; _i < arguments.length; _i++) {
+        otherObjects[_i - 2] = arguments[_i];
+    }
+    return otherObjects.reduce(function (result, newComer) {
+        return mergeRecursively(result, newComer, compareFn);
+    }, object);
+}
+function mergeAndConcat(object) {
+    var otherObjects = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        otherObjects[_i - 1] = arguments[_i];
+    }
+    return otherObjects.reduce(function (result, newComer) {
+        return mergeRecursively(result, newComer, concatArrays);
+    }, object);
+}
+
+
+
+
+/***/ }),
+
 /***/ "./src/_marginControls.js":
 /*!********************************!*\
   !*** ./src/_marginControls.js ***!
@@ -494,10 +1004,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generateMarginClassName", function() { return generateMarginClassName; });
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
@@ -512,6 +1022,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var merge_anything__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! merge-anything */ "./node_modules/merge-anything/dist/index.esm.js");
 
 
 
@@ -528,6 +1039,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
+
 var MarginControls = /*#__PURE__*/function (_Component) {
   _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(MarginControls, _Component);
 
@@ -541,23 +1053,63 @@ var MarginControls = /*#__PURE__*/function (_Component) {
     _this = _super.apply(this, arguments);
     _this.parentProps = attr.props;
     _this.state = {
-      padding: Object.assign({
-        all: undefined,
-        top: undefined,
-        bottom: undefined,
-        left: undefined,
-        right: undefined,
-        x: undefined,
-        y: undefined
+      padding: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])({
+        mobile: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        },
+        tablet: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        },
+        desktop: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        }
       }, _this.parentProps.attributes.padding),
-      margin: Object.assign({
-        all: undefined,
-        top: undefined,
-        bottom: undefined,
-        left: undefined,
-        right: undefined,
-        x: undefined,
-        y: undefined
+      margin: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])({
+        mobile: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        },
+        tablet: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        },
+        desktop: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        }
       }, _this.parentProps.attributes.margin)
     };
     return _this;
@@ -566,8 +1118,8 @@ var MarginControls = /*#__PURE__*/function (_Component) {
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4___default()(MarginControls, [{
     key: "getPadding",
     value: function getPadding(type) {
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.padding) == 'object' && this.state.padding.hasOwnProperty(type)) {
-        return this.state.padding[type];
+      if (this.state.padding[this.props.deviceType.toLowerCase()].hasOwnProperty(type)) {
+        return this.state.padding[this.props.deviceType.toLowerCase()][type];
       }
 
       return null;
@@ -575,12 +1127,8 @@ var MarginControls = /*#__PURE__*/function (_Component) {
   }, {
     key: "getMargin",
     value: function getMargin(type) {
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.margin) == 'object' && this.state.margin.hasOwnProperty(type)) {
-        return this.state.margin[type];
-      } else if (type == 'x' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.margin) == 'object') {
-        if (this.state.margin.hasOwnProperty('left') && this.state.margin.hasOwnProperty('right') && this.state.margin.left == this.state.margin.right) return this.state.margin.left;
-      } else if (type == 'y' && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.margin) == 'object') {
-        if (this.state.margin.hasOwnProperty('top') && this.state.margin.hasOwnProperty('bottom') && this.state.margin.top == this.state.margin.bottom) return this.state.margin.top;
+      if (this.state.margin[this.props.deviceType.toLowerCase()].hasOwnProperty(type)) {
+        return this.state.margin[this.props.deviceType.toLowerCase()][type];
       }
 
       return null;
@@ -588,14 +1136,8 @@ var MarginControls = /*#__PURE__*/function (_Component) {
   }, {
     key: "setPadding",
     value: function setPadding(type, value) {
-      if (typeof this.state.padding == 'undefined') {
-        this.setState({
-          padding: {}
-        });
-      }
-
       this.setState({
-        padding: Object.assign(this.state.padding, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, type, value))
+        padding: Object.assign(this.state.padding[this.props.deviceType.toLowerCase()], _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, type, value))
       });
       this.parentProps.setAttributes({
         padding: this.state.padding
@@ -604,14 +1146,8 @@ var MarginControls = /*#__PURE__*/function (_Component) {
   }, {
     key: "setMargin",
     value: function setMargin(type, value) {
-      if (typeof this.state.margin == 'undefined') {
-        this.setState({
-          margin: {}
-        });
-      }
-
       this.setState({
-        margin: Object.assign(this.state.margin, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({}, type, value))
+        margin: Object.assign(this.state.margin[this.props.deviceType.toLowerCase()], _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, type, value))
       });
       this.parentProps.setAttributes({
         margin: this.state.margin
@@ -619,39 +1155,13 @@ var MarginControls = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "resetPadding",
-    value: function resetPadding() {
-      this.setState({
-        padding: {
-          all: undefined,
-          top: undefined,
-          bottom: undefined,
-          left: undefined,
-          right: undefined,
-          x: undefined,
-          y: undefined
-        }
-      });
-      this.parentProps.setAttributes({
-        padding: undefined
-      });
+    value: function resetPadding() {// this.setState( { padding: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } );
+      // this.parentProps.setAttributes( { padding: undefined } );
     }
   }, {
     key: "resetMargin",
-    value: function resetMargin() {
-      this.setState({
-        margin: {
-          all: undefined,
-          top: undefined,
-          bottom: undefined,
-          left: undefined,
-          right: undefined,
-          x: undefined,
-          y: undefined
-        }
-      });
-      this.parentProps.setAttributes({
-        margin: undefined
-      });
+    value: function resetMargin() {// this.setState( { margin: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } );
+      // this.parentProps.setAttributes( { margin: undefined } );
     }
   }, {
     key: "render",
@@ -660,7 +1170,7 @@ var MarginControls = /*#__PURE__*/function (_Component) {
 
       var btnResetPadding = [];
 
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.padding) == 'object' && Object.keys(this.state.padding).length > 0) {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.state.padding[this.props.deviceType.toLowerCase()]) == 'object' && Object.keys(this.state.padding).length > 0) {
         btnResetPadding.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
           key: "containerResetPadding-" + this.parentProps.clientId
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
@@ -674,7 +1184,7 @@ var MarginControls = /*#__PURE__*/function (_Component) {
 
       var btnResetMargin = [];
 
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.state.margin) == 'object' && Object.keys(this.state.margin).length > 0) {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.state.margin[this.props.deviceType.toLowerCase()]) == 'object' && Object.keys(this.state.margin[this.props.deviceType.toLowerCase()]).length > 0) {
         btnResetMargin.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
           key: "containerResetMargin-" + this.parentProps.clientId
         }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
@@ -687,65 +1197,65 @@ var MarginControls = /*#__PURE__*/function (_Component) {
       }
 
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["PanelBody"], {
-        title: 'Padding',
+        title: 'Padding (' + this.props.deviceType.toLowerCase() + ')',
         initialOpen: false
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
         label: "All",
-        value: this.state.padding.all,
+        value: this.state.padding[this.props.deviceType.toLowerCase()].all,
         onChange: function onChange(value) {
           _this2.setPadding('all', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        class: "child-range-control"
+        className: "child-range-control"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
         label: "Padding Y",
-        value: this.state.padding.y,
+        value: this.state.padding[this.props.deviceType.toLowerCase()].y,
         onChange: function onChange(value) {
           _this2.setPadding('y', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        class: "child-range-control"
+        className: "child-range-control"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Padding Top",
-        value: this.state.padding.top,
+        label: "Top",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].top,
         onChange: function onChange(value) {
           return _this2.setPadding('top', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Padding Bottom",
-        value: this.state.padding.bottom,
+        label: "Bottom",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].bottom,
         onChange: function onChange(value) {
           return _this2.setPadding('bottom', value);
         },
         min: 0,
         max: 5
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Padding X",
-        value: this.state.padding.x,
+        label: "X",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].x,
         onChange: function onChange(value) {
           _this2.setPadding('x', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        class: "child-range-control"
+        className: "child-range-control"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Padding Left",
-        value: this.state.padding.left,
+        label: "Left",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].left,
         onChange: function onChange(value) {
           return _this2.setPadding('left', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Padding Right",
-        value: this.state.padding.right,
+        label: "Right",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].right,
         onChange: function onChange(value) {
           return _this2.setPadding('right', value);
         },
@@ -755,62 +1265,62 @@ var MarginControls = /*#__PURE__*/function (_Component) {
         title: 'Margin',
         initialOpen: false
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Margin",
-        value: this.state.margin.all,
+        label: "All",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].all,
         onChange: function onChange(value) {
           _this2.setMargin('all', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        class: "child-range-control"
+        className: "child-range-control"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Margin Y",
-        value: this.state.margin.y,
+        label: "Y",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].y,
         onChange: function onChange(value) {
           _this2.setMargin('y', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        class: "child-range-control"
+        className: "child-range-control"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Margin Top",
-        value: this.state.margin.top,
+        label: "Top",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].top,
         onChange: function onChange(value) {
           return _this2.setMargin('top', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Margin Bottom",
-        value: this.state.margin.bottom,
+        label: "Bottom",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].bottom,
         onChange: function onChange(value) {
           return _this2.setMargin('bottom', value);
         },
         min: 0,
         max: 5
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Margin X",
-        value: this.state.margin.x,
+        label: "X",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].x,
         onChange: function onChange(value) {
           _this2.setMargin('x', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        class: "child-range-control"
+        className: "child-range-control"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Margin Left",
-        value: this.state.margin.left,
+        label: "Left",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].left,
         onChange: function onChange(value) {
           return _this2.setMargin('left', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Margin Right",
-        value: this.state.margin.right,
+        label: "Right",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].right,
         onChange: function onChange(value) {
           return _this2.setMargin('right', value);
         },
@@ -827,7 +1337,7 @@ function generateMarginClassName(props) {
       className = props.className;
   if (typeof className == 'undefined') className = '';
 
-  if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(attributes.margin) == 'object') {
+  if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(attributes.margin) == 'object') {
     for (var _i = 0, _Object$entries = Object.entries(attributes.margin); _i < _Object$entries.length; _i++) {
       var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
           key = _Object$entries$_i[0],
@@ -1659,7 +2169,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isSelected = _this$props.isSelected,
           clientId = _this$props.clientId,
           element = _this$props.element,
-          current_user_can_edit_posts = _this$props.current_user_can_edit_posts; // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
+          current_user_can_edit_posts = _this$props.current_user_can_edit_posts,
+          deviceType = _this$props.deviceType; // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
 
       if (typeof attributes.id_component == 'undefined') this.setAttributes({
         id_component: element.id
@@ -1773,7 +2284,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       }
 
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_12__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_marginControls__WEBPACK_IMPORTED_MODULE_14__["MarginControls"], {
-        props: this.props
+        props: this.props,
+        deviceType: deviceType
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Placeholder"], {
         key: clientId + "-placeholder",
         label: element.name,
@@ -1791,10 +2303,13 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
     var _select = select('core'),
         getEntityRecords = _select.getEntityRecords;
 
+    var _select2 = select('core/edit-post'),
+        __experimentalGetPreviewDeviceType = _select2.__experimentalGetPreviewDeviceType;
+
     var relations = [];
 
     if (props.name == "custom/wpe-component-" + element.id) {
-      // 2. Loop Props
+      // Loop Props
       for (var _i8 = 0, _Object$entries8 = Object.entries(element.props); _i8 < _Object$entries8.length; _i8++) {
         var _Object$entries8$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries8[_i8], 2),
             keyProp = _Object$entries8$_i[0],
@@ -1809,7 +2324,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
     return {
       relations: relations,
       element: element,
-      current_user_can_edit_posts: current_user_can_edit_posts
+      current_user_can_edit_posts: current_user_can_edit_posts,
+      deviceType: __experimentalGetPreviewDeviceType()
     };
   })(WpeComponent);
 });

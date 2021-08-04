@@ -30,7 +30,6 @@ import { MarginControls } from './_marginControls';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@paulbalanche/ckeditor5-build-classic-with-alignment';
 
-
 class WpeComponent extends Component {
 
 	constructor() {
@@ -860,7 +859,7 @@ class WpeComponent extends Component {
      */
     render() {
 
-        const { attributes, isSelected, clientId, element, current_user_can_edit_posts } = this.props;
+        const { attributes, isSelected, clientId, element, current_user_can_edit_posts, deviceType } = this.props;
 
         // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
         if( typeof attributes.id_component == 'undefined' )
@@ -969,7 +968,7 @@ class WpeComponent extends Component {
         return (
             <>
                 <InspectorControls>
-                    <MarginControls props={ this.props }/>
+                    <MarginControls props={ this.props } deviceType={ deviceType } />
                 </InspectorControls>
                 <Placeholder
                     key={ clientId + "-placeholder" }
@@ -987,11 +986,12 @@ class WpeComponent extends Component {
 export default (element, current_user_can_edit_posts) => withSelect( ( select, props ) => {
 
     const { getEntityRecords } = select( 'core' );
+    const { __experimentalGetPreviewDeviceType } = select( 'core/edit-post' );
     let relations = [];
 
     if( props.name == "custom/wpe-component-" + element.id ) {
 
-        // 2. Loop Props
+        // Loop Props
         for (const [keyProp, valueProp] of Object.entries(element.props)) {
 
             if( valueProp.type == 'relation' && typeof valueProp.entity != 'undefined' && relations[ valueProp.entity ] == null ) {
@@ -1003,6 +1003,7 @@ export default (element, current_user_can_edit_posts) => withSelect( ( select, p
     return {
         relations: relations,
         element,
-        current_user_can_edit_posts: current_user_can_edit_posts
+        current_user_can_edit_posts: current_user_can_edit_posts,
+        deviceType: __experimentalGetPreviewDeviceType()
     };
 } )( WpeComponent )

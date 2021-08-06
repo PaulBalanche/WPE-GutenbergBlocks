@@ -157,6 +157,10 @@
             &:hover {
                 border: 1px solid #007cba;
             }
+
+            svg {
+                flex: initial;
+            }
         }
     }
 }

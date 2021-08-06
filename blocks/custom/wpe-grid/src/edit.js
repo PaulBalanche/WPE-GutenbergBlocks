@@ -28,7 +28,6 @@ import {
 
 import { withSelect, dispatch } from '@wordpress/data';
 import { get, map, times } from 'lodash';
-import { mobile, tablet, desktop } from '@wordpress/icons';
 
 import { MarginControls, generateMarginClassName } from '../../wpe-component/src/_marginControls';
 
@@ -50,9 +49,9 @@ function createBlocksFromInnerBlocksTemplate ( innerBlocksTemplate ) {
 
 
 const getLayouts = () => ( [
-	{ value: 'desktop', label: 'Desktop', attributeName: 'Desktop', icon: desktop },
-	{ value: 'tablet', label: 'Tablet', attributeName: 'Tablet', icon: tablet  },
-	{ value: 'mobile', label: 'Mobile', attributeName: 'Mobile', icon: mobile },
+	{ value: 'desktop', label: 'Desktop', attributeName: 'Desktop' },
+	{ value: 'tablet', label: 'Tablet', attributeName: 'Tablet' },
+	{ value: 'mobile', label: 'Mobile', attributeName: 'Mobile' },
 ] );
 
 /**
@@ -88,24 +87,27 @@ class WpeGrid extends Component {
             countColumns,
             blockVariations,
             blockType,
-            configTotalColumns
+            configTotalColumns,
+            experimentalDeviceType
         } = this.props;
 
         if( this.state.defaultClassName === null )
             this.state.defaultClassName = innerBlocksProps.className;
 
         // Device
-        const deviceType = this.getDeviceType();
+        // const deviceType = this.getDeviceType();
+        const deviceType = experimentalDeviceType.toLowerCase();
         if( typeof deviceType != 'undefined' && deviceType != 'undefined' ) {
             innerBlocksProps.className = this.state.defaultClassName + ' ' + deviceType;
         }
 
         // Padding & Margin
-        const className = generateMarginClassName(this.props);
-        if( className ) {
-            innerBlocksProps.className += className;
-        }
-            
+        // const className = generateMarginClassName(this.props);
+        // if( className ) {
+        //     innerBlocksProps.className += className;
+        // }
+        const className = '';    
+
         let sectionStyle = {};
         var heightGridTemplateRows = 1;
 
@@ -328,23 +330,10 @@ class WpeGrid extends Component {
                             max={ configTotalColumns }
                         />
                     </PanelBody>
-                    <PanelBody title={ 'Responsive layout' } initialOpen={ true }>
-                        <ButtonGroup>
-                            { getLayouts().map( ( layout ) => (
-                                <Button
-                                    key={ layout.value }
-                                    isPrimary={ layout.value === deviceType }
-                                    onClick={ () => this.setDeviceType( layout.value ) }
-                                >
-                                    { layout.label }
-                                </Button>
-                            ) ) }
-                        </ButtonGroup>
-                        <div className="mt-smaller">
-                            { gridForm }
-                        </div>
+                    <PanelBody title={ 'Layout (' + deviceType + ')' } initialOpen={ true }>
+                        { gridForm }
                     </PanelBody>
-                    <MarginControls props={ this.props }/>
+                    <MarginControls props={ this.props } deviceType={ experimentalDeviceType } />
                 </InspectorControls>
             );
         }
@@ -355,33 +344,6 @@ class WpeGrid extends Component {
         return (
             <>
                 { inspectorControls }
-                <BlockControls>
-                    <Dropdown
-                        renderToggle={ ( { isOpen, onToggle } ) => (
-                            <ToolbarGroup>
-                                <Button
-                                    aria-expanded={ isOpen }
-                                    onClick={ onToggle }
-                                    icon={ getLayouts().find( ( layout ) => layout.value === deviceType ).icon }
-                                />
-                            </ToolbarGroup>
-                        ) }
-                        renderContent={ ( { onClose } ) => (
-                            <MenuGroup>
-                                { getLayouts().map( ( layout ) => (
-                                    <MenuItem
-                                        key={ layout.value }
-                                        isSelected={ layout.value === deviceType }
-                                        onClick={ () => this.setDeviceType( layout.value ) }
-                                        icon={ layout.icon }
-                                    >
-                                        { layout.label }
-                                    </MenuItem>
-                                ) ) }
-                            </MenuGroup>
-                        ) }
-                    />
-                </BlockControls>
                 { editDisplay }
             </>
         );
@@ -391,6 +353,8 @@ class WpeGrid extends Component {
 export default (configTotalColumns) => compose( [
 	withSelect( ( select, props ) => {
 
+        const { __experimentalGetPreviewDeviceType } = select( 'core/edit-post' );
+
         return {
             configTotalColumns: configTotalColumns,
             backgroundData: ! props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile ),
@@ -398,7 +362,8 @@ export default (configTotalColumns) => compose( [
             innerBlocksProps: useInnerBlocksProps( useBlockProps( { className: '' } ), { renderAppender: false } ),
             countColumns: select( 'core/block-editor' ).getBlockCount(props.clientId),
             blockVariations: select('core/blocks').getBlockVariations(props.name, 'block'),
-            blockType: select('core/blocks').getBlockType(props.name)
+            blockType: select('core/blocks').getBlockType(props.name),
+            experimentalDeviceType: __experimentalGetPreviewDeviceType()
         };
     } ),
 ] )( WpeGrid );

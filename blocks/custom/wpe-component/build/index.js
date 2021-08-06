@@ -1052,6 +1052,15 @@ var MarginControls = /*#__PURE__*/function (_Component) {
 
     _this = _super.apply(this, arguments);
     _this.parentProps = attr.props;
+
+    if (!_this.parentProps.attributes.hasOwnProperty('padding')) {
+      _this.parentProps.attributes.padding = {};
+    }
+
+    if (!_this.parentProps.attributes.hasOwnProperty('margin')) {
+      _this.parentProps.attributes.margin = {};
+    }
+
     _this.state = {
       padding: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])({
         mobile: {
@@ -1137,7 +1146,7 @@ var MarginControls = /*#__PURE__*/function (_Component) {
     key: "setPadding",
     value: function setPadding(type, value) {
       this.setState({
-        padding: Object.assign(this.state.padding[this.props.deviceType.toLowerCase()], _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, type, value))
+        padding: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])(this.state.padding, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, this.props.deviceType.toLowerCase(), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, type, value)))
       });
       this.parentProps.setAttributes({
         padding: this.state.padding
@@ -1147,7 +1156,7 @@ var MarginControls = /*#__PURE__*/function (_Component) {
     key: "setMargin",
     value: function setMargin(type, value) {
       this.setState({
-        margin: Object.assign(this.state.margin[this.props.deviceType.toLowerCase()], _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, type, value))
+        margin: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])(this.state.margin, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, this.props.deviceType.toLowerCase(), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, type, value)))
       });
       this.parentProps.setAttributes({
         margin: this.state.margin
@@ -1155,13 +1164,39 @@ var MarginControls = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "resetPadding",
-    value: function resetPadding() {// this.setState( { padding: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } );
-      // this.parentProps.setAttributes( { padding: undefined } );
+    value: function resetPadding() {
+      this.setState({
+        padding: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])(this.state.padding, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, this.props.deviceType.toLowerCase(), {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        }))
+      });
+      this.parentProps.setAttributes({
+        padding: this.state.padding
+      });
     }
   }, {
     key: "resetMargin",
-    value: function resetMargin() {// this.setState( { margin: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } );
-      // this.parentProps.setAttributes( { margin: undefined } );
+    value: function resetMargin() {
+      this.setState({
+        margin: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])(this.state.margin, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, this.props.deviceType.toLowerCase(), {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        }))
+      });
+      this.parentProps.setAttributes({
+        margin: this.state.margin
+      });
     }
   }, {
     key: "render",
@@ -1171,29 +1206,46 @@ var MarginControls = /*#__PURE__*/function (_Component) {
       var btnResetPadding = [];
 
       if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.state.padding[this.props.deviceType.toLowerCase()]) == 'object' && Object.keys(this.state.padding).length > 0) {
-        btnResetPadding.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-          key: "containerResetPadding-" + this.parentProps.clientId
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
-          variant: "secondary",
-          className: "is-secondary",
-          onClick: function onClick() {
-            return _this2.resetPadding();
+        for (var _i = 0, _Object$entries = Object.entries(this.state.padding[this.props.deviceType.toLowerCase()]); _i < _Object$entries.length; _i++) {
+          var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
+              key = _Object$entries$_i[0],
+              value = _Object$entries$_i[1];
+
+          if (typeof value != 'undefined') {
+            btnResetPadding.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+              key: "containerResetPadding-" + this.parentProps.clientId
+            }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
+              variant: "secondary",
+              className: "is-secondary",
+              onClick: function onClick() {
+                return _this2.resetPadding();
+              }
+            }, "Reset ", this.props.deviceType.toLowerCase())));
+            break;
           }
-        }, "Reset")));
+        }
       }
 
       var btnResetMargin = [];
 
       if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.state.margin[this.props.deviceType.toLowerCase()]) == 'object' && Object.keys(this.state.margin[this.props.deviceType.toLowerCase()]).length > 0) {
-        btnResetMargin.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-          key: "containerResetMargin-" + this.parentProps.clientId
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
-          variant: "secondary",
-          className: "is-secondary",
-          onClick: function onClick() {
-            return _this2.resetMargin();
+        for (var _i2 = 0, _Object$entries2 = Object.entries(this.state.margin[this.props.deviceType.toLowerCase()]); _i2 < _Object$entries2.length; _i2++) {
+          var _Object$entries2$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries2[_i2], 2),
+              _key = _Object$entries2$_i[0],
+              _value = _Object$entries2$_i[1];
+
+          if (typeof _value != 'undefined') {
+            btnResetMargin.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+              key: "containerResetMargin-" + this.parentProps.clientId
+            }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
+              variant: "secondary",
+              className: "is-secondary",
+              onClick: function onClick() {
+                return _this2.resetMargin();
+              }
+            }, "Reset ", this.props.deviceType.toLowerCase())));
           }
-        }, "Reset")));
+        }
       }
 
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["PanelBody"], {
@@ -1338,10 +1390,10 @@ function generateMarginClassName(props) {
   if (typeof className == 'undefined') className = '';
 
   if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(attributes.margin) == 'object') {
-    for (var _i = 0, _Object$entries = Object.entries(attributes.margin); _i < _Object$entries.length; _i++) {
-      var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
-          key = _Object$entries$_i[0],
-          value = _Object$entries$_i[1];
+    for (var _i3 = 0, _Object$entries3 = Object.entries(attributes.margin); _i3 < _Object$entries3.length; _i3++) {
+      var _Object$entries3$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries3[_i3], 2),
+          key = _Object$entries3$_i[0],
+          value = _Object$entries3$_i[1];
 
       switch (value) {
         case 0:
@@ -2170,7 +2222,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           clientId = _this$props.clientId,
           element = _this$props.element,
           current_user_can_edit_posts = _this$props.current_user_can_edit_posts,
-          deviceType = _this$props.deviceType; // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
+          experimentalDeviceType = _this$props.experimentalDeviceType; // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
 
       if (typeof attributes.id_component == 'undefined') this.setAttributes({
         id_component: element.id
@@ -2285,7 +2337,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_12__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_marginControls__WEBPACK_IMPORTED_MODULE_14__["MarginControls"], {
         props: this.props,
-        deviceType: deviceType
+        deviceType: experimentalDeviceType
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Placeholder"], {
         key: clientId + "-placeholder",
         label: element.name,
@@ -2325,7 +2377,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       relations: relations,
       element: element,
       current_user_can_edit_posts: current_user_can_edit_posts,
-      deviceType: __experimentalGetPreviewDeviceType()
+      experimentalDeviceType: __experimentalGetPreviewDeviceType()
     };
   })(WpeComponent);
 });

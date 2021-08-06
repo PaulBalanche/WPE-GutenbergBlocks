@@ -859,7 +859,7 @@ class WpeComponent extends Component {
      */
     render() {
 
-        const { attributes, isSelected, clientId, element, current_user_can_edit_posts, deviceType } = this.props;
+        const { attributes, isSelected, clientId, element, current_user_can_edit_posts, experimentalDeviceType } = this.props;
 
         // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
         if( typeof attributes.id_component == 'undefined' )
@@ -968,7 +968,7 @@ class WpeComponent extends Component {
         return (
             <>
                 <InspectorControls>
-                    <MarginControls props={ this.props } deviceType={ deviceType } />
+                    <MarginControls props={ this.props } deviceType={ experimentalDeviceType } />
                 </InspectorControls>
                 <Placeholder
                     key={ clientId + "-placeholder" }
@@ -1004,6 +1004,6 @@ export default (element, current_user_can_edit_posts) => withSelect( ( select, p
         relations: relations,
         element,
         current_user_can_edit_posts: current_user_can_edit_posts,
-        deviceType: __experimentalGetPreviewDeviceType()
+        experimentalDeviceType: __experimentalGetPreviewDeviceType()
     };
 } )( WpeComponent )

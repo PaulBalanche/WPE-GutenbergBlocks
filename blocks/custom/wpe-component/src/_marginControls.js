@@ -9,12 +9,18 @@ import {
 
 import { merge } from 'merge-anything'
 
-
 export class MarginControls extends Component {
 
 	constructor( attr ) {
         super( ...arguments );
         this.parentProps = attr.props;
+
+        if( ! this.parentProps.attributes.hasOwnProperty('padding') ) {
+            this.parentProps.attributes.padding = {};
+        }
+        if( ! this.parentProps.attributes.hasOwnProperty('margin') ) {
+            this.parentProps.attributes.margin = {};
+        }
 
         this.state = {
             padding: merge( {
@@ -28,6 +34,7 @@ export class MarginControls extends Component {
                 desktop: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined }
             }, this.parentProps.attributes.margin)
 		};
+
     }
 
     getPadding( type ) {
@@ -47,63 +54,78 @@ export class MarginControls extends Component {
     }
 
     setPadding( type, value ) {
-        
-        this.setState( { padding: Object.assign(this.state.padding[this.props.deviceType.toLowerCase()], { [type]: value }) } );
+
+        this.setState( { padding: merge(this.state.padding, { [this.props.deviceType.toLowerCase()]: { [type]: value } } ) } );
         this.parentProps.setAttributes( { padding: this.state.padding } );
     }
     
     setMargin( type, value ) {
         
-        this.setState( { margin: Object.assign(this.state.margin[this.props.deviceType.toLowerCase()], { [type]: value }) } );
+        this.setState( { margin: merge(this.state.margin, { [this.props.deviceType.toLowerCase()]: { [type]: value } } ) } );
         this.parentProps.setAttributes( { margin: this.state.margin } );
     }
 
     resetPadding() {
-        // this.setState( { padding: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } );
-        // this.parentProps.setAttributes( { padding: undefined } );
+
+        this.setState( { padding: merge(this.state.padding, { [this.props.deviceType.toLowerCase()]: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } ) } );
+        this.parentProps.setAttributes( { padding: this.state.padding } );
     }
     
     resetMargin() {
-        // this.setState( { margin: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } );
-        // this.parentProps.setAttributes( { margin: undefined } );
+        
+        this.setState( { margin: merge(this.state.margin, { [this.props.deviceType.toLowerCase()]: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } ) } );
+        this.parentProps.setAttributes( { margin: this.state.margin } );
     }
 
     render() {
 
         var btnResetPadding = [];
         if( typeof this.state.padding[this.props.deviceType.toLowerCase()] == 'object' && Object.keys(this.state.padding).length > 0 ) {
-            btnResetPadding.push(
-                <div key={ "containerResetPadding-" + this.parentProps.clientId }>
-                    <HorizontalRule />
-                    <Button
-                        variant="secondary"
-                        className="is-secondary"
-                        onClick={ () => 
-                            this.resetPadding()
-                        }
-                    >
-                        Reset
-                    </Button>
-                </div>
-            )
+
+            for (const [key, value] of Object.entries(this.state.padding[this.props.deviceType.toLowerCase()])) {
+                if( typeof value != 'undefined' ) {
+
+                    btnResetPadding.push(
+                        <div key={ "containerResetPadding-" + this.parentProps.clientId }>
+                            <HorizontalRule />
+                            <Button
+                                variant="secondary"
+                                className="is-secondary"
+                                onClick={ () => 
+                                    this.resetPadding()
+                                }
+                            >
+                                Reset { this.props.deviceType.toLowerCase() }
+                            </Button>
+                        </div>
+                    )
+
+                    break;
+                }
+            }
         }
 
         var btnResetMargin = [];
         if( typeof this.state.margin[this.props.deviceType.toLowerCase()] == 'object' && Object.keys(this.state.margin[this.props.deviceType.toLowerCase()]).length > 0 ) {
-            btnResetMargin.push(
-                <div key={ "containerResetMargin-" + this.parentProps.clientId }>
-                    <HorizontalRule />
-                    <Button
-                        variant="secondary"
-                        className="is-secondary"
-                        onClick={ () => 
-                            this.resetMargin()
-                        }
-                    >
-                        Reset
-                    </Button>
-                </div>
-            )
+
+            for (const [key, value] of Object.entries(this.state.margin[this.props.deviceType.toLowerCase()])) {
+                if( typeof value != 'undefined' ) {
+                    btnResetMargin.push(
+                        <div key={ "containerResetMargin-" + this.parentProps.clientId }>
+                            <HorizontalRule />
+                            <Button
+                                variant="secondary"
+                                className="is-secondary"
+                                onClick={ () => 
+                                    this.resetMargin()
+                                }
+                            >
+                                Reset { this.props.deviceType.toLowerCase() }
+                            </Button>
+                        </div>
+                    )
+                }
+            }
         }
 
         return (

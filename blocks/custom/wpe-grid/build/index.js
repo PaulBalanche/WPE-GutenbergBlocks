@@ -104,6 +104,7 @@ function _arrayLikeToArray(arr, len) {
 }
 
 module.exports = _arrayLikeToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -119,6 +120,7 @@ function _arrayWithHoles(arr) {
 }
 
 module.exports = _arrayWithHoles;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -138,6 +140,7 @@ function _assertThisInitialized(self) {
 }
 
 module.exports = _assertThisInitialized;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -155,6 +158,7 @@ function _classCallCheck(instance, Constructor) {
 }
 
 module.exports = _classCallCheck;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -182,6 +186,7 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 module.exports = _createClass;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -208,6 +213,7 @@ function _defineProperty(obj, key, value) {
 }
 
 module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -222,10 +228,12 @@ function _getPrototypeOf(o) {
   module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
     return o.__proto__ || Object.getPrototypeOf(o);
   };
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
   return _getPrototypeOf(o);
 }
 
 module.exports = _getPrototypeOf;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -236,7 +244,7 @@ module.exports = _getPrototypeOf;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var setPrototypeOf = __webpack_require__(/*! ./setPrototypeOf */ "../wpe-component/node_modules/@babel/runtime/helpers/setPrototypeOf.js");
+var setPrototypeOf = __webpack_require__(/*! ./setPrototypeOf.js */ "../wpe-component/node_modules/@babel/runtime/helpers/setPrototypeOf.js");
 
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
@@ -254,6 +262,7 @@ function _inherits(subClass, superClass) {
 }
 
 module.exports = _inherits;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -265,14 +274,17 @@ module.exports = _inherits;
 /***/ (function(module, exports) {
 
 function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
   var _arr = [];
   var _n = true;
   var _d = false;
-  var _e = undefined;
+
+  var _s, _e;
 
   try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
       _arr.push(_s.value);
 
       if (i && _arr.length === i) break;
@@ -292,6 +304,7 @@ function _iterableToArrayLimit(arr, i) {
 }
 
 module.exports = _iterableToArrayLimit;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -307,6 +320,7 @@ function _nonIterableRest() {
 }
 
 module.exports = _nonIterableRest;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -317,9 +331,9 @@ module.exports = _nonIterableRest;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _typeof = __webpack_require__(/*! ../helpers/typeof */ "../wpe-component/node_modules/@babel/runtime/helpers/typeof.js");
+var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "../wpe-component/node_modules/@babel/runtime/helpers/typeof.js")["default"];
 
-var assertThisInitialized = __webpack_require__(/*! ./assertThisInitialized */ "../wpe-component/node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+var assertThisInitialized = __webpack_require__(/*! ./assertThisInitialized.js */ "../wpe-component/node_modules/@babel/runtime/helpers/assertThisInitialized.js");
 
 function _possibleConstructorReturn(self, call) {
   if (call && (_typeof(call) === "object" || typeof call === "function")) {
@@ -330,6 +344,7 @@ function _possibleConstructorReturn(self, call) {
 }
 
 module.exports = _possibleConstructorReturn;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -346,10 +361,12 @@ function _setPrototypeOf(o, p) {
     return o;
   };
 
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
   return _setPrototypeOf(o, p);
 }
 
 module.exports = _setPrototypeOf;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -360,19 +377,20 @@ module.exports = _setPrototypeOf;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles */ "../wpe-component/node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ "../wpe-component/node_modules/@babel/runtime/helpers/arrayWithHoles.js");
 
-var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit */ "../wpe-component/node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ "../wpe-component/node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
 
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "../wpe-component/node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "../wpe-component/node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
 
-var nonIterableRest = __webpack_require__(/*! ./nonIterableRest */ "../wpe-component/node_modules/@babel/runtime/helpers/nonIterableRest.js");
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ "../wpe-component/node_modules/@babel/runtime/helpers/nonIterableRest.js");
 
 function _slicedToArray(arr, i) {
   return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
 }
 
 module.exports = _slicedToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -390,16 +408,21 @@ function _typeof(obj) {
     module.exports = _typeof = function _typeof(obj) {
       return typeof obj;
     };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
   } else {
     module.exports = _typeof = function _typeof(obj) {
       return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
     };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
   }
 
   return _typeof(obj);
 }
 
 module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -410,7 +433,7 @@ module.exports = _typeof;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "../wpe-component/node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "../wpe-component/node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -422,6 +445,517 @@ function _unsupportedIterableToArray(o, minLen) {
 }
 
 module.exports = _unsupportedIterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "../wpe-component/node_modules/is-what/dist/index.esm.js":
+/*!***************************************************************!*\
+  !*** ../wpe-component/node_modules/is-what/dist/index.esm.js ***!
+  \***************************************************************/
+/*! exports provided: getType, isAnyObject, isArray, isBlob, isBoolean, isDate, isEmptyArray, isEmptyObject, isEmptyString, isError, isFile, isFullArray, isFullObject, isFullString, isFunction, isMap, isNaNValue, isNull, isNullOrUndefined, isNumber, isObject, isObjectLike, isOneOf, isPlainObject, isPrimitive, isPromise, isRegExp, isSet, isString, isSymbol, isType, isUndefined, isWeakMap, isWeakSet */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getType", function() { return getType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAnyObject", function() { return isAnyObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isArray", function() { return isArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBlob", function() { return isBlob; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBoolean", function() { return isBoolean; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isDate", function() { return isDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmptyArray", function() { return isEmptyArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmptyObject", function() { return isEmptyObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmptyString", function() { return isEmptyString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isError", function() { return isError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return isFile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFullArray", function() { return isFullArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFullObject", function() { return isFullObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFullString", function() { return isFullString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFunction", function() { return isFunction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isMap", function() { return isMap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNaNValue", function() { return isNaNValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNull", function() { return isNull; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNullOrUndefined", function() { return isNullOrUndefined; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNumber", function() { return isNumber; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObject", function() { return isObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObjectLike", function() { return isObjectLike; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isOneOf", function() { return isOneOf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlainObject", function() { return isPlainObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPrimitive", function() { return isPrimitive; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPromise", function() { return isPromise; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isRegExp", function() { return isRegExp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isSet", function() { return isSet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isString", function() { return isString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isSymbol", function() { return isSymbol; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isType", function() { return isType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isUndefined", function() { return isUndefined; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isWeakMap", function() { return isWeakMap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isWeakSet", function() { return isWeakSet; });
+/**
+ * Returns the object type of the given payload
+ *
+ * @param {*} payload
+ * @returns {string}
+ */
+function getType(payload) {
+    return Object.prototype.toString.call(payload).slice(8, -1);
+}
+/**
+ * Returns whether the payload is undefined
+ *
+ * @param {*} payload
+ * @returns {payload is undefined}
+ */
+function isUndefined(payload) {
+    return getType(payload) === 'Undefined';
+}
+/**
+ * Returns whether the payload is null
+ *
+ * @param {*} payload
+ * @returns {payload is null}
+ */
+function isNull(payload) {
+    return getType(payload) === 'Null';
+}
+/**
+ * Returns whether the payload is a plain JavaScript object (excluding special classes or objects with other prototypes)
+ *
+ * @param {*} payload
+ * @returns {payload is PlainObject}
+ */
+function isPlainObject(payload) {
+    if (getType(payload) !== 'Object')
+        return false;
+    return payload.constructor === Object && Object.getPrototypeOf(payload) === Object.prototype;
+}
+/**
+ * Returns whether the payload is a plain JavaScript object (excluding special classes or objects with other prototypes)
+ *
+ * @param {*} payload
+ * @returns {payload is PlainObject}
+ */
+function isObject(payload) {
+    return isPlainObject(payload);
+}
+/**
+ * Returns whether the payload is a an empty object (excluding special classes or objects with other prototypes)
+ *
+ * @param {*} payload
+ * @returns {payload is { [K in any]: never }}
+ */
+function isEmptyObject(payload) {
+    return isPlainObject(payload) && Object.keys(payload).length === 0;
+}
+/**
+ * Returns whether the payload is a an empty object (excluding special classes or objects with other prototypes)
+ *
+ * @param {*} payload
+ * @returns {payload is PlainObject}
+ */
+function isFullObject(payload) {
+    return isPlainObject(payload) && Object.keys(payload).length > 0;
+}
+/**
+ * Returns whether the payload is an any kind of object (including special classes or objects with different prototypes)
+ *
+ * @param {*} payload
+ * @returns {payload is PlainObject}
+ */
+function isAnyObject(payload) {
+    return getType(payload) === 'Object';
+}
+/**
+ * Returns whether the payload is an object like a type passed in < >
+ *
+ * Usage: isObjectLike<{id: any}>(payload) // will make sure it's an object and has an `id` prop.
+ *
+ * @template T this must be passed in < >
+ * @param {*} payload
+ * @returns {payload is T}
+ */
+function isObjectLike(payload) {
+    return isAnyObject(payload);
+}
+/**
+ * Returns whether the payload is a function (regular or async)
+ *
+ * @param {*} payload
+ * @returns {payload is AnyFunction}
+ */
+function isFunction(payload) {
+    return typeof payload === 'function';
+}
+/**
+ * Returns whether the payload is an array
+ *
+ * @param {any} payload
+ * @returns {payload is any[]}
+ */
+function isArray(payload) {
+    return getType(payload) === 'Array';
+}
+/**
+ * Returns whether the payload is a an array with at least 1 item
+ *
+ * @param {*} payload
+ * @returns {payload is any[]}
+ */
+function isFullArray(payload) {
+    return isArray(payload) && payload.length > 0;
+}
+/**
+ * Returns whether the payload is a an empty array
+ *
+ * @param {*} payload
+ * @returns {payload is []}
+ */
+function isEmptyArray(payload) {
+    return isArray(payload) && payload.length === 0;
+}
+/**
+ * Returns whether the payload is a string
+ *
+ * @param {*} payload
+ * @returns {payload is string}
+ */
+function isString(payload) {
+    return getType(payload) === 'String';
+}
+/**
+ * Returns whether the payload is a string, BUT returns false for ''
+ *
+ * @param {*} payload
+ * @returns {payload is string}
+ */
+function isFullString(payload) {
+    return isString(payload) && payload !== '';
+}
+/**
+ * Returns whether the payload is ''
+ *
+ * @param {*} payload
+ * @returns {payload is string}
+ */
+function isEmptyString(payload) {
+    return payload === '';
+}
+/**
+ * Returns whether the payload is a number (but not NaN)
+ *
+ * This will return `false` for `NaN`!!
+ *
+ * @param {*} payload
+ * @returns {payload is number}
+ */
+function isNumber(payload) {
+    return getType(payload) === 'Number' && !isNaN(payload);
+}
+/**
+ * Returns whether the payload is a boolean
+ *
+ * @param {*} payload
+ * @returns {payload is boolean}
+ */
+function isBoolean(payload) {
+    return getType(payload) === 'Boolean';
+}
+/**
+ * Returns whether the payload is a regular expression (RegExp)
+ *
+ * @param {*} payload
+ * @returns {payload is RegExp}
+ */
+function isRegExp(payload) {
+    return getType(payload) === 'RegExp';
+}
+/**
+ * Returns whether the payload is a Map
+ *
+ * @param {*} payload
+ * @returns {payload is Map<any, any>}
+ */
+function isMap(payload) {
+    return getType(payload) === 'Map';
+}
+/**
+ * Returns whether the payload is a WeakMap
+ *
+ * @param {*} payload
+ * @returns {payload is WeakMap<any, any>}
+ */
+function isWeakMap(payload) {
+    return getType(payload) === 'WeakMap';
+}
+/**
+ * Returns whether the payload is a Set
+ *
+ * @param {*} payload
+ * @returns {payload is Set<any>}
+ */
+function isSet(payload) {
+    return getType(payload) === 'Set';
+}
+/**
+ * Returns whether the payload is a WeakSet
+ *
+ * @param {*} payload
+ * @returns {payload is WeakSet<any>}
+ */
+function isWeakSet(payload) {
+    return getType(payload) === 'WeakSet';
+}
+/**
+ * Returns whether the payload is a Symbol
+ *
+ * @param {*} payload
+ * @returns {payload is symbol}
+ */
+function isSymbol(payload) {
+    return getType(payload) === 'Symbol';
+}
+/**
+ * Returns whether the payload is a Date, and that the date is valid
+ *
+ * @param {*} payload
+ * @returns {payload is Date}
+ */
+function isDate(payload) {
+    return getType(payload) === 'Date' && !isNaN(payload);
+}
+/**
+ * Returns whether the payload is a Blob
+ *
+ * @param {*} payload
+ * @returns {payload is Blob}
+ */
+function isBlob(payload) {
+    return getType(payload) === 'Blob';
+}
+/**
+ * Returns whether the payload is a File
+ *
+ * @param {*} payload
+ * @returns {payload is File}
+ */
+function isFile(payload) {
+    return getType(payload) === 'File';
+}
+/**
+ * Returns whether the payload is a Promise
+ *
+ * @param {*} payload
+ * @returns {payload is Promise<any>}
+ */
+function isPromise(payload) {
+    return getType(payload) === 'Promise';
+}
+/**
+ * Returns whether the payload is an Error
+ *
+ * @param {*} payload
+ * @returns {payload is Error}
+ */
+function isError(payload) {
+    return getType(payload) === 'Error';
+}
+/**
+ * Returns whether the payload is literally the value `NaN` (it's `NaN` and also a `number`)
+ *
+ * @param {*} payload
+ * @returns {payload is typeof NaN}
+ */
+function isNaNValue(payload) {
+    return getType(payload) === 'Number' && isNaN(payload);
+}
+/**
+ * Returns whether the payload is a primitive type (eg. Boolean | Null | Undefined | Number | String | Symbol)
+ *
+ * @param {*} payload
+ * @returns {(payload is boolean | null | undefined | number | string | symbol)}
+ */
+function isPrimitive(payload) {
+    return (isBoolean(payload) ||
+        isNull(payload) ||
+        isUndefined(payload) ||
+        isNumber(payload) ||
+        isString(payload) ||
+        isSymbol(payload));
+}
+/**
+ * Returns true whether the payload is null or undefined
+ *
+ * @param {*} payload
+ * @returns {(payload is null | undefined)}
+ */
+var isNullOrUndefined = isOneOf(isNull, isUndefined);
+function isOneOf(a, b, c, d, e) {
+    return function (value) {
+        return a(value) || b(value) || (!!c && c(value)) || (!!d && d(value)) || (!!e && e(value));
+    };
+}
+/**
+ * Does a generic check to check that the given payload is of a given type.
+ * In cases like Number, it will return true for NaN as NaN is a Number (thanks javascript!);
+ * It will, however, differentiate between object and null
+ *
+ * @template T
+ * @param {*} payload
+ * @param {T} type
+ * @throws {TypeError} Will throw type error if type is an invalid type
+ * @returns {payload is T}
+ */
+function isType(payload, type) {
+    if (!(type instanceof Function)) {
+        throw new TypeError('Type must be a function');
+    }
+    if (!Object.prototype.hasOwnProperty.call(type, 'prototype')) {
+        throw new TypeError('Type is not a class');
+    }
+    // Classes usually have names (as functions usually have names)
+    var name = type.name;
+    return getType(payload) === name || Boolean(payload && payload.constructor === type);
+}
+
+
+
+
+/***/ }),
+
+/***/ "../wpe-component/node_modules/merge-anything/dist/index.esm.js":
+/*!**********************************************************************!*\
+  !*** ../wpe-component/node_modules/merge-anything/dist/index.esm.js ***!
+  \**********************************************************************/
+/*! exports provided: concatArrays, merge, mergeAndCompare, mergeAndConcat */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "concatArrays", function() { return concatArrays; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "merge", function() { return merge; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mergeAndCompare", function() { return mergeAndCompare; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mergeAndConcat", function() { return mergeAndConcat; });
+/* harmony import */ var is_what__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! is-what */ "../wpe-component/node_modules/is-what/dist/index.esm.js");
+
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+function __spreadArray(to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+}
+
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+function concatArrays(originVal, newVal) {
+    if (Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isArray"])(originVal) && Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isArray"])(newVal)) {
+        // concat logic
+        return originVal.concat(newVal);
+    }
+    return newVal; // always return newVal as fallback!!
+}
+
+function assignProp(carry, key, newVal, originalObject) {
+    var propType = {}.propertyIsEnumerable.call(originalObject, key)
+        ? 'enumerable'
+        : 'nonenumerable';
+    if (propType === 'enumerable')
+        carry[key] = newVal;
+    if (propType === 'nonenumerable') {
+        Object.defineProperty(carry, key, {
+            value: newVal,
+            enumerable: false,
+            writable: true,
+            configurable: true,
+        });
+    }
+}
+function mergeRecursively(origin, newComer, compareFn) {
+    // always return newComer if its not an object
+    if (!Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isPlainObject"])(newComer))
+        return newComer;
+    // define newObject to merge all values upon
+    var newObject = {};
+    if (Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isPlainObject"])(origin)) {
+        var props_1 = Object.getOwnPropertyNames(origin);
+        var symbols_1 = Object.getOwnPropertySymbols(origin);
+        newObject = __spreadArray(__spreadArray([], props_1), symbols_1).reduce(function (carry, key) {
+            var targetVal = origin[key];
+            if ((!Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isSymbol"])(key) && !Object.getOwnPropertyNames(newComer).includes(key)) ||
+                (Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isSymbol"])(key) && !Object.getOwnPropertySymbols(newComer).includes(key))) {
+                assignProp(carry, key, targetVal, origin);
+            }
+            return carry;
+        }, {});
+    }
+    // newObject has all properties that newComer hasn't
+    var props = Object.getOwnPropertyNames(newComer);
+    var symbols = Object.getOwnPropertySymbols(newComer);
+    var result = __spreadArray(__spreadArray([], props), symbols).reduce(function (carry, key) {
+        // re-define the origin and newComer as targetVal and newVal
+        var newVal = newComer[key];
+        var targetVal = Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isPlainObject"])(origin) ? origin[key] : undefined;
+        // When newVal is an object do the merge recursively
+        if (targetVal !== undefined && Object(is_what__WEBPACK_IMPORTED_MODULE_0__["isPlainObject"])(newVal)) {
+            newVal = mergeRecursively(targetVal, newVal, compareFn);
+        }
+        var propToAssign = compareFn ? compareFn(targetVal, newVal, key) : newVal;
+        assignProp(carry, key, propToAssign, newComer);
+        return carry;
+    }, newObject);
+    return result;
+}
+/**
+ * Merge anything recursively.
+ * Objects get merged, special objects (classes etc.) are re-assigned "as is".
+ * Basic types overwrite objects or other basic types.
+ * @param object
+ * @param otherObjects
+ */
+function merge(object) {
+    var otherObjects = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        otherObjects[_i - 1] = arguments[_i];
+    }
+    return otherObjects.reduce(function (result, newComer) {
+        return mergeRecursively(result, newComer);
+    }, object);
+}
+function mergeAndCompare(compareFn, object) {
+    var otherObjects = [];
+    for (var _i = 2; _i < arguments.length; _i++) {
+        otherObjects[_i - 2] = arguments[_i];
+    }
+    return otherObjects.reduce(function (result, newComer) {
+        return mergeRecursively(result, newComer, compareFn);
+    }, object);
+}
+function mergeAndConcat(object) {
+    var otherObjects = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        otherObjects[_i - 1] = arguments[_i];
+    }
+    return otherObjects.reduce(function (result, newComer) {
+        return mergeRecursively(result, newComer, concatArrays);
+    }, object);
+}
+
+
+
 
 /***/ }),
 
@@ -456,6 +990,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var merge_anything__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! merge-anything */ "../wpe-component/node_modules/merge-anything/dist/index.esm.js");
 
 
 
@@ -465,14 +1000,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default()(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 
 
 
@@ -488,37 +1020,150 @@ var MarginControls = /*#__PURE__*/function (_Component) {
 
     _this = _super.apply(this, arguments);
     _this.parentProps = attr.props;
-    _this.currentMargin = _objectSpread({}, _this.parentProps.attributes.margin);
+
+    if (!_this.parentProps.attributes.hasOwnProperty('padding')) {
+      _this.parentProps.attributes.padding = {};
+    }
+
+    if (!_this.parentProps.attributes.hasOwnProperty('margin')) {
+      _this.parentProps.attributes.margin = {};
+    }
+
+    _this.state = {
+      padding: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])({
+        mobile: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        },
+        tablet: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        },
+        desktop: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        }
+      }, _this.parentProps.attributes.padding),
+      margin: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])({
+        mobile: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        },
+        tablet: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        },
+        desktop: {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        }
+      }, _this.parentProps.attributes.margin)
+    };
     return _this;
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4___default()(MarginControls, [{
-    key: "getMargin",
-    value: function getMargin(type) {
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.currentMargin) == 'object' && this.currentMargin.hasOwnProperty(type)) {
-        return this.currentMargin[type];
+    key: "getPadding",
+    value: function getPadding(type) {
+      if (this.state.padding[this.props.deviceType.toLowerCase()].hasOwnProperty(type)) {
+        return this.state.padding[this.props.deviceType.toLowerCase()][type];
       }
 
       return null;
     }
   }, {
-    key: "setMargin",
-    value: function setMargin(type, value) {
-      if (typeof this.currentMargin == 'undefined') {
-        this.currentMargin = {};
+    key: "getMargin",
+    value: function getMargin(type) {
+      if (this.state.margin[this.props.deviceType.toLowerCase()].hasOwnProperty(type)) {
+        return this.state.margin[this.props.deviceType.toLowerCase()][type];
       }
 
-      this.currentMargin = Object.assign(this.currentMargin, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, type, value));
+      return null;
+    }
+  }, {
+    key: "setPadding",
+    value: function setPadding(type, value) {
+      this.setState({
+        padding: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])(this.state.padding, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, this.props.deviceType.toLowerCase(), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, type, value)))
+      });
       this.parentProps.setAttributes({
-        margin: this.currentMargin
+        padding: this.state.padding
+      });
+    }
+  }, {
+    key: "setMargin",
+    value: function setMargin(type, value) {
+      this.setState({
+        margin: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])(this.state.margin, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, this.props.deviceType.toLowerCase(), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, type, value)))
+      });
+      this.parentProps.setAttributes({
+        margin: this.state.margin
+      });
+    }
+  }, {
+    key: "resetPadding",
+    value: function resetPadding() {
+      this.setState({
+        padding: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])(this.state.padding, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, this.props.deviceType.toLowerCase(), {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        }))
+      });
+      this.parentProps.setAttributes({
+        padding: this.state.padding
       });
     }
   }, {
     key: "resetMargin",
     value: function resetMargin() {
-      this.currentMargin = undefined;
+      this.setState({
+        margin: Object(merge_anything__WEBPACK_IMPORTED_MODULE_10__["merge"])(this.state.margin, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, this.props.deviceType.toLowerCase(), {
+          all: undefined,
+          top: undefined,
+          bottom: undefined,
+          left: undefined,
+          right: undefined,
+          x: undefined,
+          y: undefined
+        }))
+      });
       this.parentProps.setAttributes({
-        margin: this.currentMargin
+        margin: this.state.margin
       });
     }
   }, {
@@ -526,56 +1171,182 @@ var MarginControls = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var resetPart = [];
+      var btnResetPadding = [];
 
-      if (typeof this.currentMargin != 'undefined') {
-        resetPart.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-          key: "containerResetMargin-" + this.parentProps.clientId
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
-          variant: "secondary",
-          className: "is-secondary",
-          onClick: function onClick() {
-            return _this2.resetMargin();
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.state.padding[this.props.deviceType.toLowerCase()]) == 'object' && Object.keys(this.state.padding).length > 0) {
+        for (var _i = 0, _Object$entries = Object.entries(this.state.padding[this.props.deviceType.toLowerCase()]); _i < _Object$entries.length; _i++) {
+          var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
+              key = _Object$entries$_i[0],
+              value = _Object$entries$_i[1];
+
+          if (typeof value != 'undefined') {
+            btnResetPadding.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+              key: "containerResetPadding-" + this.parentProps.clientId
+            }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
+              variant: "secondary",
+              className: "is-secondary",
+              onClick: function onClick() {
+                return _this2.resetPadding();
+              }
+            }, "Reset ", this.props.deviceType.toLowerCase())));
+            break;
           }
-        }, "Reset")));
+        }
       }
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["PanelBody"], {
-        title: 'Padding/Margin',
+      var btnResetMargin = [];
+
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.state.margin[this.props.deviceType.toLowerCase()]) == 'object' && Object.keys(this.state.margin[this.props.deviceType.toLowerCase()]).length > 0) {
+        for (var _i2 = 0, _Object$entries2 = Object.entries(this.state.margin[this.props.deviceType.toLowerCase()]); _i2 < _Object$entries2.length; _i2++) {
+          var _Object$entries2$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries2[_i2], 2),
+              _key = _Object$entries2$_i[0],
+              _value = _Object$entries2$_i[1];
+
+          if (typeof _value != 'undefined') {
+            btnResetMargin.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+              key: "containerResetMargin-" + this.parentProps.clientId
+            }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
+              variant: "secondary",
+              className: "is-secondary",
+              onClick: function onClick() {
+                return _this2.resetMargin();
+              }
+            }, "Reset ", this.props.deviceType.toLowerCase())));
+          }
+        }
+      }
+
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["PanelBody"], {
+        title: 'Padding (' + this.props.deviceType.toLowerCase() + ')',
         initialOpen: false
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Padding Top",
-        value: this.getMargin('pt'),
+        label: "All",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].all,
         onChange: function onChange(value) {
-          return _this2.setMargin('pt', value);
+          _this2.setPadding('all', value);
+        },
+        min: 0,
+        max: 5
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        className: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "Padding Y",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].y,
+        onChange: function onChange(value) {
+          _this2.setPadding('y', value);
+        },
+        min: 0,
+        max: 5
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        className: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "Top",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].top,
+        onChange: function onChange(value) {
+          return _this2.setPadding('top', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Padding Bottom",
-        value: this.getMargin('pb'),
+        label: "Bottom",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].bottom,
         onChange: function onChange(value) {
-          return _this2.setMargin('pb', value);
+          return _this2.setPadding('bottom', value);
+        },
+        min: 0,
+        max: 5
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "X",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].x,
+        onChange: function onChange(value) {
+          _this2.setPadding('x', value);
+        },
+        min: 0,
+        max: 5
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        className: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "Left",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].left,
+        onChange: function onChange(value) {
+          return _this2.setPadding('left', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Margin Top",
-        value: this.getMargin('mt'),
+        label: "Right",
+        value: this.state.padding[this.props.deviceType.toLowerCase()].right,
         onChange: function onChange(value) {
-          return _this2.setMargin('mt', value);
+          return _this2.setPadding('right', value);
+        },
+        min: 0,
+        max: 5
+      }))), btnResetPadding), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["PanelBody"], {
+        title: 'Margin',
+        initialOpen: false
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "All",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].all,
+        onChange: function onChange(value) {
+          _this2.setMargin('all', value);
+        },
+        min: 0,
+        max: 5
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        className: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "Y",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].y,
+        onChange: function onChange(value) {
+          _this2.setMargin('y', value);
+        },
+        min: 0,
+        max: 5
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        className: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "Top",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].top,
+        onChange: function onChange(value) {
+          return _this2.setMargin('top', value);
         },
         min: 0,
         max: 5
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
-        label: "Margin Bottom",
-        value: this.getMargin('mb'),
+        label: "Bottom",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].bottom,
         onChange: function onChange(value) {
-          return _this2.setMargin('mb', value);
+          return _this2.setMargin('bottom', value);
         },
         min: 0,
         max: 5
-      }), resetPart);
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["HorizontalRule"], null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "X",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].x,
+        onChange: function onChange(value) {
+          _this2.setMargin('x', value);
+        },
+        min: 0,
+        max: 5
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        className: "child-range-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "Left",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].left,
+        onChange: function onChange(value) {
+          return _this2.setMargin('left', value);
+        },
+        min: 0,
+        max: 5
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["RangeControl"], {
+        label: "Right",
+        value: this.state.margin[this.props.deviceType.toLowerCase()].right,
+        onChange: function onChange(value) {
+          return _this2.setMargin('right', value);
+        },
+        min: 0,
+        max: 5
+      }))), btnResetMargin));
     }
   }]);
 
@@ -587,10 +1358,10 @@ function generateMarginClassName(props) {
   if (typeof className == 'undefined') className = '';
 
   if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(attributes.margin) == 'object') {
-    for (var _i = 0, _Object$entries = Object.entries(attributes.margin); _i < _Object$entries.length; _i++) {
-      var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
-          key = _Object$entries$_i[0],
-          value = _Object$entries$_i[1];
+    for (var _i3 = 0, _Object$entries3 = Object.entries(attributes.margin); _i3 < _Object$entries3.length; _i3++) {
+      var _Object$entries3$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries3[_i3], 2),
+          key = _Object$entries3$_i[0],
+          value = _Object$entries3$_i[1];
 
       switch (value) {
         case 0:
@@ -8534,8 +9305,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lodash */ "lodash");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/index.js");
-/* harmony import */ var _wpe_component_src_marginControls__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../wpe-component/src/_marginControls */ "../wpe-component/src/_marginControls.js");
+/* harmony import */ var _wpe_component_src_marginControls__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../wpe-component/src/_marginControls */ "../wpe-component/src/_marginControls.js");
 
 
 
@@ -8561,7 +9331,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
-
 /**
  * Add some columns in wpe-container based on variation selected
  *
@@ -8579,18 +9348,15 @@ var getLayouts = function getLayouts() {
   return [{
     value: 'desktop',
     label: 'Desktop',
-    attributeName: 'Desktop',
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__["desktop"]
+    attributeName: 'Desktop'
   }, {
     value: 'tablet',
     label: 'Tablet',
-    attributeName: 'Tablet',
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__["tablet"]
+    attributeName: 'Tablet'
   }, {
     value: 'mobile',
     label: 'Mobile',
-    attributeName: 'Mobile',
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_15__["mobile"]
+    attributeName: 'Mobile'
   }];
 };
 /**
@@ -8631,8 +9397,6 @@ var WpeGrid = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var _this$props = this.props,
           attributes = _this$props.attributes,
           setAttributes = _this$props.setAttributes,
@@ -8642,22 +9406,23 @@ var WpeGrid = /*#__PURE__*/function (_Component) {
           countColumns = _this$props.countColumns,
           blockVariations = _this$props.blockVariations,
           blockType = _this$props.blockType,
-          configTotalColumns = _this$props.configTotalColumns;
+          configTotalColumns = _this$props.configTotalColumns,
+          experimentalDeviceType = _this$props.experimentalDeviceType;
       if (this.state.defaultClassName === null) this.state.defaultClassName = innerBlocksProps.className; // Device
+      // const deviceType = this.getDeviceType();
 
-      var deviceType = this.getDeviceType();
+      var deviceType = experimentalDeviceType.toLowerCase();
 
       if (typeof deviceType != 'undefined' && deviceType != 'undefined') {
         innerBlocksProps.className = this.state.defaultClassName + ' ' + deviceType;
       } // Padding & Margin
+      // const className = generateMarginClassName(this.props);
+      // if( className ) {
+      //     innerBlocksProps.className += className;
+      // }
 
 
-      var className = Object(_wpe_component_src_marginControls__WEBPACK_IMPORTED_MODULE_16__["generateMarginClassName"])(this.props);
-
-      if (className) {
-        innerBlocksProps.className += className;
-      }
-
+      var className = '';
       var sectionStyle = {};
       var heightGridTemplateRows = 1;
       /**
@@ -8830,20 +9595,11 @@ var WpeGrid = /*#__PURE__*/function (_Component) {
           min: 1,
           max: configTotalColumns
         })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["PanelBody"], {
-          title: 'Responsive layout',
+          title: 'Layout (' + deviceType + ')',
           initialOpen: true
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["ButtonGroup"], null, getLayouts().map(function (layout) {
-          return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["Button"], {
-            key: layout.value,
-            isPrimary: layout.value === deviceType,
-            onClick: function onClick() {
-              return _this2.setDeviceType(layout.value);
-            }
-          }, layout.label);
-        })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-          className: "mt-smaller"
-        }, gridForm)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wpe_component_src_marginControls__WEBPACK_IMPORTED_MODULE_16__["MarginControls"], {
-          props: this.props
+        }, gridForm), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wpe_component_src_marginControls__WEBPACK_IMPORTED_MODULE_15__["MarginControls"], {
+          props: this.props,
+          deviceType: experimentalDeviceType
         }));
       }
       /**
@@ -8851,32 +9607,7 @@ var WpeGrid = /*#__PURE__*/function (_Component) {
        */
 
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, inspectorControls, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["BlockControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["Dropdown"], {
-        renderToggle: function renderToggle(_ref2) {
-          var isOpen = _ref2.isOpen,
-              onToggle = _ref2.onToggle;
-          return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["ToolbarGroup"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["Button"], {
-            "aria-expanded": isOpen,
-            onClick: onToggle,
-            icon: getLayouts().find(function (layout) {
-              return layout.value === deviceType;
-            }).icon
-          }));
-        },
-        renderContent: function renderContent(_ref3) {
-          var onClose = _ref3.onClose;
-          return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["MenuGroup"], null, getLayouts().map(function (layout) {
-            return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_12__["MenuItem"], {
-              key: layout.value,
-              isSelected: layout.value === deviceType,
-              onClick: function onClick() {
-                return _this2.setDeviceType(layout.value);
-              },
-              icon: layout.icon
-            }, layout.label);
-          }));
-        }
-      })), editDisplay);
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, inspectorControls, editDisplay);
     }
   }]);
 
@@ -8885,6 +9616,9 @@ var WpeGrid = /*#__PURE__*/function (_Component) {
 
 /* harmony default export */ __webpack_exports__["default"] = (function (configTotalColumns) {
   return Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_10__["compose"])([Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_13__["withSelect"])(function (select, props) {
+    var _select = select('core/edit-post'),
+        __experimentalGetPreviewDeviceType = _select.__experimentalGetPreviewDeviceType;
+
     return {
       configTotalColumns: configTotalColumns,
       backgroundData: !props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile),
@@ -8896,7 +9630,8 @@ var WpeGrid = /*#__PURE__*/function (_Component) {
       }),
       countColumns: select('core/block-editor').getBlockCount(props.clientId),
       blockVariations: select('core/blocks').getBlockVariations(props.name, 'block'),
-      blockType: select('core/blocks').getBlockType(props.name)
+      blockType: select('core/blocks').getBlockType(props.name),
+      experimentalDeviceType: __experimentalGetPreviewDeviceType()
     };
   })])(WpeGrid);
 });

@@ -39,14 +39,16 @@ class WpeContainer extends Component {
 			setAttributes,
             containerConfig,
             backgroundData,
-            innerBlocksProps
+            innerBlocksProps,
+            experimentalDeviceType
         } = this.props;
 
         // Padding & Margin
-        const className = generateMarginClassName(this.props);
-        if( className ) {
-            innerBlocksProps.className += className;
-        }
+        // const className = generateMarginClassName(this.props);
+        // if( className ) {
+        //     innerBlocksProps.className += className;
+        // }
+        const className = '';
         
         // Section background
         const titleMediaPlaceholder = ( backgroundData !== null && typeof backgroundData != 'undefined' ) ? backgroundData.media_type == 'image' ? 'Edit image' : backgroundData.title.raw + ' (' + backgroundData.mime_type + ')' : 'Image/Video';
@@ -119,7 +121,7 @@ class WpeContainer extends Component {
                     <PanelBody title={ 'Background' } initialOpen={ false }>
                         { mediaPlaceholder }
                     </PanelBody>
-                    <MarginControls props={ this.props }/>
+                    <MarginControls props={ this.props } deviceType={ experimentalDeviceType } />
                 </InspectorControls>
                 <div { ...innerBlocksProps } />
             </>
@@ -130,10 +132,13 @@ class WpeContainer extends Component {
 export default (containerConfig) => compose( [
 	withSelect( ( select, props ) => {
 
+        const { __experimentalGetPreviewDeviceType } = select( 'core/edit-post' );
+
         return {
             containerConfig: containerConfig,
             innerBlocksProps: useInnerBlocksProps( useBlockProps( { className: '' } ), { renderAppender: InnerBlocks.ButtonBlockAppender } ),
-            backgroundData: ! props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile )
+            backgroundData: ! props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile ),
+            experimentalDeviceType: __experimentalGetPreviewDeviceType()
         };
     } ),
 ] )( WpeContainer );

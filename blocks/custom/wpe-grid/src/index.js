@@ -44,6 +44,9 @@ registerBlockType( 'custom/wpe-grid', {
             type: 'boolean',
             default: false
         },
+        padding: {
+            type: 'object'
+        },
         margin: {
             type: 'object'
         }

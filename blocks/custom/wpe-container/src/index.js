@@ -33,6 +33,9 @@ registerBlockType( 'custom/wpe-container', {
         backgroundType: {
             type: 'string'
         },
+        padding: {
+            type: 'object'
+        },
         margin: {
             type: 'object'
         }

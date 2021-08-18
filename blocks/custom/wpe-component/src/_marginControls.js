@@ -55,26 +55,38 @@ export class MarginControls extends Component {
 
     setPadding( type, value ) {
 
-        this.setState( { padding: merge(this.state.padding, { [this.props.deviceType.toLowerCase()]: { [type]: value } } ) } );
-        this.parentProps.setAttributes( { padding: this.state.padding } );
+        const newPadding = merge(this.state.padding, { [this.props.deviceType.toLowerCase()]: { [type]: value } } );
+        this.setState( { padding: newPadding } );
+        this.parentProps.setAttributes( { padding: newPadding } );
     }
     
     setMargin( type, value ) {
         
-        this.setState( { margin: merge(this.state.margin, { [this.props.deviceType.toLowerCase()]: { [type]: value } } ) } );
-        this.parentProps.setAttributes( { margin: this.state.margin } );
+        const newMargin = merge(this.state.margin, { [this.props.deviceType.toLowerCase()]: { [type]: value } } );
+        this.setState( { margin: newMargin } );
+        this.parentProps.setAttributes( { margin: newMargin } );
     }
 
     resetPadding() {
 
-        this.setState( { padding: merge(this.state.padding, { [this.props.deviceType.toLowerCase()]: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } ) } );
-        this.parentProps.setAttributes( { padding: this.state.padding } );
+        const newPadding = {
+            mobile: ( this.props.deviceType.toLowerCase() == 'mobile' ) ? {} : this.state.padding.mobile,
+            tablet: ( this.props.deviceType.toLowerCase() == 'tablet' ) ? {} : this.state.padding.tablet,
+            desktop: ( this.props.deviceType.toLowerCase() == 'desktop' ) ? {} : this.state.padding.desktop
+        };
+        this.setState( { padding: newPadding } );
+        this.parentProps.setAttributes( { padding: newPadding } );
     }
     
     resetMargin() {
         
-        this.setState( { margin: merge(this.state.margin, { [this.props.deviceType.toLowerCase()]: { all: undefined, top: undefined, bottom: undefined, left: undefined, right: undefined, x: undefined, y: undefined } } ) } );
-        this.parentProps.setAttributes( { margin: this.state.margin } );
+        const newMargin = {
+            mobile: ( this.props.deviceType.toLowerCase() == 'mobile' ) ? {} : this.state.margin.mobile,
+            tablet: ( this.props.deviceType.toLowerCase() == 'tablet' ) ? {} : this.state.margin.tablet,
+            desktop: ( this.props.deviceType.toLowerCase() == 'desktop' ) ? {} : this.state.margin.desktop
+        };
+        this.setState( { margin: margin } );
+        this.parentProps.setAttributes( { margin: newMargin } );
     }
 
     render() {
@@ -86,7 +98,7 @@ export class MarginControls extends Component {
                 if( typeof value != 'undefined' ) {
 
                     btnResetPadding.push(
-                        <div key={ "containerResetPadding-" + this.parentProps.clientId }>
+                        <div key={ "containerResetPadding-" + this.props.deviceType.toLowerCase() + "-" + this.parentProps.clientId }>
                             <HorizontalRule />
                             <Button
                                 variant="secondary"
@@ -111,7 +123,7 @@ export class MarginControls extends Component {
             for (const [key, value] of Object.entries(this.state.margin[this.props.deviceType.toLowerCase()])) {
                 if( typeof value != 'undefined' ) {
                     btnResetMargin.push(
-                        <div key={ "containerResetMargin-" + this.parentProps.clientId }>
+                        <div key={ "containerResetMargin-" + this.props.deviceType.toLowerCase() + "-" +this.parentProps.clientId }>
                             <HorizontalRule />
                             <Button
                                 variant="secondary"
@@ -204,7 +216,7 @@ export class MarginControls extends Component {
                     </div>
                     { btnResetPadding }
                 </PanelBody>
-                <PanelBody title={ 'Margin' } initialOpen={ false }>
+                <PanelBody title={ 'Margin (' + this.props.deviceType.toLowerCase() + ')' } initialOpen={ false }>
                     <RangeControl
                         label="All"
                         value={ this.state.margin[this.props.deviceType.toLowerCase()].all }

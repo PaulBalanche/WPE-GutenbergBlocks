@@ -16,9 +16,6 @@ function custom_wpe_container_render_callback( $attributes, $content_wrapped ) {
         }
     }
 
-    echo '<pre>';print_r(\Wpextend\GutenbergBlock::get_frontspec_json_file('styles')['paddings']);
-
-    echo '<pre>';print_r($attributes['padding']); die;
     // Define data
     $data = [
         'content' => $content,

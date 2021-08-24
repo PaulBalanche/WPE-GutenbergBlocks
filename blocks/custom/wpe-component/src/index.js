@@ -11,7 +11,7 @@ import edit from './edit';
 
 var current_user_can_edit_posts = global_localized.current_user_can_edit_posts;
 
-global_localized.components.forEach( ( element ) => {
+Object.values(global_localized.components).forEach( ( element ) => {
 
     var parent = ( typeof element.standalone != 'undefined' && element.standalone ) ? null : [ 'custom/wpe-container' , 'custom/wpe-column' ];
 
@@ -29,7 +29,7 @@ global_localized.components.forEach( ( element ) => {
 
     for (const [key, value] of Object.entries(element.props)) {
         
-        let currentType = ( typeof value.repeatable != 'undefined' && value.repeatable ) ? 'array' : value.type;
+        let currentType = ( typeof value.repeatable != 'undefined' && value.repeatable ) ? 'array' : value.type.toLowerCase();
         switch( currentType ) {
             case 'string':
                 initAttributes[key] = {

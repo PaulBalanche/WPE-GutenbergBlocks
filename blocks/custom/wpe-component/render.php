@@ -6,32 +6,29 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
         return;
     }
     
-    if( file_exists( Wpextend\GutenbergBlock::get_fontspec_path() ) ) {
-    
-        $frontspec = json_decode( file_get_contents( Wpextend\GutenbergBlock::get_fontspec_path() ), true);
-    
-        if( is_array($frontspec) && isset($frontspec['components']) && is_array($frontspec['components']) ) {
-    
-            foreach( $frontspec['components'] as $component ) {
 
-                if( $component['id'] == $attributes['id_component'] ) {
+    $frontspec_components = Wpextend\GutenbergBlock::get_frontspec_components();
+    if( is_array($frontspec_components) ) {
+        
+        foreach( $frontspec_components as $component ) {
 
-                    unset($attributes['id_component']);
+            if( $component['id'] == $attributes['id_component'] ) {
 
-                    $attributes = custom_wpe_component_render_callback_recursive_treatment($component, $attributes);
+                unset($attributes['id_component']);
 
-                    // Format margin to className
-                    $attributes['marginClassFormatted'] = ( isset($attributes['margin']) && is_array($attributes['margin']) ) ? implode(' ', array_map(
-                        function ($v, $k) {
-                            return $k . '-' . $v;
-                        },
-                        $attributes['margin'],
-                        array_keys($attributes['margin'])
-                    )) : '';
+                $attributes = custom_wpe_component_render_callback_recursive_treatment($component, $attributes);
 
-                    $attributes = apply_filters('wpextend/wpe_component_attributes', $attributes, $component['id']);
-                    return Wpextend\GutenbergBlock::render($component['path'], $attributes);
-                }
+                // Format margin to className
+                $attributes['marginClassFormatted'] = ( isset($attributes['margin']) && is_array($attributes['margin']) ) ? implode(' ', array_map(
+                    function ($v, $k) {
+                        return $k . '-' . $v;
+                    },
+                    $attributes['margin'],
+                    array_keys($attributes['margin'])
+                )) : '';
+
+                $attributes = apply_filters('wpextend/wpe_component_attributes', $attributes, $component['id']);
+                return Wpextend\GutenbergBlock::render($component['path'], $attributes);
             }
         }
     }

@@ -51,32 +51,54 @@ function custom_wpe_component_render_callback_recursive_treatment($component, $a
                     break;
 
                 case 'image':
-                    if( isset($attributes[$key_prop]) && is_array($attributes[$key_prop]) && isset($attributes[$key_prop]['id']) ) {
-                        $attachment_image_src = wp_get_attachment_image_src($attributes[$key_prop]['id'], 'large');
-                        $attributes[$key_prop]['src'] = $attachment_image_src[0];
-                        $attributes[$key_prop]['url'] = $attachment_image_src[0];
 
-                        if( isset($prop['root_prop']) && isset( $attributes[$key_prop][ $prop['root_prop'] ] ) )
-                            $attributes[$key_prop] = $attributes[$key_prop][ $prop['root_prop'] ];
-                        else
-                            $attributes[$key_prop] = (object) $attributes[$key_prop];
+                    if( isset($attributes[$key_prop]) && is_array($attributes[$key_prop]) ) {
+
+                        $images = ( $prop['repeatable'] ) ? $attributes[$key_prop] : [ $attributes[$key_prop] ];
+                        foreach( $images as $key_image => $current_image ) {
+
+                            if( is_array($current_image) && isset($current_image['id']) ) {
+                                $attachment_image_src = wp_get_attachment_image_src($current_image['id'], 'large');
+                                $current_image['src'] = $attachment_image_src[0];
+                                $current_image['url'] = $attachment_image_src[0];
+        
+                                if( isset($prop['root_prop']) && isset( $current_image[ $prop['root_prop'] ] ) )
+                                    $images[$key_image] = $current_image[ $prop['root_prop'] ];
+                                else
+                                    $images[$key_image] = (object) $current_image;
+                            }
+                        }
+
+                        $attributes[$key_prop] = ( $prop['repeatable'] ) ? $images : $images[0];
                     }
                     break;
                 
                 case 'file':
-                    if( isset($attributes[$key_prop]) && is_array($attributes[$key_prop]) && isset($attributes[$key_prop]['id']) ) {
-                        $attachment_url = wp_get_attachment_url($attributes[$key_prop]['id']);
-                        $attributes[$key_prop]['src'] = $attachment_url;
-                        $attributes[$key_prop]['url'] = $attachment_url;
 
-                        if( isset($prop['root_prop']) && isset( $attributes[$key_prop][ $prop['root_prop'] ] ) )
-                            $attributes[$key_prop] = $attributes[$key_prop][ $prop['root_prop'] ];
-                        else
-                            $attributes[$key_prop] = (object) $attributes[$key_prop];
+                    if( isset($attributes[$key_prop]) && is_array($attributes[$key_prop]) ) {
+
+                        $files = ( $prop['repeatable'] ) ? $attributes[$key_prop] : [ $attributes[$key_prop] ];
+                        foreach( $files as $key_file => $current_file ) {
+
+                            if( is_array($current_file) && isset($current_file['id']) ) {
+
+                                $attachment_url = wp_get_attachment_url($current_file['id']);
+                                $current_file['src'] = $attachment_url;
+                                $current_file['url'] = $attachment_url;
+
+                                if( isset($prop['root_prop']) && isset( $current_file[ $prop['root_prop'] ] ) )
+                                    $files[$key_file] = $current_file[ $prop['root_prop'] ];
+                                else
+                                    $files[$key_file] = (object) $current_file;
+                            }
+                        }
+
+                        $attributes[$key_prop] = ( $prop['repeatable'] ) ? $files : $files[0];
                     }
                     break;
 
                 case 'relation':
+                    
                     if( isset($attributes[$key_prop]) ) {
                         if( isset($prop['repeatable']) && $prop['repeatable'] && is_array($attributes[$key_prop]) && count($attributes[$key_prop]) > 0 ) {
                             $attributes[$key_prop] = get_posts([

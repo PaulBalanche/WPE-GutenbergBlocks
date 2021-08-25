@@ -98,7 +98,7 @@ function custom_wpe_component_render_callback_recursive_treatment($component, $a
                     break;
 
                 case 'relation':
-                    
+
                     if( isset($attributes[$key_prop]) ) {
                         if( isset($prop['repeatable']) && $prop['repeatable'] && is_array($attributes[$key_prop]) && count($attributes[$key_prop]) > 0 ) {
                             $attributes[$key_prop] = get_posts([

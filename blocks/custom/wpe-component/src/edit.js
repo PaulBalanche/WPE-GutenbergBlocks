@@ -815,18 +815,19 @@ class WpeComponent extends Component {
                 labels={ { title: label } }
                 onSelect={ ( value ) => {
 
-                    if( typeof value.id != 'undefined' ) {
-
-                        let newValue = undefined;
-                        switch( type ) {
-                            case "image":
+                    let newValue = undefined;
+                    switch( type ) {
+                        case "image":
+                            if( typeof value.id != 'undefined' ) {
                                 newValue = {
                                     id: value.id,
                                     preview: value.url
                                 };
-                                break;
+                            }
+                            break;
 
-                            case "file":
+                        case "file":
+                            if( typeof value.id != 'undefined' ) {
                                 newValue = {
                                     id: value.id,
                                     preview: value.icon,
@@ -834,20 +835,24 @@ class WpeComponent extends Component {
                                     mime: value.mime,
                                     size: value.filesizeInBytes
                                 };
-                                break;
+                            }
+                            break;
 
-                            case "gallery":
-                                newValue = [];
-                                value.forEach(image => {
+                        case "gallery":
+                            newValue = [];
+                            value.forEach(image => {
+                                if( typeof image.id != 'undefined' ) {
                                     newValue.push( {
                                         id: image.id,
                                         preview: image.url
                                     } )
-                                });
-                                break;
-                        }
-                        this.updateAttributes(keys, valueProp, newValue, false);
+                                }
+                            });
+                            break;
                     }
+
+                    if( typeof newValue != 'undefined' && ( typeof newValue != 'object' || Object.keys(newValue).length > 0 ) )
+                        this.updateAttributes(keys, valueProp, newValue, false);
                 } }
                 multiple= { type == 'gallery' }
                 addToGallery= { type == 'gallery' && !! objectValue }

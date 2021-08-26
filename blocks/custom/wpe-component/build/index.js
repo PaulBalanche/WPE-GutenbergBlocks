@@ -2166,18 +2166,21 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           title: label
         },
         onSelect: function onSelect(value) {
-          if (typeof value.id != 'undefined') {
-            var newValue = undefined;
+          var newValue = undefined;
 
-            switch (type) {
-              case "image":
+          switch (type) {
+            case "image":
+              if (typeof value.id != 'undefined') {
                 newValue = {
                   id: value.id,
                   preview: value.url
                 };
-                break;
+              }
 
-              case "file":
+              break;
+
+            case "file":
+              if (typeof value.id != 'undefined') {
                 newValue = {
                   id: value.id,
                   preview: value.icon,
@@ -2185,21 +2188,24 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
                   mime: value.mime,
                   size: value.filesizeInBytes
                 };
-                break;
+              }
 
-              case "gallery":
-                newValue = [];
-                value.forEach(function (image) {
+              break;
+
+            case "gallery":
+              newValue = [];
+              value.forEach(function (image) {
+                if (typeof image.id != 'undefined') {
                   newValue.push({
                     id: image.id,
                     preview: image.url
                   });
-                });
-                break;
-            }
-
-            _this11.updateAttributes(keys, valueProp, newValue, false);
+                }
+              });
+              break;
           }
+
+          if (typeof newValue != 'undefined' && (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(newValue) != 'object' || Object.keys(newValue).length > 0)) _this11.updateAttributes(keys, valueProp, newValue, false);
         },
         multiple: type == 'gallery',
         addToGallery: type == 'gallery' && !!objectValue,

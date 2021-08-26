@@ -2166,38 +2166,40 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           title: label
         },
         onSelect: function onSelect(value) {
-          var newValue = undefined;
+          if (typeof value.id != 'undefined') {
+            var newValue = undefined;
 
-          switch (type) {
-            case "image":
-              newValue = {
-                id: value.id,
-                preview: value.url
-              };
-              break;
+            switch (type) {
+              case "image":
+                newValue = {
+                  id: value.id,
+                  preview: value.url
+                };
+                break;
 
-            case "file":
-              newValue = {
-                id: value.id,
-                preview: value.icon,
-                name: value.filename,
-                mime: value.mime,
-                size: value.filesizeInBytes
-              };
-              break;
+              case "file":
+                newValue = {
+                  id: value.id,
+                  preview: value.icon,
+                  name: value.filename,
+                  mime: value.mime,
+                  size: value.filesizeInBytes
+                };
+                break;
 
-            case "gallery":
-              newValue = [];
-              value.forEach(function (image) {
-                newValue.push({
-                  id: image.id,
-                  preview: image.url
+              case "gallery":
+                newValue = [];
+                value.forEach(function (image) {
+                  newValue.push({
+                    id: image.id,
+                    preview: image.url
+                  });
                 });
-              });
-              break;
-          }
+                break;
+            }
 
-          _this11.updateAttributes(keys, valueProp, newValue, false);
+            _this11.updateAttributes(keys, valueProp, newValue, false);
+          }
         },
         multiple: type == 'gallery',
         addToGallery: type == 'gallery' && !!objectValue,

@@ -814,6 +814,9 @@ class WpeComponent extends Component {
                 key={ id }
                 labels={ { title: label } }
                 onSelect={ ( value ) => {
+
+                    if( typeof value.id != 'undefined' ) {
+
                         let newValue = undefined;
                         switch( type ) {
                             case "image":
@@ -845,7 +848,7 @@ class WpeComponent extends Component {
                         }
                         this.updateAttributes(keys, valueProp, newValue, false);
                     }
-                }
+                } }
                 multiple= { type == 'gallery' }
                 addToGallery= { type == 'gallery' && !! objectValue }
                 value={ objectValue }

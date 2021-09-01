@@ -28,6 +28,21 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
                 )) : '';
 
                 $attributes = apply_filters('wpextend/wpe_component_attributes', $attributes, $component['id']);
+
+                // Check if required field are filled
+                if( isset($component['props']) && is_array($component['props']) && count($component['props']) > 0 ) {
+                        
+                    foreach( $component['props'] as $key_prop => $prop ) {
+                        if( isset($prop['required']) && $prop['required'] && ( ! isset($attributes[$key_prop]) || ! $attributes[$key_prop] || empty($attributes[$key_prop]) ) ){
+
+                            if( isset($_SERVER['HTTP_REFERER']) && strpos( $_SERVER['HTTP_REFERER'], 'wp-admin/post.php' ) !== false )
+                                return 'Some required fields are missing...';
+                            else
+                                return;
+                        }
+                    }
+                }
+
                 return Wpextend\GutenbergBlock::render($component['path'], $attributes);
             }
         }

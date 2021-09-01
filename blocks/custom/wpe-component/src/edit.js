@@ -143,59 +143,61 @@ class WpeComponent extends Component {
                 label = label + " " + index + "/" + currentValueAttribute.length;
             }
 
+            let required_field = ( typeof prop.required != "undefined" && prop.required ) ? true : false;
+
             let fieldId = this.props.clientId + "-" + keys.join("-") + "-" + keyLoop;
             switch(prop.type) {
 
                 case 'string':
-                    blocReturned.push( this.renderTextControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], false, repeatable ) );
+                    blocReturned.push( this.renderTextControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], false, repeatable, required_field ) );
                     break;
 
                 case 'number':
-                    blocReturned.push( this.renderTextControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], true, repeatable ) );
+                    blocReturned.push( this.renderTextControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], true, repeatable, required_field ) );
                     break;
 
                 case 'text':
-                    blocReturned.push( this.renderTextareaControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderTextareaControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
                 
                 case 'richText':
-                    blocReturned.push( this.renderRichTextControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderRichTextControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
 
                 case 'wysiwyg':
-                    blocReturned.push( this.renderWysiwygControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderWysiwygControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
 
                 case 'boolean':
-                    blocReturned.push( this.renderToggleControl( fieldId, label, prop.help, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderToggleControl( fieldId, label, prop.help, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
 
                 case 'select':
-                    blocReturned.push( this.renderSelectControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderSelectControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
                 
                 case 'radio':
-                    blocReturned.push( this.renderRadioControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderRadioControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
 
                 case 'link':
-                    blocReturned.push( this.renderLinkControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderLinkControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
 
                 case 'relation':
-                    blocReturned.push( this.renderRelationControl( fieldId, label, prop.entity, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderRelationControl( fieldId, label, prop.entity, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
 
                 case 'image':
-                    blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
                 
                 case 'file':
-                    blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
                 
                 case 'gallery':
-                    blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable ) );
+                    blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
 
                 case 'object':
@@ -291,7 +293,9 @@ class WpeComponent extends Component {
         return blocReturned;
     }
 
-    renderTextControl( id, label, keys, valueProp, objectValue, isNumber = false, repeatable = false ) {
+    renderTextControl( id, label, keys, valueProp, objectValue, isNumber = false, repeatable = false, required = false ) {
+
+        label = ( required ) ? label + '*' : label;
 
         if( repeatable ) {
             label = (
@@ -324,7 +328,9 @@ class WpeComponent extends Component {
         );
     }
 
-    renderTextareaControl( id, label, keys, valueProp, objectValue, repeatable = false ) {
+    renderTextareaControl( id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
+
+        label = ( required ) ? label + '*' : label;
 
         if( repeatable ) {
             label = (
@@ -356,7 +362,9 @@ class WpeComponent extends Component {
         );
     }
     
-    renderRichTextControl( id, label, keys, valueProp, objectValue, repeatable = false ) {
+    renderRichTextControl( id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
+
+        label = ( required ) ? label + '*' : label;
 
         if( repeatable ) {
             label = (
@@ -404,7 +412,9 @@ class WpeComponent extends Component {
         );
     }
     
-    renderWysiwygControl( id, label, keys, valueProp, objectValue, repeatable = false ) {
+    renderWysiwygControl( id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
+
+        label = ( required ) ? label + '*' : label;
 
         if( repeatable ) {
             label = (
@@ -474,7 +484,9 @@ class WpeComponent extends Component {
         );
     }
     
-    renderLinkControl( id, label, keys, valueProp, objectValue, repeatable = false ) {
+    renderLinkControl( id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
+        
+        label = ( required ) ? label + '*' : label;
 
         if( repeatable ) {
             label = (
@@ -535,10 +547,12 @@ class WpeComponent extends Component {
         );
     }
 
-    renderSelectControl( id, label, options, keys, valueProp, objectValue, repeatable = false ) {
+    renderSelectControl( id, label, options, keys, valueProp, objectValue, repeatable = false, required = false ) {
 
         if( typeof options == 'undefined' )
             return null;
+
+        label = ( required ) ? label + '*' : label;
 
         if( repeatable ) {
             label = (
@@ -575,10 +589,12 @@ class WpeComponent extends Component {
         );
     }
 
-    renderRadioControl( id, label, options, keys, valueProp, objectValue, repeatable = false ) {
+    renderRadioControl( id, label, options, keys, valueProp, objectValue, repeatable = false, required = false ) {
 
         if( typeof options == 'undefined' )
             return null;
+
+        label = ( required ) ? label + '*' : label;
 
         if( repeatable ) {
             label = (
@@ -635,10 +651,12 @@ class WpeComponent extends Component {
         );
     }
 
-    renderRelationControl( id, label, entity, keys, valueProp, objectValue, repeatable = false ) {
+    renderRelationControl( id, label, entity, keys, valueProp, objectValue, repeatable = false, required = false ) {
 
         if( typeof entity == 'undefined' || typeof this.props.relations[entity] == 'undefined' || this.props.relations[entity] == null || Object.keys(this.props.relations[entity]).length == 0 )
             return null;
+
+        label = ( required ) ? label + '*' : label;
 
         if( repeatable ) {
             label = (
@@ -674,7 +692,9 @@ class WpeComponent extends Component {
         );
     }
 
-    renderToggleControl( id, label, help, keys, valueProp, objectValue, repeatable = false ) {
+    renderToggleControl( id, label, help, keys, valueProp, objectValue, repeatable = false, required = false ) {
+
+        label = ( required ) ? label + '*' : label;
 
         if( repeatable ) {
             label = (
@@ -707,8 +727,10 @@ class WpeComponent extends Component {
         );
     }
 
-    renderFileControl( type, id, label, keys, valueProp, objectValue, repeatable = false ) {
+    renderFileControl( type, id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
 
+        label = ( required ) ? label + '*' : label;
+        
         let preview = false;
         if( objectValue && typeof objectValue == 'object' ) {
 

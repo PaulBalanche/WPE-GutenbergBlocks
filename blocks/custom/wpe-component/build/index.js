@@ -1596,59 +1596,60 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           label = label + " " + index + "/" + currentValueAttribute.length;
         }
 
+        var required_field = typeof prop.required != "undefined" && prop.required ? true : false;
         var fieldId = this.props.clientId + "-" + keys.join("-") + "-" + keyLoop;
 
         switch (prop.type) {
           case 'string':
-            blocReturned.push(this.renderTextControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], false, repeatable));
+            blocReturned.push(this.renderTextControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], false, repeatable, required_field));
             break;
 
           case 'number':
-            blocReturned.push(this.renderTextControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], true, repeatable));
+            blocReturned.push(this.renderTextControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], true, repeatable, required_field));
             break;
 
           case 'text':
-            blocReturned.push(this.renderTextareaControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderTextareaControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'richText':
-            blocReturned.push(this.renderRichTextControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderRichTextControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'wysiwyg':
-            blocReturned.push(this.renderWysiwygControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderWysiwygControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'boolean':
-            blocReturned.push(this.renderToggleControl(fieldId, label, prop.help, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderToggleControl(fieldId, label, prop.help, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'select':
-            blocReturned.push(this.renderSelectControl(fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderSelectControl(fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'radio':
-            blocReturned.push(this.renderRadioControl(fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderRadioControl(fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'link':
-            blocReturned.push(this.renderLinkControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderLinkControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'relation':
-            blocReturned.push(this.renderRelationControl(fieldId, label, prop.entity, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderRelationControl(fieldId, label, prop.entity, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'image':
-            blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'file':
-            blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'gallery':
-            blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable));
+            blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'object':
@@ -1727,6 +1728,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       var isNumber = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
+      label = required ? label + '*' : label;
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Button"], {
@@ -1755,6 +1758,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this3 = this;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
+      var required = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      label = required ? label + '*' : label;
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Button"], {
@@ -1782,6 +1787,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this4 = this;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
+      var required = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      label = required ? label + '*' : label;
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Button"], {
@@ -1822,6 +1829,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this5 = this;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
+      var required = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      label = required ? label + '*' : label;
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Button"], {
@@ -1891,6 +1900,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this6 = this;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
+      var required = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      label = required ? label + '*' : label;
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Button"], {
@@ -1951,7 +1962,9 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this7 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
       if (typeof options == 'undefined') return null;
+      label = required ? label + '*' : label;
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Button"], {
@@ -1988,7 +2001,9 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this8 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
       if (typeof options == 'undefined') return null;
+      label = required ? label + '*' : label;
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Button"], {
@@ -2042,7 +2057,9 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this9 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
       if (typeof entity == 'undefined' || typeof this.props.relations[entity] == 'undefined' || this.props.relations[entity] == null || Object.keys(this.props.relations[entity]).length == 0) return null;
+      label = required ? label + '*' : label;
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Button"], {
@@ -2076,6 +2093,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this10 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
+      label = required ? label + '*' : label;
 
       if (repeatable) {
         label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Button"], {
@@ -2104,6 +2123,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var _this11 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
+      label = required ? label + '*' : label;
       var preview = false;
 
       if (objectValue && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue) == 'object') {

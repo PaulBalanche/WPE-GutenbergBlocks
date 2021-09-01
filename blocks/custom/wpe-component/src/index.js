@@ -115,7 +115,7 @@ Object.values(global_localized.components).forEach( ( element ) => {
         parent: parent,
         attributes: initAttributes,
         description: element.description,
-        edit: edit(element, current_user_can_edit_posts),
+        edit: edit(element, current_user_can_edit_posts, global_localized.styles),
         save: () => {
             return (
                 <InnerBlocks.Content />

@@ -424,6 +424,23 @@ class WpeComponent extends Component {
             );
         }
 
+        let heading_options = [ { model: 'paragraph', title: 'Paragraph' } ];
+        if( typeof this.props.frontspec_styles.typo.values == 'object') {
+            for( const [key, val] of Object.entries(this.props.frontspec_styles.typo.values) ) {
+
+                if( typeof val.type != 'undefined' && val.type == "block" && key != "paragraph") {
+                    heading_options.push( {
+                        model: key,
+                        view: {
+                            name: val.tag,
+                            classes: val.class
+                        },
+                        title: val.name
+                    } );
+                }
+            }
+        }
+
         return (
             <div
                 key={ id + "-WysiwygComponentsBaseControl" }
@@ -447,25 +464,7 @@ class WpeComponent extends Component {
                             } }
                             config={ {
                                 heading: {
-                                    options: [
-                                        { model: 'paragraph', title: 'Paragraph' },
-                                        {
-                                            model: 'h1',
-                                            view: {
-                                                name: 'h1',
-                                                classes: 's-typo:h1'
-                                            },
-                                            title: 'Heading #1'
-                                        },
-                                        {
-                                            model: 'h2',
-                                            view: {
-                                                name: 'h2',
-                                                classes: 's-typo:h2'
-                                            },
-                                            title: 'Heading #2'
-                                        }
-                                    ]
+                                    options: heading_options
                                 }
                             } }
                         />
@@ -991,7 +990,7 @@ class WpeComponent extends Component {
     }
 }
 
-export default (element, current_user_can_edit_posts) => withSelect( ( select, props ) => {
+export default (element, current_user_can_edit_posts, frontspec_styles ) => withSelect( ( select, props ) => {
 
     const { getEntityRecords } = select( 'core' );
     const { __experimentalGetPreviewDeviceType } = select( 'core/edit-post' );
@@ -1012,6 +1011,7 @@ export default (element, current_user_can_edit_posts) => withSelect( ( select, p
         relations: relations,
         element,
         current_user_can_edit_posts: current_user_can_edit_posts,
+        frontspec_styles: frontspec_styles,
         experimentalDeviceType: __experimentalGetPreviewDeviceType()
     };
 } )( WpeComponent )

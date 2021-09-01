@@ -1791,6 +1791,12 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+var align_supports = false;
+
+if (global_localized.supports !== null && typeof global_localized.supports.align != 'undefined') {
+  var align_supports = global_localized.supports.align;
+}
+
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('custom/wpe-container', {
   title: 'Container',
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
@@ -1809,7 +1815,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
     d: "M13.6,23.6c-0.1,0-0.2,0-0.2-0.1c-0.2-0.1-0.2-0.3-0.2-0.4v-9.5c0-0.2,0.1-0.3,0.2-0.4l8.2-4.7c0.2-0.1,0.3-0.1,0.5,0      c0.2,0.1,0.2,0.3,0.2,0.4v9.5c0,0.2-0.1,0.3-0.3,0.4l-8.2,4.7C13.8,23.6,13.7,23.6,13.6,23.6z M14.1,13.9v8.3l7.2-4.2V9.8      L14.1,13.9z"
   })))))),
   supports: {
-    align: ['full', 'wide'],
+    align: align_supports,
     lightBlockWrapper: true,
     anchor: true
   },

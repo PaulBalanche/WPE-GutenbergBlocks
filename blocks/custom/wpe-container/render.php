@@ -2,15 +2,23 @@
 
 function custom_wpe_container_render_callback( $attributes, $content_wrapped ) {
 
-    preg_match( '/<div(.*)class="wp-block-custom-wpe-container">(.*)<\/div>/s', $content_wrapped, $content );
-   
-    $anchor_wrapped = $content[1];
-    $content = $content[2];
+    preg_match( '/<div([^class]*)class="wp-block-custom-wpe-container[^"]*"([^>]*)>(.*)<\/div>/s', $content_wrapped, $content );
+
+    $class_prev = $content[1];
+    $class_next = $content[2];
+    $content = $content[3];
     $anchor = false;
 
-    if( strpos($anchor_wrapped, 'id="') !== false ) {
+    if( strpos($class_prev, 'id="') !== false ) {
 
-        preg_match( '/id="(.*)"/', $anchor_wrapped, $match_anchor );
+        preg_match( '/id="(.*)"/', $class_prev, $match_anchor );
+        if( is_array($match_anchor) && count($match_anchor) == 2 ) {
+            $anchor = $match_anchor[1];
+        }
+    }
+    elseif( strpos($class_next, 'id="') !== false ) {
+
+        preg_match( '/id="(.*)"/', $class_next, $match_anchor );
         if( is_array($match_anchor) && count($match_anchor) == 2 ) {
             $anchor = $match_anchor[1];
         }

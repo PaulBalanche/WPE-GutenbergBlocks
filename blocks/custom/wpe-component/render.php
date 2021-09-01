@@ -72,6 +72,29 @@ function custom_wpe_component_render_callback_recursive_treatment($component, $a
                         $attributes[$key_prop] = ( $prop['repeatable'] ) ? $images : $images[0];
                     }
                     break;
+
+                case 'gallery':
+
+                        if( isset($attributes[$key_prop]) && is_array($attributes[$key_prop]) ) {
+    
+                            $images = $attributes[$key_prop];
+                            foreach( $images as $key_image => $current_image ) {
+    
+                                if( is_array($current_image) && isset($current_image['id']) ) {
+                                    $attachment_image_src = wp_get_attachment_image_src($current_image['id'], 'large');
+                                    $current_image['src'] = $attachment_image_src[0];
+                                    $current_image['url'] = $attachment_image_src[0];
+            
+                                    if( isset($prop['root_prop']) && isset( $current_image[ $prop['root_prop'] ] ) )
+                                        $images[$key_image] = $current_image[ $prop['root_prop'] ];
+                                    else
+                                        $images[$key_image] = (object) $current_image;
+                                }
+                            }
+    
+                            $attributes[$key_prop] = $images;
+                        }
+                        break;
                 
                 case 'file':
 

@@ -1834,6 +1834,30 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }, "Remove"));
       }
 
+      var heading_options = [{
+        model: 'paragraph',
+        title: 'Paragraph'
+      }];
+
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.props.frontspec_styles.typo.values) == 'object') {
+        for (var _i3 = 0, _Object$entries3 = Object.entries(this.props.frontspec_styles.typo.values); _i3 < _Object$entries3.length; _i3++) {
+          var _Object$entries3$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries3[_i3], 2),
+              key = _Object$entries3$_i[0],
+              val = _Object$entries3$_i[1];
+
+          if (typeof val.type != 'undefined' && val.type == "block" && key != "paragraph") {
+            heading_options.push({
+              model: key,
+              view: {
+                name: val.tag,
+                classes: val.class
+              },
+              title: val.name
+            });
+          }
+        }
+      }
+
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
         key: id + "-WysiwygComponentsBaseControl",
         className: "components-base-control"
@@ -1856,24 +1880,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         },
         config: {
           heading: {
-            options: [{
-              model: 'paragraph',
-              title: 'Paragraph'
-            }, {
-              model: 'h1',
-              view: {
-                name: 'h1',
-                classes: 's-typo:h1'
-              },
-              title: 'Heading #1'
-            }, {
-              model: 'h2',
-              view: {
-                name: 'h2',
-                classes: 's-typo:h2'
-              },
-              title: 'Heading #2'
-            }]
+            options: heading_options
           }
         }
       }))));
@@ -2253,10 +2260,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }; // 1. Loop Props Categories
 
         if (typeof element.props_categories != 'undefined') {
-          for (var _i3 = 0, _Object$entries3 = Object.entries(element.props_categories); _i3 < _Object$entries3.length; _i3++) {
-            var _Object$entries3$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries3[_i3], 2),
-                keyCatProps = _Object$entries3$_i[0],
-                valueCatProps = _Object$entries3$_i[1];
+          for (var _i4 = 0, _Object$entries4 = Object.entries(element.props_categories); _i4 < _Object$entries4.length; _i4++) {
+            var _Object$entries4$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries4[_i4], 2),
+                keyCatProps = _Object$entries4$_i[0],
+                valueCatProps = _Object$entries4$_i[1];
 
             catReOrder[valueCatProps.id] = {
               name: valueCatProps.name,
@@ -2266,10 +2273,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         } // 2. Loop Props
 
 
-        for (var _i4 = 0, _Object$entries4 = Object.entries(element.props); _i4 < _Object$entries4.length; _i4++) {
-          var _Object$entries4$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries4[_i4], 2),
-              keyProp = _Object$entries4$_i[0],
-              valueProp = _Object$entries4$_i[1];
+        for (var _i5 = 0, _Object$entries5 = Object.entries(element.props); _i5 < _Object$entries5.length; _i5++) {
+          var _Object$entries5$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries5[_i5], 2),
+              keyProp = _Object$entries5$_i[0],
+              valueProp = _Object$entries5$_i[1];
 
           if (typeof valueProp.category != 'undefined' && valueProp.category in catReOrder) {
             catReOrder[valueProp.category].props[keyProp] = valueProp;
@@ -2279,10 +2286,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         } // 3. Remove empty category
 
 
-        for (var _i5 = 0, _Object$entries5 = Object.entries(catReOrder); _i5 < _Object$entries5.length; _i5++) {
-          var _Object$entries5$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries5[_i5], 2),
-              _keyProp = _Object$entries5$_i[0],
-              _valueProp = _Object$entries5$_i[1];
+        for (var _i6 = 0, _Object$entries6 = Object.entries(catReOrder); _i6 < _Object$entries6.length; _i6++) {
+          var _Object$entries6$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries6[_i6], 2),
+              _keyProp = _Object$entries6$_i[0],
+              _valueProp = _Object$entries6$_i[1];
 
           if (Object.keys(catReOrder[_keyProp].props).length == 0) {
             delete catReOrder[_keyProp];
@@ -2292,18 +2299,18 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
         var tabPanel = [];
 
-        for (var _i6 = 0, _Object$entries6 = Object.entries(catReOrder); _i6 < _Object$entries6.length; _i6++) {
-          var _Object$entries6$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries6[_i6], 2),
-              keyCat = _Object$entries6$_i[0],
-              valCat = _Object$entries6$_i[1];
+        for (var _i7 = 0, _Object$entries7 = Object.entries(catReOrder); _i7 < _Object$entries7.length; _i7++) {
+          var _Object$entries7$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries7[_i7], 2),
+              keyCat = _Object$entries7$_i[0],
+              valCat = _Object$entries7$_i[1];
 
           if (valCat.props.length == 0) continue;
           var currentEditCat = [];
 
-          for (var _i7 = 0, _Object$entries7 = Object.entries(valCat.props); _i7 < _Object$entries7.length; _i7++) {
-            var _Object$entries7$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries7[_i7], 2),
-                _keyProp2 = _Object$entries7$_i[0],
-                prop = _Object$entries7$_i[1];
+          for (var _i8 = 0, _Object$entries8 = Object.entries(valCat.props); _i8 < _Object$entries8.length; _i8++) {
+            var _Object$entries8$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries8[_i8], 2),
+                _keyProp2 = _Object$entries8$_i[0],
+                prop = _Object$entries8$_i[1];
 
             var _valueProp2 = this.getAttribute(_keyProp2);
 
@@ -2354,7 +2361,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
   return WpeComponent;
 }(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (function (element, current_user_can_edit_posts) {
+/* harmony default export */ __webpack_exports__["default"] = (function (element, current_user_can_edit_posts, frontspec_styles) {
   return Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_10__["withSelect"])(function (select, props) {
     var _select = select('core'),
         getEntityRecords = _select.getEntityRecords;
@@ -2366,10 +2373,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
     if (props.name == "custom/wpe-component-" + element.id) {
       // Loop Props
-      for (var _i8 = 0, _Object$entries8 = Object.entries(element.props); _i8 < _Object$entries8.length; _i8++) {
-        var _Object$entries8$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries8[_i8], 2),
-            keyProp = _Object$entries8$_i[0],
-            valueProp = _Object$entries8$_i[1];
+      for (var _i9 = 0, _Object$entries9 = Object.entries(element.props); _i9 < _Object$entries9.length; _i9++) {
+        var _Object$entries9$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries9[_i9], 2),
+            keyProp = _Object$entries9$_i[0],
+            valueProp = _Object$entries9$_i[1];
 
         if (valueProp.type == 'relation' && typeof valueProp.entity != 'undefined' && relations[valueProp.entity] == null) {
           relations[valueProp.entity] = getEntityRecords('postType', valueProp.entity);
@@ -2381,6 +2388,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       relations: relations,
       element: element,
       current_user_can_edit_posts: current_user_can_edit_posts,
+      frontspec_styles: frontspec_styles,
       experimentalDeviceType: __experimentalGetPreviewDeviceType()
     };
   })(WpeComponent);
@@ -2536,7 +2544,7 @@ Object.values(global_localized.components).forEach(function (element) {
     parent: parent,
     attributes: initAttributes,
     description: element.description,
-    edit: Object(_edit__WEBPACK_IMPORTED_MODULE_4__["default"])(element, current_user_can_edit_posts),
+    edit: Object(_edit__WEBPACK_IMPORTED_MODULE_4__["default"])(element, current_user_can_edit_posts, global_localized.styles),
     save: function save() {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InnerBlocks"].Content, null);
     }

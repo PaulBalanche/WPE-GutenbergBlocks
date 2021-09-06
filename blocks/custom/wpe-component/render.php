@@ -27,7 +27,7 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
                     array_keys($attributes['margin'])
                 )) : '';
 
-                $attributes = apply_filters('wpextend/wpe_component_attributes', $attributes, $component['id']);
+                $attributes = apply_filters('wpextend/render_wpe_component_attributes_' . $component['id'], $attributes);
 
                 // Check if required field are filled
                 if( isset($component['props']) && is_array($component['props']) && count($component['props']) > 0 ) {

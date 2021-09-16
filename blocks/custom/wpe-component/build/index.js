@@ -2328,10 +2328,23 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           if (valCat.props.length == 0) continue;
           var currentEditCat = [];
 
-          for (var _i8 = 0, _Object$entries8 = Object.entries(valCat.props); _i8 < _Object$entries8.length; _i8++) {
+          forEachCatProps: for (var _i8 = 0, _Object$entries8 = Object.entries(valCat.props); _i8 < _Object$entries8.length; _i8++) {
             var _Object$entries8$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries8[_i8], 2),
                 _keyProp2 = _Object$entries8$_i[0],
                 prop = _Object$entries8$_i[1];
+
+            // Conditional treatment
+            if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(prop.conditional) == 'object') {
+              for (var _i9 = 0, _Object$entries9 = Object.entries(prop.conditional); _i9 < _Object$entries9.length; _i9++) {
+                var _Object$entries9$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries9[_i9], 2),
+                    index = _Object$entries9$_i[0],
+                    conditionalField = _Object$entries9$_i[1];
+
+                var conditionalFieldKey = Object.keys(conditionalField)[0];
+                var conditionalFieldValue = conditionalField[conditionalFieldKey];
+                if (this.getAttribute(conditionalFieldKey) != conditionalFieldValue) continue forEachCatProps;
+              }
+            }
 
             var _valueProp2 = this.getAttribute(_keyProp2);
 
@@ -2394,10 +2407,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
     if (props.name == "custom/wpe-component-" + element.id) {
       // Loop Props
-      for (var _i9 = 0, _Object$entries9 = Object.entries(element.props); _i9 < _Object$entries9.length; _i9++) {
-        var _Object$entries9$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries9[_i9], 2),
-            keyProp = _Object$entries9$_i[0],
-            valueProp = _Object$entries9$_i[1];
+      for (var _i10 = 0, _Object$entries10 = Object.entries(element.props); _i10 < _Object$entries10.length; _i10++) {
+        var _Object$entries10$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries10[_i10], 2),
+            keyProp = _Object$entries10$_i[0],
+            valueProp = _Object$entries10$_i[1];
 
         if (valueProp.type == 'relation' && typeof valueProp.entity != 'undefined' && relations[valueProp.entity] == null) {
           relations[valueProp.entity] = getEntityRecords('postType', valueProp.entity);

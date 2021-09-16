@@ -951,7 +951,19 @@ class WpeComponent extends Component {
                 
                 let currentEditCat = [];
 
-                for (const [keyProp, prop] of Object.entries(valCat.props)) {
+                forEachCatProps: for (const [keyProp, prop] of Object.entries(valCat.props)) {
+
+                    // Conditional treatment
+                    if( typeof prop.conditional == 'object' ) {
+                        for (const [index, conditionalField] of Object.entries(prop.conditional)) {
+                            
+                            let conditionalFieldKey = Object.keys(conditionalField)[0];
+                            let conditionalFieldValue = conditionalField[conditionalFieldKey];
+                            if( this.getAttribute( conditionalFieldKey ) != conditionalFieldValue)
+                                continue forEachCatProps;
+                        }
+                    }
+
                     let valueProp = this.getAttribute( keyProp );
                     currentEditCat.push( this.renderControl( prop, [ keyProp ], { [keyProp]: valueProp } ) );
                 }

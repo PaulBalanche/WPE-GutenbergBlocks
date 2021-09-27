@@ -47,6 +47,9 @@ if( is_array($frontspec_components) ) {
                     case 'select':
                         $currentType = 'string';
                         break;
+                    case 'color':
+                        $currentType = 'string';
+                        break;
                     case 'radio':
                         $currentType = 'string';
                         break;

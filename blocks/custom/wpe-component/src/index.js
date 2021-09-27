@@ -61,6 +61,11 @@ Object.values(global_localized.components).forEach( ( element ) => {
                     type: 'string'
                 };
                 break;
+            case 'color':
+                initAttributes[key] = {
+                    type: 'string'
+                };
+                break;
             case 'radio':
                 initAttributes[key] = {
                     type: 'string'

@@ -176,6 +176,10 @@ class WpeComponent extends Component {
                     blocReturned.push( this.renderSelectControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
                 
+                case 'color':
+                    blocReturned.push( this.renderSelectControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
+                    break;
+                
                 case 'radio':
                     blocReturned.push( this.renderRadioControl( fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;

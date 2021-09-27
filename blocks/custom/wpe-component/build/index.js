@@ -1628,6 +1628,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             blocReturned.push(this.renderSelectControl(fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
+          case 'color':
+            blocReturned.push(this.renderSelectControl(fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
+            break;
+
           case 'radio':
             blocReturned.push(this.renderRadioControl(fieldId, label, prop.options, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
@@ -2511,6 +2515,12 @@ Object.values(global_localized.components).forEach(function (element) {
         break;
 
       case 'select':
+        initAttributes[key] = {
+          type: 'string'
+        };
+        break;
+
+      case 'color':
         initAttributes[key] = {
           type: 'string'
         };

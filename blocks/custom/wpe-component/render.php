@@ -7,7 +7,7 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
     }
     
 
-    $frontspec_components = Wpextend\GutenbergBlock::get_frontspec_components();
+    $frontspec_components = Wpextend\GutenbergBlock::get_components_frontspec();
     if( is_array($frontspec_components) ) {
         
         foreach( $frontspec_components as $component ) {
@@ -157,11 +157,11 @@ function custom_wpe_component_render_callback_recursive_treatment($component, $a
                     if( isset($attributes[$key_prop]) ) {
                         if( isset($prop['repeatable']) && $prop['repeatable'] ) {
                             foreach( $attributes[$key_prop] as $key => $val ) {
-                                $attributes[$key_prop][$key] = (object) custom_wpe_component_render_callback_recursive_treatment($prop, $val);
+                                $attributes[$key_prop][$key] = custom_wpe_component_render_callback_recursive_treatment($prop, $val);
                             }
                         }
                         else
-                            $attributes[$key_prop] = (object) custom_wpe_component_render_callback_recursive_treatment($prop, $attributes[$key_prop]);
+                            $attributes[$key_prop] = custom_wpe_component_render_callback_recursive_treatment($prop, $attributes[$key_prop]);
                     }
 
                     break;

@@ -1,6 +1,6 @@
 <?php
 
-$frontspec_components = Wpextend\GutenbergBlock::get_frontspec_components();
+$frontspec_components = Wpextend\GutenbergBlock::get_components_frontspec();
 if( is_array($frontspec_components) ) {
 
     foreach( $frontspec_components as $component ) {

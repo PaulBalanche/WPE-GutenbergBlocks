@@ -583,7 +583,7 @@ class WpeComponent extends Component {
                 value={ objectValue }
                 options={
                    [ { label: 'Choose...', value: '' } ].concat( options.map( function(value) {
-                        return { label: value.label, value: value.value }
+                        return { label: value.name, value: value.value }
                     } ) )
                 }
                 onChange={ ( newValue ) =>
@@ -626,7 +626,7 @@ class WpeComponent extends Component {
                 label={ label }
                 selected={ option }
                 options={ options.map( function(value) {
-                    return { label: value.label, value: value.value }
+                    return { label: value.name, value: value.value }
                 } ) }
                 onChange={ ( newValue ) => {
                     setState( { newValue } );

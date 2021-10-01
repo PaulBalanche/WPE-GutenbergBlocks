@@ -189,6 +189,23 @@
         background: white;
         border: 1px solid #cce4f1;
     }
+
+    .dateTime-container {
+        background: #f3f4f5;
+        padding: 20px;
+        border-radius: 2px;
+
+        .components-datetime {
+            display: flex;
+            justify-content: space-between;
+
+            .components-datetime__buttons {
+                justify-content: flex-end;
+                flex-direction: column;
+                align-items: flex-end;
+            }
+        }
+    }
 }
 
 .wpe-component_edit_placeholder {

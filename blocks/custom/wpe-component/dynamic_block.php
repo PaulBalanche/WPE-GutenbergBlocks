@@ -80,6 +80,9 @@ if( is_array($frontspec_components) ) {
                     case 'image[]':
                         $currentType = 'array';
                         break;
+                    case 'date':
+                        $currentType = 'string';
+                        break;
                 }
 
                 $temp_args_register['attributes'][$key_props] = [

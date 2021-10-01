@@ -1,11 +1,12 @@
 <?php
-
+/**
+ * WPE-Component render function
+ * 
+ */
 function custom_wpe_component_render_callback( $attributes, $content ) {
 
-    if( ! isset( $attributes['id_component'] ) ) {
+    if( ! isset( $attributes['id_component'] ) )
         return;
-    }
-    
 
     $frontspec_components = Wpextend\GutenbergBlock::get_components_frontspec();
     if( is_array($frontspec_components) ) {
@@ -16,7 +17,7 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
 
                 unset($attributes['id_component']);
 
-                $attributes = custom_wpe_component_render_callback_recursive_treatment($component, $attributes);
+                $attributes = custom_wpe_component_attributes_formatting($component, $attributes);
 
                 // Format margin to className
                 $attributes['marginClassFormatted'] = ( isset($attributes['margin']) && is_array($attributes['margin']) ) ? implode(' ', array_map(
@@ -27,6 +28,7 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
                     array_keys($attributes['margin'])
                 )) : '';
 
+                $attributes = apply_filters('wpextend/render_wpe_component_attributes', $attributes);
                 $attributes = apply_filters('wpextend/render_wpe_component_attributes_' . $component['id'], $attributes);
 
                 // Check if required field are filled
@@ -51,10 +53,13 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
 
 
 
-function custom_wpe_component_render_callback_recursive_treatment($component, $attributes) {
+/**
+ * Loop on each attribute and format it if necessary
+ * 
+ */
+function custom_wpe_component_attributes_formatting($component, $attributes) {
 
     if( isset($component['props']) && is_array($component['props']) && count($component['props']) > 0 ) {
-                        
         foreach( $component['props'] as $key_prop => $prop ) {
 
             switch( $prop['type'] ) {
@@ -76,6 +81,10 @@ function custom_wpe_component_render_callback_recursive_treatment($component, $a
                                 $attachment_image_src = wp_get_attachment_image_src($current_image['id'], 'large');
                                 $current_image['src'] = $attachment_image_src[0];
                                 $current_image['url'] = $attachment_image_src[0];
+                                $current_image['alt'] = trim( strip_tags( get_post_meta( $current_image['id'], '_wp_attachment_image_alt', true ) ) );
+
+                                unset($current_image['id']);
+                                unset($current_image['preview']);
         
                                 if( isset($prop['root_prop']) && isset( $current_image[ $prop['root_prop'] ] ) )
                                     $images[$key_image] = $current_image[ $prop['root_prop'] ];
@@ -157,11 +166,36 @@ function custom_wpe_component_render_callback_recursive_treatment($component, $a
                     if( isset($attributes[$key_prop]) ) {
                         if( isset($prop['repeatable']) && $prop['repeatable'] ) {
                             foreach( $attributes[$key_prop] as $key => $val ) {
-                                $attributes[$key_prop][$key] = custom_wpe_component_render_callback_recursive_treatment($prop, $val);
+                                $attributes[$key_prop][$key] = custom_wpe_component_attributes_formatting($prop, $val);
                             }
                         }
                         else
-                            $attributes[$key_prop] = custom_wpe_component_render_callback_recursive_treatment($prop, $attributes[$key_prop]);
+                            $attributes[$key_prop] = custom_wpe_component_attributes_formatting($prop, $attributes[$key_prop]);
+                    }
+
+                    break;
+
+                case 'link':
+                    
+                    if( isset($attributes[$key_prop]) && is_array($attributes[$key_prop]) ) {
+
+                        $attributes[$key_prop] = [
+                            'url' => ( isset($attributes[$key_prop]['url']) ) ? $attributes[$key_prop]['url'] : '',
+                            'text' => ( isset($attributes[$key_prop]['text']) ) ? $attributes[$key_prop]['text'] : '',
+                            'target' => ( isset($attributes[$key_prop]['opensInNewTab']) && $attributes[$key_prop]['opensInNewTab'] == '1' ) ? true : false
+                        ];
+                    }
+
+                    break;
+
+                case 'date':
+
+                    if( isset($attributes[$key_prop]) ) {
+
+                        $date = DateTime::createFromFormat('Y-m-d\TH:i:s', $attributes[$key_prop]);
+                        if( $date ) {
+                            $attributes[$key_prop] = $date->format('U');
+                        }
                     }
 
                     break;

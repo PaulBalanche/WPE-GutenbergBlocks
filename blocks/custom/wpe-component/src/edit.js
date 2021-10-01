@@ -22,7 +22,8 @@ import {
     TabPanel,
     Panel, PanelBody,
     SelectControl,
-    RadioControl
+    RadioControl,
+    DateTimePicker
 } from '@wordpress/components';
 
 import { MarginControls } from './_marginControls';
@@ -190,6 +191,10 @@ class WpeComponent extends Component {
 
                 case 'relation':
                     blocReturned.push( this.renderRelationControl( fieldId, label, prop.entity, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
+                    break;
+                
+                case 'date':
+                    blocReturned.push( this.renderDateTimeControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
 
                 case 'image':
@@ -520,11 +525,11 @@ class WpeComponent extends Component {
                     key={ id + "-LinkControlComponentsBaseControlField" }
                     className="components-base-control__field"
                 >
+                    <div className="components-base-control__label" key={ id + "-label" }>{ label }</div>
                     <div
                         key={ id + "-LinkControlContainer" }
                         className="link-control-container"
                     >
-                        <div className="components-base-control__label" key={ id + "-label" }>{ label }</div>
                         <TextControl
                             key={ id + "-text" }
                             label={ "Text" }
@@ -884,6 +889,53 @@ class WpeComponent extends Component {
                 value={ objectValue }
                 disableDropZone={ true }
             >{ preview }</MediaPlaceholder>
+        );
+    }
+
+    renderDateTimeControl( id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
+
+        label = ( required ) ? label + '*' : label;
+
+        if( repeatable ) {
+            label = (
+                <>
+                    { label }
+                    <Button
+                        key={ id + "-repeatableRemoveElt" }
+                        isLink={true}
+                        className="removeRepeatable"
+                        onClick={ () =>
+                            this.removeEltRepeatable(keys, valueProp)
+                        }
+                    >
+                        Remove
+                    </Button>
+                </>
+            );
+        }
+
+        const MyDateTimePicker = withState( {
+            date: ( objectValue ) ? objectValue : new Date(),
+        } )( ( { date, setState } ) => (
+            <DateTimePicker
+                key={ id }
+                currentDate={ date }
+                onChange={ ( newDate ) => {
+                    setState( { date: newDate } );
+                    this.updateAttributes(keys, valueProp, newDate, false);
+                } }
+                is12Hour={ false }
+            />
+        ) );
+
+        return (
+            <div
+                key={ id + "-dateTimeContainer" }
+                className="dateTime-container"
+            >
+                <div className="components-base-control__label" key={ id + "-label" }>{ label }</div>
+                <MyDateTimePicker />
+            </div>
         );
     }
 

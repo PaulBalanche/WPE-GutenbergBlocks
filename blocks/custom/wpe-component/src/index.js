@@ -111,6 +111,11 @@ Object.values(global_localized.components).forEach( ( element ) => {
                     type: 'array'
                 };
                 break;
+            case 'date':
+                initAttributes[key] = {
+                    type: 'string'
+                };
+                break;
         }
     }
 

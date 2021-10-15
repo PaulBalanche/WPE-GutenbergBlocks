@@ -2,7 +2,7 @@
 
 function custom_wpe_container_render_callback( $attributes, $content_wrapped ) {
 
-    preg_match( '/<div([^class]*)class="wp-block-custom-wpe-container[^"]*"([^>]*)>(.*)<\/div>/s', $content_wrapped, $content );
+    preg_match( '/<div(.*)class="wp-block-custom-wpe-container[^"]*"([^>]*)>(.*)<\/div>/s', $content_wrapped, $content );
 
     $class_prev = $content[1];
     $class_next = $content[2];

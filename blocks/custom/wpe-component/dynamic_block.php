@@ -11,6 +11,9 @@ if( is_array($frontspec_components) ) {
                 'id_component' => [
                     'type' => 'string'
                 ],
+                'anchor' => [
+                    'type' => 'string'
+                ],
                 'padding' => [
                     'type' => 'object'
                 ],

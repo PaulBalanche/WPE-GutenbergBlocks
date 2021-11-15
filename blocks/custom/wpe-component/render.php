@@ -3,11 +3,11 @@
  * WPE-Component render function
  * 
  */
-function custom_wpe_component_render_callback( $attributes, $content ) {
+function custom_wpe_component_render_callback( $attributes, $content_wrapped ) {
 
     if( ! isset( $attributes['id_component'] ) )
         return;
-
+    
     $frontspec_components = Wpextend\GutenbergBlock::get_components_frontspec();
     if( is_array($frontspec_components) ) {
         
@@ -16,6 +16,39 @@ function custom_wpe_component_render_callback( $attributes, $content ) {
             if( $component['id'] == $attributes['id_component'] ) {
 
                 unset($attributes['id_component']);
+
+                /**
+                 * Anchor request
+                 *
+                 */
+                $anchor = false;
+                if( preg_match( '/<div(.*)class="wp-block-custom-wpe-component-[^"]*"([^>]*)>(.*)<\/div>/s', $content_wrapped, $content ) === 1 ) {
+                    
+                    $class_prev = $content[1];
+                    $class_next = $content[2];
+                    $content = $content[3];
+
+                    if( strpos($class_prev, 'id="') !== false ) {
+
+                        preg_match( '/id="(.*)"/', $class_prev, $match_anchor );
+                        if( is_array($match_anchor) && count($match_anchor) == 2 ) {
+                            $anchor = $match_anchor[1];
+                        }
+                    }
+                    elseif( strpos($class_next, 'id="') !== false ) {
+
+                        preg_match( '/id="(.*)"/', $class_next, $match_anchor );
+                        if( is_array($match_anchor) && count($match_anchor) == 2 ) {
+                            $anchor = $match_anchor[1];
+                        }
+                    }
+                    if( $anchor )
+                        $attributes['anchor'] = $anchor;
+                }
+                else
+                    $content = $content_wrapped;
+                    
+                /* End anchor request */
 
                 $attributes = custom_wpe_component_attributes_formatting($component, $attributes);
 
@@ -192,7 +225,7 @@ function custom_wpe_component_attributes_formatting($component, $attributes) {
 
                     if( isset($attributes[$key_prop]) ) {
 
-                        $date = DateTime::createFromFormat('Y-m-d\TH:i:s', $attributes[$key_prop]);
+                        $date = DateTime::createFromFormat('Y-m-d\TH:i:s', $attributes[$key_prop], wp_timezone() );
                         if( $date ) {
                             $attributes[$key_prop] = $date->format('U');
                         }

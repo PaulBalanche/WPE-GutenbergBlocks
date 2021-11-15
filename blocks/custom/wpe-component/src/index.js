@@ -1,8 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
 
-import {
-    InnerBlocks
-} from '@wordpress/block-editor';
+import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
@@ -122,13 +120,18 @@ Object.values(global_localized.components).forEach( ( element ) => {
     registerBlockType( 'custom/wpe-component-' + element.id, {
         title: element.name,
         category: 'formatting',
+        supports: {
+            anchor: true
+        },
         parent: parent,
         attributes: initAttributes,
         description: element.description,
         edit: edit(element, current_user_can_edit_posts, global_localized.styles),
         save: () => {
             return (
-                <InnerBlocks.Content />
+                <div { ...useBlockProps.save() } >
+                    <InnerBlocks.Content />
+                </div>
             );
         }
     } );

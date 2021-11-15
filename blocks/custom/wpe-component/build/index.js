@@ -2641,12 +2641,15 @@ Object.values(global_localized.components).forEach(function (element) {
   Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('custom/wpe-component-' + element.id, {
     title: element.name,
     category: 'formatting',
+    supports: {
+      anchor: true
+    },
     parent: parent,
     attributes: initAttributes,
     description: element.description,
     edit: Object(_edit__WEBPACK_IMPORTED_MODULE_4__["default"])(element, current_user_can_edit_posts, global_localized.styles),
     save: function save() {
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InnerBlocks"].Content, null);
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["useBlockProps"].save(), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InnerBlocks"].Content, null));
     }
   });
 });

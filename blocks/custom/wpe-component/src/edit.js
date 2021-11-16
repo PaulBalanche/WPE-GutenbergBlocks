@@ -200,6 +200,10 @@ class WpeComponent extends Component {
                 case 'image':
                     blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
+
+                case 'video':
+                    blocReturned.push( this.renderVideoControl( prop.video, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
+                    break;
                 
                 case 'file':
                     blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
@@ -517,42 +521,66 @@ class WpeComponent extends Component {
 
         const { text, url, opensInNewTab } = objectValue;
         return (
-            <div
-                key={ id + "-LinkControlComponentsBaseControl" }
-                className="components-base-control"
+            <Panel
+                key={ id + "-panelLinkControl"}
             >
-                <div
-                    key={ id + "-LinkControlComponentsBaseControlField" }
-                    className="components-base-control__field"
+                <PanelBody
+                    key={ id + "-panelBodyLinkControl"}
+                    title={ label }
+                    initialOpen={ false }
                 >
-                    <div className="components-base-control__label" key={ id + "-label" }>{ label }</div>
                     <div
-                        key={ id + "-LinkControlContainer" }
-                        className="link-control-container"
+                        key={ id + "-panelBodyDivLinkControl"}
+                        className="linkControlField components-base-control"
                     >
-                        <TextControl
-                            key={ id + "-text" }
-                            label={ "Text" }
-                            type={ "text" }
-                            value={ text }
-                            onChange={ ( newValue ) =>
-                                this.updateAttributes(keys.concat('text'), valueProp, newValue, false)
-                            }
-                        />
-                        <LinkControl
-                            key={ id + "-LinkControl" }
-                            className="wp-block-navigation-link__inline-link-input"
-                            value={ { url, opensInNewTab } }
-                            onChange={ ( {
-                                url: newURL,
-                                opensInNewTab: newOpensInNewTab,
-                            } ) => {
-                                this.updateAttributes(keys, valueProp, { text: text, url: newURL, opensInNewTab: newOpensInNewTab }, false)
-                            } }
-                        />
+                        <div
+                            key={ id + "-panelBodySubDivLinkControl"}
+                            className="linkControlField-content"
+                        >
+                            <div
+                                key={ id + "-LinkControlBasicContainer"}
+                                className="basicField"
+                            >
+                                <div
+                                    key={ id + "-LinkControlComponentsBaseControl" }
+                                    className="components-base-control"
+                                >
+                                    <div
+                                        key={ id + "-LinkControlComponentsBaseControlField" }
+                                        className="components-base-control__field"
+                                    >
+                                        <div
+                                            key={ id + "-LinkControlContainer" }
+                                            className="link-control-container"
+                                        >
+                                            <TextControl
+                                                key={ id + "-text" }
+                                                label={ "Text" }
+                                                type={ "text" }
+                                                value={ text }
+                                                onChange={ ( newValue ) =>
+                                                    this.updateAttributes(keys.concat('text'), valueProp, newValue, false)
+                                                }
+                                            />
+                                            <LinkControl
+                                                key={ id + "-LinkControl" }
+                                                className="wp-block-navigation-link__inline-link-input"
+                                                value={ { url, opensInNewTab } }
+                                                onChange={ ( {
+                                                    url: newURL,
+                                                    opensInNewTab: newOpensInNewTab,
+                                                } ) => {
+                                                    this.updateAttributes(keys, valueProp, { text: text, url: newURL, opensInNewTab: newOpensInNewTab }, false)
+                                                } }
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </PanelBody>
+            </Panel>
         );
     }
 
@@ -738,7 +766,7 @@ class WpeComponent extends Component {
 
     renderFileControl( type, id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
 
-        label = ( required ) ? label + '*' : label;
+        label = ( label && required ) ? label + '*' : label;
         
         let preview = false;
         if( objectValue && typeof objectValue == 'object' ) {
@@ -758,6 +786,28 @@ class WpeComponent extends Component {
                     );
                     break;
 
+                case "video":
+                    preview = (
+                        <>
+                            <img
+                                key={ id + "-filePreview" }
+                                alt="Edit file"
+                                title="Edit file"
+                                className="edit-file-preview"
+                                src={ objectValue.preview }
+                            />
+                            <div
+                                key={ id + "-fileDetails" }
+                                className="file-details"
+                            >
+                                { objectValue.name }<br />
+                                { objectValue.mime}<br />
+                                { this.fileSizeFormat(objectValue.size) }
+                            </div>
+                        </>
+                    );
+                    break;
+                
                 case "file":
                     preview = (
                         <>
@@ -840,23 +890,184 @@ class WpeComponent extends Component {
         }
         
         return (
-            <MediaPlaceholder
-                key={ id }
-                labels={ { title: label } }
-                onSelect={ ( value ) => {
+            <Panel
+                key={ id + "-panelFileControl"}
+            >
+                <PanelBody
+                    key={ id + "-panelBodyFileControl"}
+                    title={ label }
+                    initialOpen={ false }
+                >
+                    <div
+                        key={ id + "-panelBodyDivFileControl"}
+                        className="fileControlField components-base-control"
+                    >
+                        <div
+                            key={ id + "-panelBodySubDivFileControl"}
+                            className="fileControlField-content"
+                        >
+                            <div
+                                key={ id + "-MediaPlaceholderBasicContainer"}
+                                className="basicField"
+                            >
+                                <MediaPlaceholder
+                                    key={ id }
+                                    onSelect={ ( value ) => {
 
-                    let newValue = undefined;
-                    switch( type ) {
-                        case "image":
-                            if( typeof value.id != 'undefined' ) {
-                                newValue = {
-                                    id: value.id,
-                                    preview: value.url
-                                };
+                                        let newValue = undefined;
+                                        switch( type ) {
+                                            case "image":
+                                                if( typeof value.id != 'undefined' ) {
+                                                    newValue = {
+                                                        id: value.id,
+                                                        preview: value.url
+                                                    };
+                                                }
+                                                break;
+
+                                            case "video":
+                                                if( typeof value.id != 'undefined' ) {
+                                                    newValue = {
+                                                        id: value.id,
+                                                        preview: value.icon,
+                                                        name: value.filename,
+                                                        mime: value.mime,
+                                                        size: value.filesizeInBytes
+                                                    };
+                                                }
+                                                break;
+                                            
+                                            case "file":
+                                                if( typeof value.id != 'undefined' ) {
+                                                    newValue = {
+                                                        id: value.id,
+                                                        preview: value.icon,
+                                                        name: value.filename,
+                                                        mime: value.mime,
+                                                        size: value.filesizeInBytes
+                                                    };
+                                                }
+                                                break;
+
+                                            case "gallery":
+                                                newValue = [];
+                                                value.forEach(image => {
+                                                    if( typeof image.id != 'undefined' ) {
+                                                        newValue.push( {
+                                                            id: image.id,
+                                                            preview: image.url
+                                                        } )
+                                                    }
+                                                });
+                                                break;
+                                        }
+
+                                        if( typeof newValue != 'undefined' && ( typeof newValue != 'object' || Object.keys(newValue).length > 0 ) )
+                                            this.updateAttributes(keys, valueProp, newValue, false);
+                                    } }
+                                    multiple= { type == 'gallery' }
+                                    addToGallery= { type == 'gallery' && !! objectValue }
+                                    value={ objectValue }
+                                    disableDropZone={ true }
+                                >{ preview }</MediaPlaceholder>
+                            </div>
+                        </div>
+                    </div>
+                </PanelBody>
+            </Panel>
+        );
+    }
+    
+    renderVideoControl( args, id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
+
+        let videoControl = [];
+
+        let options_video_type = [];
+        if( args.file )
+            options_video_type.push( { label: 'File', value: 'file' } );
+
+        if( args.embed )
+            options_video_type.push( { label: 'Embed', value: 'embed' } );
+
+        let selected_option = ( objectValue.type ) ? objectValue.type : ( ( args.file ) ? 'file' : ( ( args.embed ) ? 'embed' : false ) );
+            
+        const VideoRadioControl = withState( {
+            option: selected_option,
+        } )( ( { option, setState } ) => (
+            <RadioControl
+                key={ id + "-videoType"}
+                label={ "Video type" }
+                selected={ option }
+                options={ options_video_type }
+                onChange={ ( newValue ) => {
+                    setState( { newValue } );
+                    this.updateAttributes(keys, valueProp, { type: newValue }, false);
+                } }
+            />
+        ) );
+
+        videoControl.push(
+            <div
+                key={ id + "-videoTypeBasicContainer"}
+                className="basicField"
+            >
+                <VideoRadioControl />
+            </div>
+        );
+
+        if( selected_option == 'file' ) {
+
+            let preview = false;
+            if( objectValue.file && typeof objectValue.file == 'object' ) {
+                preview = (
+                    <>
+                        <img
+                            key={ id + "-filePreview" }
+                            alt="Edit file"
+                            title="Edit file"
+                            className="edit-file-preview"
+                            src={ objectValue.file.preview }
+                        />
+                        <div
+                            key={ id + "-fileDetails" }
+                            className="file-details"
+                        >
+                            { objectValue.file.name }<br />
+                            { objectValue.file.mime}<br />
+                            { this.fileSizeFormat(objectValue.file.size) }
+                        </div>
+                    </>
+                );
+                
+                preview = (
+                    <div
+                        key={ id + "-mediaPreviewContainer" }
+                        className="media-preview-container"
+                    >
+                        { preview }
+                        <Button
+                            key={ id + "-removeMedia" }
+                            isSecondary
+                            isSmall
+                            className="reset-button"
+                            onClick={ () => 
+                                this.updateAttributes(keys, valueProp, { type: 'file' }, false)
                             }
-                            break;
-
-                        case "file":
+                        >Remove</Button>
+                    </div>
+                );
+            }
+            
+            videoControl.push (
+                <div
+                    key={ id + "-MediaPlaceholderBasicContainer"}
+                    className="basicField"
+                >
+                    <MediaPlaceholder
+                        key={ id + '-MediaPlaceholder' }
+                        onSelect={ ( value ) => {
+                            
+                            let newValue = undefined;
                             if( typeof value.id != 'undefined' ) {
                                 newValue = {
                                     id: value.id,
@@ -866,29 +1077,58 @@ class WpeComponent extends Component {
                                     size: value.filesizeInBytes
                                 };
                             }
-                            break;
 
-                        case "gallery":
-                            newValue = [];
-                            value.forEach(image => {
-                                if( typeof image.id != 'undefined' ) {
-                                    newValue.push( {
-                                        id: image.id,
-                                        preview: image.url
-                                    } )
-                                }
-                            });
-                            break;
-                    }
+                            if( typeof newValue != 'undefined' && ( typeof newValue != 'object' || Object.keys(newValue).length > 0 ) )
+                                this.updateAttributes(keys, valueProp, { type: 'file', file: newValue }, false);
+                        } }
+                        value={ ( objectValue.file ) ? objectValue.file : false }
+                        disableDropZone={ true }
+                    >{ preview }</MediaPlaceholder>
+                </div>
+            );
+        }
 
-                    if( typeof newValue != 'undefined' && ( typeof newValue != 'object' || Object.keys(newValue).length > 0 ) )
-                        this.updateAttributes(keys, valueProp, newValue, false);
-                } }
-                multiple= { type == 'gallery' }
-                addToGallery= { type == 'gallery' && !! objectValue }
-                value={ objectValue }
-                disableDropZone={ true }
-            >{ preview }</MediaPlaceholder>
+        if( selected_option == 'embed' ) {
+            videoControl.push (
+                <div
+                    key={ id + "-embedLinkBasicContainer"}
+                    className="basicField"
+                >
+                    <TextControl
+                        key={ id + "-embedLink"}
+                        label={ 'Embed link' }
+                        type={ 'text' }
+                        value={ ( objectValue.embed ) ? objectValue.embed.url : '' }
+                        onChange={ ( newValue ) =>
+                            this.updateAttributes(keys, valueProp, { type: 'embed', embed: { url: newValue} }, false)
+                        }
+                    />
+                </div>
+            );
+        }
+
+        return (
+            <Panel
+                key={ id + "-panelVideoControl"}
+            >
+                <PanelBody
+                    key={ id + "-panelBodyVideoControl"}
+                    title={ label }
+                    initialOpen={ false }
+                >
+                    <div
+                        key={ id + "-panelBodyDivVideoControl"}
+                        className="videoControlField components-base-control"
+                    >
+                        <div
+                            key={ id + "-panelBodySubDivVideoControl"}
+                            className="videoControlField-content"
+                        > 
+                            { videoControl }
+                        </div>
+                    </div>
+                </PanelBody>
+            </Panel>
         );
     }
 

@@ -99,6 +99,11 @@ Object.values(global_localized.components).forEach( ( element ) => {
                     type: 'object'
                 };
                 break;
+            case 'video':
+                initAttributes[key] = {
+                    type: 'object'
+                };
+                break;
             case 'file':
                 initAttributes[key] = {
                     type: 'object'

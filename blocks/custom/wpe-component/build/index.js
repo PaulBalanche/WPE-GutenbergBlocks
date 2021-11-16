@@ -1652,6 +1652,10 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
+          case 'video':
+            blocReturned.push(this.renderVideoControl(prop.video, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
+            break;
+
           case 'file':
             blocReturned.push(this.renderFileControl(prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
@@ -1925,16 +1929,28 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var text = objectValue.text,
           url = objectValue.url,
           opensInNewTab = objectValue.opensInNewTab;
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Panel"], {
+        key: id + "-panelLinkControl"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["PanelBody"], {
+        key: id + "-panelBodyLinkControl",
+        title: label,
+        initialOpen: false
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-panelBodyDivLinkControl",
+        className: "linkControlField components-base-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-panelBodySubDivLinkControl",
+        className: "linkControlField-content"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-LinkControlBasicContainer",
+        className: "basicField"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
         key: id + "-LinkControlComponentsBaseControl",
         className: "components-base-control"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
         key: id + "-LinkControlComponentsBaseControlField",
         className: "components-base-control__field"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        className: "components-base-control__label",
-        key: id + "-label"
-      }, label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
         key: id + "-LinkControlContainer",
         className: "link-control-container"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["TextControl"], {
@@ -1962,7 +1978,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             opensInNewTab: newOpensInNewTab
           }, false);
         }
-      }))));
+      })))))))));
     }
   }, {
     key: "renderSelectControl",
@@ -2132,7 +2148,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
       var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
-      label = required ? label + '*' : label;
+      label = label && required ? label + '*' : label;
       var preview = false;
 
       if (objectValue && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue) == 'object') {
@@ -2145,6 +2161,19 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               className: "edit-image-preview",
               src: objectValue.preview
             }));
+            break;
+
+          case "video":
+            preview = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("img", {
+              key: id + "-filePreview",
+              alt: "Edit file",
+              title: "Edit file",
+              className: "edit-file-preview",
+              src: objectValue.preview
+            }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+              key: id + "-fileDetails",
+              className: "file-details"
+            }, objectValue.name, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("br", null), objectValue.mime, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("br", null), this.fileSizeFormat(objectValue.size)));
             break;
 
           case "file":
@@ -2196,11 +2225,23 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }, "Remove"));
       }
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_12__["MediaPlaceholder"], {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Panel"], {
+        key: id + "-panelFileControl"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["PanelBody"], {
+        key: id + "-panelBodyFileControl",
+        title: label,
+        initialOpen: false
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-panelBodyDivFileControl",
+        className: "fileControlField components-base-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-panelBodySubDivFileControl",
+        className: "fileControlField-content"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-MediaPlaceholderBasicContainer",
+        className: "basicField"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_12__["MediaPlaceholder"], {
         key: id,
-        labels: {
-          title: label
-        },
         onSelect: function onSelect(value) {
           var newValue = undefined;
 
@@ -2210,6 +2251,19 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
                 newValue = {
                   id: value.id,
                   preview: value.url
+                };
+              }
+
+              break;
+
+            case "video":
+              if (typeof value.id != 'undefined') {
+                newValue = {
+                  id: value.id,
+                  preview: value.icon,
+                  name: value.filename,
+                  mime: value.mime,
+                  size: value.filesizeInBytes
                 };
               }
 
@@ -2247,12 +2301,148 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         addToGallery: type == 'gallery' && !!objectValue,
         value: objectValue,
         disableDropZone: true
-      }, preview);
+      }, preview))))));
+    }
+  }, {
+    key: "renderVideoControl",
+    value: function renderVideoControl(args, id, label, keys, valueProp, objectValue) {
+      var _this12 = this;
+
+      var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+      var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
+      var videoControl = [];
+      var options_video_type = [];
+      if (args.file) options_video_type.push({
+        label: 'File',
+        value: 'file'
+      });
+      if (args.embed) options_video_type.push({
+        label: 'Embed',
+        value: 'embed'
+      });
+      var selected_option = objectValue.type ? objectValue.type : args.file ? 'file' : args.embed ? 'embed' : false;
+      var VideoRadioControl = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_11__["withState"])({
+        option: selected_option
+      })(function (_ref3) {
+        var option = _ref3.option,
+            setState = _ref3.setState;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["RadioControl"], {
+          key: id + "-videoType",
+          label: "Video type",
+          selected: option,
+          options: options_video_type,
+          onChange: function onChange(newValue) {
+            setState({
+              newValue: newValue
+            });
+
+            _this12.updateAttributes(keys, valueProp, {
+              type: newValue
+            }, false);
+          }
+        });
+      });
+      videoControl.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-videoTypeBasicContainer",
+        className: "basicField"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(VideoRadioControl, null)));
+
+      if (selected_option == 'file') {
+        var preview = false;
+
+        if (objectValue.file && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue.file) == 'object') {
+          preview = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("img", {
+            key: id + "-filePreview",
+            alt: "Edit file",
+            title: "Edit file",
+            className: "edit-file-preview",
+            src: objectValue.file.preview
+          }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+            key: id + "-fileDetails",
+            className: "file-details"
+          }, objectValue.file.name, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("br", null), objectValue.file.mime, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("br", null), this.fileSizeFormat(objectValue.file.size)));
+          preview = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+            key: id + "-mediaPreviewContainer",
+            className: "media-preview-container"
+          }, preview, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Button"], {
+            key: id + "-removeMedia",
+            isSecondary: true,
+            isSmall: true,
+            className: "reset-button",
+            onClick: function onClick() {
+              return _this12.updateAttributes(keys, valueProp, {
+                type: 'file'
+              }, false);
+            }
+          }, "Remove"));
+        }
+
+        videoControl.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+          key: id + "-MediaPlaceholderBasicContainer",
+          className: "basicField"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_12__["MediaPlaceholder"], {
+          key: id + '-MediaPlaceholder',
+          onSelect: function onSelect(value) {
+            var newValue = undefined;
+
+            if (typeof value.id != 'undefined') {
+              newValue = {
+                id: value.id,
+                preview: value.icon,
+                name: value.filename,
+                mime: value.mime,
+                size: value.filesizeInBytes
+              };
+            }
+
+            if (typeof newValue != 'undefined' && (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(newValue) != 'object' || Object.keys(newValue).length > 0)) _this12.updateAttributes(keys, valueProp, {
+              type: 'file',
+              file: newValue
+            }, false);
+          },
+          value: objectValue.file ? objectValue.file : false,
+          disableDropZone: true
+        }, preview)));
+      }
+
+      if (selected_option == 'embed') {
+        videoControl.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+          key: id + "-embedLinkBasicContainer",
+          className: "basicField"
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["TextControl"], {
+          key: id + "-embedLink",
+          label: 'Embed link',
+          type: 'text',
+          value: objectValue.embed ? objectValue.embed.url : '',
+          onChange: function onChange(newValue) {
+            return _this12.updateAttributes(keys, valueProp, {
+              type: 'embed',
+              embed: {
+                url: newValue
+              }
+            }, false);
+          }
+        })));
+      }
+
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Panel"], {
+        key: id + "-panelVideoControl"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["PanelBody"], {
+        key: id + "-panelBodyVideoControl",
+        title: label,
+        initialOpen: false
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-panelBodyDivVideoControl",
+        className: "videoControlField components-base-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-panelBodySubDivVideoControl",
+        className: "videoControlField-content"
+      }, videoControl))));
     }
   }, {
     key: "renderDateTimeControl",
     value: function renderDateTimeControl(id, label, keys, valueProp, objectValue) {
-      var _this12 = this;
+      var _this13 = this;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var required = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
@@ -2264,16 +2454,16 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
-            return _this12.removeEltRepeatable(keys, valueProp);
+            return _this13.removeEltRepeatable(keys, valueProp);
           }
         }, "Remove"));
       }
 
       var MyDateTimePicker = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_11__["withState"])({
         date: objectValue ? objectValue : new Date()
-      })(function (_ref3) {
-        var date = _ref3.date,
-            setState = _ref3.setState;
+      })(function (_ref4) {
+        var date = _ref4.date,
+            setState = _ref4.setState;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["DateTimePicker"], {
           key: id,
           currentDate: date,
@@ -2282,7 +2472,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               date: newDate
             });
 
-            _this12.updateAttributes(keys, valueProp, newDate, false);
+            _this13.updateAttributes(keys, valueProp, newDate, false);
           },
           is12Hour: false
         });
@@ -2613,6 +2803,12 @@ Object.values(global_localized.components).forEach(function (element) {
         break;
 
       case 'image':
+        initAttributes[key] = {
+          type: 'object'
+        };
+        break;
+
+      case 'video':
         initAttributes[key] = {
           type: 'object'
         };

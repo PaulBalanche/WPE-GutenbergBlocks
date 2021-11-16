@@ -74,6 +74,9 @@ if( is_array($frontspec_components) ) {
                     case 'image':
                         $currentType = 'object';
                         break;
+                    case 'video':
+                        $currentType = 'object';
+                        break;
                     case 'file':
                         $currentType = 'object';
                         break;

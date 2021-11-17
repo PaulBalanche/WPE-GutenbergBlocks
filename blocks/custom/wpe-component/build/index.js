@@ -1689,19 +1689,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
                   }, "Remove"));
                 }
 
-                blocReturned.push(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Panel"], {
-                  key: fieldId + "-panelObject"
-                }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["PanelBody"], {
-                  key: fieldId + "-panelBodyObject",
-                  title: label,
-                  initialOpen: false
-                }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-                  key: fieldId + "-panelBodyDivObject",
-                  className: "objectField components-base-control"
-                }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-                  key: fieldId + "-panelBodySubDivObject",
-                  className: "objectField-content"
-                }, fieldsetObject)))));
+                blocReturned.push(_this.renderPanelComponent(fieldId, label, fieldsetObject, false));
               })();
             }
 
@@ -1929,19 +1917,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       var text = objectValue.text,
           url = objectValue.url,
           opensInNewTab = objectValue.opensInNewTab;
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Panel"], {
-        key: id + "-panelLinkControl"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["PanelBody"], {
-        key: id + "-panelBodyLinkControl",
-        title: label,
-        initialOpen: false
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        key: id + "-panelBodyDivLinkControl",
-        className: "linkControlField components-base-control"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        key: id + "-panelBodySubDivLinkControl",
-        className: "linkControlField-content"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+      var inner = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
         key: id + "-LinkControlBasicContainer",
         className: "basicField"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
@@ -1978,7 +1954,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             opensInNewTab: newOpensInNewTab
           }, false);
         }
-      })))))))));
+      })))));
+      return this.renderPanelComponent(id, label, inner, false);
     }
   }, {
     key: "renderSelectControl",
@@ -2225,19 +2202,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }, "Remove"));
       }
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Panel"], {
-        key: id + "-panelFileControl"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["PanelBody"], {
-        key: id + "-panelBodyFileControl",
-        title: label,
-        initialOpen: false
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        key: id + "-panelBodyDivFileControl",
-        className: "fileControlField components-base-control"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        key: id + "-panelBodySubDivFileControl",
-        className: "fileControlField-content"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+      var inner = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
         key: id + "-MediaPlaceholderBasicContainer",
         className: "basicField"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_12__["MediaPlaceholder"], {
@@ -2301,7 +2266,8 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         addToGallery: type == 'gallery' && !!objectValue,
         value: objectValue,
         disableDropZone: true
-      }, preview))))));
+      }, preview));
+      return this.renderPanelComponent(id, label, inner, false);
     }
   }, {
     key: "renderVideoControl",
@@ -2425,19 +2391,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         })));
       }
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Panel"], {
-        key: id + "-panelVideoControl"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["PanelBody"], {
-        key: id + "-panelBodyVideoControl",
-        title: label,
-        initialOpen: false
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        key: id + "-panelBodyDivVideoControl",
-        className: "videoControlField components-base-control"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        key: id + "-panelBodySubDivVideoControl",
-        className: "videoControlField-content"
-      }, videoControl))));
+      return this.renderPanelComponent(id, label, videoControl, false);
     }
   }, {
     key: "renderDateTimeControl",
@@ -2484,6 +2438,24 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         className: "components-base-control__label",
         key: id + "-label"
       }, label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(MyDateTimePicker, null));
+    }
+  }, {
+    key: "renderPanelComponent",
+    value: function renderPanelComponent(id, label, inner) {
+      var initialOpen = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Panel"], {
+        key: id + "-panel"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["PanelBody"], {
+        key: id + "-PanelBody",
+        title: label,
+        initialOpen: initialOpen
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-panelBodyDivObject",
+        className: "objectField components-base-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
+        key: id + "-panelBodySubDivObject",
+        className: "objectField-content"
+      }, inner))));
     }
     /**
      * Render

@@ -59,42 +59,6 @@
             }
         }
     }
-    
-    .linkControlField {
-
-        .linkControlField-content {
-            background: #f3f4f5;
-            padding: 0 20px;
-
-            .basicField, .repeatableField {
-                border-color: #e2e4e7;
-            }
-        }
-    }
-
-    .fileControlField {
-
-        .fileControlField-content {
-            background: #f3f4f5;
-            padding: 0 20px;
-
-            .basicField, .repeatableField {
-                border-color: #e2e4e7;
-            }
-        }
-    }
-
-    .videoControlField {
-
-        .videoControlField-content {
-            background: #f3f4f5;
-            padding: 0 20px;
-
-            .basicField, .repeatableField {
-                border-color: #e2e4e7;
-            }
-        }
-    }
 
     .components-panel {
 
@@ -124,7 +88,7 @@
                 background: #f3f4f5;
             }
 
-            .objectField-content, .linkControlField-content, .fileControlField-content, .videoControlField-content {
+            .objectField-content {
                 background: white;
             }
         }

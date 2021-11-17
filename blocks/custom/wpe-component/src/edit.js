@@ -242,27 +242,7 @@ class WpeComponent extends Component {
                         }
 
                         blocReturned.push(
-                            <Panel
-                                key={ fieldId + "-panelObject"}
-                            >
-                                <PanelBody
-                                    key={ fieldId + "-panelBodyObject"}
-                                    title={ label }
-                                    initialOpen={ false }
-                                >
-                                    <div
-                                        key={ fieldId + "-panelBodyDivObject"}
-                                        className="objectField components-base-control"
-                                    >
-                                        <div
-                                            key={ fieldId + "-panelBodySubDivObject"}
-                                            className="objectField-content"
-                                        > 
-                                            { fieldsetObject }
-                                        </div>
-                                    </div>
-                                </PanelBody>
-                            </Panel>
+                            this.renderPanelComponent( fieldId, label, fieldsetObject, false )
                         );
                     }
                     break;
@@ -520,68 +500,51 @@ class WpeComponent extends Component {
         }
 
         const { text, url, opensInNewTab } = objectValue;
-        return (
-            <Panel
-                key={ id + "-panelLinkControl"}
+
+        let inner = (
+            <div
+                key={ id + "-LinkControlBasicContainer"}
+                className="basicField"
             >
-                <PanelBody
-                    key={ id + "-panelBodyLinkControl"}
-                    title={ label }
-                    initialOpen={ false }
+                <div
+                    key={ id + "-LinkControlComponentsBaseControl" }
+                    className="components-base-control"
                 >
                     <div
-                        key={ id + "-panelBodyDivLinkControl"}
-                        className="linkControlField components-base-control"
+                        key={ id + "-LinkControlComponentsBaseControlField" }
+                        className="components-base-control__field"
                     >
                         <div
-                            key={ id + "-panelBodySubDivLinkControl"}
-                            className="linkControlField-content"
+                            key={ id + "-LinkControlContainer" }
+                            className="link-control-container"
                         >
-                            <div
-                                key={ id + "-LinkControlBasicContainer"}
-                                className="basicField"
-                            >
-                                <div
-                                    key={ id + "-LinkControlComponentsBaseControl" }
-                                    className="components-base-control"
-                                >
-                                    <div
-                                        key={ id + "-LinkControlComponentsBaseControlField" }
-                                        className="components-base-control__field"
-                                    >
-                                        <div
-                                            key={ id + "-LinkControlContainer" }
-                                            className="link-control-container"
-                                        >
-                                            <TextControl
-                                                key={ id + "-text" }
-                                                label={ "Text" }
-                                                type={ "text" }
-                                                value={ text }
-                                                onChange={ ( newValue ) =>
-                                                    this.updateAttributes(keys.concat('text'), valueProp, newValue, false)
-                                                }
-                                            />
-                                            <LinkControl
-                                                key={ id + "-LinkControl" }
-                                                className="wp-block-navigation-link__inline-link-input"
-                                                value={ { url, opensInNewTab } }
-                                                onChange={ ( {
-                                                    url: newURL,
-                                                    opensInNewTab: newOpensInNewTab,
-                                                } ) => {
-                                                    this.updateAttributes(keys, valueProp, { text: text, url: newURL, opensInNewTab: newOpensInNewTab }, false)
-                                                } }
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <TextControl
+                                key={ id + "-text" }
+                                label={ "Text" }
+                                type={ "text" }
+                                value={ text }
+                                onChange={ ( newValue ) =>
+                                    this.updateAttributes(keys.concat('text'), valueProp, newValue, false)
+                                }
+                            />
+                            <LinkControl
+                                key={ id + "-LinkControl" }
+                                className="wp-block-navigation-link__inline-link-input"
+                                value={ { url, opensInNewTab } }
+                                onChange={ ( {
+                                    url: newURL,
+                                    opensInNewTab: newOpensInNewTab,
+                                } ) => {
+                                    this.updateAttributes(keys, valueProp, { text: text, url: newURL, opensInNewTab: newOpensInNewTab }, false)
+                                } }
+                            />
                         </div>
                     </div>
-                </PanelBody>
-            </Panel>
+                </div>
+            </div>
         );
+
+        return this.renderPanelComponent( id, label, inner, false );
     }
 
     renderSelectControl( id, label, options, keys, valueProp, objectValue, repeatable = false, required = false ) {
@@ -888,94 +851,75 @@ class WpeComponent extends Component {
                 </div>
             );
         }
-        
-        return (
-            <Panel
-                key={ id + "-panelFileControl"}
+        let inner = (
+            <div
+                key={ id + "-MediaPlaceholderBasicContainer"}
+                className="basicField"
             >
-                <PanelBody
-                    key={ id + "-panelBodyFileControl"}
-                    title={ label }
-                    initialOpen={ false }
-                >
-                    <div
-                        key={ id + "-panelBodyDivFileControl"}
-                        className="fileControlField components-base-control"
-                    >
-                        <div
-                            key={ id + "-panelBodySubDivFileControl"}
-                            className="fileControlField-content"
-                        >
-                            <div
-                                key={ id + "-MediaPlaceholderBasicContainer"}
-                                className="basicField"
-                            >
-                                <MediaPlaceholder
-                                    key={ id }
-                                    onSelect={ ( value ) => {
+                <MediaPlaceholder
+                    key={ id }
+                    onSelect={ ( value ) => {
 
-                                        let newValue = undefined;
-                                        switch( type ) {
-                                            case "image":
-                                                if( typeof value.id != 'undefined' ) {
-                                                    newValue = {
-                                                        id: value.id,
-                                                        preview: value.url
-                                                    };
-                                                }
-                                                break;
+                        let newValue = undefined;
+                        switch( type ) {
+                            case "image":
+                                if( typeof value.id != 'undefined' ) {
+                                    newValue = {
+                                        id: value.id,
+                                        preview: value.url
+                                    };
+                                }
+                                break;
 
-                                            case "video":
-                                                if( typeof value.id != 'undefined' ) {
-                                                    newValue = {
-                                                        id: value.id,
-                                                        preview: value.icon,
-                                                        name: value.filename,
-                                                        mime: value.mime,
-                                                        size: value.filesizeInBytes
-                                                    };
-                                                }
-                                                break;
-                                            
-                                            case "file":
-                                                if( typeof value.id != 'undefined' ) {
-                                                    newValue = {
-                                                        id: value.id,
-                                                        preview: value.icon,
-                                                        name: value.filename,
-                                                        mime: value.mime,
-                                                        size: value.filesizeInBytes
-                                                    };
-                                                }
-                                                break;
+                            case "video":
+                                if( typeof value.id != 'undefined' ) {
+                                    newValue = {
+                                        id: value.id,
+                                        preview: value.icon,
+                                        name: value.filename,
+                                        mime: value.mime,
+                                        size: value.filesizeInBytes
+                                    };
+                                }
+                                break;
+                            
+                            case "file":
+                                if( typeof value.id != 'undefined' ) {
+                                    newValue = {
+                                        id: value.id,
+                                        preview: value.icon,
+                                        name: value.filename,
+                                        mime: value.mime,
+                                        size: value.filesizeInBytes
+                                    };
+                                }
+                                break;
 
-                                            case "gallery":
-                                                newValue = [];
-                                                value.forEach(image => {
-                                                    if( typeof image.id != 'undefined' ) {
-                                                        newValue.push( {
-                                                            id: image.id,
-                                                            preview: image.url
-                                                        } )
-                                                    }
-                                                });
-                                                break;
-                                        }
+                            case "gallery":
+                                newValue = [];
+                                value.forEach(image => {
+                                    if( typeof image.id != 'undefined' ) {
+                                        newValue.push( {
+                                            id: image.id,
+                                            preview: image.url
+                                        } )
+                                    }
+                                });
+                                break;
+                        }
 
-                                        if( typeof newValue != 'undefined' && ( typeof newValue != 'object' || Object.keys(newValue).length > 0 ) )
-                                            this.updateAttributes(keys, valueProp, newValue, false);
-                                    } }
-                                    multiple= { type == 'gallery' }
-                                    addToGallery= { type == 'gallery' && !! objectValue }
-                                    value={ objectValue }
-                                    disableDropZone={ true }
-                                >{ preview }</MediaPlaceholder>
-                            </div>
-                        </div>
-                    </div>
-                </PanelBody>
-            </Panel>
+                        if( typeof newValue != 'undefined' && ( typeof newValue != 'object' || Object.keys(newValue).length > 0 ) )
+                            this.updateAttributes(keys, valueProp, newValue, false);
+                    } }
+                    multiple= { type == 'gallery' }
+                    addToGallery= { type == 'gallery' && !! objectValue }
+                    value={ objectValue }
+                    disableDropZone={ true }
+                >{ preview }</MediaPlaceholder>
+            </div>
         );
+
+        return this.renderPanelComponent( id, label, inner, false );
     }
     
     renderVideoControl( args, id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
@@ -1107,29 +1051,7 @@ class WpeComponent extends Component {
             );
         }
 
-        return (
-            <Panel
-                key={ id + "-panelVideoControl"}
-            >
-                <PanelBody
-                    key={ id + "-panelBodyVideoControl"}
-                    title={ label }
-                    initialOpen={ false }
-                >
-                    <div
-                        key={ id + "-panelBodyDivVideoControl"}
-                        className="videoControlField components-base-control"
-                    >
-                        <div
-                            key={ id + "-panelBodySubDivVideoControl"}
-                            className="videoControlField-content"
-                        > 
-                            { videoControl }
-                        </div>
-                    </div>
-                </PanelBody>
-            </Panel>
-        );
+        return this.renderPanelComponent( id, label, videoControl, false );
     }
 
     renderDateTimeControl( id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
@@ -1176,6 +1098,31 @@ class WpeComponent extends Component {
                 <div className="components-base-control__label" key={ id + "-label" }>{ label }</div>
                 <MyDateTimePicker />
             </div>
+        );
+    }
+
+    renderPanelComponent( id, label, inner, initialOpen = false ) {
+
+        return (
+            <Panel key={ id + "-panel"} >
+                <PanelBody
+                    key={ id + "-PanelBody"}
+                    title={ label }
+                    initialOpen={ initialOpen }
+                >
+                    <div
+                        key={ id + "-panelBodyDivObject"}
+                        className="objectField components-base-control"
+                    >
+                        <div
+                            key={ id + "-panelBodySubDivObject"}
+                            className="objectField-content"
+                        > 
+                            { inner }
+                        </div>
+                    </div>
+                </PanelBody>
+            </Panel>
         );
     }
 

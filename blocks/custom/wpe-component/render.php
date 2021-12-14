@@ -112,17 +112,20 @@ function custom_wpe_component_attributes_formatting($component, $attributes) {
 
                             if( is_array($current_image) && isset($current_image['id']) ) {
                                 $attachment_image_src = wp_get_attachment_image_src($current_image['id'], 'large');
-                                $current_image['src'] = $attachment_image_src[0];
-                                $current_image['url'] = $attachment_image_src[0];
-                                $current_image['alt'] = trim( strip_tags( get_post_meta( $current_image['id'], '_wp_attachment_image_alt', true ) ) );
+                                if( is_array($attachment_image_src) ) {
 
-                                unset($current_image['id']);
-                                unset($current_image['preview']);
-        
-                                if( isset($prop['root_prop']) && isset( $current_image[ $prop['root_prop'] ] ) )
-                                    $images[$key_image] = $current_image[ $prop['root_prop'] ];
-                                else
-                                    $images[$key_image] = (object) $current_image;
+                                    $current_image['src'] = $attachment_image_src[0];
+                                    $current_image['url'] = $attachment_image_src[0];
+                                    $current_image['alt'] = trim( strip_tags( get_post_meta( $current_image['id'], '_wp_attachment_image_alt', true ) ) );
+
+                                    unset($current_image['id']);
+                                    unset($current_image['preview']);
+            
+                                    if( isset($prop['root_prop']) && isset( $current_image[ $prop['root_prop'] ] ) )
+                                        $images[$key_image] = $current_image[ $prop['root_prop'] ];
+                                    else
+                                        $images[$key_image] = (object) $current_image;
+                                }
                             }
                         }
 
@@ -139,13 +142,16 @@ function custom_wpe_component_attributes_formatting($component, $attributes) {
     
                                 if( is_array($current_image) && isset($current_image['id']) ) {
                                     $attachment_image_src = wp_get_attachment_image_src($current_image['id'], 'large');
-                                    $current_image['src'] = $attachment_image_src[0];
-                                    $current_image['url'] = $attachment_image_src[0];
-            
-                                    if( isset($prop['root_prop']) && isset( $current_image[ $prop['root_prop'] ] ) )
-                                        $images[$key_image] = $current_image[ $prop['root_prop'] ];
-                                    else
-                                        $images[$key_image] = (object) $current_image;
+                                    if( is_array($attachment_image_src) ) {
+
+                                        $current_image['src'] = $attachment_image_src[0];
+                                        $current_image['url'] = $attachment_image_src[0];
+                
+                                        if( isset($prop['root_prop']) && isset( $current_image[ $prop['root_prop'] ] ) )
+                                            $images[$key_image] = $current_image[ $prop['root_prop'] ];
+                                        else
+                                            $images[$key_image] = (object) $current_image;
+                                    }
                                 }
                             }
     

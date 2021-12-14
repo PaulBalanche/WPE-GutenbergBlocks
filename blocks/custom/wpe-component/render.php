@@ -159,6 +159,46 @@ function custom_wpe_component_attributes_formatting($component, $attributes) {
                         }
                         break;
                 
+                case 'video':
+                    
+                    if( isset($attributes[$key_prop]) && is_array($attributes[$key_prop]) ) {
+
+                        $files = ( $prop['repeatable'] ) ? $attributes[$key_prop] : [ $attributes[$key_prop] ];
+                        foreach( $files as $key_file => $current_file ) {
+
+                            if( is_array($current_file) && isset($current_file['type']) ) {
+
+                                switch( $current_file['type'] ) {
+
+                                    case 'file':
+
+                                        if( isset($current_file['file']) && is_array($current_file['file']) && isset($current_file['file']['id']) ) {
+
+                                            $video_url = wp_get_attachment_url($current_file['file']['id']);
+                                            $current_file['src'] = $video_url;
+                                        }
+                                        break;
+
+                                    case 'embed':
+
+                                        if( isset($current_file['embed']) && is_array($current_file['embed']) && isset($current_file['embed']['url']) ) {
+
+                                            $current_file['url'] = $current_file['embed']['url'];
+                                        }
+                                        break;
+                                }
+                            }
+
+                            if( isset($prop['root_prop']) && isset( $current_file[ $prop['root_prop'] ] ) )
+                                $files[$key_file] = $current_file[ $prop['root_prop'] ];
+                            else
+                                $files[$key_file] = (object) $current_file;
+                        }
+
+                        $attributes[$key_prop] = ( $prop['repeatable'] ) ? $files : $files[0];
+                    }
+                    break;
+
                 case 'file':
 
                     if( isset($attributes[$key_prop]) && is_array($attributes[$key_prop]) ) {

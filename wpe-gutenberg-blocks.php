@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: 		WPE Gutenberg blocks
- * Version: 			1.3.7
+ * Version: 			1.3.8
  * Requires at least: 	5.6
  * Requires PHP:      	7.2
  * Author: 				Paul Balanche

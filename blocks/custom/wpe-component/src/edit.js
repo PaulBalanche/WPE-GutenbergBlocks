@@ -479,6 +479,10 @@ class WpeComponent extends Component {
     
     renderLinkControl( id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
         
+        if( typeof objectValue == 'undefined' ) {
+            objectValue = {};
+        }
+
         label = ( required ) ? label + '*' : label;
 
         if( repeatable ) {
@@ -498,8 +502,6 @@ class WpeComponent extends Component {
                 </>
             );
         }
-
-        const { text, url, opensInNewTab } = objectValue;
 
         let inner = (
             <div
@@ -522,20 +524,31 @@ class WpeComponent extends Component {
                                 key={ id + "-text" }
                                 label={ "Text" }
                                 type={ "text" }
-                                value={ text }
-                                onChange={ ( newValue ) =>
-                                    this.updateAttributes(keys.concat('text'), valueProp, newValue, false)
-                                }
+                                value={ objectValue.text }
+                                onChange={ ( newValue ) => {
+                                    this.updateAttributes(keys.concat('text'), valueProp, newValue, false);
+                                } }
                             />
                             <LinkControl
                                 key={ id + "-LinkControl" }
                                 className="wp-block-navigation-link__inline-link-input"
-                                value={ { url, opensInNewTab } }
+                                value={ objectValue }
+                                settings={ [
+                                    {
+                                        id: 'url',
+                                        title: 'URL ...',
+                                    },
+                                    {
+                                        id: 'opensInNewTab',
+                                        title: 'Open in new tab',
+                                    }                        
+                                ] }
                                 onChange={ ( {
                                     url: newURL,
                                     opensInNewTab: newOpensInNewTab,
                                 } ) => {
-                                    this.updateAttributes(keys, valueProp, { text: text, url: newURL, opensInNewTab: newOpensInNewTab }, false)
+                                    let newObjectValue = ( typeof newURL == 'string' ) ? { text: objectValue.text, url: newURL, opensInNewTab: newOpensInNewTab } : { text: objectValue.text };
+                                    this.updateAttributes(keys, valueProp, newObjectValue, false);
                                 } }
                             />
                         </div>

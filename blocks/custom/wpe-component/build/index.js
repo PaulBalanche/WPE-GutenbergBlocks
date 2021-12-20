@@ -1901,6 +1901,11 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var required = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+
+      if (typeof objectValue == 'undefined') {
+        objectValue = {};
+      }
+
       label = required ? label + '*' : label;
 
       if (repeatable) {
@@ -1914,9 +1919,6 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }, "Remove"));
       }
 
-      var text = objectValue.text,
-          url = objectValue.url,
-          opensInNewTab = objectValue.opensInNewTab;
       var inner = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
         key: id + "-LinkControlBasicContainer",
         className: "basicField"
@@ -1933,26 +1935,33 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         key: id + "-text",
         label: "Text",
         type: "text",
-        value: text,
+        value: objectValue.text,
         onChange: function onChange(newValue) {
-          return _this6.updateAttributes(keys.concat('text'), valueProp, newValue, false);
+          _this6.updateAttributes(keys.concat('text'), valueProp, newValue, false);
         }
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_12__["__experimentalLinkControl"], {
         key: id + "-LinkControl",
         className: "wp-block-navigation-link__inline-link-input",
-        value: {
-          url: url,
-          opensInNewTab: opensInNewTab
-        },
+        value: objectValue,
+        settings: [{
+          id: 'url',
+          title: 'URL ...'
+        }, {
+          id: 'opensInNewTab',
+          title: 'Open in new tab'
+        }],
         onChange: function onChange(_ref) {
           var newURL = _ref.url,
               newOpensInNewTab = _ref.opensInNewTab;
-
-          _this6.updateAttributes(keys, valueProp, {
-            text: text,
+          var newObjectValue = typeof newURL == 'string' ? {
+            text: objectValue.text,
             url: newURL,
             opensInNewTab: newOpensInNewTab
-          }, false);
+          } : {
+            text: objectValue.text
+          };
+
+          _this6.updateAttributes(keys, valueProp, newObjectValue, false);
         }
       })))));
       return this.renderPanelComponent(id, label, inner, false);

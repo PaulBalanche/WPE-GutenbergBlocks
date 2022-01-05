@@ -166,37 +166,44 @@ function custom_wpe_component_attributes_formatting($component, $attributes) {
                         $files = ( $prop['repeatable'] ) ? $attributes[$key_prop] : [ $attributes[$key_prop] ];
                         foreach( $files as $key_file => $current_file ) {
 
-                            if( is_array($current_file) && isset($current_file['type']) ) {
+                            if( is_array($current_file) ) {
 
-                                switch( $current_file['type'] ) {
+                                foreach( $current_file as $responsive_key => $responsive_file ) {
 
-                                    case 'file':
+                                    if( is_array($responsive_file) && isset($responsive_file['type']) ) {
 
-                                        if( isset($current_file['file']) && is_array($current_file['file']) && isset($current_file['file']['id']) ) {
-
-                                            $video_url = wp_get_attachment_url($current_file['file']['id']);
-                                            $current_file['src'] = $video_url;
+                                        switch( $responsive_file['type'] ) {
+        
+                                            case 'file':
+        
+                                                if( isset($responsive_file['file']) && is_array($responsive_file['file']) && isset($responsive_file['file']['id']) ) {
+        
+                                                    $video_url = wp_get_attachment_url($responsive_file['file']['id']);
+                                                    $responsive_file['src'] = $video_url;
+                                                }
+                                                break;
+        
+                                            case 'embed':
+        
+                                                if( isset($responsive_file['embed']) && is_array($responsive_file['embed']) && isset($responsive_file['embed']['url']) ) {
+        
+                                                    $responsive_file['url'] = $responsive_file['embed']['url'];
+                                                }
+                                                break;
                                         }
-                                        break;
-
-                                    case 'embed':
-
-                                        if( isset($current_file['embed']) && is_array($current_file['embed']) && isset($current_file['embed']['url']) ) {
-
-                                            $current_file['url'] = $current_file['embed']['url'];
-                                        }
-                                        break;
+                                    }
+        
+                                    if( isset($prop['root_prop']) && isset( $responsive_file[ $prop['root_prop'] ] ) )
+                                        $files[$key_file][$responsive_key] = $responsive_file[ $prop['root_prop'] ];
+                                    else
+                                        $files[$key_file][$responsive_key] = (object) $responsive_file;
                                 }
                             }
-
-                            if( isset($prop['root_prop']) && isset( $current_file[ $prop['root_prop'] ] ) )
-                                $files[$key_file] = $current_file[ $prop['root_prop'] ];
-                            else
-                                $files[$key_file] = (object) $current_file;
                         }
 
                         $attributes[$key_prop] = ( $prop['repeatable'] ) ? $files : $files[0];
                     }
+
                     break;
 
                 case 'file':

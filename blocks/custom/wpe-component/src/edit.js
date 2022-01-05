@@ -750,15 +750,13 @@ class WpeComponent extends Component {
             switch( type ) {
                 case "image":
                     preview = (
-                        <>
-                            <img
-                                key={ id + "-imagePreview" }
-                                alt="Edit image"
-                                title="Edit image"
-                                className="edit-image-preview"
-                                src={ objectValue.preview }
-                            />
-                        </>
+                        <img
+                            key={ id + "-imagePreview" }
+                            alt="Edit image"
+                            title="Edit image"
+                            className="edit-image-preview"
+                            src={ objectValue.preview }
+                        />
                     );
                     break;
 
@@ -824,19 +822,17 @@ class WpeComponent extends Component {
                     
                     let columns = ( objectValue.length > 5 ) ? 5 : objectValue.length;
                     preview = (
-                        <>
-                            <figure 
-                                key={ id + "-galleryImagefigure" }
-                                className={ "wp-block-gallery columns-" + columns }
+                        <figure 
+                            key={ id + "-galleryImagefigure" }
+                            className={ "wp-block-gallery columns-" + columns }
+                        >
+                            <ul
+                                key={ id + "-galleryImageContainerUl" }
+                                className="blocks-gallery-grid"
                             >
-                                <ul
-                                    key={ id + "-galleryImageContainerUl" }
-                                    className="blocks-gallery-grid"
-                                >
-                                    { preview }
-                                </ul>
-                            </figure>
-                        </>
+                                { preview }
+                            </ul>
+                        </figure>
                     );
                     break;
             }
@@ -938,132 +934,194 @@ class WpeComponent extends Component {
     renderVideoControl( args, id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
 
         let videoControl = [];
+        var tabPanelResponsive = [];
 
-        let options_video_type = [];
-        if( args.file )
-            options_video_type.push( { label: 'File', value: 'file' } );
+        // Responsive init
+        if( ! args.responsive || typeof args.responsive != 'object' )
+            args.responsive = [ 'default' ];
 
-        if( args.embed )
-            options_video_type.push( { label: 'Embed', value: 'embed' } );
+        // Remove useless data
+        if( typeof objectValue == 'object' ) {
+            for( var i in objectValue ) {
+                if( ! args.responsive.includes(i) )
+                    delete objectValue[i];
+            }
+        }
 
-        let selected_option = ( objectValue.type ) ? objectValue.type : ( ( args.file ) ? 'file' : ( ( args.embed ) ? 'embed' : false ) );
-            
-        const VideoRadioControl = withState( {
-            option: selected_option,
-        } )( ( { option, setState } ) => (
-            <RadioControl
-                key={ id + "-videoType"}
-                label={ "Video type" }
-                selected={ option }
-                options={ options_video_type }
-                onChange={ ( newValue ) => {
-                    setState( { newValue } );
-                    this.updateAttributes(keys, valueProp, { type: newValue }, false);
-                } }
-            />
-        ) );
+        // Loop on each responsive entries
+        for( var i in args.responsive ) {
 
-        videoControl.push(
-            <div
-                key={ id + "-videoTypeBasicContainer"}
-                className="basicField"
-            >
-                <VideoRadioControl />
-            </div>
-        );
+            let responsive_id = args.responsive[i];
+            let responsiveContent = [];
 
-        if( selected_option == 'file' ) {
+            // Update component attribute if empty 
+            if( ! objectValue[responsive_id] ) {
+                if( typeof objectValue != 'object' )
+                    this.updateAttributes(keys, valueProp, { [responsive_id]: {} }, false);
+                else
+                    this.updateAttributes(keys.concat(responsive_id), valueProp, {}, false);
+            }
 
-            let preview = false;
-            if( objectValue.file && typeof objectValue.file == 'object' ) {
-                preview = (
-                    <>
-                        <img
-                            key={ id + "-filePreview" }
-                            alt="Edit file"
-                            title="Edit file"
-                            className="edit-file-preview"
-                            src={ objectValue.file.preview }
-                        />
-                        <div
-                            key={ id + "-fileDetails" }
-                            className="file-details"
-                        >
-                            { objectValue.file.name }<br />
-                            { objectValue.file.mime}<br />
-                            { this.fileSizeFormat(objectValue.file.size) }
-                        </div>
-                    </>
-                );
+            /**
+             * Video type
+             */
+            let options_video_type = [];
+            if( args.file )
+                options_video_type.push( { label: 'File', value: 'file' } );
+
+            if( args.embed )
+                options_video_type.push( { label: 'Embed', value: 'embed' } );
+
+            let selected_option = ( objectValue[responsive_id] && objectValue[responsive_id].type ) ? objectValue[responsive_id].type : ( ( args.file ) ? 'file' : ( ( args.embed ) ? 'embed' : false ) );
                 
-                preview = (
+            const VideoRadioControl = withState( {
+                option: selected_option,
+            } )( ( { option, setState } ) => (
+                <RadioControl
+                    key={ id + "-videoType-" + responsive_id }
+                    label={ "Video type" }
+                    selected={ option }
+                    options={ options_video_type }
+                    onChange={ ( newValue ) => {
+                        setState( { newValue } );
+                        this.updateAttributes(keys.concat(responsive_id), valueProp, { type: newValue }, false);
+                    } }
+                />
+            ) );
+
+            responsiveContent.push(
+                <div
+                    key={ id + "-videoTypeBasicContainer-" + responsive_id }
+                    className="basicField"
+                >
+                    <VideoRadioControl />
+                </div>
+            );
+
+            /**
+             * File
+             */
+            if( selected_option == 'file' ) {
+
+                let preview = false;
+                if( objectValue[responsive_id] && objectValue[responsive_id].file && typeof objectValue[responsive_id].file == 'object' ) {
+                    preview = (
+                        <>
+                            <img
+                                key={ id + "-filePreview-" + responsive_id }
+                                alt="Edit file"
+                                title="Edit file"
+                                className="edit-file-preview"
+                                src={ objectValue[responsive_id].file.preview }
+                            />
+                            <div
+                                key={ id + "-fileDetails-" + responsive_id }
+                                className="file-details"
+                            >
+                                { objectValue[responsive_id].file.name }<br />
+                                { objectValue[responsive_id].file.mime}<br />
+                                { this.fileSizeFormat(objectValue[responsive_id].file.size) }
+                            </div>
+                        </>
+                    );
+                    
+                    preview = (
+                        <div
+                            key={ id + "-mediaPreviewContainer-" + responsive_id }
+                            className="media-preview-container"
+                        >
+                            { preview }
+                            <Button
+                                key={ id + "-removeMedia-" + responsive_id }
+                                isSecondary
+                                isSmall
+                                className="reset-button"
+                                onClick={ () => 
+                                    this.updateAttributes(keys.concat(responsive_id), valueProp, {  type: 'file' }, false)
+                                }
+                            >Remove</Button>
+                        </div>
+                    );
+                }
+                
+                responsiveContent.push (
                     <div
-                        key={ id + "-mediaPreviewContainer" }
-                        className="media-preview-container"
+                        key={ id + "-MediaPlaceholderBasicContainer-" + responsive_id }
+                        className="basicField"
                     >
-                        { preview }
-                        <Button
-                            key={ id + "-removeMedia" }
-                            isSecondary
-                            isSmall
-                            className="reset-button"
-                            onClick={ () => 
-                                this.updateAttributes(keys, valueProp, { type: 'file' }, false)
-                            }
-                        >Remove</Button>
+                        <MediaPlaceholder
+                            key={ id + "-MediaPlaceholder-" + responsive_id }
+                            onSelect={ ( value ) => {
+                                
+                                let newValue = undefined;
+                                if( typeof value.id != 'undefined' ) {
+                                    newValue = {
+                                        id: value.id,
+                                        preview: value.icon,
+                                        name: value.filename,
+                                        mime: value.mime,
+                                        size: value.filesizeInBytes
+                                    };
+                                }
+
+                                if( typeof newValue != 'undefined' && ( typeof newValue != 'object' || Object.keys(newValue).length > 0 ) )
+                                    this.updateAttributes(keys.concat(responsive_id), valueProp, { type: 'file', file: newValue }, false);
+                            } }
+                            value={ ( objectValue[responsive_id] && objectValue[responsive_id].file ) ? objectValue[responsive_id].file : false }
+                            disableDropZone={ true }
+                        >{ preview }</MediaPlaceholder>
                     </div>
                 );
             }
-            
-            videoControl.push (
-                <div
-                    key={ id + "-MediaPlaceholderBasicContainer"}
-                    className="basicField"
-                >
-                    <MediaPlaceholder
-                        key={ id + '-MediaPlaceholder' }
-                        onSelect={ ( value ) => {
-                            
-                            let newValue = undefined;
-                            if( typeof value.id != 'undefined' ) {
-                                newValue = {
-                                    id: value.id,
-                                    preview: value.icon,
-                                    name: value.filename,
-                                    mime: value.mime,
-                                    size: value.filesizeInBytes
-                                };
+
+            /**
+             * Embed
+             */
+            if( selected_option == 'embed' ) {
+                responsiveContent.push (
+                    <div
+                        key={ id + "-embedLinkBasicContainer-" + responsive_id }
+                        className="basicField"
+                    >
+                        <TextControl
+                            key={ id + "-embedLink"}
+                            label={ 'Embed link' }
+                            type={ 'text' }
+                            value={ ( objectValue[responsive_id] && objectValue[responsive_id].embed ) ? objectValue[responsive_id].embed.url : '' }
+                            onChange={ ( newValue ) =>
+                                this.updateAttributes(keys.concat(responsive_id), valueProp, { type: 'embed', embed: { url: newValue} }, false)
                             }
+                        />
+                    </div>
+                );
+            }
 
-                            if( typeof newValue != 'undefined' && ( typeof newValue != 'object' || Object.keys(newValue).length > 0 ) )
-                                this.updateAttributes(keys, valueProp, { type: 'file', file: newValue }, false);
-                        } }
-                        value={ ( objectValue.file ) ? objectValue.file : false }
-                        disableDropZone={ true }
-                    >{ preview }</MediaPlaceholder>
-                </div>
-            );
+            // Tab panel construction
+            tabPanelResponsive.push( {
+                name: responsive_id,
+                title: responsive_id.charAt(0).toUpperCase() + responsive_id.slice(1),
+                content: responsiveContent
+            } );
         }
 
-        if( selected_option == 'embed' ) {
-            videoControl.push (
-                <div
-                    key={ id + "-embedLinkBasicContainer"}
-                    className="basicField"
+        // Render tab if more than 1 content
+        if( tabPanelResponsive.length > 1 ) {
+
+            videoControl.push(
+                <TabPanel
+                    key={ id + "-tabPanelVideo" }
+                    className="tab-panel-wpe-component"
+                    activeClass="active-tab"
+                    tabs={ tabPanelResponsive }
                 >
-                    <TextControl
-                        key={ id + "-embedLink"}
-                        label={ 'Embed link' }
-                        type={ 'text' }
-                        value={ ( objectValue.embed ) ? objectValue.embed.url : '' }
-                        onChange={ ( newValue ) =>
-                            this.updateAttributes(keys, valueProp, { type: 'embed', embed: { url: newValue} }, false)
-                        }
-                    />
-                </div>
+                    { ( tabPanelResponsive ) => tabPanelResponsive.content }
+                </TabPanel>
             );
+    
         }
-
+        else 
+            videoControl.push( tabPanelResponsive[0].content );
+        
         return this.renderPanelComponent( id, label, videoControl, false );
     }
 
@@ -1115,20 +1173,22 @@ class WpeComponent extends Component {
     }
 
     renderPanelComponent( id, label, inner, initialOpen = false ) {
-
+        
         return (
-            <Panel key={ id + "-panel"} >
+            <Panel
+                key={ id + "-panel" }
+            >
                 <PanelBody
-                    key={ id + "-PanelBody"}
+                    key={ id + "-PanelBody" }
                     title={ label }
                     initialOpen={ initialOpen }
                 >
                     <div
-                        key={ id + "-panelBodyDivObject"}
+                        key={ id + "-panelBodyDivObject" }
                         className="objectField components-base-control"
                     >
                         <div
-                            key={ id + "-panelBodySubDivObject"}
+                            key={ id + "-panelBodySubDivObject" }
                             className="objectField-content"
                         > 
                             { inner }
@@ -1245,16 +1305,14 @@ class WpeComponent extends Component {
             if( tabPanel.length > 1 ) {
                 
                 editPlaceHolder = (
-                    <>
-                        <TabPanel
-                            key={ clientId + "-tabPanel" }
-                            className="tab-panel-wpe-component"
-                            activeClass="active-tab"
-                            tabs={ tabPanel }
-                        >
-                            { ( tabPanel ) => tabPanel.content }
-                        </TabPanel>
-                    </>
+                    <TabPanel
+                        key={ clientId + "-tabPanel" }
+                        className="tab-panel-wpe-component"
+                        activeClass="active-tab"
+                        tabs={ tabPanel }
+                    >
+                        { ( tabPanel ) => tabPanel.content }
+                    </TabPanel>
                 );
             }
             else {

@@ -202,6 +202,10 @@ function custom_wpe_component_attributes_formatting($component, $attributes) {
                         }
 
                         $attributes[$key_prop] = ( $prop['repeatable'] ) ? $files : $files[0];
+
+                        if( count($attributes[$key_prop]) == 1 && isset($attributes[$key_prop]['default']) ) {
+                            $attributes[$key_prop] = $attributes[$key_prop]['default'];
+                        }
                     }
 
                     break;

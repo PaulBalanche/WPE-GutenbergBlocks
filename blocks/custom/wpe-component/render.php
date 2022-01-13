@@ -181,6 +181,9 @@ function custom_wpe_component_attributes_formatting($component, $attributes) {
                                                     $video_url = wp_get_attachment_url($responsive_file['file']['id']);
                                                     $responsive_file['src'] = $video_url;
                                                 }
+                                                else
+                                                    $responsive_file = null;
+
                                                 break;
         
                                             case 'embed':
@@ -189,14 +192,23 @@ function custom_wpe_component_attributes_formatting($component, $attributes) {
         
                                                     $responsive_file['url'] = $responsive_file['embed']['url'];
                                                 }
+                                                else
+                                                    $responsive_file = null;
+
                                                 break;
                                         }
                                     }
-        
-                                    if( isset($prop['root_prop']) && isset( $responsive_file[ $prop['root_prop'] ] ) )
-                                        $files[$key_file][$responsive_key] = $responsive_file[ $prop['root_prop'] ];
                                     else
-                                        $files[$key_file][$responsive_key] = (object) $responsive_file;
+                                        $responsive_file = null;
+                                    
+                                    if( ! is_null($responsive_file) ) {
+                                        if( isset($prop['root_prop']) && isset( $responsive_file[ $prop['root_prop'] ] ) )
+                                            $files[$key_file][$responsive_key] = $responsive_file[ $prop['root_prop'] ];
+                                        else
+                                            $files[$key_file][$responsive_key] = (object) $responsive_file;
+                                    }
+                                    else
+                                        unset( $files[$key_file][$responsive_key] );
                                 }
                             }
                         }

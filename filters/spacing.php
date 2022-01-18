@@ -42,14 +42,6 @@ function wpe_gutenberg_blocks_bootstrap_spacing_formatting( $spacing, $type = 'p
  */
 function wpe_gutenberg_blocks_default_spacing_formatting( $spacing, $type = 'padding' ) {
 
-    $spacing_formatted = ( is_array($spacing) ) ? implode(' ', array_map(
-        function ($v, $k) {
-            return $k . '-' . $v;
-        },
-        $spacing,
-        array_keys($spacing)
-    )) : '';
-
     $spacing_formatted = '';
 
     if( $spacing && is_array($spacing) ) {

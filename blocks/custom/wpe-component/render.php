@@ -71,7 +71,8 @@ function custom_wpe_component_render_callback( $attributes, $content_wrapped ) {
                 }
 
                 // Render
-                return Wpextend\GutenbergBlock::render($component['path'], $attributes);
+                $render_component = Wpextend\GutenbergBlock::render($component['path'], $attributes);
+                return apply_filters( 'wpextend/render_wpe_component_' . $component['id'], $render_component );
             }
         }
     }

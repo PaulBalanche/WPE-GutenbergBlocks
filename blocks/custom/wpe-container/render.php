@@ -2,10 +2,7 @@
 
 function custom_wpe_container_render_callback( $attributes, $content_wrapped ) {
 
-    /**
-     * Anchor request
-     *
-     */
+    // Anchor request
     $anchor = false;
     if( preg_match( '/<div(.*)class="wp-block-custom-wpe-container[^"]*"([^>]*)>(.*)<\/div>/s', $content_wrapped, $content ) === 1 ) {
 
@@ -35,8 +32,8 @@ function custom_wpe_container_render_callback( $attributes, $content_wrapped ) {
     $data = [
         'content' => $content,
         'align' => ( isset($attributes['align']) ) ? 'align' . $attributes['align'] : '',
-        // 'margin' => ( isset($attributes['margin']) && is_array($attributes['margin']) ) ? implode(' ', array_map( function ($v, $k) { if( strpos($k, 'm') == 0 ) { return $k . '-' . $v; } }, $attributes['margin'], array_keys($attributes['margin']) )) : '',
-        // 'padding' => ( isset($attributes['padding']) && is_array($attributes['padding']) ) ? implode(' ', array_map( function ($v, $k) { if( strpos($k, 'p') == 0 ) { return $k . '-' . $v; } }, $attributes['padding'], array_keys($attributes['padding']) )) : '',
+        'margin' => apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', $attributes['margin'], 'margin' ),
+        'padding' => apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', $attributes['padding'], 'padding' ),
         'style' => ( isset($attributes['style']) ) ? 'st-' . $attributes['style'] : '',
         'container_class_name' => \Wpextend\GutenbergBlock::get_container_class_name(),
         'background' => '',

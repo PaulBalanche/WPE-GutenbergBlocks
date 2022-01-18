@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: 		WPE Gutenberg blocks
- * Version: 			1.4.2
+ * Version: 			1.4.3
  * Requires at least: 	5.6
  * Requires PHP:      	7.2
  * Author: 				Paul Balanche
@@ -16,14 +16,13 @@ error_reporting(E_ALL | E_STRICT);
 
 
 /**
-* Initialize WPE Gutenberg blocks plugin
-*
-*/
+ * Initialize WPE Gutenberg blocks plugin
+ *
+ */
 add_action( 'plugins_loaded', '_wpe_gutenberg_blocks_init' );
 function _wpe_gutenberg_blocks_init() {
 
     _check_if_wpextend_parent_plugin_is_activated();
-    
 }
 
 
@@ -54,3 +53,10 @@ function _wpe_gutenberg_blocks_activate() {
         wp_die('Sorry, but this plugin requires WP Extend Plugin to be installed and active. <br><a href="' . admin_url( 'plugins.php' ) . '">Return to Plugins</a>');
     }
 }
+
+
+/**
+ * Dependencies
+ * 
+ */
+require( dirname( __FILE__ ) . '/filters/spacing.php' );

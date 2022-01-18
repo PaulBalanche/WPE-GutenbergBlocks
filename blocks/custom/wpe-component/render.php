@@ -17,10 +17,7 @@ function custom_wpe_component_render_callback( $attributes, $content_wrapped ) {
 
                 unset($attributes['id_component']);
 
-                /**
-                 * Anchor request
-                 *
-                 */
+                //Anchor request
                 $anchor = false;
                 if( preg_match( '/<div(.*)class="wp-block-custom-wpe-component-[^"]*"([^>]*)>(.*)<\/div>/s', $content_wrapped, $content ) === 1 ) {
                     
@@ -47,20 +44,15 @@ function custom_wpe_component_render_callback( $attributes, $content_wrapped ) {
                 }
                 else
                     $content = $content_wrapped;
-                    
-                /* End anchor request */
 
+                // Loop on each attribute and format it if necessary
                 $attributes = custom_wpe_component_attributes_formatting($component, $attributes);
 
-                // Format margin to className
-                $attributes['marginClassFormatted'] = ( isset($attributes['margin']) && is_array($attributes['margin']) ) ? implode(' ', array_map(
-                    function ($v, $k) {
-                        return $k . '-' . $v;
-                    },
-                    $attributes['margin'],
-                    array_keys($attributes['margin'])
-                )) : '';
+                // Filters spacing
+                $attributes['margin'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', $attributes['margin'], 'margin' );
+                $attributes['padding'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', $attributes['padding'], 'padding' );
 
+                // Filters component attributes (all and specific component)
                 $attributes = apply_filters('wpextend/render_wpe_component_attributes', $attributes);
                 $attributes = apply_filters('wpextend/render_wpe_component_attributes_' . $component['id'], $attributes);
 
@@ -78,6 +70,7 @@ function custom_wpe_component_render_callback( $attributes, $content_wrapped ) {
                     }
                 }
 
+                // Render
                 return Wpextend\GutenbergBlock::render($component['path'], $attributes);
             }
         }
@@ -146,6 +139,7 @@ function custom_wpe_component_attributes_formatting($component, $attributes) {
 
                                         $current_image['src'] = $attachment_image_src[0];
                                         $current_image['url'] = $attachment_image_src[0];
+                                        $current_image['alt'] = trim( strip_tags( get_post_meta( $current_image['id'], '_wp_attachment_image_alt', true ) ) );
                 
                                         if( isset($prop['root_prop']) && isset( $current_image[ $prop['root_prop'] ] ) )
                                             $images[$key_image] = $current_image[ $prop['root_prop'] ];

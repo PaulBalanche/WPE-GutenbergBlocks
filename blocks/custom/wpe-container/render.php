@@ -32,8 +32,8 @@ function custom_wpe_container_render_callback( $attributes, $content_wrapped ) {
     $data = [
         'content' => $content,
         'align' => ( isset($attributes['align']) ) ? 'align' . $attributes['align'] : '',
-        'margin' => apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', $attributes['margin'], 'margin' ),
-        'padding' => apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', $attributes['padding'], 'padding' ),
+        'margin' => apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($attributes['margin']) ) ? $attributes['margin'] : '', 'margin' ),
+        'padding' => apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($attributes['padding']) ) ? $attributes['padding'] : '', 'padding' ),
         'style' => ( isset($attributes['style']) ) ? 'st-' . $attributes['style'] : '',
         'container_class_name' => \Wpextend\GutenbergBlock::get_container_class_name(),
         'background' => '',

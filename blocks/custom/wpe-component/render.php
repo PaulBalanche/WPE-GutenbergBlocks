@@ -49,8 +49,8 @@ function custom_wpe_component_render_callback( $attributes, $content_wrapped ) {
                 $attributes = custom_wpe_component_attributes_formatting($component, $attributes);
 
                 // Filters spacing
-                $attributes['margin'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', $attributes['margin'], 'margin' );
-                $attributes['padding'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', $attributes['padding'], 'padding' );
+                $attributes['margin'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($attributes['margin']) ) ? $attributes['margin'] : '', 'margin' );
+                $attributes['padding'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($attributes['padding']) ) ? $attributes['padding'] : '', 'padding' );
 
                 // Filters component attributes (all and specific component)
                 $attributes = apply_filters('wpextend/render_wpe_component_attributes', $attributes);

@@ -56,23 +56,30 @@ function custom_wpe_component_render_callback( $attributes, $content_wrapped ) {
                 $attributes = apply_filters('wpextend/render_wpe_component_attributes', $attributes);
                 $attributes = apply_filters('wpextend/render_wpe_component_attributes_' . $component['id'], $attributes);
 
-                // Check if required field are filled
-                if( isset($component['props']) && is_array($component['props']) && count($component['props']) > 0 ) {
-                        
-                    foreach( $component['props'] as $key_prop => $prop ) {
-                        if( isset($prop['required']) && $prop['required'] && ( ! isset($attributes[$key_prop]) || ! $attributes[$key_prop] || empty($attributes[$key_prop]) ) ){
+                // Start rendering 
+                if( apply_filters( 'wpextend/display_wpe_component_' . $component['id'], true, $attributes ) ) {
 
-                            if( isset($_SERVER['REQUEST_URI']) && strpos( $_SERVER['REQUEST_URI'], 'wp-json/wp/v2/block-renderer' ) !== false )
-                                return '<div class="alert">Some required fields are missing : <b>' . $key_prop . '</b></div>';
-                            else
-                                return;
+                    // Check if required field are filled
+                    if( isset($component['props']) && is_array($component['props']) && count($component['props']) > 0 ) {
+                            
+                        foreach( $component['props'] as $key_prop => $prop ) {
+                            if( isset($prop['required']) && $prop['required'] && ( ! isset($attributes[$key_prop]) || ! $attributes[$key_prop] || empty($attributes[$key_prop]) ) ){
+
+                                if( isset($_SERVER['REQUEST_URI']) && strpos( $_SERVER['REQUEST_URI'], 'wp-json/wp/v2/block-renderer' ) !== false )
+                                    return '<div class="alert">Some required fields are missing : <b>' . $key_prop . '</b></div>';
+                                else
+                                    return;
+                            }
                         }
                     }
-                }
 
-                // Render
-                $render_component = Wpextend\GutenbergBlock::render($component['path'], $attributes);
-                return apply_filters( 'wpextend/render_wpe_component_' . $component['id'], $render_component );
+                    // Render
+                    $render_component = Wpextend\GutenbergBlock::render($component['path'], $attributes);
+                    return apply_filters( 'wpextend/render_wpe_component_' . $component['id'], $render_component );
+                }
+                else {
+                    return '';
+                }
             }
         }
     }

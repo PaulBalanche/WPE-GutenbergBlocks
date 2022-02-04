@@ -25,7 +25,11 @@ function wpe_gutenberg_blocks_bootstrap_spacing_formatting( $spacing, $type = 'p
         foreach( $spacing as $breakpoint_key => $breakpoint_value ) {
             if( is_array($breakpoint_value) ) {
                 foreach( $breakpoint_value as $key => $val ) {
-                    $spacing_formatted .= ( $type == 'margin' ) ? ' m' : ' p' . str_replace( [ 'top', 'right', 'bottom', 'left', 'all' ], [ 't', 'e', 'b', 's', '' ], $key ) . '-' . str_replace( [ 'mobile', 'tablet', 'desktop' ], [ '', 'sm-', 'lg-' ], $breakpoint_key ) . $val;
+                    $spacing_formatted .= ( $type == 'margin' ) ? ' m' : ' p';
+                    $spacing_formatted .= str_replace( [ 'top', 'right', 'bottom', 'left', 'all' ], [ 't', 'e', 'b', 's', '' ], $key );
+                    $spacing_formatted .= '-';
+                    $spacing_formatted .= str_replace( [ 'mobile', 'tablet', 'desktop' ], [ '', 'sm-', 'lg-' ], $breakpoint_key );
+                    $spacing_formatted .= $val;
                 }
             }
         }
@@ -48,7 +52,10 @@ function wpe_gutenberg_blocks_default_spacing_formatting( $spacing, $type = 'pad
         foreach( $spacing as $breakpoint_key => $breakpoint_value ) {
             if( is_array($breakpoint_value) ) {
                 foreach( $breakpoint_value as $key => $val ) {
-                    $spacing_formatted .= $breakpoint_key . '-' . ( ( $type == 'margin' ) ? 'm' : 'p' ) . '-' . $key . '-' . $val . ' ';
+                    $spacing_formatted .= $breakpoint_key;
+                    $spacing_formatted .= '-';
+                    $spacing_formatted .= ( ( $type == 'margin' ) ? 'm' : 'p' );
+                    $spacing_formatted .= '-' . $key . '-' . $val . ' ';
                 }
             }
         }

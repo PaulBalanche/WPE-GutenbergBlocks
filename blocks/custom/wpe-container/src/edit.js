@@ -8,7 +8,7 @@ import {
     InspectorControls,
     MediaPlaceholder,
     useBlockProps,
-    __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+    useInnerBlocksProps,
     __experimentalBlockVariationPicker
 } from '@wordpress/block-editor';
 

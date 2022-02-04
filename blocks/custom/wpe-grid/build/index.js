@@ -9619,7 +9619,7 @@ var WpeGrid = /*#__PURE__*/function (_Component) {
       configTotalColumns: configTotalColumns,
       backgroundData: !props.attributes.backgroundFile ? null : select('core').getEntityRecord('postType', 'attachment', props.attributes.backgroundFile),
       inner_blocks: select('core/block-editor').getBlocks(props.clientId),
-      innerBlocksProps: Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["__experimentalUseInnerBlocksProps"])(Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["useBlockProps"])({
+      innerBlocksProps: Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["useInnerBlocksProps"])(Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_11__["useBlockProps"])({
         className: ''
       }), {
         renderAppender: false

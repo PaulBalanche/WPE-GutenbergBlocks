@@ -214,7 +214,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
     var blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"])({
       className: newClassName
     });
-    var innerBlocksProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["__experimentalUseInnerBlocksProps"])(blockProps, {
+    var innerBlocksProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useInnerBlocksProps"])(blockProps, {
       renderAppender: _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"].ButtonBlockAppender
     }); // Render
 

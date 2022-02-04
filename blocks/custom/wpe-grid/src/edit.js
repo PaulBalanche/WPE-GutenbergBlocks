@@ -9,7 +9,7 @@ import {
     InspectorControls,
     BlockControls,
     useBlockProps,
-    __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+    useInnerBlocksProps,
     __experimentalBlockVariationPicker,
     __experimentalBlock as Block
 } from '@wordpress/block-editor';

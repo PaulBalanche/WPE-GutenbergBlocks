@@ -1744,7 +1744,7 @@ var WpeContainer = /*#__PURE__*/function (_Component) {
 
     return {
       containerConfig: containerConfig,
-      innerBlocksProps: Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_7__["__experimentalUseInnerBlocksProps"])(Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_7__["useBlockProps"])({
+      innerBlocksProps: Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_7__["useInnerBlocksProps"])(Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_7__["useBlockProps"])({
         className: ''
       }), {
         renderAppender: _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_7__["InnerBlocks"].ButtonBlockAppender
@@ -1842,7 +1842,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cus
   },
   edit: Object(_edit__WEBPACK_IMPORTED_MODULE_5__["default"])(global_localized.container),
   save: function save() {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"].save(), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InnerBlocks"].Content, null));
+    var blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"].save();
+    var innerBlocksProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useInnerBlocksProps"].save(blockProps);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", innerBlocksProps);
   }
 });
 /**
@@ -1862,9 +1864,7 @@ function updateSettingsParent(settings, name) {
   }
 
   return settings;
-}
-
-Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_4__["addFilter"])('blocks.registerBlockType', 'wpextend/updateSettingsParent', updateSettingsParent);
+} // addFilter( 'blocks.registerBlockType', 'wpextend/updateSettingsParent', updateSettingsParent );
 
 /***/ }),
 

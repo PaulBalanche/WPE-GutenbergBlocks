@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { addFilter } from '@wordpress/hooks';
 
@@ -47,11 +47,11 @@ registerBlockType( 'custom/wpe-container', {
     },
     edit: edit(global_localized.container),
     save: () => {
-        return (
-            <div { ...useBlockProps.save() } >
-                <InnerBlocks.Content />
-            </div>
-        );
+
+        const blockProps = useBlockProps.save();
+        const innerBlocksProps = useInnerBlocksProps.save( blockProps );
+    
+        return <div {...innerBlocksProps} />
     },
 } )
 
@@ -74,4 +74,4 @@ function updateSettingsParent( settings, name ) {
 
     return settings
 }
-addFilter( 'blocks.registerBlockType', 'wpextend/updateSettingsParent', updateSettingsParent );
+// addFilter( 'blocks.registerBlockType', 'wpextend/updateSettingsParent', updateSettingsParent );

@@ -74,4 +74,4 @@ function updateSettingsParent( settings, name ) {
 
     return settings
 }
-// addFilter( 'blocks.registerBlockType', 'wpextend/updateSettingsParent', updateSettingsParent );
+addFilter( 'blocks.registerBlockType', 'wpextend/updateSettingsParent', updateSettingsParent );

@@ -71,7 +71,7 @@ Object.values(global_localized.components).forEach( ( element ) => {
                 break;
             case 'relation':
                 initAttributes[key] = {
-                    type: 'number'
+                    type: 'string'
                 };
                 break;
             case 'array':

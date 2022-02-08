@@ -57,7 +57,7 @@ if( is_array($frontspec_components) ) {
                         $currentType = 'string';
                         break;
                     case 'relation':
-                        $currentType = 'number';
+                        $currentType = 'string';
                         break;
                     case 'array':
                         $currentType = 'array';

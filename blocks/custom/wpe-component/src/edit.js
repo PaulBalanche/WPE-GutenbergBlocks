@@ -198,11 +198,11 @@ class WpeComponent extends Component {
                     break;
 
                 case 'image':
-                    blocReturned.push( this.renderFileControl( prop.type, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
+                    blocReturned.push( this.renderImageVideoControl( prop.type, prop.image, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
 
                 case 'video':
-                    blocReturned.push( this.renderVideoControl( prop.video, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
+                    blocReturned.push( this.renderImageVideoControl( prop.type, prop.video, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
                 
                 case 'file':
@@ -931,7 +931,9 @@ class WpeComponent extends Component {
         return this.renderPanelComponent( id, label, inner, false );
     }
     
-    renderVideoControl( args, id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
+    renderImageVideoControl( type, args, id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
+
+        label = ( label && required ) ? label + '*' : label;
 
         let videoControl = [];
         var tabPanelResponsive = [];
@@ -962,88 +964,36 @@ class WpeComponent extends Component {
                     this.updateAttributes(keys.concat(responsive_id), valueProp, {}, false);
             }
 
-            /**
-             * Video type
-             */
-            let options_video_type = [];
-            if( args.file )
-                options_video_type.push( { label: 'File', value: 'file' } );
-
-            if( args.embed )
-                options_video_type.push( { label: 'Embed', value: 'embed' } );
-
-            let selected_option = ( objectValue[responsive_id] && objectValue[responsive_id].type ) ? objectValue[responsive_id].type : ( ( args.file ) ? 'file' : ( ( args.embed ) ? 'embed' : false ) );
-                
-            const VideoRadioControl = withState( {
-                option: selected_option,
-            } )( ( { option, setState } ) => (
-                <RadioControl
-                    key={ id + "-videoType-" + responsive_id }
-                    label={ "Video type" }
-                    selected={ option }
-                    options={ options_video_type }
-                    onChange={ ( newValue ) => {
-                        setState( { newValue } );
-                        this.updateAttributes(keys.concat(responsive_id), valueProp, { type: newValue }, false);
-                    } }
-                />
-            ) );
-
-            responsiveContent.push(
-                <div
-                    key={ id + "-videoTypeBasicContainer-" + responsive_id }
-                    className="basicField"
-                >
-                    <VideoRadioControl />
-                </div>
-            );
-
-            /**
-             * File
-             */
-            if( selected_option == 'file' ) {
+            if( type == 'image' ) {
 
                 let preview = false;
-                if( objectValue[responsive_id] && objectValue[responsive_id].file && typeof objectValue[responsive_id].file == 'object' ) {
-                    preview = (
-                        <>
-                            <img
-                                key={ id + "-filePreview-" + responsive_id }
-                                alt="Edit file"
-                                title="Edit file"
-                                className="edit-file-preview"
-                                src={ objectValue[responsive_id].file.preview }
-                            />
-                            <div
-                                key={ id + "-fileDetails-" + responsive_id }
-                                className="file-details"
-                            >
-                                { objectValue[responsive_id].file.name }<br />
-                                { objectValue[responsive_id].file.mime}<br />
-                                { this.fileSizeFormat(objectValue[responsive_id].file.size) }
-                            </div>
-                        </>
-                    );
-                    
+                if( objectValue[responsive_id] && typeof objectValue[responsive_id] == 'object' && objectValue[responsive_id].preview ) {
                     preview = (
                         <div
-                            key={ id + "-mediaPreviewContainer-" + responsive_id }
+                            key={ id + "-mediaPreviewContainer" + responsive_id }
                             className="media-preview-container"
                         >
-                            { preview }
+                            <img
+                                key={ id + "-imagePreview" + responsive_id }
+                                alt="Edit image"
+                                title="Edit image"
+                                className="edit-image-preview"
+                                src={ objectValue[responsive_id].preview }
+                            />
                             <Button
-                                key={ id + "-removeMedia-" + responsive_id }
+                                key={ id + "-removeMedia" + responsive_id }
                                 isSecondary
                                 isSmall
                                 className="reset-button"
-                                onClick={ () => 
-                                    this.updateAttributes(keys.concat(responsive_id), valueProp, {  type: 'file' }, false)
+                                onClick={ () => {
+                                        this.updateAttributes(keys.concat(responsive_id), valueProp, undefined, false)
+                                    }
                                 }
                             >Remove</Button>
                         </div>
                     );
                 }
-                
+
                 responsiveContent.push (
                     <div
                         key={ id + "-MediaPlaceholderBasicContainer-" + responsive_id }
@@ -1054,46 +1004,158 @@ class WpeComponent extends Component {
                             onSelect={ ( value ) => {
                                 
                                 let newValue = undefined;
+
                                 if( typeof value.id != 'undefined' ) {
                                     newValue = {
                                         id: value.id,
-                                        preview: value.icon,
-                                        name: value.filename,
-                                        mime: value.mime,
-                                        size: value.filesizeInBytes
+                                        preview: value.url
                                     };
                                 }
 
                                 if( typeof newValue != 'undefined' && ( typeof newValue != 'object' || Object.keys(newValue).length > 0 ) )
-                                    this.updateAttributes(keys.concat(responsive_id), valueProp, { type: 'file', file: newValue }, false);
+                                    this.updateAttributes(keys.concat(responsive_id), valueProp, newValue, false);
                             } }
-                            value={ ( objectValue[responsive_id] && objectValue[responsive_id].file ) ? objectValue[responsive_id].file : false }
+                            value={ ( objectValue[responsive_id] ) ? objectValue[responsive_id] : false }
                             disableDropZone={ true }
                         >{ preview }</MediaPlaceholder>
                     </div>
                 );
             }
+            else if( type == 'video' ) {
 
-            /**
-             * Embed
-             */
-            if( selected_option == 'embed' ) {
-                responsiveContent.push (
+                /**
+                 * Video type
+                 */
+                let options_video_type = [];
+                if( args.file )
+                    options_video_type.push( { label: 'File', value: 'file' } );
+
+                if( args.embed )
+                    options_video_type.push( { label: 'Embed', value: 'embed' } );
+
+                let selected_option = ( objectValue[responsive_id] && objectValue[responsive_id].type ) ? objectValue[responsive_id].type : ( ( args.file ) ? 'file' : ( ( args.embed ) ? 'embed' : false ) );
+                    
+                const VideoRadioControl = withState( {
+                    option: selected_option,
+                } )( ( { option, setState } ) => (
+                    <RadioControl
+                        key={ id + "-videoType-" + responsive_id }
+                        label={ "Video type" }
+                        selected={ option }
+                        options={ options_video_type }
+                        onChange={ ( newValue ) => {
+                            setState( { newValue } );
+                            this.updateAttributes(keys.concat(responsive_id), valueProp, { type: newValue }, false);
+                        } }
+                    />
+                ) );
+
+                responsiveContent.push(
                     <div
-                        key={ id + "-embedLinkBasicContainer-" + responsive_id }
+                        key={ id + "-videoTypeBasicContainer-" + responsive_id }
                         className="basicField"
                     >
-                        <TextControl
-                            key={ id + "-embedLink"}
-                            label={ 'Embed link' }
-                            type={ 'text' }
-                            value={ ( objectValue[responsive_id] && objectValue[responsive_id].embed ) ? objectValue[responsive_id].embed.url : '' }
-                            onChange={ ( newValue ) =>
-                                this.updateAttributes(keys.concat(responsive_id), valueProp, { type: 'embed', embed: { url: newValue} }, false)
-                            }
-                        />
+                        <VideoRadioControl />
                     </div>
                 );
+
+                /**
+                 * File
+                 */
+                if( selected_option == 'file' ) {
+
+                    let preview = false;
+                    if( objectValue[responsive_id] && objectValue[responsive_id].file && typeof objectValue[responsive_id].file == 'object' ) {
+                        preview = (
+                            <>
+                                <img
+                                    key={ id + "-filePreview-" + responsive_id }
+                                    alt="Edit file"
+                                    title="Edit file"
+                                    className="edit-file-preview"
+                                    src={ objectValue[responsive_id].file.preview }
+                                />
+                                <div
+                                    key={ id + "-fileDetails-" + responsive_id }
+                                    className="file-details"
+                                >
+                                    { objectValue[responsive_id].file.name }<br />
+                                    { objectValue[responsive_id].file.mime}<br />
+                                    { this.fileSizeFormat(objectValue[responsive_id].file.size) }
+                                </div>
+                            </>
+                        );
+                        
+                        preview = (
+                            <div
+                                key={ id + "-mediaPreviewContainer-" + responsive_id }
+                                className="media-preview-container"
+                            >
+                                { preview }
+                                <Button
+                                    key={ id + "-removeMedia-" + responsive_id }
+                                    isSecondary
+                                    isSmall
+                                    className="reset-button"
+                                    onClick={ () => 
+                                        this.updateAttributes(keys.concat(responsive_id), valueProp, {  type: 'file' }, false)
+                                    }
+                                >Remove</Button>
+                            </div>
+                        );
+                    }
+                    
+                    responsiveContent.push (
+                        <div
+                            key={ id + "-MediaPlaceholderBasicContainer-" + responsive_id }
+                            className="basicField"
+                        >
+                            <MediaPlaceholder
+                                key={ id + "-MediaPlaceholder-" + responsive_id }
+                                onSelect={ ( value ) => {
+                                    
+                                    let newValue = undefined;
+                                    if( typeof value.id != 'undefined' ) {
+                                        newValue = {
+                                            id: value.id,
+                                            preview: value.icon,
+                                            name: value.filename,
+                                            mime: value.mime,
+                                            size: value.filesizeInBytes
+                                        };
+                                    }
+
+                                    if( typeof newValue != 'undefined' && ( typeof newValue != 'object' || Object.keys(newValue).length > 0 ) )
+                                        this.updateAttributes(keys.concat(responsive_id), valueProp, { type: 'file', file: newValue }, false);
+                                } }
+                                value={ ( objectValue[responsive_id] && objectValue[responsive_id].file ) ? objectValue[responsive_id].file : false }
+                                disableDropZone={ true }
+                            >{ preview }</MediaPlaceholder>
+                        </div>
+                    );
+                }
+
+                /**
+                 * Embed
+                 */
+                if( selected_option == 'embed' ) {
+                    responsiveContent.push (
+                        <div
+                            key={ id + "-embedLinkBasicContainer-" + responsive_id }
+                            className="basicField"
+                        >
+                            <TextControl
+                                key={ id + "-embedLink"}
+                                label={ 'Embed link' }
+                                type={ 'text' }
+                                value={ ( objectValue[responsive_id] && objectValue[responsive_id].embed ) ? objectValue[responsive_id].embed.url : '' }
+                                onChange={ ( newValue ) =>
+                                    this.updateAttributes(keys.concat(responsive_id), valueProp, { type: 'embed', embed: { url: newValue} }, false)
+                                }
+                            />
+                        </div>
+                    );
+                }
             }
 
             // Tab panel construction

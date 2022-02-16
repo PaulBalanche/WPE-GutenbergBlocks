@@ -117,7 +117,7 @@ function custom_wpe_component_attributes_formatting($component, $attributes) {
 
                                     if( is_array($responsive_image) && isset($responsive_image['id']) ) {
 
-                                        $image_size = ( isset($prop['image_size_identifier']) && is_array($prop['image_size_identifier']) && isset($prop['image_size_identifier'][$responsive_key]) ) ? $prop['image_size_identifier'][$responsive_key] : 'large';
+                                        $image_size = ( isset($prop['image']) && is_array($prop['image']) && isset($prop['image']['image_size_identifier']) && is_array($prop['image']['image_size_identifier']) && isset($prop['image']['image_size_identifier'][$responsive_key]) ) ? $prop['image']['image_size_identifier'][$responsive_key] : 'large';
                                         $attachment_image_src = wp_get_attachment_image_src($responsive_image['id'], $image_size);
                                         if( is_array($attachment_image_src) ) {
 

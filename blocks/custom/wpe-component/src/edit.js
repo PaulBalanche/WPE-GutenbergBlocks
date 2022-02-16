@@ -994,6 +994,15 @@ class WpeComponent extends Component {
                     );
                 }
 
+                // MediaPlaceholder labels
+                let labels = {
+                    title: ( responsive_id != 'default' ) ? label + ' (' + responsive_id + ')' : label
+                }
+                console.log(args);
+                if( args.instructions && typeof args.instructions == 'object' && args.instructions[responsive_id] ) {
+                    labels.instructions = args.instructions[responsive_id]
+                }
+
                 responsiveContent.push (
                     <div
                         key={ id + "-MediaPlaceholderBasicContainer-" + responsive_id }
@@ -1017,6 +1026,7 @@ class WpeComponent extends Component {
                             } }
                             value={ ( objectValue[responsive_id] ) ? objectValue[responsive_id] : false }
                             disableDropZone={ true }
+                            labels = { labels }
                         >{ preview }</MediaPlaceholder>
                     </div>
                 );

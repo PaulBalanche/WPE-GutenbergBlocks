@@ -198,11 +198,11 @@ class WpeComponent extends Component {
                     break;
 
                 case 'image':
-                    blocReturned.push( this.renderImageVideoControl( prop.type, prop.image, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
+                    blocReturned.push( this.renderImageVideoControl( prop.type, ( prop.image && typeof prop.image == 'object' ) ? prop.image : {}, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
 
                 case 'video':
-                    blocReturned.push( this.renderImageVideoControl( prop.type, prop.video, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
+                    blocReturned.push( this.renderImageVideoControl( prop.type, ( prop.video && typeof prop.video == 'object' ) ? prop.video : {}, fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
                 
                 case 'file':
@@ -998,7 +998,6 @@ class WpeComponent extends Component {
                 let labels = {
                     title: ( responsive_id != 'default' ) ? label + ' (' + responsive_id + ')' : label
                 }
-                console.log(args);
                 if( args.instructions && typeof args.instructions == 'object' && args.instructions[responsive_id] ) {
                     labels.instructions = args.instructions[responsive_id]
                 }

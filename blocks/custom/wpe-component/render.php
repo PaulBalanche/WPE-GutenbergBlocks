@@ -141,6 +141,11 @@ function custom_wpe_component_attributes_formatting($component, $attributes) {
                                     else
                                         unset( $images[$key_image][$responsive_key] );
                                 }
+
+                                // If default only, define it as root
+                                if( count($images[$key_image]) == 1 && isset($images[$key_image]['default']) ) {
+                                    $images[$key_image] = $images[$key_image]['default'];
+                                }
                             }
                         }
 

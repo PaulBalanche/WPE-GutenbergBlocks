@@ -1289,6 +1289,7 @@ class WpeComponent extends Component {
                     key={ clientId + "-serverSideRender" }
                     block={ "custom/wpe-component-" + element.id }
                     attributes={ Object.assign(attributes, { "editor": true } ) }
+                    httpMethod={ "POST" }
                 />
             );
         }

@@ -1422,7 +1422,10 @@ export default (element, current_user_can_edit_posts, frontspec_styles ) => with
         for (const [keyProp, valueProp] of Object.entries(element.props)) {
 
             if( valueProp.type == 'relation' && typeof valueProp.entity != 'undefined' && relations[ valueProp.entity ] == null ) {
-                relations[ valueProp.entity ] = getEntityRecords( 'postType', valueProp.entity );
+                relations[ valueProp.entity ] = getEntityRecords( 'postType', valueProp.entity, {
+                    per_page: -1,
+                    status: 'publish'
+                } );
             }
         }
     }

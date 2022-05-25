@@ -13,7 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 error_reporting(E_ALL | E_STRICT);
 
+/**
+ * Define variables
+ *
+ */
+define( 'WPE_BLOCKS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
+/** @var $autoLoader */
+require WPE_BLOCKS_PLUGIN_DIR . 'vendor/autoload.php';
 
 /**
  * Initialize WPE Gutenberg blocks plugin
@@ -55,8 +62,13 @@ function _wpe_gutenberg_blocks_activate() {
 }
 
 
+
 /**
  * Dependencies
  * 
  */
 require( dirname( __FILE__ ) . '/filters/spacing.php' );
+
+
+
+Wpe_Blocks\Services\ViewSpec::generate();

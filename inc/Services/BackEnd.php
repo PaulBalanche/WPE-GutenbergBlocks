@@ -8,7 +8,8 @@ class BackEnd extends ServiceBase {
             $blocksNamespace = 'realday',
             $blocksNamePrefix = '',
             $viewspecJsonFilename = 'viewspec.json',
-            $metadataJsonFilename = 'block.json';
+            $metadataJsonFilename = 'block.json',
+            $overrideSpecJsonFilename = 'override.json';
 
 
 
@@ -177,5 +178,26 @@ class BackEnd extends ServiceBase {
         file_put_contents( $block_dir . '/' . $this->metadataJsonFilename, json_encode( $this->get_block_metadata($backspec_generated), JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES ) );
     }
 
+
+
+    /**
+     * Merge component attributes with override-spec JSON file
+     * 
+     */
+    public function override_component_viewspec( $viewspec_data ) {
+
+        $override_spec_file = $this->get_block_dir( $viewspec_data['id'] ) . '/' . $this->overrideSpecJsonFilename;
+        if( file_exists($override_spec_file) ) {
+
+            $override_spec = json_decode( file_get_contents($override_spec_file), true );
+            if( is_array($override_spec) ) {
+                $viewspec_data = array_replace_recursive( $viewspec_data, $override_spec );
+            }
+        }
+
+        return $viewspec_data;
+    }
+
+    
     
 }

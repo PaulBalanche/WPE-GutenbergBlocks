@@ -55,7 +55,8 @@ class FrontEnd extends ServiceBase {
 
         $component_viewspec = null;
         
-        $component_dir = get_stylesheet_directory() . '/' . $this->get_components_dir($dir);
+        $component_relative_dir = $this->get_components_dir($dir);
+        $component_dir = get_stylesheet_directory() . '/' . $component_relative_dir;
         $path_viewspec_file = $component_dir . $component . '/' . $this->viewspecJsonFilename;
 
         // If viewspec file exist
@@ -79,10 +80,10 @@ class FrontEnd extends ServiceBase {
                 // Ensure right component type
                 $component_viewspec['type'] = ( isset($component_viewspec['type']) && $component_viewspec['type'] != 'twig' ) ? $component_viewspec['type'] : 'object';
 
-                // Remove useless attributes
+                // Remove useless component attributes
                 unset($component_viewspec['engine']);
 
-                return apply_filters( 'Wpe_Blocks\get_component_viewspec', $component_viewspec, $component_dir );
+                return apply_filters( 'Wpe_Blocks\get_component_viewspec', $component_viewspec, $component_relative_dir );
             }
         }
 

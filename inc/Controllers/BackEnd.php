@@ -9,10 +9,6 @@ class BackEnd extends ControllerBase {
 
     private $frontEndService,
             $backEndService;
-        
-    private $overrideSpecJsonFilename = 'override.json';
-
-            
 
     public function __construct() {
         
@@ -33,7 +29,7 @@ class BackEnd extends ControllerBase {
     public function add_filters() {
 
         // Merge component attributes with override-spec JSON file
-        add_filter( 'Wpe_Blocks\get_component_viewspec', [ $this, 'override_component_viewspec' ], 10, 2 );
+        add_filter( 'Wpe_Blocks\get_component_viewspec', [ $this, 'filter_get_component_viewspec' ], 10, 2 );
     }
 
 
@@ -66,24 +62,12 @@ class BackEnd extends ControllerBase {
 
 
     /**
-     * Merge component attributes with override-spec JSON file
+     * Filter get_component_viewspec method in order to merge component attributes with override-spec JSON file
      * 
      */
-    public function override_component_viewspec( $viewspec_data, $component_dir ) {
+    public function filter_get_component_viewspec( $viewspec_data, $component_dir ) {
 
-        if( $component_dir == $this->frontEndService->get_components_dir() ) {
-            
-            $override_spec_file = $this->backEndService->get_block_dir( $viewspec_data['id'] ) . '/' . $this->overrideSpecJsonFilename;
-            if( file_exists($override_spec_file) ) {
-                    
-                $override_spec = json_decode( file_get_contents($override_spec_file), true );
-                if( is_array($override_spec) ) {
-                    $viewspec_data = array_replace_recursive( $viewspec_data, $override_spec );
-                }
-            }
-        }
-
-        return $viewspec_data;
+        return ( $component_dir == $this->frontEndService->get_components_dir() ) ? $this->backEndService->override_component_viewspec( $viewspec_data ) : $viewspec_data;
     }
 
 

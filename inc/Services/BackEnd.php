@@ -4,11 +4,50 @@ namespace Wpe_Blocks\Services;
 
 class BackEnd extends ServiceBase {
 
+    private $blocksLocation = 'blocks/',
+            $blocksNamespace = 'realday',
+            $blocksNamePrefix = '',
+            $viewspecJsonFilename = 'viewspec.json',
+            $metadataJsonFilename = 'block.json';
 
-    public function get_gutenberg_block_arguments( $component_spec ) {
 
+
+    /**
+     * Get the Gutenberg block name, with the following format: namespace/prefix-blockId
+     * 
+     */
+    public function get_block_name( $block_id ) {
+
+        return $this->blocksNamespace . '/' . $this->blocksNamePrefix . $block_id;
+    }
+
+
+
+    /**
+     * Get block directory
+     * 
+     */
+    public function get_block_dir( $block_id ) {
+
+        return get_stylesheet_directory() . '/' . $this->blocksLocation . $this->get_block_name( $block_id);
+    }
+
+
+
+    /**
+     * Return block metadata for block.json metadata file
+     * 
+     */
+    public function get_block_metadata( $component_spec ) {
+
+        $metadata = [];
+        
         if( is_array($component_spec) && isset($component_spec['props']) && is_array($component_spec['props']) ) {
 
+            // Name
+            $metadata['name'] = $this->get_block_name( $component_spec['id'] );
+
+            // Attributes
             $attributes = [
                 'id_component' => [
                     'type' => 'string'
@@ -98,13 +137,44 @@ class BackEnd extends ServiceBase {
                 }
             }
 
-            return [
-                'name' => 'custom/wpe-component-' . $component_spec['id'],
-                'args_register' => [ 'attributes' => $attributes ]
-            ];
+            $metadata['attributes'] = $attributes;
         }
 
-        return null;
+        return $metadata;
+    }
+
+
+
+    /**
+     * Generate block spec used by Wordspress Gutenberg
+     * 
+     */
+    public function generate_block_spec( $component_frontspec ) {
+
+        // Serialize block ID
+        $block_id = str_replace( '_', '-', trim( strtolower( $component_frontspec['id'] ) ) );
+
+        // Get the block directory
+        $block_dir = $this->get_block_dir( $block_id );
+
+        // Create blocks directory if missing
+        if( ! file_exists( $block_dir ) ) {
+            mkdir( $block_dir , 0750, true );
+        }
+
+        $backspec_generated = [
+            'id' => $block_id,
+            'name' => $component_frontspec['name'] ?? $block_id,
+            'description' => $component_frontspec['description'] ?? '',
+            'props' => $component_frontspec['props'] ?? [],
+            'path' => $component_frontspec['path']
+        ];
+
+        // Write the components frontspec generated in a JSON file
+        file_put_contents( $block_dir . '/' . $this->viewspecJsonFilename , json_encode( $backspec_generated, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES ) );
+
+        // Write the block metadata into block.json file
+        file_put_contents( $block_dir . '/' . $this->metadataJsonFilename, json_encode( $this->get_block_metadata($backspec_generated), JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES ) );
     }
 
     

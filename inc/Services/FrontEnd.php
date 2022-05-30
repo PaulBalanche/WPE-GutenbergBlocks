@@ -4,49 +4,88 @@ namespace Wpe_Blocks\Services;
 
 class FrontEnd extends ServiceBase {
 
+    private $viewsLocation = 'src/views/',
+            $componentsSubLocation = 'sections/',
+            $viewspecJsonFilename = 'viewspec.json';
+
+
+
+    public function get_components_dir( $subLocation = null ) {
+
+        return $this->viewsLocation . ( is_null($subLocation) ? $this->componentsSubLocation : $subLocation );
+    }
+
+
+
+    /**
+     * Get the list of front component detected
+     * 
+     */
+    public function get_components() {
+
+        $components = [];
+
+        $components_dir = get_stylesheet_directory() . '/' . $this->get_components_dir();
+        if( file_exists($components_dir) ) {
+
+            // Scan components dir and loop each components
+            $components_scan = scandir( $components_dir );
+            foreach( $components_scan as $component ) {
+
+                if( is_dir( $components_dir . $component ) && $component != '..' && $component != '.' ) {
+
+                    $render_file = glob( $components_dir . $component . '/*.twig' );
+                    if( $render_file && is_array($render_file) && count($render_file) == 1 ) {
+                        $components[] = $component;
+                    }
+                }
+            }
+        }
+
+        return $components;
+    }
+
+
 
     /**
      * Recursive function to get and treat viewspec JSON file for a single component
      * 
      */
-    public function get_component_viewspec( $path_viewspec_file ) {
+    public function get_component_viewspec( $component, $dir = null ) {
+
+        $component_viewspec = null;
+        
+        $component_dir = get_stylesheet_directory() . '/' . $this->get_components_dir($dir);
+        $path_viewspec_file = $component_dir . $component . '/' . $this->viewspecJsonFilename;
 
         // If viewspec file exist
         if( file_exists( $path_viewspec_file ) ) {
 
             // Get the file content
-            $viewspec_data = json_decode( file_get_contents( $path_viewspec_file ), true );
-            if( $viewspec_data && is_array($viewspec_data) ) {
-
-                // Serialize component ID
-                $viewspec_data['id'] = str_replace( '_', '-', trim( strtolower( $viewspec_data['id'] ) ) );
+            $component_viewspec = json_decode( file_get_contents( $path_viewspec_file ), true );
+            if( $component_viewspec && is_array($component_viewspec) ) {
 
                 // Add path attribute requires by component render method
-                $component_dir_path = dirname( $path_viewspec_file );
-                $basename_component = basename( $component_dir_path );
-                if( file_exists( get_stylesheet_directory() .  '/' . $this->get_config()->get_front_view_root_location() . $this->get_config()->get_front_components_relative_path() . $basename_component . '/' . $basename_component . '.twig' ) ) {
-                    $viewspec_data['path'] = $this->get_config()->get_front_components_relative_path() . $basename_component . '/' . $basename_component . '.twig';
+                $render_file = glob( $component_dir . $component . '/*.twig' );
+                if( $render_file && is_array($render_file) && count($render_file) == 1 ) {
+                    $component_viewspec['path'] = $this->componentsSubLocation . $component . '/' . pathinfo($render_file[0])['basename'];
                 }
 
                 // Get and treat component props
-                if( isset($viewspec_data['props']) && is_array($viewspec_data['props']) ) {
-                    $viewspec_data['type'] = ( isset($viewspec_data['type']) && $viewspec_data['type'] != 'twig' ) ? $viewspec_data['type'] : 'object';
-                    $viewspec_data['props'] = $this->get_component_props($viewspec_data['props'], $viewspec_data['id']);
+                if( isset($component_viewspec['props']) && is_array($component_viewspec['props']) ) {
+                    $component_viewspec['props'] = $this->get_component_props($component_viewspec['props'], $component_viewspec['id']);
                 }
 
-                // Merge component attributes with override-spec JSON file
-                if( strpos( $path_viewspec_file, $this->get_config()->get_front_view_root_location() . $this->get_config()->get_front_components_relative_path() ) !== false && file_exists(get_stylesheet_directory() . '/wpextend/blocks/custom/wpe-component-' . $viewspec_data['id'] . '/override.json') ) {
-                    
-                    $override_spec_component = json_decode( file_get_contents( get_stylesheet_directory() . '/wpextend/blocks/custom/wpe-component-' . $viewspec_data['id'] . '/override.json' ), true );
-                    if( is_array($override_spec_component) ) {
-                        $viewspec_data = array_replace_recursive( $viewspec_data, $override_spec_component );
-                    }
-                }
+                // Ensure right component type
+                $component_viewspec['type'] = ( isset($component_viewspec['type']) && $component_viewspec['type'] != 'twig' ) ? $component_viewspec['type'] : 'object';
 
-                return $viewspec_data;
+                // Remove useless attributes
+                unset($component_viewspec['engine']);
+
+                return apply_filters( 'Wpe_Blocks\get_component_viewspec', $component_viewspec, $component_dir );
             }
         }
-        
+
         return null;
     }
 
@@ -109,16 +148,15 @@ class FrontEnd extends ServiceBase {
                 $prefix_extends = explode('.', $extends);
                 if( is_array($prefix_extends) && count($prefix_extends) == 2 && isset($frontspec_views_path['folders'][ $prefix_extends[0] ]) ) {
 
-                    $extends_json_files_relative_path = $frontspec_views_path['folders'][ $prefix_extends[0] ] . '/' . $prefix_extends[1] . '/*.json';
+                    $extends_dir = $frontspec_views_path['folders'][ $prefix_extends[0] ] . '/' . $prefix_extends[1] . '/';
                 }
             }
         }
         else {
-            $extends_json_files_relative_path = 'components/' . $extends . '/*.json';
+            $extends_dir = 'components/';
         }
 
-        $extends_json_files = glob( get_stylesheet_directory() . '/' . $this->get_config()->get_front_view_root_location() . $extends_json_files_relative_path );
-        return ( $extends_json_files && is_array($extends_json_files) && count($extends_json_files) == 1 ) ? $this->get_component_viewspec( $extends_json_files[0] ) : null;
+        return $this->get_component_viewspec( $extends, $extends_dir );
     }
 
 

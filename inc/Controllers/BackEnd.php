@@ -7,13 +7,19 @@ use Wpe_Blocks\Services\BackEnd as BackEndService;
 
 class BackEnd extends ControllerBase {
 
-    private $frontEndService;
-    private $backEndService;
+    private $frontEndService,
+            $backEndService;
+        
+    private $overrideSpecJsonFilename = 'override.json';
+
+            
 
     public function __construct() {
         
         $this->frontEndService = new FrontEndService();
         $this->backEndService = new BackEndService();
+        
+        $this->add_filters();
 
         parent::__construct();
     }
@@ -21,52 +27,65 @@ class BackEnd extends ControllerBase {
 
 
     /**
-     * Generate components spec JSON file used by Gutenberg
+     * Add Wordpress filters
      * 
      */
-    public function generate_components() {
+    public function add_filters() {
 
-        // Create blocks dir if missing
-        if( ! file_exists( get_stylesheet_directory() . '/wpextend/blocks' ) ) {
-            mkdir( get_stylesheet_directory() . '/wpextend/blocks', 0750, true );
-        }
+        // Merge component attributes with override-spec JSON file
+        add_filter( 'Wpe_Blocks\get_component_viewspec', [ $this, 'override_component_viewspec' ], 10, 2 );
+    }
 
-        $front_components_dir = get_stylesheet_directory() . '/' . $this->get_config()->get_front_view_root_location() . $this->get_config()->get_front_components_relative_path();
-        if( file_exists($front_components_dir) ) {
 
-            $gutenberg_blocks_arguments = [];
 
-            // Scan components dir and loop each components
-            $components = scandir( $front_components_dir );
-            foreach( $components as $component ) {
+    /**
+     * Generate back-end blocks
+     * 
+     */
+    public function generate_blocks() {
 
-                if( ! is_dir($front_components_dir . $component) || $component == '..' || $component == '.' ) {
-                    continue;
-                }
+        $front_components = $this->frontEndService->get_components();
+        if( is_array($front_components) && count($front_components) > 0 ) {
+            foreach( $front_components as $component ) {
 
-                $component_spec = $this->frontEndService->get_component_viewspec( $front_components_dir . $component . '/viewspec.json' );
+                // Get viewspec JSON file for a single component returned by frontEndService
+                $component_frontspec = $this->frontEndService->get_component_viewspec( $component );
 
                 // If invalid or null component, just bypass it and continue to the next component
-                if( ! is_null( $component_spec ) && is_array( $component_spec ) ) {
+                if( ! is_null( $component_frontspec ) && is_array( $component_frontspec ) && isset($component_frontspec['id'], $component_frontspec['path']) ) {
 
-                    // Create blocks dir if missing
-                    if( ! file_exists( get_stylesheet_directory() . '/wpextend/blocks/custom/wpe-component-' . $component_spec['id'] ) ) {
-                        mkdir( get_stylesheet_directory() . '/wpextend/blocks/custom/wpe-component-' . $component_spec['id'] , 0750, true );
-                    }
-
-                    // Write the components frontspec generated in a JSON file.
-                    file_put_contents( get_stylesheet_directory() . '/wpextend/blocks/custom/wpe-component-' . $component_spec['id'] . '/blockspec.json', json_encode($component_spec, JSON_PRETTY_PRINT) );
-
-                    $gutenberg_blocks_arguments[] =  $this->backEndService->get_gutenberg_block_arguments($component_spec);
+                    // Generate block spec
+                    $this->backEndService->generate_block_spec( $component_frontspec );
                 }
             }
-
-            file_put_contents( get_stylesheet_directory() . '/wpextend/json/gutenberg_blocks_arguments.json', json_encode( $gutenberg_blocks_arguments, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES ) );
-            update_option( 'wpe_blocks_components', $gutenberg_blocks_arguments);
         }
 
         die;
     }
+
+
+
+    /**
+     * Merge component attributes with override-spec JSON file
+     * 
+     */
+    public function override_component_viewspec( $viewspec_data, $component_dir ) {
+
+        if( $component_dir == $this->frontEndService->get_components_dir() ) {
+            
+            $override_spec_file = $this->backEndService->get_block_dir( $viewspec_data['id'] ) . '/' . $this->overrideSpecJsonFilename;
+            if( file_exists($override_spec_file) ) {
+                    
+                $override_spec = json_decode( file_get_contents($override_spec_file), true );
+                if( is_array($override_spec) ) {
+                    $viewspec_data = array_replace_recursive( $viewspec_data, $override_spec );
+                }
+            }
+        }
+
+        return $viewspec_data;
+    }
+
 
 
 }

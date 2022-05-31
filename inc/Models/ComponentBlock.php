@@ -4,83 +4,92 @@ namespace Wpe_Blocks\Models;
 
 use Wpe_Blocks\Services\BackEnd as BackEndService;
 
-class ComponentBlock {
+class ComponentBlock extends ModelBase {
 
     private $backEndService;
 
+    private $blockLocation = 'blocks/',
+            $componentBlockNamespace = 'custom',
+            $componentBlockName = 'wpe-component';
+
     public function __construct() {
         
+        parent::__construct();
+
         $this->backEndService = new BackEndService();
+
+        $this->register_script();
+        $this->register_style();
     }
 
 
 
+    /**
+     * Register component editor script
+     * 
+     */
+    public function register_script() {
 
-    public function get_editor_script() {
+        $handle = $this->componentBlockNamespace . '/' . $this->componentBlockName . '-editor-script';
+        $asset_file = include( WPE_BLOCKS_PLUGIN_DIR . $this->blockLocation . $this->componentBlockNamespace . '/' . $this->componentBlockName . '/build/index.asset.php' );
 
-        if(
-            file_exists( WPE_BLOCKS_PLUGIN_DIR . 'blocks/custom/wpe-component/build/index.js' ) &&
-            file_exists( WPE_BLOCKS_PLUGIN_DIR . 'blocks/custom/wpe-component/build/index.asset.php' )
-            ) {
+        wp_register_script(
+            $handle,
+            WPE_BLOCKS_PLUGIN_URL . $this->blockLocation . $this->componentBlockNamespace . '/' . $this->componentBlockName . '/build/index.js',
+            $asset_file['dependencies'],
+            $asset_file['version']
+        );
 
-            $asset_file = include( WPE_BLOCKS_PLUGIN_DIR . 'blocks/custom/wpe-component/build/index.asset.php' );
-
-            wp_register_script(
-                'custom/wpe-component',
-                WPE_BLOCKS_PLUGIN_URL . 'blocks/custom/wpe-component/build/index.js',
-                $asset_file['dependencies'],
-                $asset_file['version']
-            );
-
-            // Localize script
-            if( file_exists( WPE_BLOCKS_PLUGIN_DIR . 'blocks/custom/wpe-component/localize_script.php' ) ) {
-                
-                $data_localized = include( WPE_BLOCKS_PLUGIN_DIR . 'blocks/custom/wpe-component/localize_script.php' );
-                if( is_array($data_localized) ) {
-                    wp_localize_script( 'custom/wpe-component', 'global_localized', $data_localized );
-                }
-            }
-        }
-
-        return 'custom/wpe-component';
-    }
-
-
-    public function get_editor_style() {
-
-        if( file_exists( WPE_BLOCKS_PLUGIN_DIR . 'blocks/custom/wpe-component/assets/style/editor.min.css' ) ) {
-
-            wp_register_style(
-                'custom/wpe-component-editor-style',
-                WPE_BLOCKS_PLUGIN_URL . 'blocks/custom/wpe-component/assets/style/editor.min.css',
-                array( 'wp-edit-blocks' ),
-                filemtime( WPE_BLOCKS_PLUGIN_DIR . 'blocks/custom/wpe-component/assets/style/editor.min.css' )
-            );
-        }
-
-        return 'custom/wpe-component-editor-style';
+        // Localize script
+        $data_localized = [
+            'current_user_can_edit_posts' => ( current_user_can('edit_posts') ) ? '1' : '0',
+            'components' => $this->backEndService->get_blocks_spec(),
+            'styles' => $this->get_config()->get_frontspec_json_file('styles')
+        ];
+        wp_localize_script( $handle, 'global_localized', $data_localized );
     }
 
 
 
+    /**
+     * Register component editor style
+     * 
+     */
+    public function register_style() {
+        
+        $handle = $this->componentBlockNamespace . '/' . $this->componentBlockName . '-editor-style';
+        
+        wp_register_style(
+            $handle,
+            WPE_BLOCKS_PLUGIN_URL . $this->blockLocation . $this->componentBlockNamespace . '/' . $this->componentBlockName . '/assets/style/editor.min.css',
+            array( 'wp-edit-blocks' ),
+            filemtime( WPE_BLOCKS_PLUGIN_DIR . $this->blockLocation . $this->componentBlockNamespace . '/' . $this->componentBlockName . '/assets/style/editor.min.css' )
+        );
+    }
 
-    public function register() {
+
+
+    /**
+     * Registers all components block type
+     * 
+     */
+    public function register_components() {
 
         $args = [
-            'editor_script' => $this->get_editor_script(),
-            'editor_style' => $this->get_editor_style(),
+            'editor_script' => $this->componentBlockNamespace . '/' . $this->componentBlockName . '-editor-script',
+            'editor_style' => $this->componentBlockNamespace . '/' . $this->componentBlockName . '-editor-style',
             'render_callback' => '\Wpe_Blocks\Models\ComponentBlock::render'
         ];
 
-        $blocks = $this->backEndService->get_blocks();
-        if( is_array($blocks) && count($blocks) > 0 ) {
-            foreach( $blocks as $block ) {
+        $blocks_metadata = $this->backEndService->get_blocks_metadata();
+        if( is_array($blocks_metadata) && count($blocks_metadata) > 0 ) {
+            foreach( $blocks_metadata as $metadata_json_file ) {
 
-                $this->backEndService->register_block($block, $args);
+                // Registers a block type. The recommended way is to register a block type using the metadata stored in the block.json file.
+                register_block_type( $metadata_json_file, $args );
             }
         }
     }
-
 
 
 

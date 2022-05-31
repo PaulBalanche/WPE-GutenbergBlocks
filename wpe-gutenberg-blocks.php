@@ -25,7 +25,6 @@ define( 'WPE_BLOCKS_PLUGIN_URL', plugins_url('', __FILE__) . '/' );
  * 
  */
 require WPE_BLOCKS_PLUGIN_DIR . 'vendor/autoload.php';
-require( dirname( __FILE__ ) . '/filters/spacing.php' );
 
 
 

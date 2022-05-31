@@ -2,17 +2,33 @@
 
 namespace Wpe_Blocks\Controllers;
 
+use Wpe_Blocks\Filters\Spacing as SpacingFilter;
+
 class Main extends ControllerBase { 
 
     private $backEndController;
-    private $blocksController;
+    private $spacingFilter;
 
     function __construct() {
 
-        // $this->blocksController = new Blocks();
-
         $this->backEndController = new BackEnd();
+        $this->spacingFilter = new SpacingFilter();
         // $this->backEndController->generate_blocks();
+
+        $this->add_filters();
     }
+
+
+
+    /**
+     * Add Wordpress filters
+     * 
+     */
+    public function add_filters() {
+
+        add_filter( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', [ $this->spacingFilter, 'wpe_gutenberg_blocks_spacing_formatting'], 10, 2 );
+    }
+
+
 
 }

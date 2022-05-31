@@ -12,14 +12,14 @@ class BackEnd extends ControllerBase {
             $backEndService;
 
     public function __construct() {
-        
+
+        parent::__construct();
+
         $this->frontEndService = new FrontEndService();
         $this->backEndService = new BackEndService();
         
         $this->add_actions();
         $this->add_filters();
-
-        parent::__construct();
     }
 
 
@@ -90,7 +90,7 @@ class BackEnd extends ControllerBase {
     public function register_component_block() {
 
         $componentBlockInstance = new ComponentBlock();
-        $componentBlockInstance->register();
+        $componentBlockInstance->register_components();
     }
 
 

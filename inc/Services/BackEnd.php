@@ -36,12 +36,12 @@ class BackEnd extends ServiceBase {
 
 
     /**
-     * Get the list of back-end blocks
+     * Get all the back-end block spec
      * 
      */
-    public function get_blocks() {
+    public function get_blocks_spec() {
 
-        $blocks = [];
+        $blocks_spec = [];
 
         $blocks_dir = get_stylesheet_directory() . '/' . $this->blocksLocation . $this->blocksNamespace;
         if( file_exists($blocks_dir) ) {
@@ -49,22 +49,47 @@ class BackEnd extends ServiceBase {
             // Scan blocks dir and loop each block
             $blocks_scan = scandir( $blocks_dir );
             foreach( $blocks_scan as $block ) {
-                $blocks[] = $block;
+
+                $viewspec_json_file = $blocks_dir . '/' . $block . '/' . $this->viewspecJsonFilename;
+                if( file_exists($viewspec_json_file) ) {
+
+                    $viewspec = json_decode( file_get_contents( $viewspec_json_file ), true );
+                    if( $viewspec && is_array($viewspec) ) {
+
+                        $blocks_spec[] = $viewspec;
+                    }
+                }
             }
         }
 
-        return $blocks;
+        return $blocks_spec;
     }
 
 
 
-    public function register_block( $block, $args = [] ) {
+    /**
+     * Get all the back-end block metadata json files
+     * 
+     */
+    public function get_blocks_metadata() {
 
-        $metadata_json_file = get_stylesheet_directory() . '/' . $this->blocksLocation . $this->blocksNamespace . '/' . $block . '/' . $this->metadataJsonFilename;
-        if( file_exists($metadata_json_file) ) {
+        $blocks_metadata = [];
 
-            register_block_type( $metadata_json_file, $args );
+        $blocks_dir = get_stylesheet_directory() . '/' . $this->blocksLocation . $this->blocksNamespace;
+        if( file_exists($blocks_dir) ) {
+
+            // Scan blocks dir and loop each block
+            $blocks_scan = scandir( $blocks_dir );
+            foreach( $blocks_scan as $block ) {
+
+                $metadata_json_file = $blocks_dir . '/' . $block . '/' . $this->metadataJsonFilename;
+                if( file_exists($metadata_json_file) ) {
+                    $blocks_metadata[] = $metadata_json_file;
+                }
+            }
         }
+
+        return $blocks_metadata;
     }
 
 

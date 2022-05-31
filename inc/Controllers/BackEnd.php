@@ -18,7 +18,21 @@ class BackEnd extends ControllerBase {
         $this->frontEndService = new FrontEndService();
         $this->backEndService = new BackEndService();
         
+        $this->add_actions();
         $this->add_filters();
+
+        // $this->generate_blocks();
+    }
+
+
+
+    /**
+     * Add Wordpress actions
+     * 
+     */
+    public function add_actions() {
+
+        add_action( 'init', [ $this, 'register_component_block' ], 99 );
     }
 
 
@@ -63,17 +77,6 @@ class BackEnd extends ControllerBase {
 
 
     /**
-     * Filter get_component_viewspec method in order to merge component attributes with override-spec JSON file
-     * 
-     */
-    public function filter_get_component_viewspec( $viewspec_data, $component_dir ) {
-
-        return ( $component_dir == $this->frontEndService->get_components_dir() ) ? $this->backEndService->override_component_viewspec( $viewspec_data ) : $viewspec_data;
-    }
-
-
-
-    /**
      * Register dynamic component block
      * 
      */
@@ -84,5 +87,14 @@ class BackEnd extends ControllerBase {
     }
 
 
+
+    /**
+     * Filter get_component_viewspec method in order to merge component attributes with override-spec JSON file
+     * 
+     */
+    public function filter_get_component_viewspec( $viewspec_data, $component_dir ) {
+
+        return ( $component_dir == $this->frontEndService->get_components_dir() ) ? $this->backEndService->override_component_viewspec( $viewspec_data ) : $viewspec_data;
+    }
 
 }

@@ -4,6 +4,25 @@ namespace Wpe_Blocks\Filters;
 
 class Spacing extends FiltersBase {
 
+    function __construct() {
+        parent::__construct();
+
+        $this->add_filters();
+    }
+
+
+
+    /**
+     * Add Wordpress filters
+     * 
+     */
+    public function add_filters() {
+
+        add_filter( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', [ $this, 'wpe_gutenberg_blocks_spacing_formatting'], 10, 2 );
+    }
+
+
+
     /**
      * Bootstrap spacing formatting
      * 

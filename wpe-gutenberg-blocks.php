@@ -18,6 +18,7 @@ error_reporting(E_ALL | E_STRICT);
  *
  */
 define( 'WPE_BLOCKS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'WPE_BLOCKS_PLUGIN_URL', plugins_url('', __FILE__) . '/' );
 
 /**
  * Dependencies

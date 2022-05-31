@@ -5,8 +5,8 @@ namespace Wpe_Blocks\Services;
 class BackEnd extends ServiceBase {
 
     private $blocksLocation = 'blocks/',
-            $blocksNamespace = 'realday',
-            $blocksNamePrefix = '',
+            $blocksNamespace = 'custom',
+            $blocksNamePrefix = 'wpe-component-',
             $viewspecJsonFilename = 'viewspec.json',
             $metadataJsonFilename = 'block.json',
             $overrideSpecJsonFilename = 'override.json';
@@ -31,6 +31,40 @@ class BackEnd extends ServiceBase {
     public function get_block_dir( $block_id ) {
 
         return get_stylesheet_directory() . '/' . $this->blocksLocation . $this->get_block_name( $block_id);
+    }
+
+
+
+    /**
+     * Get the list of back-end blocks
+     * 
+     */
+    public function get_blocks() {
+
+        $blocks = [];
+
+        $blocks_dir = get_stylesheet_directory() . '/' . $this->blocksLocation . $this->blocksNamespace;
+        if( file_exists($blocks_dir) ) {
+
+            // Scan blocks dir and loop each block
+            $blocks_scan = scandir( $blocks_dir );
+            foreach( $blocks_scan as $block ) {
+                $blocks[] = $block;
+            }
+        }
+
+        return $blocks;
+    }
+
+
+
+    public function register_block( $block, $args = [] ) {
+
+        $metadata_json_file = get_stylesheet_directory() . '/' . $this->blocksLocation . $this->blocksNamespace . '/' . $block . '/' . $this->metadataJsonFilename;
+        if( file_exists($metadata_json_file) ) {
+
+            register_block_type( $metadata_json_file, $args );
+        }
     }
 
 

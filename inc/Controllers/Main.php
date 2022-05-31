@@ -11,11 +11,12 @@ class Main extends ControllerBase {
 
     function __construct() {
 
-        $this->backEndController = new BackEnd();
         $this->spacingFilter = new SpacingFilter();
-        // $this->backEndController->generate_blocks();
+        $this->backEndController = new BackEnd();
+        $this->backEndController->generate_blocks();
 
         $this->add_filters();
+        $this->add_actions();
     }
 
 
@@ -30,5 +31,14 @@ class Main extends ControllerBase {
     }
 
 
+
+    /**
+     * Add Wordpress actions
+     * 
+     */
+    public function add_actions() {
+
+        add_action( 'init', [ $this->backEndController, 'register_component_block' ], 99 );
+    }
 
 }

@@ -4,15 +4,13 @@ namespace Wpe_Blocks\Services;
 
 class FrontEnd extends ServiceBase {
 
-    private $viewsLocation = 'src/views/',
-            $componentsSubLocation = 'sections/',
-            $viewspecJsonFilename = 'viewspec.json';
-
-
-
+    /**
+     * Get the theme front component directory
+     * 
+     */
     public function get_components_dir( $subLocation = null ) {
 
-        return $this->viewsLocation . ( is_null($subLocation) ? $this->componentsSubLocation : $subLocation );
+        return $this->get_config()->getFront('viewsLocation') . ( is_null($subLocation) ? $this->get_config()->getFront('componentsSubLocation') : $subLocation );
     }
 
 
@@ -57,7 +55,7 @@ class FrontEnd extends ServiceBase {
         
         $component_relative_dir = $this->get_components_dir($dir);
         $component_dir = get_stylesheet_directory() . '/' . $component_relative_dir;
-        $path_viewspec_file = $component_dir . $component . '/' . $this->viewspecJsonFilename;
+        $path_viewspec_file = $component_dir . $component . '/' . $this->get_config()->getFront('viewspecJsonFilename');
 
         // If viewspec file exist
         if( file_exists( $path_viewspec_file ) ) {
@@ -69,7 +67,7 @@ class FrontEnd extends ServiceBase {
                 // Add path attribute requires by component render method
                 $render_file = glob( $component_dir . $component . '/*.twig' );
                 if( $render_file && is_array($render_file) && count($render_file) == 1 ) {
-                    $component_viewspec['path'] = $this->componentsSubLocation . $component . '/' . pathinfo($render_file[0])['basename'];
+                    $component_viewspec['path'] = $this->get_config()->getFront('componentsSubLocation') . $component . '/' . pathinfo($render_file[0])['basename'];
                 }
 
                 // Get and treat component props
@@ -160,6 +158,4 @@ class FrontEnd extends ServiceBase {
         return $this->get_component_viewspec( $extends, $extends_dir );
     }
 
-
-    
 }

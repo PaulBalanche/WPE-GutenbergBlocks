@@ -4,6 +4,7 @@ namespace Wpe_Blocks\Controllers;
 
 use Wpe_Blocks\Services\FrontEnd as FrontEndService;
 use Wpe_Blocks\Services\BackEnd as BackEndService;
+use Wpe_Blocks\Models\ComponentBlockMaster;
 use Wpe_Blocks\Models\ComponentBlock;
 
 class BackEnd extends ControllerBase {
@@ -12,25 +13,12 @@ class BackEnd extends ControllerBase {
             $backEndService;
 
     public function __construct() {
-
         parent::__construct();
 
         $this->frontEndService = new FrontEndService();
         $this->backEndService = new BackEndService();
         
-        $this->add_actions();
         $this->add_filters();
-    }
-
-
-
-    /**
-     * Add Wordpress actions
-     * 
-     */
-    public function add_actions() {
-
-        add_action( 'init', array($this, 'register_component_block'), 99 );
     }
 
 
@@ -63,8 +51,10 @@ class BackEnd extends ControllerBase {
                 // If invalid or null component, just bypass it and continue to the next component
                 if( ! is_null( $component_frontspec ) && is_array( $component_frontspec ) && isset($component_frontspec['id'], $component_frontspec['path']) ) {
 
-                    // Generate block spec
-                    $this->backEndService->generate_block_spec( $component_frontspec );
+                    // ComponentBlock instanciation && block spec generation
+                    $componentBlockInstance = new ComponentBlock();
+                    $componentBlockInstance->generate_block_spec( $component_frontspec );
+                    $componentBlockInstance->generate_block_metadata();
                 }
             }
         }
@@ -89,8 +79,8 @@ class BackEnd extends ControllerBase {
      */
     public function register_component_block() {
 
-        $componentBlockInstance = new ComponentBlock();
-        $componentBlockInstance->register_components();
+        $componentBlockMasterInstance = new ComponentBlockMaster();
+        $componentBlockMasterInstance->register_components();
     }
 
 

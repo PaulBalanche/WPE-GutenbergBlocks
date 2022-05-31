@@ -2,14 +2,13 @@
 
 namespace Wpe_Blocks\Services;
 
-use Wpe_Blocks\Share\Config;
+use Wpe_Blocks\Shared\Config;
 
 class ServiceBase {
     
     private $config;
 
     function __construct() {
-
         $this->config = Config::getInstance();
     }
 

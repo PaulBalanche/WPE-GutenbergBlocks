@@ -45,6 +45,9 @@ class BackEnd extends ControllerBase {
 
         // Merge component attributes with override-spec JSON file
         add_filter( 'Wpe_Blocks\get_component_viewspec', [ $this, 'filter_get_component_viewspec' ], 10, 2 );
+
+        add_filter( 'Wpe_Blocks\attributes_formatting', 'Wpe_Blocks\Helpers\Attributes::formatting', 10, 2 );
+        add_filter( 'Wpe_Blocks\get_block_anchor', 'Wpe_Blocks\Helpers\Anchor::get_block_anchor' );
     }
 
 

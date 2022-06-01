@@ -2,9 +2,13 @@
 
 namespace Wpe_Blocks\Models;
 
+use Wpe_Blocks\Helpers\Attributes;
+
 class ComponentBlock extends ModelBase {
 
-    private $blockId;
+    private $blockId,
+            $attributes,
+            $content;
 
     public function __construct( $blockId = null ) {
         parent::__construct();
@@ -29,6 +33,46 @@ class ComponentBlock extends ModelBase {
     public function set_ID( $blockId = null ) {
         
         $this->blockId = ( ! is_null($blockId) ) ? str_replace( $this->get_config()->get('componentBlockName') . '-', '', str_replace( '_', '-', trim( strtolower( $blockId ) ) ) ) : null;
+    }
+
+
+
+    /**
+     * Get component attributes
+     * 
+     */
+    public function get_attributes() {
+        return $this->attributes;
+    }
+
+
+
+    /**
+     * 
+     * 
+     */
+    public function set_attributes( $attributes ) {
+        $this->attributes = $attributes;
+    }
+    
+    
+
+    /**
+     * Get component content
+     * 
+     */
+    public function get_content() {
+        return $this->content;
+    }
+
+
+
+    /**
+     * 
+     * 
+     */
+    public function set_content( $content ) {
+        $this->content = $content;
     }
 
 
@@ -252,6 +296,65 @@ class ComponentBlock extends ModelBase {
         }
 
         return false;
+    }
+
+
+
+    /**
+     * Render method
+     * 
+     */
+    public function render() {
+
+        $block_spec = $this->get_block_spec();
+        if( is_array($block_spec) ) {
+
+            // Formatting attributes
+            $attributes = apply_filters( 'Wpe_Blocks\attributes_formatting', $this->get_attributes(), $block_spec );
+
+            // Anchor detection
+            $anchor = apply_filters( 'Wpe_Blocks\get_block_anchor', $this->get_content() );
+            if( $anchor ) {
+                $attributes['anchor'] = $anchor;
+            }
+
+            // Filters spacing
+            $attributes['margin'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($attributes['margin']) ) ? $attributes['margin'] : '', 'margin' );
+            $attributes['padding'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($attributes['padding']) ) ? $attributes['padding'] : '', 'padding' );
+
+            // Filters component attributes (all and specific component)
+            $attributes = apply_filters('wpextend/render_wpe_component_attributes', $attributes);
+            $attributes = apply_filters('wpextend/render_wpe_component_attributes_' . $block_spec['id'], $attributes);
+
+            // Start rendering
+            if( apply_filters( 'wpextend/display_wpe_component_' . $block_spec['id'], true, $attributes ) ) {
+
+                // Check if required field are filled
+                if( isset($block_spec['props']) && is_array($block_spec['props']) && count($block_spec['props']) > 0 ) {
+                        
+                    foreach( $block_spec['props'] as $key_prop => $prop ) {
+                        if( isset($prop['required']) && $prop['required'] && ( ! isset($attributes[$key_prop]) || ! $attributes[$key_prop] || empty($attributes[$key_prop]) ) ){
+
+                            if( isset($_SERVER['REQUEST_URI']) && strpos( $_SERVER['REQUEST_URI'], 'wp-json/wp/v2/block-renderer' ) !== false ) {
+                                return '<div class="alert">Some required fields are missing : <b>' . $key_prop . '</b></div>';
+                            }
+                            else {
+                                return;
+                            }
+                        }
+                    }
+                }
+
+                // Render
+                $render_component = \Wpextend\GutenbergBlock::render($block_spec['path'], $attributes);
+                return apply_filters( 'wpextend/render_wpe_component_' . $block_spec['id'], $render_component );
+            }
+            else if( isset($attributes['admin_error_message']) && isset($_SERVER['REQUEST_URI']) && strpos( $_SERVER['REQUEST_URI'], 'wp-json/wp/v2/block-renderer' ) !== false ) {
+                return '<div class="alert">' . $attributes['admin_error_message'] . '</div>';
+            }
+        }
+
+        return;
     }
 
 }

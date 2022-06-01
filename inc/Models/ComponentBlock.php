@@ -2,7 +2,7 @@
 
 namespace Wpe_Blocks\Models;
 
-use Wpe_Blocks\Helpers\Attributes;
+use Wpe_Blocks\Helpers\Request;
 
 class ComponentBlock extends ModelBase {
 
@@ -179,7 +179,7 @@ class ComponentBlock extends ModelBase {
             $metadata = [];
 
             // Name
-            $metadata['name'] = $this->get_block_name( $block_spec['id'] );
+            $metadata['name'] = $this->get_block_name( $this->get_ID() );
 
             // Attributes
             $attributes = [
@@ -306,55 +306,109 @@ class ComponentBlock extends ModelBase {
      */
     public function render() {
 
+        $render = null;
+        
         $block_spec = $this->get_block_spec();
         if( is_array($block_spec) ) {
 
-            // Formatting attributes
-            $attributes = apply_filters( 'Wpe_Blocks\attributes_formatting', $this->get_attributes(), $block_spec );
+            // Get block attributes
+            $render_attributes = $this->get_attributes();
+
+            // Filters attributes
+            $render_attributes = apply_filters( 'wpextend/render_wpe_component_attributes', $render_attributes );
+            $render_attributes = apply_filters( 'wpextend/render_wpe_component_attributes_' . $this->get_ID(), $render_attributes );
 
             // Anchor detection
-            $anchor = apply_filters( 'Wpe_Blocks\get_block_anchor', $this->get_content() );
-            if( $anchor ) {
-                $attributes['anchor'] = $anchor;
-            }
+            $render_attributes['anchor'] = $this->detect_block_anchor();
 
             // Filters spacing
-            $attributes['margin'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($attributes['margin']) ) ? $attributes['margin'] : '', 'margin' );
-            $attributes['padding'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($attributes['padding']) ) ? $attributes['padding'] : '', 'padding' );
+            $render_attributes['margin'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($render_attributes['margin']) ) ? $render_attributes['margin'] : '', 'margin' );
+            $render_attributes['padding'] = apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($render_attributes['padding']) ) ? $render_attributes['padding'] : '', 'padding' );
 
-            // Filters component attributes (all and specific component)
-            $attributes = apply_filters('wpextend/render_wpe_component_attributes', $attributes);
-            $attributes = apply_filters('wpextend/render_wpe_component_attributes_' . $block_spec['id'], $attributes);
+            // Formatting attributes
+            $render_attributes = apply_filters( 'Wpe_Blocks\attributes_formatting', $render_attributes, $block_spec );
 
             // Start rendering
-            if( apply_filters( 'wpextend/display_wpe_component_' . $block_spec['id'], true, $attributes ) ) {
+            if( apply_filters( 'wpextend/display_wpe_component_' . $this->get_ID(), true, $render_attributes ) ) {
 
-                // Check if required field are filled
-                if( isset($block_spec['props']) && is_array($block_spec['props']) && count($block_spec['props']) > 0 ) {
-                        
-                    foreach( $block_spec['props'] as $key_prop => $prop ) {
-                        if( isset($prop['required']) && $prop['required'] && ( ! isset($attributes[$key_prop]) || ! $attributes[$key_prop] || empty($attributes[$key_prop]) ) ){
-
-                            if( isset($_SERVER['REQUEST_URI']) && strpos( $_SERVER['REQUEST_URI'], 'wp-json/wp/v2/block-renderer' ) !== false ) {
-                                return '<div class="alert">Some required fields are missing : <b>' . $key_prop . '</b></div>';
-                            }
-                            else {
-                                return;
-                            }
-                        }
-                    }
+                // Check missing required attributes
+                $missing_required_attributes = $this->get_missing_required_attributes( $render_attributes );
+                if( count($missing_required_attributes) == 0 ) {
+                    
+                    $render = apply_filters( 'wpextend/render_wpe_component_' . $this->get_ID(), \Wpextend\GutenbergBlock::render( $block_spec['path'], $render_attributes ) );
                 }
+                else if( Request::is_admin_editor_request() ) {
 
-                // Render
-                $render_component = \Wpextend\GutenbergBlock::render($block_spec['path'], $attributes);
-                return apply_filters( 'wpextend/render_wpe_component_' . $block_spec['id'], $render_component );
+                    $render = '<div class="alert">Some required fields are missing: <ul><li>' . implode('</li><li>', $missing_required_attributes) . '</li></ul></div>';
+                }
             }
-            else if( isset($attributes['admin_error_message']) && isset($_SERVER['REQUEST_URI']) && strpos( $_SERVER['REQUEST_URI'], 'wp-json/wp/v2/block-renderer' ) !== false ) {
-                return '<div class="alert">' . $attributes['admin_error_message'] . '</div>';
+            else if( isset($render_attributes['admin_error_message']) && Request::is_admin_editor_request() ) {
+                $render = '<div class="alert">' . $render_attributes['admin_error_message'] . '</div>';
             }
         }
 
-        return;
+        return $render;
+    }
+
+
+
+    /**
+     * Detect anchor into the block content wrapper
+     * 
+     */
+    public function detect_block_anchor() {
+
+        $anchor = null;
+
+        if( preg_match( '/<div(.*)class="wp-block-' . $this->get_config()->get('blocksNamespace') . '-' . $this->get_config()->get('componentBlockName') . '-[^"]*"([^>]*)>(.*)<\/div>/s', $this->get_content(), $content ) === 1 ) {
+                
+            $class_prev = $content[1];
+            $class_next = $content[2];
+            $content = $content[3];
+
+            if( strpos($class_prev, 'id="') !== false ) {
+
+                preg_match( '/id="(.*)"/', $class_prev, $match_anchor );
+                if( is_array($match_anchor) && count($match_anchor) == 2 ) {
+                    $anchor = $match_anchor[1];
+                }
+            }
+            elseif( strpos($class_next, 'id="') !== false ) {
+
+                preg_match( '/id="(.*)"/', $class_next, $match_anchor );
+                if( is_array($match_anchor) && count($match_anchor) == 2 ) {
+                    $anchor = $match_anchor[1];
+                }
+            }
+        }
+        
+        return $anchor;
+    }
+
+
+
+
+    /**
+     * Check missing required attributes
+     * 
+     */
+    public function get_missing_required_attributes( $attributes ) {
+
+        $missing_required_attributes = [];
+        
+        $block_spec = $this->get_block_spec();
+        if( is_array($block_spec) && isset($block_spec['props']) && is_array($block_spec['props']) && count($block_spec['props']) > 0 ) {
+                            
+            foreach( $block_spec['props'] as $key_prop => $prop ) {
+
+                if( isset($prop['required']) && $prop['required'] && ( ! isset($attributes[$key_prop]) || ! $attributes[$key_prop] || empty($attributes[$key_prop]) ) ){
+
+                    $missing_required_attributes[] = ( isset( $prop['label'] ) ) ? $prop['label'] : $key_prop;
+                }
+            }
+        }
+
+        return $missing_required_attributes;
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wpe_Blocks\Shared;
+namespace Wpe_Blocks\Singleton;
 
 class Config {
 

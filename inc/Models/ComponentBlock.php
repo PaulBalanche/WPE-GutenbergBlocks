@@ -3,6 +3,7 @@
 namespace Wpe_Blocks\Models;
 
 use Wpe_Blocks\Helpers\Request;
+use Wpe_Blocks\Services\Render as RenderService;
 
 class ComponentBlock extends ModelBase {
 
@@ -335,7 +336,7 @@ class ComponentBlock extends ModelBase {
                 $missing_required_attributes = $this->get_missing_required_attributes( $render_attributes );
                 if( count($missing_required_attributes) == 0 ) {
                     
-                    $render = apply_filters( 'wpextend/render_wpe_component_' . $this->get_ID(), \Wpextend\GutenbergBlock::render( $block_spec['path'], $render_attributes ) );
+                    $render = apply_filters( 'wpextend/render_wpe_component_' . $this->get_ID(), RenderService::render( $block_spec['path'], $render_attributes ) );
                 }
                 else if( Request::is_admin_editor_request() ) {
 

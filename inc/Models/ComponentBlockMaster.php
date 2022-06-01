@@ -3,7 +3,6 @@
 namespace Wpe_Blocks\Models;
 
 use Wpe_Blocks\Services\BackEnd as BackEndService;
-use Wpe_Blocks\Shared\Config;
 
 class ComponentBlockMaster extends ModelBase {
 

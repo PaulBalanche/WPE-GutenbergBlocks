@@ -2,7 +2,7 @@
 
 namespace Wpe_Blocks\Filters;
 
-use Wpe_Blocks\Shared\Config;
+use Wpe_Blocks\Singleton\Config;
 
 class FiltersBase {
     

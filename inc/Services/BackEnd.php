@@ -3,8 +3,15 @@
 namespace Wpe_Blocks\Services;
 
 use Wpe_Blocks\Models\ComponentBlock;
+use Wpe_Blocks\Singleton\Timber;
 
 class BackEnd extends ServiceBase {
+
+    function __construct() {
+        parent::__construct();
+    }
+
+
 
     /**
      * Get all the back-end blocks spec

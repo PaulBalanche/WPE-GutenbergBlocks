@@ -2,7 +2,7 @@
 
 namespace Wpe_Blocks\Controllers;
 
-use Wpe_Blocks\Shared\Config;
+use Wpe_Blocks\Singleton\Config;
 
 class ControllerBase {
     

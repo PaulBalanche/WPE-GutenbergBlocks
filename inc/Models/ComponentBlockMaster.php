@@ -2,6 +2,7 @@
 
 namespace Wpe_Blocks\Models;
 
+use Wpe_Blocks\Singleton\Main;
 use Wpe_Blocks\Services\BackEnd as BackEndService;
 
 class ComponentBlockMaster extends ModelBase {
@@ -98,7 +99,8 @@ class ComponentBlockMaster extends ModelBase {
         if( ! isset( $attributes['id_component'] ) )
             return;
         
-        $componentBlockInstance = new ComponentBlock( $attributes['id_component'] );
+
+        $componentBlockInstance = Main::getInstance()->get_component_block_instance( $attributes['id_component'] );
         $componentBlockInstance->set_attributes($attributes);
         $componentBlockInstance->set_content($content);
         return $componentBlockInstance->render();

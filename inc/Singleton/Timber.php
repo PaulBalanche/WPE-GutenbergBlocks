@@ -6,6 +6,17 @@ class Timber {
 
     private static $_instance;
 
+    public function __construct() {
+        $this->init();
+    }
+
+
+
+    /**
+     * Utility method to retrieve the main instance of the class.
+     * The instance will be created if it does not exist yet.
+     * 
+     */
     public static function getInstance() {
 
         if( is_null(self::$_instance) ) {
@@ -14,9 +25,6 @@ class Timber {
         return self::$_instance;
     }
 
-    public function __construct() {
-        $this->init();
-    }
 
 
     /**

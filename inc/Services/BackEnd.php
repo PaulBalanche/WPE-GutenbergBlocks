@@ -3,7 +3,7 @@
 namespace Wpe_Blocks\Services;
 
 use Wpe_Blocks\Models\ComponentBlock;
-use Wpe_Blocks\Singleton\Timber;
+use Wpe_Blocks\Singleton\Main;
 
 class BackEnd extends ServiceBase {
 
@@ -31,7 +31,7 @@ class BackEnd extends ServiceBase {
                 if( is_dir( $blocks_dir . '/' . $block ) && $block != '..' && $block != '.' ) {
 
                     // ComponentBlock instanciation && get block spec
-                    $componentBlockInstance = new ComponentBlock( $block );
+                    $componentBlockInstance = Main::getInstance()->get_component_block_instance( $block );
                     $block_spec = $componentBlockInstance->get_block_spec();
                     if( $block_spec && is_array($block_spec) ) {
                         $blocks_spec[] = $block_spec;
@@ -63,7 +63,7 @@ class BackEnd extends ServiceBase {
                 if( is_dir( $blocks_dir . '/' . $block ) && $block != '..' && $block != '.' ) {
 
                     // ComponentBlock instanciation && get block spec
-                    $componentBlockInstance = new ComponentBlock( $block );
+                    $componentBlockInstance = Main::getInstance()->get_component_block_instance( $block );
                     $block_metadata_json_file = $componentBlockInstance->get_block_metadata_json_file();
                     if( $block_metadata_json_file ) {
                         $blocks_metadata[] = $block_metadata_json_file;
@@ -84,7 +84,7 @@ class BackEnd extends ServiceBase {
     public function override_component_viewspec( $viewspec_data ) {
 
         // ComponentBlock instanciation && get ovveride data
-        $componentBlockInstance = new ComponentBlock( $viewspec_data['id'] );
+        $componentBlockInstance = Main::getInstance()->get_component_block_instance( $viewspec_data['id'] );
         $override_spec = $componentBlockInstance->get_override_viewspec();
 
         return ( $override_spec ) ? array_replace_recursive( $viewspec_data, $override_spec ) : $viewspec_data;

@@ -42,7 +42,7 @@ function _wpe_gutenberg_blocks_init() {
         deactivate_plugins( plugin_basename( __FILE__ ) );
     }
     else {
-        new Wpe_Blocks\Controllers\Main();
+        Wpe_Blocks\Singleton\Main::getInstance();
     }
 }
 

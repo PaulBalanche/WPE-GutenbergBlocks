@@ -27,7 +27,11 @@ class Config {
 
 
 
-
+    /**
+     * Utility method to retrieve the main instance of the class.
+     * The instance will be created if it does not exist yet.
+     * 
+     */
     public static function getInstance() {
 
         if( is_null(self::$_instance) ) {

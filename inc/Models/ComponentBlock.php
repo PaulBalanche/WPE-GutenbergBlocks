@@ -4,10 +4,13 @@ namespace Wpe_Blocks\Models;
 
 use Wpe_Blocks\Helpers\Request;
 use Wpe_Blocks\Services\Render as RenderService;
+use Wpe_Blocks\Singleton\Config;
+use Wpe_Blocks\Singleton\Main;
 
 class ComponentBlock extends ModelBase {
 
-    private $blockId,
+    private $blockId = null,
+            $blockSpec = null,
             $attributes,
             $content;
 
@@ -33,7 +36,21 @@ class ComponentBlock extends ModelBase {
      */
     public function set_ID( $blockId = null ) {
         
-        $this->blockId = ( ! is_null($blockId) ) ? str_replace( $this->get_config()->get('componentBlockName') . '-', '', str_replace( '_', '-', trim( strtolower( $blockId ) ) ) ) : null;
+        if( ! is_null($blockId) ) {
+
+            $this->blockId = $this::format_id( $blockId );
+            Main::getInstance()->add_component_block_instance( $this );
+        }        
+    }
+
+
+
+    /**
+     * Static method formatting blockId
+     * 
+     */
+    public static function format_id( $blockId ) {
+        return str_replace( Config::getInstance()->get('componentBlockName') . '-', '', str_replace( '_', '-', trim( strtolower( $blockId ) ) ) );
     }
 
 
@@ -107,16 +124,19 @@ class ComponentBlock extends ModelBase {
      */
     public function get_block_spec() {
 
-        $spec_json_file = $this->get_block_dir() . '/' . $this->get_config()->getBack('viewspecJsonFilename');
-        if( file_exists($spec_json_file) ) {
+        if( is_null($this->blockSpec) ) {
 
-            $block_spec = json_decode( file_get_contents( $spec_json_file ), true );
-            if( $block_spec && is_array($block_spec) ) {
-                return $block_spec;
+            $spec_json_file = $this->get_block_dir() . '/' . $this->get_config()->getBack('viewspecJsonFilename');
+            if( file_exists($spec_json_file) ) {
+
+                $block_spec = json_decode( file_get_contents( $spec_json_file ), true );
+                if( $block_spec && is_array($block_spec) ) {
+                    $this->blockSpec = $block_spec;
+                }
             }
         }
 
-        return [];
+        return $this->blockSpec;
     }
 
 
@@ -138,7 +158,7 @@ class ComponentBlock extends ModelBase {
             mkdir( $block_dir , 0750, true );
         }
 
-        $backspec_generated = [
+        $this->blockSpec = [
             'id' => $this->get_ID(),
             'name' => $component_frontspec['name'] ?? $this->get_ID(),
             'description' => $component_frontspec['description'] ?? '',
@@ -148,7 +168,7 @@ class ComponentBlock extends ModelBase {
         ];
 
         // Write the components frontspec generated in a JSON file
-        file_put_contents( $block_dir . '/' . $this->get_config()->getBack('viewspecJsonFilename') , json_encode( $backspec_generated, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES ) );
+        file_put_contents( $block_dir . '/' . $this->get_config()->getBack('viewspecJsonFilename') , json_encode( $this->blockSpec, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES ) );
     }
 
 

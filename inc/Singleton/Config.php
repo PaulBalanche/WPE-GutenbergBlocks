@@ -15,6 +15,7 @@ class Config {
 
     private $back = [
         'blocksLocation' => 'blocks/',
+        'customBlocksLocation' => 'blocks/custom/',
         'viewspecJsonFilename' => 'viewspec.json',
         'metadataJsonFilename' => 'block.json',
         'overrideSpecJsonFilename' => 'override.json'

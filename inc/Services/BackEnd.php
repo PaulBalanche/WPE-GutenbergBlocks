@@ -90,4 +90,31 @@ class BackEnd extends ServiceBase {
         return ( $override_spec ) ? array_replace_recursive( $viewspec_data, $override_spec ) : $viewspec_data;
     }
 
+
+
+    /**
+     * Get custom blocks defined in module
+     * 
+     */
+    public function get_custom_blocks() {
+
+        $custom_blocks = [];
+
+        $custom_blocks_dir = WPE_BLOCKS_PLUGIN_DIR . $this->get_config()->getBack('customBlocksLocation');
+        if( file_exists($custom_blocks_dir) ) {
+
+            // Scan blocks dir and loop each block
+            $blocks_scan = scandir( $custom_blocks_dir );
+            foreach( $blocks_scan as $block ) {
+
+                if( is_dir( $custom_blocks_dir . '/' . $block ) && $block != '..' && $block != '.' ) {
+
+                    $custom_blocks[] = $block;
+                }
+            }
+        }
+
+        return $custom_blocks;
+    }
+
 }

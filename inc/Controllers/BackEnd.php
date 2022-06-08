@@ -6,6 +6,7 @@ use Wpe_Blocks\Services\FrontEnd as FrontEndService;
 use Wpe_Blocks\Services\BackEnd as BackEndService;
 use Wpe_Blocks\Models\ComponentBlockMaster;
 use Wpe_Blocks\Models\ComponentBlock;
+use Wpe_Blocks\Models\CustomBlock;
 
 class BackEnd extends ControllerBase {
 
@@ -33,6 +34,7 @@ class BackEnd extends ControllerBase {
     public function add_actions() {
 
         add_action( 'init', [ $this, 'register_component_block' ], 99 );
+        add_action( 'init', [ $this, 'register_custom_blocks' ], 99 );
     }
 
 
@@ -86,6 +88,21 @@ class BackEnd extends ControllerBase {
 
         $componentBlockMasterInstance = new ComponentBlockMaster();
         $componentBlockMasterInstance->register_components();
+    }
+
+
+
+    /**
+     * Register custom blocks
+     * 
+     */
+    public function register_custom_blocks() {
+
+        foreach( $this->backEndService->get_custom_blocks() as $custom_block ) {
+
+            $customBlockInstance = new CustomBlock( $custom_block );
+            $customBlockInstance->register();
+        }
     }
 
 

@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'gridConfig' => \Wpextend\GutenbergBlock::get_frontspec_json_file('gridConfig')
+    'gridConfig' => \Wpe_Blocks\Singleton\Config::getInstance()->get_frontspec_json_file('gridConfig')
 ];

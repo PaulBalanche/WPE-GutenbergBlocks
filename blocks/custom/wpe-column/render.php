@@ -23,7 +23,7 @@ function custom_wpe_column_render_callback( $attributes, $content ) {
     ];
 
     // Render
-    return \Wpextend\GutenbergBlock::render(
+    return \Wpe_Blocks\Services\Render::render(
         apply_filters('wpextend/wpe_column_view_path', 'wpe-column'),
         apply_filters('wpextend/wpe_column_data', $data, $attributes)
     );

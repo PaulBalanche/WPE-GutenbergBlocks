@@ -4,9 +4,7 @@ namespace Wpe_Blocks\Controllers;
 
 use Wpe_Blocks\Services\FrontEnd as FrontEndService;
 use Wpe_Blocks\Services\BackEnd as BackEndService;
-use Wpe_Blocks\Models\ComponentBlockMaster;
 use Wpe_Blocks\Models\ComponentBlock;
-use Wpe_Blocks\Models\CustomBlock;
 
 class BackEnd extends ControllerBase {
 
@@ -33,8 +31,8 @@ class BackEnd extends ControllerBase {
      */
     public function add_actions() {
 
-        add_action( 'init', [ $this, 'register_component_block' ], 99 );
-        add_action( 'init', [ $this, 'register_custom_blocks' ], 99 );
+        add_action( 'init', [ $this->backEndService, 'register_component_block' ], 99 );
+        add_action( 'init', [ $this->backEndService, 'register_custom_blocks' ], 99 );
     }
 
 
@@ -49,6 +47,9 @@ class BackEnd extends ControllerBase {
         add_filter( 'Wpe_Blocks\get_component_viewspec', [ $this, 'filter_get_component_viewspec' ], 10, 2 );
 
         add_filter( 'Wpe_Blocks\attributes_formatting', 'Wpe_Blocks\Helpers\Attributes::formatting', 10, 2 );
+
+        // Filters the allowed block types for all editor types.
+        add_filter( 'allowed_block_types_all', [ $this->backEndService, 'allowed_specifics_block_types' ], 10, 2 );
     }
 
 
@@ -75,33 +76,6 @@ class BackEnd extends ControllerBase {
                     $componentBlockInstance->generate_block_metadata();
                 }
             }
-        }
-    }
-
-
-
-    /**
-     * Register dynamic component block
-     * 
-     */
-    public function register_component_block() {
-
-        $componentBlockMasterInstance = new ComponentBlockMaster();
-        $componentBlockMasterInstance->register_components();
-    }
-
-
-
-    /**
-     * Register custom blocks
-     * 
-     */
-    public function register_custom_blocks() {
-
-        foreach( $this->backEndService->get_custom_blocks() as $custom_block ) {
-
-            $customBlockInstance = new CustomBlock( $custom_block );
-            $customBlockInstance->register();
         }
     }
 

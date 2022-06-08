@@ -5,16 +5,20 @@ namespace Wpe_Blocks\Singleton;
 use Wpe_Blocks\Filters\Spacing as SpacingFilter;
 use Wpe_Blocks\Controllers\BackEnd as BackEndController;
 use Wpe_Blocks\Models\ComponentBlock;
+use Wpe_Blocks\Singleton\Config;
 
 class Main {
 
     private static $_instance;
-    private $componentBlockInstances = [];
+    private $componentBlockInstances = [],
+            $config;
 
     function __construct() {
 
         new SpacingFilter();
         new BackEndController();
+
+        $this->config = Config::getInstance();
     }
 
 
@@ -32,7 +36,9 @@ class Main {
         return self::$_instance;
     }
 
-    
+    public function get_config() {
+        return $this->config;
+    }
     
     /**
      * Get ComponentBlock instance object if exists, or create it

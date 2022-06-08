@@ -10,7 +10,7 @@ function custom_wpe_grid_render_callback( $attributes, $content ) {
     ];
 
     // Render
-    return \Wpextend\GutenbergBlock::render(
+    return \Wpe_Blocks\Services\Render::render(
         apply_filters('wpextend/wpe_grid_view_path', 'wpe-grid'),
         apply_filters('wpextend/wpe_grid_data', $data, $attributes)
     );

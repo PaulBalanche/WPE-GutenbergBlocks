@@ -12,7 +12,7 @@ if( ! function_exists( 'core_gallery_render_callback' ) ) {
             $data = [
                 'content' => $content,
                 'slides' => $slides,
-                'container_class_name' => \Wpextend\GutenbergBlock::get_container_class_name(),
+                'container_class_name' => \Wpe_Blocks\Singleton\Config::getInstance()->getback('containerClassName'),
                 'ids_images' => $attributes['ids'],
                 'nb_colums' => ( isset($attributes['columns']) ) ? $attributes['columns'] : 1,
                 'size_img' => ( isset($attributes['sizeSlug']) ) ? $attributes['sizeSlug'] : 'full',
@@ -21,7 +21,7 @@ if( ! function_exists( 'core_gallery_render_callback' ) ) {
             $view_path = ( isset($attributes['galleryType']) && $attributes['galleryType'] != 'default' ) ? 'core-gallery-' . $attributes['galleryType'] : 'core-gallery';
 
             // Render
-            return \Wpextend\GutenbergBlock::render(
+            return \Wpe_Blocks\Services\Render::render(
                 apply_filters('wpextend/core_gallery_view_path', $view_path),
                 apply_filters('wpextend/core_gallery_data', $data, $attributes)
             );

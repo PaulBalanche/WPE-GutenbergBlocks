@@ -7,7 +7,7 @@ if( ! function_exists( 'core_video_render_callback' ) ) {
         preg_match( '/^<figure[^>]*">(.*)<\/figure>$/ms', $content, $matches );
         if( count($matches) == 2 ) {
 
-            return '<div class="' . \Wpextend\GutenbergBlock::get_container_class_name() . '">
+            return '<div class="' . \Wpe_Blocks\Singleton\Config::getInstance()->getback('containerClassName') . '">
                 <div class="row">' . $matches[1] . '</div>
             </div>';
         }

@@ -3,11 +3,11 @@
 namespace Wpe_Blocks\Singleton;
 
 class Config {
-
+    
     private static $_instance;
 
     private $front = [
-        'frontspec_json_file_name' => 'frontspec.json',
+        'frontspecJsonFileName' => 'frontspec.json',
         'viewsLocation' => 'src/views/',
         'componentsSubLocation' => 'sections/',
         'viewspecJsonFilename' => 'viewspec.json'
@@ -18,7 +18,20 @@ class Config {
         'customBlocksLocation' => 'blocks/custom/',
         'viewspecJsonFilename' => 'viewspec.json',
         'metadataJsonFilename' => 'block.json',
-        'overrideSpecJsonFilename' => 'override.json'
+        'overrideSpecJsonFilename' => 'override.json',
+        'wpDefaultBlockTypes' => [
+            'core' => [
+                'paragraph', 'list', 'heading', 'quote', 'audio', 'image', 'cover', 'video', 'gallery', 'file', 'html', 'preformatted', 'code', 'verse', 'pullquote', 'table', 'columns', 'column', 'group', 'button', 'more', 'nextpage', 'media-text', 'spacer', 'separator', 'calendar', 'shortcode', 'archives', 'categories', 'latest-comments', 'latest-posts', 'rss', 'search', 'tag-cloud', 'embed',
+            ],
+            'core-embed' => [
+                'twitter', 'youtube', 'facebook', 'instagram', 'wordpress', 'soundcloud', 'spotify', 'flickr', 'vimeo', 'animoto', 'cloudup', 'collegehumor', 'crowdsignal', 'polldaddy', 'dailymotion', 'hulu', 'imgur', 'issuu', 'kickstarter', 'meetup-com', 'mixcloud', 'reddit', 'reverbnation', 'screencast', 'scribd', 'slideshare', 'smugmug', 'speaker', 'speaker-deck', 'ted', 'tumblr', 'videopress', 'wordpress-tv', 'amazon-kindle'
+            ],
+            'woocommerce' => [
+                'handpicked-products', 'all-reviews', 'featured-category', 'featured-product', 'product-best-sellers', 'product-categories', 'product-category', 'product-new', 'product-on-sale', 'products-by-attribute', 'product-top-rated', 'reviews-by-product', 'reviews-by-category', 'product-search', 'product-tag', 'all-products', 'price-filter', 'attribute-filter', 'active-filters'
+            ]
+        ],
+        'allowedBlockTypesJsonFileName' => 'allowed_block_types.json',
+        'containerClassName' => 'container'
     ];
     
     private $both = [
@@ -59,7 +72,7 @@ class Config {
      */
     public function get_frontspec_json_file( $data = false, $merge_backspec = true ) {
 
-        $front_spec = json_decode ( file_get_contents( get_stylesheet_directory() . '/' . $this->getFront('frontspec_json_file_name') ), true );
+        $front_spec = json_decode ( file_get_contents( get_stylesheet_directory() . '/' . $this->getFront('frontspecJsonFileName') ), true );
 
         // if( $merge_backspec ) {
         //     $back_spec = self::get_backspec_json_file();

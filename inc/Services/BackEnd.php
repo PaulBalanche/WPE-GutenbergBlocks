@@ -2,13 +2,41 @@
 
 namespace Wpe_Blocks\Services;
 
-use Wpe_Blocks\Models\ComponentBlock;
+use Wpe_Blocks\Models\ComponentBlockMaster;
+use Wpe_Blocks\Models\CustomBlock;
 use Wpe_Blocks\Singleton\Main;
 
 class BackEnd extends ServiceBase {
 
     function __construct() {
         parent::__construct();
+    }
+
+
+
+    /**
+     * Register dynamic component block
+     * 
+     */
+    public function register_component_block() {
+
+        $componentBlockMasterInstance = new ComponentBlockMaster();
+        $componentBlockMasterInstance->register_components();
+    }
+
+
+
+    /**
+     * Register custom blocks
+     * 
+     */
+    public function register_custom_blocks() {
+
+        foreach( $this->get_custom_blocks() as $custom_block ) {
+
+            $customBlockInstance = new CustomBlock( $custom_block );
+            $customBlockInstance->register();
+        }
     }
 
 
@@ -115,6 +143,41 @@ class BackEnd extends ServiceBase {
         }
 
         return $custom_blocks;
+    }
+
+
+
+    /**
+     * Filters the allowed block types for all editor types.
+     * 
+     */
+    public function allowed_specifics_block_types( $allowed_block_types, $post ) {
+
+        $allowed_block_types = $this->get_allowed_block_types();
+        if( ! is_null($allowed_block_types) ) {
+            return $allowed_block_types;
+        }
+
+        return $allowed_block_types;
+    }
+
+
+
+    /**
+     * Get allowed block types
+     * 
+     */
+    public function get_allowed_block_types() {
+
+        if( file_exists( get_stylesheet_directory() . '/' . $this->get_config()->getBack('allowedBlockTypesJsonFileName') ) ) {
+
+            $allowed_block_types = json_decode( file_get_contents( get_stylesheet_directory() . '/' . $this->get_config()->getBack('allowedBlockTypesJsonFileName') ), true );
+            if( $allowed_block_types && is_array($allowed_block_types) ) {
+                return $allowed_block_types;
+            }
+        }
+
+        return null;
     }
 
 }

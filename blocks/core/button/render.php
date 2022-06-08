@@ -15,7 +15,7 @@ if( ! function_exists( 'core_button_render_callback' ) ) {
         ];
 
         // Render
-        return \Wpextend\GutenbergBlock::render(
+        return \Wpe_Blocks\Services\Render::render(
             apply_filters('wpextend/core_button_view_path', 'core-button'),
             apply_filters('wpextend/core_button_data', $data, $attributes)
         );

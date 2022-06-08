@@ -35,27 +35,5 @@ require WPE_BLOCKS_PLUGIN_DIR . 'vendor/autoload.php';
 add_action( 'plugins_loaded', '_wpe_gutenberg_blocks_init' );
 function _wpe_gutenberg_blocks_init() {
 
-    // Disable this plugin if WP Extend parent plugin is not activated
-    if ( ! in_array('wpextend/wpextend.php', apply_filters('active_plugins', get_option('active_plugins'))) ) {
-        
-        require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-        deactivate_plugins( plugin_basename( __FILE__ ) );
-    }
-    else {
-        Wpe_Blocks\Singleton\Main::getInstance();
-    }
-}
-
-
-
-/**
- * Hook the plugin activation and avoid if WP Extend parent plugin is not activated
- * 
- */
-register_activation_hook( __FILE__, '_wpe_gutenberg_blocks_activate' );
-function _wpe_gutenberg_blocks_activate() {
-
-    if ( ! in_array('wpextend/wpextend.php', apply_filters('active_plugins', get_option('active_plugins'))) ) {
-        wp_die('Sorry, but this plugin requires WP Extend Plugin to be installed and active. <br><a href="' . admin_url( 'plugins.php' ) . '">Return to Plugins</a>');
-    }
+    Wpe_Blocks\Singleton\Main::getInstance();
 }

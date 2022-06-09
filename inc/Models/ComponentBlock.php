@@ -38,7 +38,7 @@ class ComponentBlock extends ModelBase {
         
         if( ! is_null($blockId) ) {
 
-            $this->blockId = $this::format_id( $blockId );
+            $this->blockId = self::format_id( $blockId );
             Main::getInstance()->add_component_block_instance( $this );
         }        
     }
@@ -50,7 +50,7 @@ class ComponentBlock extends ModelBase {
      * 
      */
     public static function format_id( $blockId ) {
-        return str_replace( Config::getInstance()->get('componentBlockName') . '-', '', str_replace( '_', '-', trim( strtolower( $blockId ) ) ) );
+        return str_replace( Config::getInstance()->get('componentBlockPrefixName') . '-', '', str_replace( '_', '-', trim( strtolower( $blockId ) ) ) );
     }
 
 
@@ -101,7 +101,7 @@ class ComponentBlock extends ModelBase {
      */
     public function get_block_name() {
 
-        return $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockName') . '-' . $this->get_ID();
+        return $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockPrefixName') . '-' . $this->get_ID();
     }
 
 
@@ -112,7 +112,7 @@ class ComponentBlock extends ModelBase {
      */
     public function get_block_dir() {
 
-        return get_stylesheet_directory() . '/' . $this->get_config()->getBack('blocksLocation') . $this->get_block_name();
+        return get_stylesheet_directory() . '/' . $this->get_config()->get('componentBlocksLocation') . $this->get_block_name();
     }
 
 
@@ -126,7 +126,7 @@ class ComponentBlock extends ModelBase {
 
         if( is_null($this->blockSpec) ) {
 
-            $spec_json_file = $this->get_block_dir() . '/' . $this->get_config()->getBack('viewspecJsonFilename');
+            $spec_json_file = $this->get_block_dir() . '/' . $this->get_config()->get('viewspecJsonFilename');
             if( file_exists($spec_json_file) ) {
 
                 $block_spec = json_decode( file_get_contents( $spec_json_file ), true );
@@ -167,8 +167,14 @@ class ComponentBlock extends ModelBase {
             'standalone' => true
         ];
 
+        $block_spec_json_filename = $block_dir . '/' . $this->get_config()->get('viewspecJsonFilename');
+        
         // Write the components frontspec generated in a JSON file
-        file_put_contents( $block_dir . '/' . $this->get_config()->getBack('viewspecJsonFilename') , json_encode( $this->blockSpec, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES ) );
+        if( file_put_contents( $block_spec_json_filename , json_encode( $this->blockSpec, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES ) ) ) {
+            return $block_spec_json_filename;
+        }
+
+        return false;
     }
 
 
@@ -178,7 +184,7 @@ class ComponentBlock extends ModelBase {
      */
     public function get_block_metadata_json_file() {
 
-        $metadata_json_file = $this->get_block_dir() . '/' . $this->get_config()->getBack('metadataJsonFilename');
+        $metadata_json_file = $this->get_block_dir() . '/' . $this->get_config()->get('blockMetadataJsonFilename');
         if( file_exists($metadata_json_file) ) {
             return $metadata_json_file;
         }
@@ -294,9 +300,15 @@ class ComponentBlock extends ModelBase {
 
             $metadata['attributes'] = $attributes;
 
+            $block_metadata_json_filename = $this->get_block_dir() . '/' . $this->get_config()->get('blockMetadataJsonFilename');
+            
             // Write the block metadata into block.json file
-            file_put_contents( $this->get_block_dir() . '/' . $this->get_config()->getBack('metadataJsonFilename'), json_encode( $metadata, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES ) );
+            if( file_put_contents( $block_metadata_json_filename, json_encode( $metadata, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES ) ) ) {
+                return $block_metadata_json_filename;
+            }        
         }
+
+        return false;
     }
 
 
@@ -307,7 +319,7 @@ class ComponentBlock extends ModelBase {
      */
     public function get_override_viewspec() {
 
-        $override_spec_file = $this->get_block_dir() . '/' . $this->get_config()->getBack('overrideSpecJsonFilename');
+        $override_spec_file = $this->get_block_dir() . '/' . $this->get_config()->get('overrideSpecJsonFilename');
         if( file_exists($override_spec_file) ) {
 
             $override_spec = json_decode( file_get_contents($override_spec_file), true );
@@ -381,7 +393,7 @@ class ComponentBlock extends ModelBase {
 
         $anchor = null;
 
-        if( preg_match( '/<div(.*)class="wp-block-' . $this->get_config()->get('blocksNamespace') . '-' . $this->get_config()->get('componentBlockName') . '-[^"]*"([^>]*)>(.*)<\/div>/s', $this->get_content(), $content ) === 1 ) {
+        if( preg_match( '/<div(.*)class="wp-block-' . $this->get_config()->get('blocksNamespace') . '-' . $this->get_config()->get('componentBlockPrefixName') . '-[^"]*"([^>]*)>(.*)<\/div>/s', $this->get_content(), $content ) === 1 ) {
                 
             $class_prev = $content[1];
             $class_next = $content[2];

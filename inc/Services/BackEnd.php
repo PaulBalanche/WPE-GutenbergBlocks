@@ -49,7 +49,7 @@ class BackEnd extends ServiceBase {
 
         $blocks_spec = [];
 
-        $blocks_dir = get_stylesheet_directory() . '/' . $this->get_config()->getBack('blocksLocation') . $this->get_config()->get('blocksNamespace');
+        $blocks_dir = get_stylesheet_directory() . '/' . $this->get_config()->get('componentBlocksLocation') . $this->get_config()->get('blocksNamespace');
         if( file_exists($blocks_dir) ) {
 
             // Scan blocks dir and loop each block
@@ -81,7 +81,7 @@ class BackEnd extends ServiceBase {
 
         $blocks_metadata = [];
 
-        $blocks_dir = get_stylesheet_directory() . '/' . $this->get_config()->getBack('blocksLocation') . $this->get_config()->get('blocksNamespace');
+        $blocks_dir = get_stylesheet_directory() . '/' . $this->get_config()->get('componentBlocksLocation') . $this->get_config()->get('blocksNamespace');
         if( file_exists($blocks_dir) ) {
 
             // Scan blocks dir and loop each block
@@ -128,7 +128,7 @@ class BackEnd extends ServiceBase {
 
         $custom_blocks = [];
 
-        $custom_blocks_dir = WPE_BLOCKS_PLUGIN_DIR . $this->get_config()->getBack('customBlocksLocation');
+        $custom_blocks_dir = WPE_BLOCKS_PLUGIN_DIR . $this->get_config()->get('customPluginBlocksLocation');
         if( file_exists($custom_blocks_dir) ) {
 
             // Scan blocks dir and loop each block
@@ -169,9 +169,9 @@ class BackEnd extends ServiceBase {
      */
     public function get_allowed_block_types() {
 
-        if( file_exists( get_stylesheet_directory() . '/' . $this->get_config()->getBack('allowedBlockTypesJsonFileName') ) ) {
+        if( file_exists( get_stylesheet_directory() . '/' . $this->get_config()->get('allowedBlockTypesJsonFileName') ) ) {
 
-            $allowed_block_types = json_decode( file_get_contents( get_stylesheet_directory() . '/' . $this->get_config()->getBack('allowedBlockTypesJsonFileName') ), true );
+            $allowed_block_types = json_decode( file_get_contents( get_stylesheet_directory() . '/' . $this->get_config()->get('allowedBlockTypesJsonFileName') ), true );
             if( $allowed_block_types && is_array($allowed_block_types) ) {
                 return $allowed_block_types;
             }

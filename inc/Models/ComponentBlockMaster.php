@@ -27,7 +27,7 @@ class ComponentBlockMaster extends ModelBase {
      */
     public function register_script() {
 
-        $handle = $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockName') . '-editor-script';
+        $handle = $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockPrefixName') . '-editor-script';
         $asset_file = include( WPE_BLOCKS_PLUGIN_DIR . $this->blockLocation . '/build/index.asset.php' );
 
         wp_register_script(
@@ -54,7 +54,7 @@ class ComponentBlockMaster extends ModelBase {
      */
     public function register_style() {
         
-        $handle = $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockName') . '-editor-style';
+        $handle = $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockPrefixName') . '-editor-style';
         
         wp_register_style(
             $handle,
@@ -73,8 +73,8 @@ class ComponentBlockMaster extends ModelBase {
     public function register_components() {
 
         $args = [
-            'editor_script' => $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockName') . '-editor-script',
-            'editor_style' => $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockName') . '-editor-style',
+            'editor_script' => $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockPrefixName') . '-editor-script',
+            'editor_style' => $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockPrefixName') . '-editor-style',
             'render_callback' => '\Wpe_Blocks\Models\ComponentBlockMaster::render'
         ];
 

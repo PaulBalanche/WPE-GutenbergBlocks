@@ -35,7 +35,7 @@ function custom_wpe_container_render_callback( $attributes, $content_wrapped ) {
         'margin' => apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($attributes['margin']) ) ? $attributes['margin'] : '', 'margin' ),
         'padding' => apply_filters( 'wpextend/wpe_gutenberg_blocks_spacing_formatting', ( isset($attributes['padding']) ) ? $attributes['padding'] : '', 'padding' ),
         'style' => ( isset($attributes['style']) ) ? 'st-' . $attributes['style'] : '',
-        'container_class_name' => \Wpe_Blocks\Singleton\Config::getInstance()->getback('containerClassName'),
+        'container_class_name' => \Wpe_Blocks\Singleton\Config::getInstance()->get('containerClassName'),
         'background' => '',
         'anchor' => $anchor
     ];

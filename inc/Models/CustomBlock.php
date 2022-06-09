@@ -33,7 +33,7 @@ class CustomBlock extends ModelBase {
      */
     public function get_block_dir() {
 
-        return WPE_BLOCKS_PLUGIN_DIR . $this->get_config()->getBack('customBlocksLocation') . $this->get_ID();
+        return WPE_BLOCKS_PLUGIN_DIR . $this->get_config()->get('customPluginBlocksLocation') . $this->get_ID();
     }
     
     
@@ -44,7 +44,7 @@ class CustomBlock extends ModelBase {
      */
     public function get_block_dir_url() {
 
-        return WPE_BLOCKS_PLUGIN_URL . $this->get_config()->getBack('customBlocksLocation') . $this->get_ID();
+        return WPE_BLOCKS_PLUGIN_URL . $this->get_config()->get('customPluginBlocksLocation') . $this->get_ID();
     }
 
 

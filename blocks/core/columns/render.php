@@ -7,7 +7,7 @@ if( ! function_exists( 'core_columns_render_callback' ) ) {
         preg_match( '/^<div class="wp-block-columns[^"]*">(.*)<\/div>$/ms', $content, $matches );
         if( count($matches) == 2 ) {
 
-            return '<div class="' . \Wpe_Blocks\Singleton\Config::getInstance()->getback('containerClassName') . '">
+            return '<div class="' . \Wpe_Blocks\Singleton\Config::getInstance()->get('containerClassName') . '">
                 <div class="row box">' . $matches[1] . '</div>
             </div>';
         }

@@ -12,7 +12,7 @@ if( ! function_exists( 'core_gallery_render_callback' ) ) {
             $data = [
                 'content' => $content,
                 'slides' => $slides,
-                'container_class_name' => \Wpe_Blocks\Singleton\Config::getInstance()->getback('containerClassName'),
+                'container_class_name' => \Wpe_Blocks\Singleton\Config::getInstance()->get('containerClassName'),
                 'ids_images' => $attributes['ids'],
                 'nb_colums' => ( isset($attributes['columns']) ) ? $attributes['columns'] : 1,
                 'size_img' => ( isset($attributes['sizeSlug']) ) ? $attributes['sizeSlug'] : 'full',

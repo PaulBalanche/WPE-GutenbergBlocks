@@ -4,8 +4,8 @@ namespace Wpe_Blocks\Singleton;
 
 use Wpe_Blocks\Filters\Spacing as SpacingFilter;
 use Wpe_Blocks\Controllers\BackEnd as BackEndController;
+use Wpe_Blocks\Services\CliCommand;
 use Wpe_Blocks\Models\ComponentBlock;
-use Wpe_Blocks\Singleton\Config;
 
 class Main {
 
@@ -19,6 +19,10 @@ class Main {
         new BackEndController();
 
         $this->config = Config::getInstance();
+
+        if ( defined( 'WP_CLI' ) && \WP_CLI ) {
+            new CliCommand();
+        }
     }
 
 

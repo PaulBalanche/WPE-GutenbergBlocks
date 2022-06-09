@@ -10,7 +10,7 @@ class FrontEnd extends ServiceBase {
      */
     public function get_components_dir( $subLocation = null ) {
 
-        return $this->get_config()->getFront('viewsLocation') . ( is_null($subLocation) ? $this->get_config()->getFront('componentsSubLocation') : $subLocation );
+        return $this->get_config()->get('templateViewsLocation') . ( is_null($subLocation) ? $this->get_config()->get('templateComponentsSubLocation') : $subLocation );
     }
 
 
@@ -55,7 +55,7 @@ class FrontEnd extends ServiceBase {
         
         $component_relative_dir = $this->get_components_dir($dir);
         $component_dir = get_stylesheet_directory() . '/' . $component_relative_dir;
-        $path_viewspec_file = $component_dir . $component . '/' . $this->get_config()->getFront('viewspecJsonFilename');
+        $path_viewspec_file = $component_dir . $component . '/' . $this->get_config()->get('viewspecJsonFilename');
 
         // If viewspec file exist
         if( file_exists( $path_viewspec_file ) ) {
@@ -67,7 +67,7 @@ class FrontEnd extends ServiceBase {
                 // Add path attribute requires by component render method
                 $render_file = glob( $component_dir . $component . '/*.twig' );
                 if( $render_file && is_array($render_file) && count($render_file) == 1 ) {
-                    $component_viewspec['path'] = $this->get_config()->getFront('componentsSubLocation') . $component . '/' . pathinfo($render_file[0])['basename'];
+                    $component_viewspec['path'] = $this->get_config()->get('templateComponentsSubLocation') . $component . '/' . pathinfo($render_file[0])['basename'];
                 }
 
                 // Get and treat component props

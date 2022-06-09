@@ -29,7 +29,7 @@ if( ! function_exists( 'core_media_text_render_callback' ) ) {
             preg_match( '/<div class="wp-block-media-text__content[^"]*">(.*)<\/div><\/div>/ms', $content, $matches );
             if( count($matches) == 2 ) {
                 
-                $return = '<div class="block-media-text ' . \Wpe_Blocks\Singleton\Config::getInstance()->getback('containerClassName') . '">
+                $return = '<div class="block-media-text ' . \Wpe_Blocks\Singleton\Config::getInstance()->get('containerClassName') . '">
                     <div class="row box">';
 
                 if( $mediaPosition == 'left' ) {

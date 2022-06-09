@@ -33,16 +33,13 @@ class Timber {
      */
     public function init() {
 
-        if( class_exists("\Timber\Timber", false) ) {
+        new \Timber\Timber();
 
-            new \Timber\Timber();
-
-            // Template Locations
-            \Timber\Timber::$locations = [
-                get_stylesheet_directory() . '/' . Config::getInstance()->getFront('viewsLocation'),
-                WPE_BLOCKS_PLUGIN_DIR . 'views'
-            ];
-        }
+        // Template Locations
+        \Timber\Timber::$locations = [
+            get_stylesheet_directory() . '/' . Config::getInstance()->get('templateViewsLocation'),
+            WPE_BLOCKS_PLUGIN_DIR . 'views'
+        ];
     }
 
 

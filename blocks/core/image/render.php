@@ -12,7 +12,7 @@ if( ! function_exists( 'core_image_render_callback' ) ) {
 
             $data_image = wp_get_attachment_image_src($attributes['id'], $size_img);
             if( is_array($data_image) && count($data_image) > 0 ) {
-                return '<div class="' . \Wpe_Blocks\Singleton\Config::getInstance()->getback('containerClassName') . '">
+                return '<div class="' . \Wpe_Blocks\Singleton\Config::getInstance()->get('containerClassName') . '">
                     <div class="row">
                         <img src="' . $data_image[0] . '" alt="" />
                     </div>

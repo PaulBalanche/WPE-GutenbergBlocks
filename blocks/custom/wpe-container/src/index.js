@@ -63,7 +63,7 @@ registerBlockType( 'custom/wpe-container', {
  */
 function updateSettingsParent( settings, name ) {
 
-    if ( name == 'custom/wpe-container' || ( typeof settings.parent != 'undefined' && settings.parent[0] == 'custom/wpe-column' ) ) {
+    if ( name == 'custom/wpe-container' || ( typeof settings.parent == 'object' && settings.parent != null && settings.parent[0] == 'custom/wpe-column' ) ) {
         return settings;
     }
     else {

@@ -7,6 +7,7 @@ class Config {
     private static $_instance;
 
     private $frontspecJsonFileName          = 'frontspec.json',
+        $themespecJsonFileName              = 'theme_spec.json',
         $viewspecJsonFilename               = 'viewspec.json',
         $overrideSpecJsonFilename           = 'override.json',
         $blockMetadataJsonFilename          = 'block.json',
@@ -22,7 +23,9 @@ class Config {
         ],
         $blocksNamespace                    = 'custom',
         $componentBlockPrefixName           = 'wpe-component',
-        $containerClassName                 = WPE_BLOCKS_CONTAINER_CLASS_NAME;
+        $componentBlockDefaultCategory      = 'WPE Custom',
+        $containerClassName                 = WPE_BLOCKS_CONTAINER_CLASS_NAME,
+        $specData = null;
         
 
 
@@ -53,27 +56,49 @@ class Config {
 
 
     /**
-     * Return data from "frontspec" JSON file
+     * Return data from "frontspec" and "theme_spec" JSON files
      * 
      */
-    public function get_frontspec_json_file( $data = false, $merge_backspec = true ) {
+    public function get_spec( $data = false ) {
 
-        $front_spec = json_decode ( file_get_contents( get_stylesheet_directory() . '/' . $this->get('frontspecJsonFileName') ), true );
+        // If specData propertie is still emtpy, load spec files
+        if( is_null( $this->specData ) ) {
 
-        // if( $merge_backspec ) {
-        //     $back_spec = self::get_backspec_json_file();
-        //     $front_spec = array_replace_recursive( $front_spec, $back_spec);
-        // }
+            $front_spec = $this->spec_file_get_contents( $this->get('frontspecJsonFileName') );
+            $theme_spec = $this->spec_file_get_contents( $this->get('themespecJsonFileName') );
+
+            $this->specData = array_replace_recursive( $front_spec, $theme_spec);
+        }
 
         if ( $data ) {
 
-            if( array_key_exists($data, $front_spec) )
-                return $front_spec[$data];
+            if( array_key_exists($data, $this->specData) )
+                return $this->specData[$data];
             else
                 return null;
         }
         else
-            return $front_spec;
+            return $this->specData;
+    }
+
+
+
+    /**
+     * Get a spec file and load its content
+     * 
+     */
+    public function spec_file_get_contents( $theme_file ) {
+
+        $spec_content = [];
+        if( file_exists( get_stylesheet_directory() . '/' . $theme_file ) ) {
+
+            $json_decode = json_decode ( file_get_contents( get_stylesheet_directory() . '/' . $theme_file ), true );
+            if( is_array($json_decode) ) {
+                $spec_content = $json_decode;
+            }
+        }
+
+        return $spec_content;
     }
     
 }

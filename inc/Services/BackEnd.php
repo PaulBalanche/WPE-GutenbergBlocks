@@ -8,6 +8,8 @@ use Wpe_Blocks\Singleton\Main;
 
 class BackEnd extends ServiceBase {
 
+    private $blocks_spec = null;
+
     function __construct() {
         parent::__construct();
     }
@@ -42,33 +44,74 @@ class BackEnd extends ServiceBase {
 
 
     /**
+     * Managing block categories
+     * 
+     */
+    function filter_block_categories( $block_categories, $editor_context ) {
+
+        if ( ! empty( $editor_context->post ) ) {
+
+            // Add custom blocks categories
+            $block_categories[] = [
+                'slug'  => 'wpe-layout',
+                'title' => 'Layout',
+                'icon'  => null
+            ];
+
+            // Add component blocks categories
+            $new_block_categories = [];
+            foreach( $this->get_all_blocks_spec() as $block_spec ) {
+                if( isset($block_spec['category']) && is_array($block_spec['category']) && isset($block_spec['category']['slug'], $block_spec['category']['title']) ) {
+
+                    if( ! isset( $new_block_categories[ $block_spec['category']['slug'] ]) ) {
+                        $new_block_categories[ $block_spec['category']['slug'] ] = [
+                            'slug'  => $block_spec['category']['slug'],
+                            'title' => $block_spec['category']['title'],
+                            'icon'  => null
+                        ];
+                    }
+                }
+            }
+
+            $block_categories = array_merge( $block_categories, array_values($new_block_categories) );
+        }
+
+        return $block_categories;
+    }
+
+
+
+    /**
      * Get all the back-end blocks spec
      * 
      */
     public function get_all_blocks_spec() {
 
-        $blocks_spec = [];
+        if( is_null( $this->blocks_spec ) ) {
 
-        $blocks_dir = get_stylesheet_directory() . '/' . $this->get_config()->get('componentBlocksLocation') . $this->get_config()->get('blocksNamespace');
-        if( file_exists($blocks_dir) ) {
+            $this->blocks_spec = [];
 
-            // Scan blocks dir and loop each block
-            $blocks_scan = scandir( $blocks_dir );
-            foreach( $blocks_scan as $block ) {
+            $blocks_dir = get_stylesheet_directory() . '/' . $this->get_config()->get('componentBlocksLocation') . $this->get_config()->get('blocksNamespace');
+            if( file_exists($blocks_dir) ) {
 
-                if( is_dir( $blocks_dir . '/' . $block ) && $block != '..' && $block != '.' ) {
+                // Scan blocks dir and loop each block
+                $blocks_scan = scandir( $blocks_dir );
+                foreach( $blocks_scan as $block ) {
 
-                    // ComponentBlock instanciation && get block spec
-                    $componentBlockInstance = Main::getInstance()->get_component_block_instance( $block );
-                    $block_spec = $componentBlockInstance->get_block_spec();
-                    if( $block_spec && is_array($block_spec) ) {
-                        $blocks_spec[] = $block_spec;
+                    if( is_dir( $blocks_dir . '/' . $block ) && $block != '..' && $block != '.' ) {
+
+                        // ComponentBlock instanciation && get block spec
+                        $componentBlockInstance = Main::getInstance()->get_component_block_instance( $block );
+                        $block_spec = $componentBlockInstance->get_block_spec();
+                        if( $block_spec && is_array($block_spec) ) {
+                            $this->blocks_spec[] = $block_spec;
+                        }
                     }
                 }
             }
         }
 
-        return $blocks_spec;
+        return $this->blocks_spec;
     }
 
 
@@ -153,31 +196,18 @@ class BackEnd extends ServiceBase {
      */
     public function allowed_specifics_block_types( $allowed_block_types, $post ) {
 
-        $allowed_block_types = $this->get_allowed_block_types();
-        if( ! is_null($allowed_block_types) ) {
-            return $allowed_block_types;
+        $allowed_block_types_theme = $this->get_config()->get_spec('allowed_block_types');
+        if( ! is_null($allowed_block_types_theme) ) {
+
+            // Add all custom/wpe-component registered
+            if( is_array($allowed_block_types_theme) && in_array( $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockPrefixName'), $allowed_block_types_theme ) ) {
+                $allowed_block_types_theme = array_merge( $allowed_block_types_theme, Main::getInstance()->get_registered_blocks() );
+            }
+
+            $allowed_block_types = $allowed_block_types_theme;
         }
 
         return $allowed_block_types;
-    }
-
-
-
-    /**
-     * Get allowed block types
-     * 
-     */
-    public function get_allowed_block_types() {
-
-        if( file_exists( get_stylesheet_directory() . '/' . $this->get_config()->get('allowedBlockTypesJsonFileName') ) ) {
-
-            $allowed_block_types = json_decode( file_get_contents( get_stylesheet_directory() . '/' . $this->get_config()->get('allowedBlockTypesJsonFileName') ), true );
-            if( $allowed_block_types && is_array($allowed_block_types) ) {
-                return $allowed_block_types;
-            }
-        }
-
-        return null;
     }
 
 }

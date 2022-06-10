@@ -2931,7 +2931,7 @@ Object.values(global_localized.components).forEach(function (element) {
 
   Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('custom/wpe-component-' + element.id, {
     title: element.name,
-    category: 'formatting',
+    category: element.category.slug,
     supports: {
       anchor: true
     },

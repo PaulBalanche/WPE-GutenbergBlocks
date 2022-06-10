@@ -162,6 +162,7 @@ class ComponentBlock extends ModelBase {
             'id' => $this->get_ID(),
             'name' => $component_frontspec['name'] ?? $this->get_ID(),
             'description' => $component_frontspec['description'] ?? '',
+            'category' => ( isset($component_frontspec['category']) && ! empty($component_frontspec['category']) ) ? [ 'slug' => sanitize_title($component_frontspec['category']), 'title' => $component_frontspec['category'] ] : [ 'slug' => sanitize_title($this->get_config()->get('componentBlockDefaultCategory')), 'title' => $this->get_config()->get('componentBlockDefaultCategory') ],
             'props' => $component_frontspec['props'] ?? [],
             'path' => $component_frontspec['path'],
             'standalone' => true

@@ -31,7 +31,7 @@ class Spacing extends FiltersBase {
 
         $spacing_formatted = '';
 
-        switch( $this->get_config()->get_frontspec_json_file('spacing') ) {
+        switch( $this->get_config()->get_spec('spacing') ) {
 
             case 'bootstrap':
             

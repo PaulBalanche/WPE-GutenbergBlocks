@@ -11,6 +11,7 @@ class Main {
 
     private static $_instance;
     private $componentBlockInstances = [],
+            $blocksRegistered = [],
             $config;
 
     function __construct() {
@@ -67,6 +68,26 @@ class Main {
      */
     public function add_component_block_instance( $instance ) {
         $this->componentBlockInstances[ $instance->get_ID() ] = $instance;
+    }
+
+
+
+    /**
+     * Save registered blocks
+     * 
+     */
+    public function add_block_registered( $blockId ) {
+        $this->blocksRegistered[] = $blockId;
+    }
+
+
+
+    /**
+     * Get registered blocks
+     * 
+     */
+    public function get_registered_blocks() {
+        return $this->blocksRegistered;
     }
 
 }

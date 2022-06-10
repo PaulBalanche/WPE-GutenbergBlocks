@@ -141,7 +141,7 @@ class FrontEnd extends ServiceBase {
 
         if( strpos($extends, '.') !== false ) {
 
-            $frontspec_views_path = $this->get_config()->get_frontspec_json_file( 'views' );
+            $frontspec_views_path = $this->get_config()->get_spec( 'views' );
             if( is_array($frontspec_views_path) && isset($frontspec_views_path['folders']) & is_array($frontspec_views_path['folders']) ) {
 
                 $prefix_extends = explode('.', $extends);

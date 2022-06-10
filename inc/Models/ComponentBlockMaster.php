@@ -41,7 +41,7 @@ class ComponentBlockMaster extends ModelBase {
         $data_localized = [
             'current_user_can_edit_posts' => ( current_user_can('edit_posts') ) ? '1' : '0',
             'components' => $this->backEndService->get_all_blocks_spec(),
-            'styles' => $this->get_config()->get_frontspec_json_file('styles')
+            'styles' => $this->get_config()->get_spec('styles')
         ];
         wp_localize_script( $handle, 'global_localized', $data_localized );
     }
@@ -83,7 +83,10 @@ class ComponentBlockMaster extends ModelBase {
             foreach( $blocks_metadata as $metadata_json_file ) {
 
                 // Registers a block type. The recommended way is to register a block type using the metadata stored in the block.json file.
-                register_block_type( $metadata_json_file, $args );
+                $WP_Block_Type = register_block_type( $metadata_json_file, $args );
+                if( $WP_Block_Type && $WP_Block_Type instanceof \WP_Block_Type ) {
+                    Main::getInstance()->add_block_registered( $WP_Block_Type->name );
+                }
             }
         }
     }

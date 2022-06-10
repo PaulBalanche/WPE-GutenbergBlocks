@@ -47,6 +47,9 @@ class BackEnd extends ControllerBase {
 
         // Filters the allowed block types for all editor types.
         add_filter( 'allowed_block_types_all', [ $this->backEndService, 'allowed_specifics_block_types' ], 10, 2 );
+
+        // Managing block categories
+        add_filter( 'block_categories_all', [ $this->backEndService, 'filter_block_categories' ], 10, 2 );
     }
 
 

@@ -1802,6 +1802,7 @@ if (global_localized.supports !== null && typeof global_localized.supports.align
 
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('custom/wpe-container', {
   title: 'Container',
+  category: 'wpe-layout',
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
     enableBackground: "new 0 0 24 24",
     height: "24px",

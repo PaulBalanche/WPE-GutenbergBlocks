@@ -7,7 +7,7 @@ use Wpe_Blocks\Services\Render as RenderService;
 use Wpe_Blocks\Singleton\Config;
 use Wpe_Blocks\Singleton\Main;
 
-class CustomBlock extends ModelBase {
+class LayoutBlock extends ModelBase {
 
     private $blockId = null;
 
@@ -33,7 +33,7 @@ class CustomBlock extends ModelBase {
      */
     public function get_block_dir() {
 
-        return WPE_BLOCKS_PLUGIN_DIR . $this->get_config()->get('customPluginBlocksLocation') . $this->get_ID();
+        return WPE_BLOCKS_PLUGIN_DIR . $this->get_config()->get('layoutBlocksLocation') . $this->get_ID();
     }
     
     
@@ -44,7 +44,7 @@ class CustomBlock extends ModelBase {
      */
     public function get_block_dir_url() {
 
-        return WPE_BLOCKS_PLUGIN_URL . $this->get_config()->get('customPluginBlocksLocation') . $this->get_ID();
+        return WPE_BLOCKS_PLUGIN_URL . $this->get_config()->get('layoutBlocksLocation') . $this->get_ID();
     }
 
 

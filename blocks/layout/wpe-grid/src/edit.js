@@ -29,7 +29,7 @@ import {
 import { withSelect, dispatch } from '@wordpress/data';
 import { get, map, times } from 'lodash';
 
-import { MarginControls, generateMarginClassName } from '../../../../component-block-master/src/_marginControls';
+import { MarginControls, generateMarginClassName } from '../../../component-block-master/src/_marginControls';
 
 /**
  * Add some columns in wpe-container based on variation selected

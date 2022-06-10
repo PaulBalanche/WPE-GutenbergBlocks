@@ -3,10 +3,9 @@
 namespace Wpe_Blocks\Services;
 
 use Wpe_Blocks\Models\ComponentBlockMaster;
-use Wpe_Blocks\Models\CustomBlock;
 use Wpe_Blocks\Singleton\Main;
 
-class BackEnd extends ServiceBase {
+class ComponentBlocks extends ServiceBase {
 
     private $blocks_spec = null;
 
@@ -20,25 +19,10 @@ class BackEnd extends ServiceBase {
      * Register dynamic component block
      * 
      */
-    public function register_component_block() {
+    public function register_component_blocks() {
 
         $componentBlockMasterInstance = new ComponentBlockMaster();
         $componentBlockMasterInstance->register_components();
-    }
-
-
-
-    /**
-     * Register custom blocks
-     * 
-     */
-    public function register_custom_blocks() {
-
-        foreach( $this->get_custom_blocks() as $custom_block ) {
-
-            $customBlockInstance = new CustomBlock( $custom_block );
-            $customBlockInstance->register();
-        }
     }
 
 
@@ -50,13 +34,6 @@ class BackEnd extends ServiceBase {
     function filter_block_categories( $block_categories, $editor_context ) {
 
         if ( ! empty( $editor_context->post ) ) {
-
-            // Add custom blocks categories
-            $block_categories[] = [
-                'slug'  => 'wpe-layout',
-                'title' => 'Layout',
-                'icon'  => null
-            ];
 
             // Add component blocks categories
             $new_block_categories = [];
@@ -164,47 +141,13 @@ class BackEnd extends ServiceBase {
 
 
     /**
-     * Get custom blocks defined in module
+     *  Allow all custom/wpe-component registered
      * 
      */
-    public function get_custom_blocks() {
-
-        $custom_blocks = [];
-
-        $custom_blocks_dir = WPE_BLOCKS_PLUGIN_DIR . $this->get_config()->get('customPluginBlocksLocation');
-        if( file_exists($custom_blocks_dir) ) {
-
-            // Scan blocks dir and loop each block
-            $blocks_scan = scandir( $custom_blocks_dir );
-            foreach( $blocks_scan as $block ) {
-
-                if( is_dir( $custom_blocks_dir . '/' . $block ) && $block != '..' && $block != '.' ) {
-
-                    $custom_blocks[] = $block;
-                }
-            }
-        }
-
-        return $custom_blocks;
-    }
-
-
-
-    /**
-     * Filters the allowed block types for all editor types.
-     * 
-     */
-    public function allowed_specifics_block_types( $allowed_block_types, $post ) {
-
-        $allowed_block_types_theme = $this->get_config()->get_spec('allowed_block_types');
-        if( ! is_null($allowed_block_types_theme) ) {
-
-            // Add all custom/wpe-component registered
-            if( is_array($allowed_block_types_theme) && in_array( $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockPrefixName'), $allowed_block_types_theme ) ) {
-                $allowed_block_types_theme = array_merge( $allowed_block_types_theme, Main::getInstance()->get_registered_blocks() );
-            }
-
-            $allowed_block_types = $allowed_block_types_theme;
+    public function allowed_block_types_all( $allowed_block_types ) {
+     
+        if( is_array($allowed_block_types) && in_array( $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockPrefixName'), $allowed_block_types ) ) {
+            $allowed_block_types = array_merge( $allowed_block_types, Main::getInstance()->get_registered_blocks() );
         }
 
         return $allowed_block_types;

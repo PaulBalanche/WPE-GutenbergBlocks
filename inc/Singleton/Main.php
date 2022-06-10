@@ -3,7 +3,10 @@
 namespace Wpe_Blocks\Singleton;
 
 use Wpe_Blocks\Filters\Spacing as SpacingFilter;
-use Wpe_Blocks\Controllers\BackEnd as BackEndController;
+use Wpe_Blocks\Filters\Blocks as BlocksFilter;
+use Wpe_Blocks\Controllers\BlockTypes as BlockTypesController;
+use Wpe_Blocks\Controllers\LayoutBlocks as LayoutBlocksController;
+use Wpe_Blocks\Controllers\ComponentBlocks as ComponentBlocksController;
 use Wpe_Blocks\Services\CliCommand;
 use Wpe_Blocks\Models\ComponentBlock;
 
@@ -16,11 +19,18 @@ class Main {
 
     function __construct() {
 
-        new SpacingFilter();
-        new BackEndController();
-
         $this->config = Config::getInstance();
+        
+        // Filters
+        new SpacingFilter();
+        new BlocksFilter();
 
+        // Controllers
+        new BlockTypesController();
+        new LayoutBlocksController();
+        new ComponentBlocksController();
+
+        // WP-CLI
         if ( defined( 'WP_CLI' ) && \WP_CLI ) {
             new CliCommand();
         }
@@ -45,6 +55,8 @@ class Main {
         return $this->config;
     }
     
+
+
     /**
      * Get ComponentBlock instance object if exists, or create it
      * 

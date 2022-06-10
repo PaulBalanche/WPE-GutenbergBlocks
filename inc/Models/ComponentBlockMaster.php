@@ -3,17 +3,16 @@
 namespace Wpe_Blocks\Models;
 
 use Wpe_Blocks\Singleton\Main;
-use Wpe_Blocks\Services\BackEnd as BackEndService;
+use Wpe_Blocks\Services\ComponentBlocks as ComponentBlocksService;
 
 class ComponentBlockMaster extends ModelBase {
 
-    private $backEndService,
-            $blockLocation = 'component-block-master';
+    private $componentBlocksService;
 
     public function __construct() {
         parent::__construct();
 
-        $this->backEndService = new BackEndService();
+        $this->componentBlocksService = new ComponentBlocksService();
 
         $this->register_script();
         $this->register_style();
@@ -28,11 +27,11 @@ class ComponentBlockMaster extends ModelBase {
     public function register_script() {
 
         $handle = $this->get_config()->get('blocksNamespace') . '/' . $this->get_config()->get('componentBlockPrefixName') . '-editor-script';
-        $asset_file = include( WPE_BLOCKS_PLUGIN_DIR . $this->blockLocation . '/build/index.asset.php' );
+        $asset_file = include( WPE_BLOCKS_PLUGIN_DIR . $this->get_config()->get('componentMasterBlocksLocation') . '/build/index.asset.php' );
 
         wp_register_script(
             $handle,
-            WPE_BLOCKS_PLUGIN_URL . $this->blockLocation . '/build/index.js',
+            WPE_BLOCKS_PLUGIN_URL . $this->get_config()->get('componentMasterBlocksLocation') . 'build/index.js',
             $asset_file['dependencies'],
             $asset_file['version']
         );
@@ -40,7 +39,7 @@ class ComponentBlockMaster extends ModelBase {
         // Localize script
         $data_localized = [
             'current_user_can_edit_posts' => ( current_user_can('edit_posts') ) ? '1' : '0',
-            'components' => $this->backEndService->get_all_blocks_spec(),
+            'components' => $this->componentBlocksService->get_all_blocks_spec(),
             'styles' => $this->get_config()->get_spec('styles')
         ];
         wp_localize_script( $handle, 'global_localized', $data_localized );
@@ -58,9 +57,9 @@ class ComponentBlockMaster extends ModelBase {
         
         wp_register_style(
             $handle,
-            WPE_BLOCKS_PLUGIN_URL . $this->blockLocation . '/assets/style/editor.min.css',
+            WPE_BLOCKS_PLUGIN_URL . $this->get_config()->get('componentMasterBlocksLocation') . 'assets/style/editor.min.css',
             array( 'wp-edit-blocks' ),
-            filemtime( WPE_BLOCKS_PLUGIN_DIR . $this->blockLocation . '/assets/style/editor.min.css' )
+            filemtime( WPE_BLOCKS_PLUGIN_DIR . $this->get_config()->get('componentMasterBlocksLocation') . 'assets/style/editor.min.css' )
         );
     }
 
@@ -78,7 +77,7 @@ class ComponentBlockMaster extends ModelBase {
             'render_callback' => '\Wpe_Blocks\Models\ComponentBlockMaster::render'
         ];
 
-        $blocks_metadata = $this->backEndService->get_all_blocks_metadata();
+        $blocks_metadata = $this->componentBlocksService->get_all_blocks_metadata();
         if( is_array($blocks_metadata) && count($blocks_metadata) > 0 ) {
             foreach( $blocks_metadata as $metadata_json_file ) {
 

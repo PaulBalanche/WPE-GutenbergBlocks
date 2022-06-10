@@ -14,8 +14,9 @@ class Config {
         $allowedBlockTypesJsonFileName      = 'allowed_block_types.json',
         $templateViewsLocation              = WPE_BLOCKS_TEMPLATE_VIEWS_LOCATION,
         $templateComponentsSubLocation      = WPE_BLOCKS_TEMPLATE_COMPONENTS_SUB_LOCATION,
+        $componentMasterBlocksLocation      = 'blocks/component-block-master/',
         $componentBlocksLocation            = 'blocks/',
-        $customPluginBlocksLocation         = 'blocks/custom/',
+        $layoutBlocksLocation               = 'blocks/layout/',
         $wpDefaultBlockTypes                = [
             'core' => [ 'paragraph', 'list', 'heading', 'quote', 'audio', 'image', 'cover', 'video', 'gallery', 'file', 'html', 'preformatted', 'code', 'verse', 'pullquote', 'table', 'columns', 'column', 'group', 'button', 'more', 'nextpage', 'media-text', 'spacer', 'separator', 'calendar', 'shortcode', 'archives', 'categories', 'latest-comments', 'latest-posts', 'rss', 'search', 'tag-cloud', 'embed', ],
             'core-embed' => [ 'twitter', 'youtube', 'facebook', 'instagram', 'wordpress', 'soundcloud', 'spotify', 'flickr', 'vimeo', 'animoto', 'cloudup', 'collegehumor', 'crowdsignal', 'polldaddy', 'dailymotion', 'hulu', 'imgur', 'issuu', 'kickstarter', 'meetup-com', 'mixcloud', 'reddit', 'reverbnation', 'screencast', 'scribd', 'slideshare', 'smugmug', 'speaker', 'speaker-deck', 'ted', 'tumblr', 'videopress', 'wordpress-tv', 'amazon-kindle' ],

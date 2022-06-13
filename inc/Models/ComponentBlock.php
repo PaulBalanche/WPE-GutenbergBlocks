@@ -158,6 +158,10 @@ class ComponentBlock extends ModelBase {
             mkdir( $block_dir , 0750, true );
         }
 
+        // Parent
+        $container_spec = $this->get_config()->get_spec('container');
+        $default_parent = ( $container_spec && is_array($container_spec) && isset($container_spec['is_main']) && $container_spec['is_main'] ) ? [ 'custom/wpe-container', 'custom/wpe-column' ] : null;
+
         $this->blockSpec = [
             'id' => $this->get_ID(),
             'name' => $component_frontspec['name'] ?? $this->get_ID(),
@@ -165,7 +169,7 @@ class ComponentBlock extends ModelBase {
             'category' => ( isset($component_frontspec['category']) && ! empty($component_frontspec['category']) ) ? [ 'slug' => sanitize_title($component_frontspec['category']), 'title' => $component_frontspec['category'] ] : [ 'slug' => sanitize_title($this->get_config()->get('componentBlockDefaultCategory')), 'title' => $this->get_config()->get('componentBlockDefaultCategory') ],
             'props' => $component_frontspec['props'] ?? [],
             'path' => $component_frontspec['path'],
-            'standalone' => true
+            'parent' => ( array_key_exists('parent', $component_frontspec) ) ? $component_frontspec['parent'] : $default_parent
         ];
 
         $block_spec_json_filename = $block_dir . '/' . $this->get_config()->get('viewspecJsonFilename');

@@ -63,16 +63,16 @@ registerBlockType( 'custom/wpe-container', {
  * 
  */
 function updateSettingsParent( settings, name ) {
-
-    if ( name == 'custom/wpe-container' || ( typeof settings.parent == 'object' && settings.parent != null && settings.parent[0] == 'custom/wpe-column' ) ) {
+console.log(settings);
+    if ( name == 'custom/wpe-container' || name == 'custom/wpe-grid' || name == 'custom/wpe-column' || typeof settings.parent != 'undefined' ) {
         return settings;
     }
-    else {
-        settings = lodash.assign( {}, settings, {
-            parent: [ 'custom/wpe-container' , 'custom/wpe-column' ]
-        } );
-    }
 
-    return settings
+    return lodash.assign( {}, settings, {
+        parent: [ 'custom/wpe-container', 'custom/wpe-column' ]
+    } );
 }
-addFilter( 'blocks.registerBlockType', 'wpextend/updateSettingsParent', updateSettingsParent );
+
+if( global_localized?.container?.is_main ) {
+    addFilter( 'blocks.registerBlockType', 'wpextend/updateSettingsParent', updateSettingsParent );
+}

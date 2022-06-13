@@ -5,13 +5,12 @@ namespace Wpe_Blocks\Services;
 use Wpe_Blocks\Models\ComponentBlock;
 use Wpe_Blocks\Services\FrontEnd as FrontEndService;
 
+/**
+ * WPE Gutenberg blocks CLI commands
+ * 
+ */
+
 class CliCommand {
-
-    /**
-     * WPE Gutenberg blocks CLI commands
-     *
-     */
-
 
     private $frontEndService;
 

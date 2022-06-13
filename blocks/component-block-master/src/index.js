@@ -11,8 +11,6 @@ var current_user_can_edit_posts = global_localized.current_user_can_edit_posts;
 
 Object.values(global_localized.components).forEach( ( element ) => {
 
-    var parent = ( typeof element.standalone != 'undefined' && element.standalone ) ? null : [ 'custom/wpe-container' , 'custom/wpe-column' ];
-
     var initAttributes = {
         id_component: {
             type: 'string'
@@ -128,7 +126,7 @@ Object.values(global_localized.components).forEach( ( element ) => {
         supports: {
             anchor: true
         },
-        parent: parent,
+        parent: element.parent,
         attributes: initAttributes,
         description: element.description,
         edit: edit(element, current_user_can_edit_posts, global_localized.styles),

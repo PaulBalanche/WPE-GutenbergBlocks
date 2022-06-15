@@ -1613,7 +1613,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             break;
 
           case 'richText':
-            blocReturned.push(this.renderRichTextControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
+            blocReturned.push(this.renderWysiwygControl(fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field));
             break;
 
           case 'wysiwyg':
@@ -1782,9 +1782,12 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
-    key: "renderRichTextControl",
-    value: function renderRichTextControl(id, label, keys, valueProp, objectValue) {
-      var _this4 = this;
+    key: "renderWysiwygControl",
+    value: function renderWysiwygControl(id, label, keys, valueProp, objectValue) {
+      var _this4 = this,
+          _this$props,
+          _this$props$frontspec,
+          _this$props$frontspec2;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var required = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
@@ -1801,54 +1804,12 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         }, "Remove"));
       }
 
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        key: id + "-RichTextComponentsBaseControl",
-        className: "components-base-control"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        key: id + "-RichTextComponentsBaseControlField",
-        className: "components-base-control__field"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        key: id + "-RichTextContainer",
-        className: "rich-text-container"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
-        className: "components-base-control__label",
-        key: id + "-label"
-      }, label), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_12__["RichText"], {
-        key: id,
-        value: objectValue // Any existing content, either from the database or an attribute default
-        ,
-        multiline: true,
-        onChange: function onChange(newValue) {
-          return _this4.updateAttributes(keys, valueProp, newValue, false);
-        }
-      }))));
-    }
-  }, {
-    key: "renderWysiwygControl",
-    value: function renderWysiwygControl(id, label, keys, valueProp, objectValue) {
-      var _this5 = this;
-
-      var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
-      var required = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-      label = required ? label + '*' : label;
-
-      if (repeatable) {
-        label = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["Fragment"], null, label, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_13__["Button"], {
-          key: id + "-repeatableRemoveElt",
-          isLink: true,
-          className: "removeRepeatable",
-          onClick: function onClick() {
-            return _this5.removeEltRepeatable(keys, valueProp);
-          }
-        }, "Remove"));
-      }
-
       var heading_options = [{
         model: 'paragraph',
         title: 'Paragraph'
       }];
 
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.props.frontspec_styles.typo.values) == 'object') {
+      if (this !== null && this !== void 0 && (_this$props = this.props) !== null && _this$props !== void 0 && (_this$props$frontspec = _this$props.frontspec_styles) !== null && _this$props$frontspec !== void 0 && (_this$props$frontspec2 = _this$props$frontspec.typo) !== null && _this$props$frontspec2 !== void 0 && _this$props$frontspec2.values && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.props.frontspec_styles.typo.values) == 'object') {
         for (var _i3 = 0, _Object$entries3 = Object.entries(this.props.frontspec_styles.typo.values); _i3 < _Object$entries3.length; _i3++) {
           var _Object$entries3$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries3[_i3], 2),
               key = _Object$entries3$_i[0],
@@ -1885,7 +1846,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         onChange: function onChange(event, editor) {
           var data = editor.getData();
 
-          _this5.updateAttributes(keys, valueProp, data, false);
+          _this4.updateAttributes(keys, valueProp, data, false);
         },
         config: {
           heading: {
@@ -1897,7 +1858,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "renderLinkControl",
     value: function renderLinkControl(id, label, keys, valueProp, objectValue) {
-      var _this6 = this;
+      var _this5 = this;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var required = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
@@ -1914,7 +1875,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
-            return _this6.removeEltRepeatable(keys, valueProp);
+            return _this5.removeEltRepeatable(keys, valueProp);
           }
         }, "Remove"));
       }
@@ -1937,7 +1898,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         type: "text",
         value: objectValue.text,
         onChange: function onChange(newValue) {
-          _this6.updateAttributes(keys.concat('text'), valueProp, newValue, false);
+          _this5.updateAttributes(keys.concat('text'), valueProp, newValue, false);
         }
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_12__["__experimentalLinkControl"], {
         key: id + "-LinkControl",
@@ -1961,7 +1922,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
             text: objectValue.text
           };
 
-          _this6.updateAttributes(keys, valueProp, newObjectValue, false);
+          _this5.updateAttributes(keys, valueProp, newObjectValue, false);
         }
       })))));
       return this.renderPanelComponent(id, label, inner, false);
@@ -1969,7 +1930,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "renderSelectControl",
     value: function renderSelectControl(id, label, options, keys, valueProp, objectValue) {
-      var _this7 = this;
+      var _this6 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
       var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
@@ -1982,7 +1943,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
-            return _this7.removeEltRepeatable(keys, valueProp);
+            return _this6.removeEltRepeatable(keys, valueProp);
           }
         }, "Remove"));
       }
@@ -2001,14 +1962,14 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           };
         })),
         onChange: function onChange(newValue) {
-          return _this7.updateAttributes(keys, valueProp, newValue, false);
+          return _this6.updateAttributes(keys, valueProp, newValue, false);
         }
       });
     }
   }, {
     key: "renderRadioControl",
     value: function renderRadioControl(id, label, options, keys, valueProp, objectValue) {
-      var _this8 = this;
+      var _this7 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
       var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
@@ -2021,7 +1982,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
-            return _this8.removeEltRepeatable(keys, valueProp);
+            return _this7.removeEltRepeatable(keys, valueProp);
           }
         }, "Remove"));
       }
@@ -2046,7 +2007,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               newValue: newValue
             });
 
-            _this8.updateAttributes(keys, valueProp, newValue, false);
+            _this7.updateAttributes(keys, valueProp, newValue, false);
           }
         });
       });
@@ -2064,7 +2025,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "renderRelationControl",
     value: function renderRelationControl(id, label, entity, keys, valueProp, objectValue) {
-      var _this9 = this;
+      var _this8 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
       var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
@@ -2077,7 +2038,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
-            return _this9.removeEltRepeatable(keys, valueProp);
+            return _this8.removeEltRepeatable(keys, valueProp);
           }
         }, "Remove"));
       }
@@ -2093,14 +2054,14 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           };
         }),
         onChange: function onChange(newValue) {
-          return _this9.updateAttributes(keys, valueProp, newValue, false);
+          return _this8.updateAttributes(keys, valueProp, newValue, false);
         }
       });
     }
   }, {
     key: "renderToggleControl",
     value: function renderToggleControl(id, label, help, keys, valueProp, objectValue) {
-      var _this10 = this;
+      var _this9 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
       var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
@@ -2112,7 +2073,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
-            return _this10.removeEltRepeatable(keys, valueProp);
+            return _this9.removeEltRepeatable(keys, valueProp);
           }
         }, "Remove"));
       }
@@ -2123,14 +2084,14 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         help: _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(help) == 'object' && Array.isArray(help) && help.length == 2 ? !!objectValue ? help[1] : help[0] : false,
         checked: objectValue,
         onChange: function onChange(newValue) {
-          return _this10.updateAttributes(keys, valueProp, newValue, false);
+          return _this9.updateAttributes(keys, valueProp, newValue, false);
         }
       });
     }
   }, {
     key: "renderFileControl",
     value: function renderFileControl(type, id, label, keys, valueProp, objectValue) {
-      var _this11 = this;
+      var _this10 = this;
 
       var repeatable = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
       var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
@@ -2206,7 +2167,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isSmall: true,
           className: "reset-button",
           onClick: function onClick() {
-            if (type == "gallery" && objectValue.length > 1) _this11.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, objectValue.slice(0, objectValue.length - 1)));else if (repeatable) _this11.removeEltRepeatable(keys, valueProp);else _this11.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, undefined));
+            if (type == "gallery" && objectValue.length > 1) _this10.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, objectValue.slice(0, objectValue.length - 1)));else if (repeatable) _this10.removeEltRepeatable(keys, valueProp);else _this10.setAttributes(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, keys, undefined));
           }
         }, "Remove"));
       }
@@ -2269,7 +2230,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               break;
           }
 
-          if (typeof newValue != 'undefined' && (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(newValue) != 'object' || Object.keys(newValue).length > 0)) _this11.updateAttributes(keys, valueProp, newValue, false);
+          if (typeof newValue != 'undefined' && (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(newValue) != 'object' || Object.keys(newValue).length > 0)) _this10.updateAttributes(keys, valueProp, newValue, false);
         },
         multiple: type == 'gallery',
         addToGallery: type == 'gallery' && !!objectValue,
@@ -2281,7 +2242,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "renderImageVideoControl",
     value: function renderImageVideoControl(type, args, id, label, keys, valueProp, objectValue) {
-      var _this12 = this;
+      var _this11 = this;
 
       var repeatable = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
       var required = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : false;
@@ -2303,7 +2264,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
         var responsiveContent = []; // Update component attribute if empty 
 
         if (!objectValue[responsive_id]) {
-          if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue) != 'object') _this12.updateAttributes(keys, valueProp, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, responsive_id, {}), false);else _this12.updateAttributes(keys.concat(responsive_id), valueProp, {}, false);
+          if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(objectValue) != 'object') _this11.updateAttributes(keys, valueProp, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({}, responsive_id, {}), false);else _this11.updateAttributes(keys.concat(responsive_id), valueProp, {}, false);
         }
 
         if (type == 'image') {
@@ -2325,7 +2286,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               isSmall: true,
               className: "reset-button",
               onClick: function onClick() {
-                _this12.updateAttributes(keys.concat(responsive_id), valueProp, undefined, false);
+                _this11.updateAttributes(keys.concat(responsive_id), valueProp, undefined, false);
               }
             }, "Remove"));
           } // MediaPlaceholder labels
@@ -2354,7 +2315,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
                 };
               }
 
-              if (typeof newValue != 'undefined' && (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(newValue) != 'object' || Object.keys(newValue).length > 0)) _this12.updateAttributes(keys.concat(responsive_id), valueProp, newValue, false);
+              if (typeof newValue != 'undefined' && (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(newValue) != 'object' || Object.keys(newValue).length > 0)) _this11.updateAttributes(keys.concat(responsive_id), valueProp, newValue, false);
             },
             value: objectValue[responsive_id] ? objectValue[responsive_id] : false,
             disableDropZone: true,
@@ -2389,7 +2350,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
                   newValue: newValue
                 });
 
-                _this12.updateAttributes(keys.concat(responsive_id), valueProp, {
+                _this11.updateAttributes(keys.concat(responsive_id), valueProp, {
                   type: newValue
                 }, false);
               }
@@ -2416,7 +2377,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
                 key: id + "-fileDetails-" + responsive_id,
                 className: "file-details"
-              }, objectValue[responsive_id].file.name, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("br", null), objectValue[responsive_id].file.mime, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("br", null), _this12.fileSizeFormat(objectValue[responsive_id].file.size)));
+              }, objectValue[responsive_id].file.name, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("br", null), objectValue[responsive_id].file.mime, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("br", null), _this11.fileSizeFormat(objectValue[responsive_id].file.size)));
               _preview = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__["createElement"])("div", {
                 key: id + "-mediaPreviewContainer-" + responsive_id,
                 className: "media-preview-container"
@@ -2426,7 +2387,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
                 isSmall: true,
                 className: "reset-button",
                 onClick: function onClick() {
-                  return _this12.updateAttributes(keys.concat(responsive_id), valueProp, {
+                  return _this11.updateAttributes(keys.concat(responsive_id), valueProp, {
                     type: 'file'
                   }, false);
                 }
@@ -2451,7 +2412,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
                   };
                 }
 
-                if (typeof newValue != 'undefined' && (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(newValue) != 'object' || Object.keys(newValue).length > 0)) _this12.updateAttributes(keys.concat(responsive_id), valueProp, {
+                if (typeof newValue != 'undefined' && (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(newValue) != 'object' || Object.keys(newValue).length > 0)) _this11.updateAttributes(keys.concat(responsive_id), valueProp, {
                   type: 'file',
                   file: newValue
                 }, false);
@@ -2475,7 +2436,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               type: 'text',
               value: objectValue[responsive_id] && objectValue[responsive_id].embed ? objectValue[responsive_id].embed.url : '',
               onChange: function onChange(newValue) {
-                return _this12.updateAttributes(keys.concat(responsive_id), valueProp, {
+                return _this11.updateAttributes(keys.concat(responsive_id), valueProp, {
                   type: 'embed',
                   embed: {
                     url: newValue
@@ -2515,7 +2476,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "renderDateTimeControl",
     value: function renderDateTimeControl(id, label, keys, valueProp, objectValue) {
-      var _this13 = this;
+      var _this12 = this;
 
       var repeatable = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
       var required = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
@@ -2527,7 +2488,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
           isLink: true,
           className: "removeRepeatable",
           onClick: function onClick() {
-            return _this13.removeEltRepeatable(keys, valueProp);
+            return _this12.removeEltRepeatable(keys, valueProp);
           }
         }, "Remove"));
       }
@@ -2545,7 +2506,7 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
               date: newDate
             });
 
-            _this13.updateAttributes(keys, valueProp, newDate, false);
+            _this12.updateAttributes(keys, valueProp, newDate, false);
           },
           is12Hour: false
         });
@@ -2583,13 +2544,13 @@ var WpeComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          attributes = _this$props.attributes,
-          isSelected = _this$props.isSelected,
-          clientId = _this$props.clientId,
-          element = _this$props.element,
-          current_user_can_edit_posts = _this$props.current_user_can_edit_posts,
-          experimentalDeviceType = _this$props.experimentalDeviceType; // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
+      var _this$props2 = this.props,
+          attributes = _this$props2.attributes,
+          isSelected = _this$props2.isSelected,
+          clientId = _this$props2.clientId,
+          element = _this$props2.element,
+          current_user_can_edit_posts = _this$props2.current_user_can_edit_posts,
+          experimentalDeviceType = _this$props2.experimentalDeviceType; // Because of ID will be not saved to the block’s comment delimiter default attribute, we manually set it.
 
       if (typeof attributes.id_component == 'undefined') this.setAttributes({
         id_component: element.id

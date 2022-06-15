@@ -162,7 +162,7 @@ class WpeComponent extends Component {
                     break;
                 
                 case 'richText':
-                    blocReturned.push( this.renderRichTextControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
+                    blocReturned.push( this.renderWysiwygControl( fieldId, label, repeatable ? keys.concat(keyLoop) : keys, valueProp, currentValueAttribute[keyLoop], repeatable, required_field ) );
                     break;
 
                 case 'wysiwyg':
@@ -355,56 +355,6 @@ class WpeComponent extends Component {
         );
     }
     
-    renderRichTextControl( id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
-
-        label = ( required ) ? label + '*' : label;
-
-        if( repeatable ) {
-            label = (
-                <>
-                    { label }
-                    <Button
-                        key={ id + "-repeatableRemoveElt" }
-                        isLink={true}
-                        className="removeRepeatable"
-                        onClick={ () =>
-                            this.removeEltRepeatable(keys, valueProp)
-                        }
-                    >
-                        Remove
-                    </Button>
-                </>
-            );
-        }
-
-        return (
-            <div
-                key={ id + "-RichTextComponentsBaseControl" }
-                className="components-base-control"
-            >
-                <div
-                    key={ id + "-RichTextComponentsBaseControlField" }
-                    className="components-base-control__field"
-                >
-                    <div
-                        key={ id + "-RichTextContainer" }
-                        className="rich-text-container"
-                    >
-                        <div className="components-base-control__label" key={ id + "-label" }>{ label }</div>
-                        <RichText
-                            key={ id }
-                            value={ objectValue } // Any existing content, either from the database or an attribute default
-                            multiline={true}
-                            onChange={ ( newValue ) =>
-                                this.updateAttributes(keys, valueProp, newValue, false)
-                            }
-                        />
-                    </div>
-                </div>
-            </div>
-        );
-    }
-    
     renderWysiwygControl( id, label, keys, valueProp, objectValue, repeatable = false, required = false ) {
 
         label = ( required ) ? label + '*' : label;
@@ -428,7 +378,7 @@ class WpeComponent extends Component {
         }
 
         let heading_options = [ { model: 'paragraph', title: 'Paragraph' } ];
-        if( typeof this.props.frontspec_styles.typo.values == 'object') {
+        if( this?.props?.frontspec_styles?.typo?.values && typeof this.props.frontspec_styles.typo.values == 'object') {
             for( const [key, val] of Object.entries(this.props.frontspec_styles.typo.values) ) {
 
                 if( typeof val.type != 'undefined' && val.type == "block" && key != "paragraph") {
@@ -1025,7 +975,7 @@ class WpeComponent extends Component {
                             } }
                             value={ ( objectValue[responsive_id] ) ? objectValue[responsive_id] : false }
                             disableDropZone={ true }
-                            labels = { labels }
+                            labels={ labels }
                         >{ preview }</MediaPlaceholder>
                     </div>
                 );

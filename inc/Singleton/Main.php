@@ -4,6 +4,7 @@ namespace Wpe_Blocks\Singleton;
 
 use Wpe_Blocks\Filters\Spacing as SpacingFilter;
 use Wpe_Blocks\Filters\Blocks as BlocksFilter;
+use Wpe_Blocks\Controllers\Theme as ThemeController;
 use Wpe_Blocks\Controllers\BlockTypes as BlockTypesController;
 use Wpe_Blocks\Controllers\LayoutBlocks as LayoutBlocksController;
 use Wpe_Blocks\Controllers\ComponentBlocks as ComponentBlocksController;
@@ -26,6 +27,7 @@ class Main {
         new BlocksFilter();
 
         // Controllers
+        new ThemeController();
         new BlockTypesController();
         new LayoutBlocksController();
         new ComponentBlocksController();
